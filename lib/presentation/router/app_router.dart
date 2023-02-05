@@ -1,3 +1,4 @@
+import 'package:esjourney/presentation/screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'routes.dart';
 
@@ -6,12 +7,10 @@ class AppRouter {
     final Object? args = settings.arguments;
 
     switch (settings.name) {
-
-      /*case AppRoutes.onBoardingScreen:
+      case AppRoutes.signInScreen:
         return MaterialPageRoute(
-          builder: (_) => const OnBoardingScreen(),
-        );*/
-
+          builder: (_) => SignInScreen(),
+        );
 
       default:
         return null;
