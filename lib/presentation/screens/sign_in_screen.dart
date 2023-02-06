@@ -26,7 +26,7 @@ class SignInScreen extends StatelessWidget {
         onWillPop: () async => false,
         child: BlocListener<UserCubit, UserState>(
           listener: (context, state) {
-            if (state is UserIsFailure) {
+            /*if (state is UserIsFailure) {
               if (state.error != ktimeOut) {
                 Navigator.pop(dialogContext!);
               }
@@ -40,8 +40,8 @@ class SignInScreen extends StatelessWidget {
                   });
             } else if (state is UserLogInSuccess) {
               Navigator.pop(dialogContext!);
-              //Navigator.of(context).pushNamed(AppRoutes.mainScreen);
-            }
+              Navigator.of(context).pushNamed(AppRoutes.mainScreen);
+            }*/
           },
           child: GestureDetector(
             onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -71,7 +71,7 @@ class SignInScreen extends StatelessWidget {
                     TextFormFieldWidget(_passwordController, Icons.lock,
                         AppStrings.kpassword, TextInputType.text),
                     const SizedBox(height: AppSizes.kbigSpace),
-                    BlocBuilder<UserCubit, UserState>(
+                    BlocBuilder<ConnectivityCubit, ConnectivityState>(
                       builder: (context, state) {
                         return Center(
                           child: ButtonWidget(

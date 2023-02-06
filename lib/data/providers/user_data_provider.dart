@@ -10,7 +10,7 @@ class UserDataProvider {
   Future<Response> signIn(String? id,String password) async {
     return await dio.request(
       ksignIn,
-      data: {'id': id,'password':password},
+      data: {'username': id,'password':password},
       options: Options(method: 'POST'),
     );
   }

@@ -13,7 +13,8 @@ class UserCubit extends Cubit<UserState> {
 
   Future<void> signIn(String? id,String password) async {
     try {
-      final result = await _userRepository.signIn(id,password);
+    emit(UserLoadInProgress());
+    final result = await _userRepository.signIn(id,password);
       result != null
           ? emit(UserLogInSuccess(result))
           : emit(UserIsFailure(kbadRequest));

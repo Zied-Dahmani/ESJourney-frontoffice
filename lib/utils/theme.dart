@@ -4,38 +4,38 @@ ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     colorScheme: const ColorScheme(
         brightness: Brightness.dark,
-        primary: Colors.red,
+        primary: Color(0xFFEB4A5A),
         onPrimary: Colors.white,
-        secondary: Colors.black,
+        secondary: Color(0xFF3C3C3E),
         onSecondary: Colors.white,
-        tertiary: Colors.grey,
-        background: Colors.white,
+        tertiary: Color(0xFFA8A9A9),
+        background: Color(0xFFFAFAFA),
         onBackground: Colors.black,
-        error: Colors.red,
+        error: Color(0xFFEB4A5A),
         onError: Colors.white,
         surface: Colors.white,
         onSurface: Colors.black),
     fontFamily: 'Roboto',
     textTheme: const TextTheme(
       headlineLarge: TextStyle(
-          fontSize: 26.0, fontWeight: FontWeight.bold, color: Colors.black),
+          fontSize: 26.0, fontWeight: FontWeight.bold, color: Color(0xFF3C3C3E)),
       headlineMedium: TextStyle(
-          fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.black),
-      bodyLarge: TextStyle(fontSize: 18.0, color: Colors.grey),
-      bodyMedium: TextStyle(fontSize: 16.0, color: Colors.black),
-      bodySmall: TextStyle(fontSize: 14.0, color: Colors.grey),
+          fontSize: 20.0, fontWeight: FontWeight.bold, color: Color(0xFF3C3C3E)),
+      bodyLarge: TextStyle(fontSize: 18.0, color: Color(0xFFEFEFEF)),
+      bodyMedium: TextStyle(fontSize: 16.0, color: Color(0xFF3C3C3E)),
+      bodySmall: TextStyle(fontSize: 14.0, color: Color(0xFFEFEFEF)),
     ),
-    scaffoldBackgroundColor: Colors.white,
+    scaffoldBackgroundColor: const Color(0xFFFAFAFA),
     appBarTheme: const AppBarTheme(
-      color: Colors.white,
+      color: Color(0xFFFAFAFA),
       elevation: 0,
     ),
     inputDecorationTheme: InputDecorationTheme(
       errorStyle: const TextStyle(
-          color: Colors.red, fontSize: 14.0, fontWeight: FontWeight.normal),
+          color: Color(0xFFEB4A5A), fontSize: 14.0, fontWeight: FontWeight.normal),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppSizes.kradius),
-        borderSide: const BorderSide(color: Colors.red, width: 2.0),
+        borderSide: const BorderSide(color: Color(0xFFEB4A5A), width: 2.0),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppSizes.kradius),
@@ -44,7 +44,7 @@ ThemeData lightTheme = ThemeData(
       focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSizes.kradius),
           borderSide: const BorderSide(color: Colors.black, width: 2.0)),
-      labelStyle: const TextStyle(fontSize: 16.0, color: Colors.black),
+      labelStyle: const TextStyle(fontSize: 16.0, color: Color(0xFF3C3C3E)),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -54,12 +54,12 @@ ThemeData lightTheme = ThemeData(
     )),
     iconTheme:
         const IconThemeData(color: Colors.black, size: AppSizes.kiconSize),
-    dividerTheme: const DividerThemeData(color: Colors.grey),
+    dividerTheme: const DividerThemeData(color: Color(0xFFEFEFEF)),
     progressIndicatorTheme:
         const ProgressIndicatorThemeData(color: Colors.black),
     snackBarTheme: const SnackBarThemeData(
       backgroundColor: Colors.black,
-      contentTextStyle: TextStyle(fontSize: 16.0, color: Colors.white),
+      contentTextStyle: TextStyle(fontSize: 16.0, color: Color(0xFFFAFAFA)),
     ));
 
 class AppSizes {
