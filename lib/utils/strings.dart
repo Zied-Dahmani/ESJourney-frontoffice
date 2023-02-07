@@ -5,9 +5,13 @@ class AppStrings {
   static const ksubLogin = 'Enter your university identify';
 
   static const kid = 'Id';
+  static const kusername = 'Username';
   static const kpassword = 'Password';
   static const ktypeYour = 'Type your';
   static const ksignIn = 'Sign in';
+  static const ksignInPrompt = 'Welcome back';
+  static const kforgotPassword = 'Forgot Password?';
+
 
   // Zied
 

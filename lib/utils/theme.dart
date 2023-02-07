@@ -8,7 +8,7 @@ ThemeData lightTheme = ThemeData(
         onPrimary: Colors.white,
         secondary: Color(0xFF3C3C3E),
         onSecondary: Colors.white,
-        tertiary: Color(0xFFA8A9A9),
+        tertiary: Color(0xFFCFCFCF),
         background: Color(0xFFFAFAFA),
         onBackground: Colors.black,
         error: Color(0xFFEB4A5A),
