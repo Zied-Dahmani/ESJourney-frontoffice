@@ -9,6 +9,11 @@ class AppStrings {
   static const ktypeYour = 'Type your';
   static const ksignIn = 'Sign in';
 
+  static const khome = 'Home';
+  static const kevents = 'Events';
+  static const ksettings = 'Settings';
+
+
   // Zied
 
   // Louay

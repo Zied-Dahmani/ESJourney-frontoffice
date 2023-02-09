@@ -169,6 +169,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
+  curved_nav_bar:
+    dependency: "direct main"
+    description:
+      name: curved_nav_bar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.2"
   dart_style:
     dependency: transitive
     description:
@@ -225,13 +232,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
-  flashy_tab_bar2:
-    dependency: "direct main"
-    description:
-      name: flashy_tab_bar2
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.6"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -261,6 +261,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_zoom_drawer:
+    dependency: "direct main"
+    description:
+      name: flutter_zoom_drawer
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.3"
   font_awesome_flutter:
     dependency: "direct main"
     description:

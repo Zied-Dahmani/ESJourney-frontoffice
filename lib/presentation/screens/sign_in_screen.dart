@@ -21,78 +21,73 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Material(
-      child: WillPopScope(
-        onWillPop: () async => false,
-        child: BlocListener<UserCubit, UserState>(
-          listener: (context, state) {
-            /*if (state is UserIsFailure) {
-              if (state.error != ktimeOut) {
-                Navigator.pop(dialogContext!);
-              }
-              showScaffold(context, state.error);
-            } else if (state is UserLoadInProgress) {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    dialogContext = context;
-                    return const Center(child: CircularProgressIndicator());
-                  });
-            } else if (state is UserLogInSuccess) {
-              Navigator.pop(dialogContext!);
-              Navigator.of(context).pushNamed(AppRoutes.mainScreen);
-            }*/
-          },
-          child: GestureDetector(
-            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: AppSizes.kbigSpace,
-                  vertical: AppSizes.khugeSpace),
-              color: theme.colorScheme.background,
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      AppStrings.ksignIn,
-                      style: theme.textTheme.headlineLarge,
-                    ),
-                    Text(
-                      AppStrings.ksubLogin,
-                      style: theme.textTheme.bodySmall,
-                    ),
-                    const SizedBox(height: AppSizes.ksmallSpace),
-                    TextFormFieldWidget(_idController, Icons.person,
-                        AppStrings.kid, TextInputType.number),
-                    const SizedBox(height: AppSizes.ksmallSpace),
-                    TextFormFieldWidget(_passwordController, Icons.lock,
-                        AppStrings.kpassword, TextInputType.text),
-                    const SizedBox(height: AppSizes.kbigSpace),
-                    BlocBuilder<ConnectivityCubit, ConnectivityState>(
-                      builder: (context, state) {
-                        return Center(
-                          child: ButtonWidget(
-                              text: AppStrings.ksignIn,
-                              function: () {
-                                if (_formKey.currentState!.validate()) {
-                                  if (state is ConnectivityConnectSuccess) {
-                                    BlocProvider.of<UserCubit>(context).signIn(
-                                        _idController.text,
-                                        _passwordController.text);
-                                  } else {
-                                    showScaffold(
-                                        context, kcheckInternetConnection);
-                                  }
+    return Scaffold(
+      body: BlocListener<UserCubit, UserState>(
+        listener: (context, state) {
+          if (state is UserLoadInProgress) {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  dialogContext = context;
+                  return const Center(child: CircularProgressIndicator());
+                });
+          } else if (state is UserLogInSuccess) {
+            Navigator.pop(dialogContext!);
+            Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
+          } else if (state is UserIsFailure) {
+            Navigator.pop(dialogContext!);
+            showScaffold(context, state.error);
+          }
+        },
+        child: GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+                horizontal: AppSizes.kbigSpace,
+                vertical: AppSizes.khugeSpace),
+            color: theme.colorScheme.background,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    AppStrings.ksignIn,
+                    style: theme.textTheme.headlineLarge,
+                  ),
+                  Text(
+                    AppStrings.ksubLogin,
+                    style: theme.textTheme.bodySmall,
+                  ),
+                  const SizedBox(height: AppSizes.ksmallSpace),
+                  TextFormFieldWidget(_idController, Icons.person,
+                      AppStrings.kid, TextInputType.number),
+                  const SizedBox(height: AppSizes.ksmallSpace),
+                  TextFormFieldWidget(_passwordController, Icons.lock,
+                      AppStrings.kpassword, TextInputType.text),
+                  const SizedBox(height: AppSizes.kbigSpace),
+                  BlocBuilder<ConnectivityCubit, ConnectivityState>(
+                    builder: (context, state) {
+                      return Center(
+                        child: ButtonWidget(
+                            text: AppStrings.ksignIn,
+                            function: () {
+                              if (_formKey.currentState!.validate()) {
+                                if (state is ConnectivityConnectSuccess) {
+                                  BlocProvider.of<UserCubit>(context).signIn(
+                                      _idController.text,
+                                      _passwordController.text);
+                                } else {
+                                  showScaffold(
+                                      context, kcheckInternetConnection);
                                 }
-                              }),
-                        );
-                      },
-                    ),
-                  ],
-                ),
+                              }
+                            }),
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
           ),
