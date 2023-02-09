@@ -46,21 +46,21 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
           contentPadding: EdgeInsets.all(20.0),
           suffixIcon: widget.inputType == TextInputType.visiblePassword
               ? IconButton(
-                  icon: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Icon(
-                      // password eye icon
-                      _isObscure ? Icons.visibility_off : Icons.visibility,
+            icon: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Icon(
+                // password eye icon
+                _isObscure ? Icons.visibility_off : Icons.visibility,
 
-                      color: theme.colorScheme.tertiary,
-                    ),
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _isObscure = !_isObscure;
-                    });
-                  },
-                )
+                color: theme.colorScheme.tertiary,
+              ),
+            ),
+            onPressed: () {
+              setState(() {
+                _isObscure = !_isObscure;
+              });
+            },
+          )
               : null,
           floatingLabelBehavior: FloatingLabelBehavior.never,
           labelText: widget.labelText,

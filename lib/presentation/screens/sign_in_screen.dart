@@ -50,29 +50,65 @@ class SignInScreen extends StatelessWidget {
             child: Form(
               key: _formKey,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
-                    AppStrings.ksignIn,
-                    style: theme.textTheme.headlineLarge,
+                  SizedBox(
+                    height: ScreenSize.height(context) * 0.05,
+                  ),
+                  Image.asset(
+                    'assets/images/app_logo.png',
+                    height: ScreenSize.height(context) * 0.2,
+                    width: ScreenSize.width(context) * 0.4,
                   ),
                   Text(
-                    AppStrings.ksubLogin,
-                    style: theme.textTheme.bodySmall,
+                    AppStrings.ksignInPrompt,
+                    style: TextStyle(
+                      color: theme.colorScheme.secondary,
+                      fontSize: 25,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'VisbyRoundCF',
+                    ),
                   ),
+                  SizedBox(
+                    height: ScreenSize.height(context) * 0.08,
+                  ), // Image
+
                   const SizedBox(height: AppSizes.ksmallSpace),
-                  TextFormFieldWidget(_idController, Icons.person,
-                      AppStrings.kid, TextInputType.number),
-                  const SizedBox(height: AppSizes.ksmallSpace),
-                  TextFormFieldWidget(_passwordController, Icons.lock,
-                      AppStrings.kpassword, TextInputType.text),
+                  TextFormFieldWidget(_idController, AppStrings.kusername,
+                      TextInputType.name),
                   const SizedBox(height: AppSizes.kbigSpace),
+                  TextFormFieldWidget(_passwordController,
+                      AppStrings.kpassword, TextInputType.visiblePassword),
+                  const SizedBox(height: AppSizes.kbigSpace),
+                  Container(
+                    margin:
+                    const EdgeInsets.only(right: AppSizes.ksmallSpace),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: GestureDetector(
+                        child: Text(
+                          AppStrings.kforgotPassword,
+                          style: TextStyle(
+                            color: theme.colorScheme.primary,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'VisbyRoundCF',
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: AppSizes.kbigSpace),
+                  const SizedBox(height: AppSizes.ksmallSpace),
                   BlocBuilder<ConnectivityCubit, ConnectivityState>(
                     builder: (context, state) {
                       return Center(
                         child: ButtonWidget(
-                            text: AppStrings.ksignIn,
+                            height: ScreenSize.height(context) * 0.07,
+                            width: ScreenSize.width(context) * 0.01,
+                            backgroundColor: theme.colorScheme.primary,
+                            text: AppStrings.klogin,
                             function: () {
                               if (_formKey.currentState!.validate()) {
                                 if (state is ConnectivityConnectSuccess) {
