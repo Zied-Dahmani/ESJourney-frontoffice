@@ -7,11 +7,15 @@ class ClubDataProvider {
     ..options.connectTimeout = 5000
     ..options.receiveTimeout = 3000;
 
-  /*Future<Response> getClubs() async {
+  Future<Response> getAllClubs() async {
     return await dio.request(
-      kgetUpcomingEvents,
-      options: Options(method: 'GET'),
+      kgetAllClubs,
+      options: Options(
+        method: 'GET',
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
     );
-  }*/
-
+  }
 }

@@ -23,6 +23,7 @@ mixin _$Club {
   dynamic get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +35,7 @@ abstract class $ClubCopyWith<$Res> {
   factory $ClubCopyWith(Club value, $Res Function(Club) then) =
       _$ClubCopyWithImpl<$Res, Club>;
   @useResult
-  $Res call({dynamic id, String name, String image});
+  $Res call({dynamic id, String name, String image, String description});
 }
 
 /// @nodoc
@@ -53,6 +54,7 @@ class _$ClubCopyWithImpl<$Res, $Val extends Club>
     Object? id = freezed,
     Object? name = null,
     Object? image = null,
+    Object? description = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -67,6 +69,10 @@ class _$ClubCopyWithImpl<$Res, $Val extends Club>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -77,7 +83,7 @@ abstract class _$$_ClubCopyWith<$Res> implements $ClubCopyWith<$Res> {
       __$$_ClubCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({dynamic id, String name, String image});
+  $Res call({dynamic id, String name, String image, String description});
 }
 
 /// @nodoc
@@ -92,6 +98,7 @@ class __$$_ClubCopyWithImpl<$Res> extends _$ClubCopyWithImpl<$Res, _$_Club>
     Object? id = freezed,
     Object? name = null,
     Object? image = null,
+    Object? description = null,
   }) {
     return _then(_$_Club(
       id: freezed == id
@@ -106,6 +113,10 @@ class __$$_ClubCopyWithImpl<$Res> extends _$ClubCopyWithImpl<$Res, _$_Club>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -113,7 +124,11 @@ class __$$_ClubCopyWithImpl<$Res> extends _$ClubCopyWithImpl<$Res, _$_Club>
 /// @nodoc
 @JsonSerializable()
 class _$_Club extends _Club {
-  const _$_Club({required this.id, required this.name, required this.image})
+  const _$_Club(
+      {required this.id,
+      required this.name,
+      required this.image,
+      required this.description})
       : super._();
 
   factory _$_Club.fromJson(Map<String, dynamic> json) => _$$_ClubFromJson(json);
@@ -124,10 +139,12 @@ class _$_Club extends _Club {
   final String name;
   @override
   final String image;
+  @override
+  final String description;
 
   @override
   String toString() {
-    return 'Club(id: $id, name: $name, image: $image)';
+    return 'Club(id: $id, name: $name, image: $image, description: $description)';
   }
 
   @override
@@ -137,13 +154,15 @@ class _$_Club extends _Club {
             other is _$_Club &&
             const DeepCollectionEquality().equals(other.id, id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.image, image) || other.image == image));
+            (identical(other.image, image) || other.image == image) &&
+            (identical(other.description, description) ||
+                other.description == description));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(id), name, image);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(id), name, image, description);
 
   @JsonKey(ignore: true)
   @override
@@ -163,7 +182,8 @@ abstract class _Club extends Club {
   const factory _Club(
       {required final dynamic id,
       required final String name,
-      required final String image}) = _$_Club;
+      required final String image,
+      required final String description}) = _$_Club;
   const _Club._() : super._();
 
   factory _Club.fromJson(Map<String, dynamic> json) = _$_Club.fromJson;
@@ -174,6 +194,8 @@ abstract class _Club extends Club {
   String get name;
   @override
   String get image;
+  @override
+  String get description;
   @override
   @JsonKey(ignore: true)
   _$$_ClubCopyWith<_$_Club> get copyWith => throw _privateConstructorUsedError;
