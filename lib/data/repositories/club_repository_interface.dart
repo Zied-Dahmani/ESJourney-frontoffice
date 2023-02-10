@@ -1,3 +1,3 @@
 abstract class IClubRepository {
-  Future<dynamic> getClubs();
+  Future<dynamic> getAllClubs();
 }
