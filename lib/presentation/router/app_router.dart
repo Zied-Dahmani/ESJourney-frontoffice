@@ -2,6 +2,7 @@ import 'package:esjourney/data/models/curriculum/course_model.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/screens/curriculum/course_detail_screen.dart';
+import 'package:esjourney/presentation/screens/curriculum/games/jackpot/jackpot_screen.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
 import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
 import 'package:flutter/material.dart';
@@ -35,10 +36,12 @@ class AppRouter {
 
       case AppRoutes.courseDetails:
         return MaterialPageRoute(
-          builder: (_) => CourseDetailScreen(
-            course: args as Course,
-          )
-        );
+            builder: (_) => CourseDetailScreen(
+                  course: args as Course,
+                ));
+
+      case AppRoutes.jackpotGame:
+        return MaterialPageRoute(builder: (_) => const JackpotScreen());
 
       default:
         return null;

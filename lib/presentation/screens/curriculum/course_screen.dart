@@ -21,10 +21,12 @@ class _CourseScreenState extends State<CourseScreen> {
   Widget build(BuildContext context) {
     final double height = ScreenSize.height(context);
     final double width = ScreenSize.width(context);
+    final getCourses = BlocProvider.of<CourseCubit>(context);
     return BlocBuilder<UserCubit, UserState>(
       builder: (context, state) {
         if (state is UserLogInSuccess) {
           final user = state.user;
+          getCourses.getAllCourses(user.token);
           return Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
@@ -107,7 +109,7 @@ class _CourseScreenState extends State<CourseScreen> {
                         children: <Widget>[
                           Image.asset(
                             "assets/images/curriculum/badge.png",
-                            scale: 2,
+                            scale: 10,
                           ),
                           Container(
                             margin: EdgeInsets.only(
@@ -116,16 +118,16 @@ class _CourseScreenState extends State<CourseScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const <Widget>[
-                                Text(
+                              children: <Widget>[
+                                const Text(
                                   "View progress",
                                   style: TextStyle(
                                     fontSize: 14,
                                   ),
                                 ),
                                 Text(
-                                  "Level 1",
-                                  style: TextStyle(
+                                  "Level ${user.grade}",
+                                  style: const TextStyle(
                                     color: Colors.blue,
                                     fontSize: 18,
                                   ),
@@ -151,7 +153,7 @@ class _CourseScreenState extends State<CourseScreen> {
                         children: <Widget>[
                           Image.asset(
                             "assets/images/curriculum/coin.png",
-                            scale: 2,
+                            scale: 10,
                           ),
                           Container(
                             margin: EdgeInsets.only(
@@ -213,7 +215,9 @@ class _CourseScreenState extends State<CourseScreen> {
                   ),
                   child: BlocBuilder<CourseCubit, CourseState>(
                     builder: (context, state) {
-                      if (state is CourseSuccess) {
+                      if (state is CourseLoadInProgress) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (state is CourseSuccess) {
                         final courses = state.courses;
                         return CustomScrollView(
                           slivers: <Widget>[

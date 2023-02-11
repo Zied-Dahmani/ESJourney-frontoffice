@@ -42,9 +42,10 @@ dependencies:
   curved_nav_bar: ^0.0.2
   equatable: ^2.0.5
 
-  #louay
+  # louay
   dynamic_height_grid_view: ^0.0.3
   percent_indicator: ^4.2.2
+  just_audio: ^0.9.31
 
 
   # The following adds the Cupertino Icons font to your application.

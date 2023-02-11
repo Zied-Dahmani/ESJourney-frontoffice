@@ -23,7 +23,9 @@ mixin _$User {
   String get email => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
+  int get grade => throw _privateConstructorUsedError;
   String get token => throw _privateConstructorUsedError;
+  List<UserCourse>? get courses => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +37,13 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
   @useResult
-  $Res call({String email, String username, String password, String token});
+  $Res call(
+      {String email,
+      String username,
+      String password,
+      int grade,
+      String token,
+      List<UserCourse>? courses});
 }
 
 /// @nodoc
@@ -54,7 +62,9 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? email = null,
     Object? username = null,
     Object? password = null,
+    Object? grade = null,
     Object? token = null,
+    Object? courses = freezed,
   }) {
     return _then(_value.copyWith(
       email: null == email
@@ -69,10 +79,18 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
+      grade: null == grade
+          ? _value.grade
+          : grade // ignore: cast_nullable_to_non_nullable
+              as int,
       token: null == token
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
+      courses: freezed == courses
+          ? _value.courses
+          : courses // ignore: cast_nullable_to_non_nullable
+              as List<UserCourse>?,
     ) as $Val);
   }
 }
@@ -83,7 +101,13 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$$_UserCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String email, String username, String password, String token});
+  $Res call(
+      {String email,
+      String username,
+      String password,
+      int grade,
+      String token,
+      List<UserCourse>? courses});
 }
 
 /// @nodoc
@@ -98,7 +122,9 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? email = null,
     Object? username = null,
     Object? password = null,
+    Object? grade = null,
     Object? token = null,
+    Object? courses = freezed,
   }) {
     return _then(_$_User(
       email: null == email
@@ -113,10 +139,18 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
+      grade: null == grade
+          ? _value.grade
+          : grade // ignore: cast_nullable_to_non_nullable
+              as int,
       token: null == token
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
+      courses: freezed == courses
+          ? _value._courses
+          : courses // ignore: cast_nullable_to_non_nullable
+              as List<UserCourse>?,
     ));
   }
 }
@@ -128,7 +162,10 @@ class _$_User implements _User {
       {required this.email,
       required this.username,
       required this.password,
-      required this.token});
+      required this.grade,
+      required this.token,
+      final List<UserCourse>? courses})
+      : _courses = courses;
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
@@ -139,11 +176,22 @@ class _$_User implements _User {
   @override
   final String password;
   @override
+  final int grade;
+  @override
   final String token;
+  final List<UserCourse>? _courses;
+  @override
+  List<UserCourse>? get courses {
+    final value = _courses;
+    if (value == null) return null;
+    if (_courses is EqualUnmodifiableListView) return _courses;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'User(email: $email, username: $username, password: $password, token: $token)';
+    return 'User(email: $email, username: $username, password: $password, grade: $grade, token: $token, courses: $courses)';
   }
 
   @override
@@ -156,13 +204,15 @@ class _$_User implements _User {
                 other.username == username) &&
             (identical(other.password, password) ||
                 other.password == password) &&
-            (identical(other.token, token) || other.token == token));
+            (identical(other.grade, grade) || other.grade == grade) &&
+            (identical(other.token, token) || other.token == token) &&
+            const DeepCollectionEquality().equals(other._courses, _courses));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, email, username, password, token);
+  int get hashCode => Object.hash(runtimeType, email, username, password, grade,
+      token, const DeepCollectionEquality().hash(_courses));
 
   @JsonKey(ignore: true)
   @override
@@ -183,7 +233,9 @@ abstract class _User implements User {
       {required final String email,
       required final String username,
       required final String password,
-      required final String token}) = _$_User;
+      required final int grade,
+      required final String token,
+      final List<UserCourse>? courses}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -194,7 +246,11 @@ abstract class _User implements User {
   @override
   String get password;
   @override
+  int get grade;
+  @override
   String get token;
+  @override
+  List<UserCourse>? get courses;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;

@@ -1,5 +1,6 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:esjourney/data/models/curriculum/course_model.dart';
+import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/presentation/widgets/curriculum/course_widget.dart';
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,40 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
   Widget build(BuildContext context) {
     final double height = ScreenSize.height(context);
     final double width = ScreenSize.width(context);
+    List<Game> games = [
+      Game(
+        title: "Hangman",
+        imagePath: "assets/images/curriculum/hangman.png",
+        onTap: () {
+          print("hangman");
+          //Navigator.of(context).pushNamed(AppRoutes.hangmanGame);
+        },
+      ),
+      Game(
+        title: "Jackpot",
+        imagePath: "assets/images/curriculum/jackpot.png",
+        onTap: () {
+          print("jackpot");
+          //Navigator.of(context).pushNamed(AppRoutes.jackpotGame);
+        },
+      ),
+      Game(
+        title: "Sudoku",
+        imagePath: "assets/images/curriculum/sudoku.png",
+        onTap: () {
+          print("sudoku");
+          //Navigator.of(context).pushNamed(AppRoutes.jackpotGame);
+        },
+      ),
+      Game(
+        title: "Remember",
+        imagePath: "assets/images/curriculum/remember.png",
+        onTap: () {
+          print("remember");
+          //Navigator.of(context).pushNamed(AppRoutes.jackpotGame);
+        },
+      ),
+    ];
     return Scaffold(
       body: Container(
         height: double.infinity,
@@ -91,7 +126,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
             Container(
               margin: EdgeInsets.only(
                 top: 0.01 * height,
-                bottom: 0.01 * height,
+                bottom: 0.02 * height,
               ),
               child: LinearPercentIndicator(
                 animation: true,
@@ -116,15 +151,15 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                 child: CustomScrollView(
                   slivers: <Widget>[
                     SliverDynamicHeightGridView(
-                      itemCount: widget.course.games.length,
+                      itemCount: games.length,
                       crossAxisCount: 2,
                       builder: (ctx, index) {
                         return CourseItem(
                           height: height,
                           width: width,
-                          imagePath: "assets/images/curriculum/hangman.png",
-                          courseTitle: widget.course.games[index].title,
-                          onTap: () {},
+                          imagePath: games[index].imagePath,
+                          courseTitle: games[index].title,
+                          onTap: games[index].onTap,
                         );
                       },
                     ),
@@ -156,4 +191,16 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
       ),
     );
   }
+}
+
+class Game {
+  final String title;
+  final String imagePath;
+  final void Function() onTap;
+
+  Game({
+    required this.title,
+    required this.imagePath,
+    required this.onTap,
+  });
 }

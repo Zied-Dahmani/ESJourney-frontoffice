@@ -7,16 +7,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 class CourseCubit extends Cubit<CourseState> {
-  CourseCubit() : super(CourseInitial()){
-    getAllCourses();
-  }
+  CourseCubit() : super(CourseInitial());
 
   final _courseRepository = CourseRepository();
 
-  Future<void> getAllCourses() async {
+  Future<void> getAllCourses(String token) async {
     try {
       emit(CourseLoadInProgress());
-      final result = await _courseRepository.getAllCourses();
+      final result = await _courseRepository.getAllCourses(token);
       result != null
           ? emit(CourseSuccess(result))
           : emit(CourseIsFailure("error while getting data"));

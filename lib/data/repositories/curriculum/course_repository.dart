@@ -6,10 +6,8 @@ class CourseRepository implements ICourseRepository {
   final CourseDataProvider _courseDataProvider = CourseDataProvider();
 
   @override
-  Future<dynamic> getAllCourses() async {
-    final result = await _courseDataProvider.getAllCourses();
-    print("result $result");
-    print("result2 ${result.data}");
+  Future<dynamic> getAllCourses(String token) async {
+    final result = await _courseDataProvider.getAllCourses(token);
     return result.statusCode == 200
         ? result.data.map((course) => Course.fromJson(course)).toList()
         : null;  }

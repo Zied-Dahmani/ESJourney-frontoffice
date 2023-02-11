@@ -1,3 +1,3 @@
 abstract class ICourseRepository {
-  Future<dynamic> getAllCourses();
+  Future<dynamic> getAllCourses(String token);
 }

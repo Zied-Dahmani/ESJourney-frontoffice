@@ -8,6 +8,7 @@ class AppRoutes {
     // Louay
 static const courses = '/courses';
 static const courseDetails = '/courseDetails';
+static const jackpotGame = '/jackpot';
 
     // Souhail
 

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'course_model.dart';
+part of 'user_course_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,44 +14,40 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Course _$CourseFromJson(Map<String, dynamic> json) {
-  return _Course.fromJson(json);
+UserCourse _$UserCourseFromJson(Map<String, dynamic> json) {
+  return _UserCourse.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Course {
+mixin _$UserCourse {
   dynamic get id => throw _privateConstructorUsedError;
-  String get module => throw _privateConstructorUsedError;
-  String get title => throw _privateConstructorUsedError;
-  int get grade => throw _privateConstructorUsedError;
-  String get estimatedTime => throw _privateConstructorUsedError;
+  String get courseId => throw _privateConstructorUsedError;
   List<String> get words => throw _privateConstructorUsedError;
   List<String> get definitions => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CourseCopyWith<Course> get copyWith => throw _privateConstructorUsedError;
+  $UserCourseCopyWith<UserCourse> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CourseCopyWith<$Res> {
-  factory $CourseCopyWith(Course value, $Res Function(Course) then) =
-      _$CourseCopyWithImpl<$Res, Course>;
+abstract class $UserCourseCopyWith<$Res> {
+  factory $UserCourseCopyWith(
+          UserCourse value, $Res Function(UserCourse) then) =
+      _$UserCourseCopyWithImpl<$Res, UserCourse>;
   @useResult
   $Res call(
       {dynamic id,
-      String module,
-      String title,
-      int grade,
-      String estimatedTime,
+      String courseId,
       List<String> words,
       List<String> definitions});
 }
 
 /// @nodoc
-class _$CourseCopyWithImpl<$Res, $Val extends Course>
-    implements $CourseCopyWith<$Res> {
-  _$CourseCopyWithImpl(this._value, this._then);
+class _$UserCourseCopyWithImpl<$Res, $Val extends UserCourse>
+    implements $UserCourseCopyWith<$Res> {
+  _$UserCourseCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -62,10 +58,7 @@ class _$CourseCopyWithImpl<$Res, $Val extends Course>
   @override
   $Res call({
     Object? id = freezed,
-    Object? module = null,
-    Object? title = null,
-    Object? grade = null,
-    Object? estimatedTime = null,
+    Object? courseId = null,
     Object? words = null,
     Object? definitions = null,
   }) {
@@ -74,21 +67,9 @@ class _$CourseCopyWithImpl<$Res, $Val extends Course>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      module: null == module
-          ? _value.module
-          : module // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      grade: null == grade
-          ? _value.grade
-          : grade // ignore: cast_nullable_to_non_nullable
-              as int,
-      estimatedTime: null == estimatedTime
-          ? _value.estimatedTime
-          : estimatedTime // ignore: cast_nullable_to_non_nullable
+      courseId: null == courseId
+          ? _value.courseId
+          : courseId // ignore: cast_nullable_to_non_nullable
               as String,
       words: null == words
           ? _value.words
@@ -103,59 +84,44 @@ class _$CourseCopyWithImpl<$Res, $Val extends Course>
 }
 
 /// @nodoc
-abstract class _$$_CourseCopyWith<$Res> implements $CourseCopyWith<$Res> {
-  factory _$$_CourseCopyWith(_$_Course value, $Res Function(_$_Course) then) =
-      __$$_CourseCopyWithImpl<$Res>;
+abstract class _$$_UserCourseCopyWith<$Res>
+    implements $UserCourseCopyWith<$Res> {
+  factory _$$_UserCourseCopyWith(
+          _$_UserCourse value, $Res Function(_$_UserCourse) then) =
+      __$$_UserCourseCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
       {dynamic id,
-      String module,
-      String title,
-      int grade,
-      String estimatedTime,
+      String courseId,
       List<String> words,
       List<String> definitions});
 }
 
 /// @nodoc
-class __$$_CourseCopyWithImpl<$Res>
-    extends _$CourseCopyWithImpl<$Res, _$_Course>
-    implements _$$_CourseCopyWith<$Res> {
-  __$$_CourseCopyWithImpl(_$_Course _value, $Res Function(_$_Course) _then)
+class __$$_UserCourseCopyWithImpl<$Res>
+    extends _$UserCourseCopyWithImpl<$Res, _$_UserCourse>
+    implements _$$_UserCourseCopyWith<$Res> {
+  __$$_UserCourseCopyWithImpl(
+      _$_UserCourse _value, $Res Function(_$_UserCourse) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
-    Object? module = null,
-    Object? title = null,
-    Object? grade = null,
-    Object? estimatedTime = null,
+    Object? courseId = null,
     Object? words = null,
     Object? definitions = null,
   }) {
-    return _then(_$_Course(
+    return _then(_$_UserCourse(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      module: null == module
-          ? _value.module
-          : module // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      grade: null == grade
-          ? _value.grade
-          : grade // ignore: cast_nullable_to_non_nullable
-              as int,
-      estimatedTime: null == estimatedTime
-          ? _value.estimatedTime
-          : estimatedTime // ignore: cast_nullable_to_non_nullable
+      courseId: null == courseId
+          ? _value.courseId
+          : courseId // ignore: cast_nullable_to_non_nullable
               as String,
       words: null == words
           ? _value._words
@@ -171,31 +137,22 @@ class __$$_CourseCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Course implements _Course {
-  const _$_Course(
+class _$_UserCourse implements _UserCourse {
+  const _$_UserCourse(
       {required this.id,
-      required this.module,
-      required this.title,
-      required this.grade,
-      required this.estimatedTime,
+      required this.courseId,
       required final List<String> words,
       required final List<String> definitions})
       : _words = words,
         _definitions = definitions;
 
-  factory _$_Course.fromJson(Map<String, dynamic> json) =>
-      _$$_CourseFromJson(json);
+  factory _$_UserCourse.fromJson(Map<String, dynamic> json) =>
+      _$$_UserCourseFromJson(json);
 
   @override
   final dynamic id;
   @override
-  final String module;
-  @override
-  final String title;
-  @override
-  final int grade;
-  @override
-  final String estimatedTime;
+  final String courseId;
   final List<String> _words;
   @override
   List<String> get words {
@@ -214,20 +171,17 @@ class _$_Course implements _Course {
 
   @override
   String toString() {
-    return 'Course(id: $id, module: $module, title: $title, grade: $grade, estimatedTime: $estimatedTime, words: $words, definitions: $definitions)';
+    return 'UserCourse(id: $id, courseId: $courseId, words: $words, definitions: $definitions)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Course &&
+            other is _$_UserCourse &&
             const DeepCollectionEquality().equals(other.id, id) &&
-            (identical(other.module, module) || other.module == module) &&
-            (identical(other.title, title) || other.title == title) &&
-            (identical(other.grade, grade) || other.grade == grade) &&
-            (identical(other.estimatedTime, estimatedTime) ||
-                other.estimatedTime == estimatedTime) &&
+            (identical(other.courseId, courseId) ||
+                other.courseId == courseId) &&
             const DeepCollectionEquality().equals(other._words, _words) &&
             const DeepCollectionEquality()
                 .equals(other._definitions, _definitions));
@@ -238,55 +192,44 @@ class _$_Course implements _Course {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(id),
-      module,
-      title,
-      grade,
-      estimatedTime,
+      courseId,
       const DeepCollectionEquality().hash(_words),
       const DeepCollectionEquality().hash(_definitions));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CourseCopyWith<_$_Course> get copyWith =>
-      __$$_CourseCopyWithImpl<_$_Course>(this, _$identity);
+  _$$_UserCourseCopyWith<_$_UserCourse> get copyWith =>
+      __$$_UserCourseCopyWithImpl<_$_UserCourse>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CourseToJson(
+    return _$$_UserCourseToJson(
       this,
     );
   }
 }
 
-abstract class _Course implements Course {
-  const factory _Course(
+abstract class _UserCourse implements UserCourse {
+  const factory _UserCourse(
       {required final dynamic id,
-      required final String module,
-      required final String title,
-      required final int grade,
-      required final String estimatedTime,
+      required final String courseId,
       required final List<String> words,
-      required final List<String> definitions}) = _$_Course;
+      required final List<String> definitions}) = _$_UserCourse;
 
-  factory _Course.fromJson(Map<String, dynamic> json) = _$_Course.fromJson;
+  factory _UserCourse.fromJson(Map<String, dynamic> json) =
+      _$_UserCourse.fromJson;
 
   @override
   dynamic get id;
   @override
-  String get module;
-  @override
-  String get title;
-  @override
-  int get grade;
-  @override
-  String get estimatedTime;
+  String get courseId;
   @override
   List<String> get words;
   @override
   List<String> get definitions;
   @override
   @JsonKey(ignore: true)
-  _$$_CourseCopyWith<_$_Course> get copyWith =>
+  _$$_UserCourseCopyWith<_$_UserCourse> get copyWith =>
       throw _privateConstructorUsedError;
 }

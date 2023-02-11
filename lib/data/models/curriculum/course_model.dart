@@ -14,7 +14,8 @@ class Course with _$Course {
     required String title,
     required int grade,
     required String estimatedTime,
-    required List<Game> games,
+    required List<String> words,
+    required List<String> definitions,
   }) = _Course;
 
   factory Course.fromJson(Map<String, dynamic> json) => _$CourseFromJson(json);
