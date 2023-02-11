@@ -40,6 +40,11 @@ dependencies:
   intl: ^0.17.0
   flutter_zoom_drawer: ^3.0.3
   curved_nav_bar: ^0.0.2
+  equatable: ^2.0.5
+
+  #louay
+  dynamic_height_grid_view: ^0.0.3
+  percent_indicator: ^4.2.2
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -50,7 +55,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   #bloc_test: ^9.0.2
-  equatable: ^2.0.5
   freezed: ^2.3.2
   freezed_annotation: ^2.2.0
   json_serializable: ^6.5.4

@@ -23,6 +23,7 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: BlocListener<UserCubit, UserState>(
         listener: (context, state) {
           if (state is UserLoadInProgress) {
@@ -33,7 +34,7 @@ class SignInScreen extends StatelessWidget {
                   return const Center(child: CircularProgressIndicator());
                 });
           } else if (state is UserLogInSuccess) {
-            Navigator.pop(dialogContext!);
+            //Navigator.pop(dialogContext!);
             Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
           } else if (state is UserIsFailure) {
             Navigator.pop(dialogContext!);

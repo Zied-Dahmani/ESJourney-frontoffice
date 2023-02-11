@@ -1,29 +1,13 @@
 import 'dart:developer' as developer;
-import 'package:esjourney/data/models/user_model.dart';
+
 import 'package:esjourney/data/repositories/user_repository.dart';
 import 'package:esjourney/utils/constants.dart';
-import 'package:esjourney/utils/strings.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+
 import 'user_state.dart';
 
-class UserCubit extends Cubit<UserState>
-   // with HydratedMixin
-  {
-  UserCubit() : super(UserInitial()) {
-    //
-  }
-
-  /*
-  @override
-  UserLogInSuccess? fromJson(Map<String, dynamic> json) {
-    return UserLogInSuccess.fromMap(json);
-  }
-
-  @override
-  Map<String, dynamic> toJson(UserState state) {
-    return UserLogInSuccess().toMap();
-  }*/
+class UserCubit extends Cubit<UserState> {
+  UserCubit() : super(UserInitial());
 
   final _userRepository = UserRepository();
 

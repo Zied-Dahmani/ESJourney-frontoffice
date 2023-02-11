@@ -9,7 +9,7 @@ part 'course_model.g.dart';
 @freezed
 class Course with _$Course {
   const factory Course({
-    required String id,
+    required dynamic id,
     required String module,
     required String title,
     required int grade,

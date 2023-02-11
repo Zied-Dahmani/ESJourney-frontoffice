@@ -7,7 +7,7 @@ part 'game_model.g.dart';
 @freezed
 class Game with _$Game {
   const factory Game({
-    required String id,
+    required dynamic id,
     required String title,
     required List<String> words,
     required List<String> definitions,

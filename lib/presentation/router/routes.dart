@@ -6,6 +6,8 @@ class AppRoutes {
     // Zied
 
     // Louay
+static const courses = '/courses';
+static const courseDetails = '/courseDetails';
 
     // Souhail
 

@@ -1,4 +1,4 @@
-const kbaseUrl = 'http://172.16.5.77:3003/';
+const kbaseUrl = 'http://192.168.0.9:3003/';
 const ksignUp = 'user/signUp';
 const ksignIn = 'user/signIn';
 
@@ -9,3 +9,7 @@ const kidPasswordIncorrect = 'Id or password Incorrect!';
 const kbadRequest = 'Bad Request!';
 const ktryLater = 'Try later!';
 const ktimeOut = 'Time out!';
+
+//curriculum
+const kgetCourses = 'course/getAll';
+

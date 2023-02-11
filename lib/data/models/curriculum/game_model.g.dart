@@ -7,7 +7,7 @@ part of 'game_model.dart';
 // **************************************************************************
 
 _$_Game _$$_GameFromJson(Map<String, dynamic> json) => _$_Game(
-      id: json['id'] as String,
+      id: json['id'],
       title: json['title'] as String,
       words: (json['words'] as List<dynamic>).map((e) => e as String).toList(),
       definitions: (json['definitions'] as List<dynamic>)

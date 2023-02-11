@@ -20,7 +20,7 @@ Course _$CourseFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Course {
-  String get id => throw _privateConstructorUsedError;
+  dynamic get id => throw _privateConstructorUsedError;
   String get module => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   int get grade => throw _privateConstructorUsedError;
@@ -38,7 +38,7 @@ abstract class $CourseCopyWith<$Res> {
       _$CourseCopyWithImpl<$Res, Course>;
   @useResult
   $Res call(
-      {String id,
+      {dynamic id,
       String module,
       String title,
       int grade,
@@ -59,7 +59,7 @@ class _$CourseCopyWithImpl<$Res, $Val extends Course>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? module = null,
     Object? title = null,
     Object? grade = null,
@@ -67,10 +67,10 @@ class _$CourseCopyWithImpl<$Res, $Val extends Course>
     Object? games = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as dynamic,
       module: null == module
           ? _value.module
           : module // ignore: cast_nullable_to_non_nullable
@@ -102,7 +102,7 @@ abstract class _$$_CourseCopyWith<$Res> implements $CourseCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String id,
+      {dynamic id,
       String module,
       String title,
       int grade,
@@ -120,7 +120,7 @@ class __$$_CourseCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? module = null,
     Object? title = null,
     Object? grade = null,
@@ -128,10 +128,10 @@ class __$$_CourseCopyWithImpl<$Res>
     Object? games = null,
   }) {
     return _then(_$_Course(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as dynamic,
       module: null == module
           ? _value.module
           : module // ignore: cast_nullable_to_non_nullable
@@ -172,7 +172,7 @@ class _$_Course implements _Course {
       _$$_CourseFromJson(json);
 
   @override
-  final String id;
+  final dynamic id;
   @override
   final String module;
   @override
@@ -199,7 +199,7 @@ class _$_Course implements _Course {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Course &&
-            (identical(other.id, id) || other.id == id) &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             (identical(other.module, module) || other.module == module) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.grade, grade) || other.grade == grade) &&
@@ -210,8 +210,14 @@ class _$_Course implements _Course {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, module, title, grade,
-      estimatedTime, const DeepCollectionEquality().hash(_games));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      module,
+      title,
+      grade,
+      estimatedTime,
+      const DeepCollectionEquality().hash(_games));
 
   @JsonKey(ignore: true)
   @override
@@ -229,7 +235,7 @@ class _$_Course implements _Course {
 
 abstract class _Course implements Course {
   const factory _Course(
-      {required final String id,
+      {required final dynamic id,
       required final String module,
       required final String title,
       required final int grade,
@@ -239,7 +245,7 @@ abstract class _Course implements Course {
   factory _Course.fromJson(Map<String, dynamic> json) = _$_Course.fromJson;
 
   @override
-  String get id;
+  dynamic get id;
   @override
   String get module;
   @override
