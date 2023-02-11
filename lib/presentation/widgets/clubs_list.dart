@@ -91,8 +91,7 @@ class _ClubsListState extends State<ClubsList> {
                     onTap: () {
                       _showDetails.value = !_showDetails.value;
                       const transitionDuration = Duration(milliseconds: 550);
-                      //Navigator.of(context).pushNamed(AppRoutes.eventScreen, arguments: item);
-
+                      Navigator.of(context).pushNamed(AppRoutes.clubScreen, arguments: item);
                       Future.delayed(transitionDuration, () {
                         _showDetails.value = !_showDetails.value;
                       });
@@ -114,7 +113,7 @@ class _ClubsListState extends State<ClubsList> {
                             BoxShadow(
                               blurRadius: 20,
                               offset: const Offset(5, 25),
-                              color: Colors.white.withOpacity(.08),
+                              color: theme.colorScheme.onBackground.withOpacity(.65),
                             ),
                           ],
                           image: DecorationImage(
