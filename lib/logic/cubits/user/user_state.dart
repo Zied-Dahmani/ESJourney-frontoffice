@@ -36,7 +36,7 @@ class UserLogInSuccess extends UserState {
         email: map['email'],
         username: map['username'],
         password: map['password'],
-        token: map['token']));
+        token: map['token'], grade: map['grade']));
   }
 
   String toJson() => json.encode(toMap());
