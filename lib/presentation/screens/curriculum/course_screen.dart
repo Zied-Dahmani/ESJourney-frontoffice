@@ -105,37 +105,47 @@ class _CourseScreenState extends State<CourseScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Flexible(
-                      child: Row(
-                        children: <Widget>[
-                          Image.asset(
-                            "assets/images/curriculum/badge.png",
-                            scale: 10,
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(
-                              left: 0.02 * width,
+                      flex: 1,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            AppRoutes.levelMap,
+                            arguments: user.grade,
+                          );
+                        },
+                        child: Row(
+                          children: <Widget>[
+                            Image.asset(
+                              "assets/images/curriculum/badge.png",
+                              scale: 10,
                             ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                const Text(
-                                  "View progress",
-                                  style: TextStyle(
-                                    fontSize: 14,
+                            Container(
+                              margin: EdgeInsets.only(
+                                left: 0.02 * width,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  const Text(
+                                    "View progress",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  "Level ${user.grade}",
-                                  style: const TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 18,
+                                  Text(
+                                    "Level ${user.grade}",
+                                    style: const TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 18,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     Container(
