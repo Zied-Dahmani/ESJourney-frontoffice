@@ -1,13 +1,22 @@
 class AppRoutes {
   static const signInScreen = '/';
 
-    // Zied
+  //static const zoomDrawerScreen = 'zoom_drawer_screen';
+  static const zoomDrawerScreen = 'x';
 
-    // Louay
+  // Zied
 
-    // Souhail
+  // Louay
+  static const courses = '/courses';
+  static const courseDetails = '/courseDetails';
+  static const levelMap = '/levelMap';
+  static const jackpotGame = '/jackpot';
 
-    // Seif
 
-    // Youssef
+// Souhail
+  static const quiz = '/quiz';
+  static const quizResult = '/quizResult';
+// Seif
+
+// Youssef
 }

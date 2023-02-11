@@ -3,26 +3,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ButtonWidget extends StatelessWidget {
-  const ButtonWidget({Key? key,
-    this.text,
-    this.image,
-    this.icon,
-    this.backgroundColor,
-    this.textColor,
-    this.function})
+  const ButtonWidget(
+      {Key? key,
+      this.text,
+      this.image,
+      this.icon,
+      this.backgroundColor,
+      this.textColor,
+      this.height,
+      this.width,
+      this.function})
       : super(key: key);
-  final text, image, icon, backgroundColor, textColor, function;
+  final text, image, icon, backgroundColor, textColor, function, height, width;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    final width = MediaQuery.of(context).size.width;
     return SizedBox(
-      height: 54.0,
-      width: width - 100,
+      height: height,
+      width: width - 70,
       child: ElevatedButton(
           style: ButtonStyle(
               overlayColor: MaterialStateProperty.all(backgroundColor != null
@@ -40,13 +40,17 @@ class ButtonWidget extends StatelessWidget {
                 const SizedBox(width: AppSizes.ksmallSpace)
               ],
               if (icon != null) ...[
-                Icon(icon, color: textColor ?? theme.colorScheme.onBackground),
+                Icon(icon, color: textColor ?? theme.colorScheme.primary),
                 const SizedBox(width: AppSizes.ksmallSpace)
               ],
               Text(
                 text,
-                style: theme.textTheme.bodyMedium!.copyWith(
-                    color: textColor ?? theme.colorScheme.onPrimary),
+                style: TextStyle(
+                  color: theme.colorScheme.onPrimary,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'VisbyRoundCF',
+                ),
               )
             ],
           )),

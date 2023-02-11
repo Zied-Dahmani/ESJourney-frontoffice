@@ -8,12 +8,15 @@ ThemeData lightTheme = ThemeData(
         onPrimary: Colors.white,
         secondary: Color(0xFF3C3C3E),
         onSecondary: Colors.white,
-        tertiary: Color(0xFFA8A9A9),
+        tertiary: Color(0xFFEFEFEF),
         background: Color(0xFFFAFAFA),
         onBackground: Colors.black,
         error: Color(0xFFEB4A5A),
         onError: Colors.white,
         surface: Colors.white,
+        outline: Color(0xFF3EB8D4),
+        shadow: Color(0xFFA8A9A9),
+
         onSurface: Colors.black),
     fontFamily: 'Roboto',
     textTheme: const TextTheme(
@@ -25,9 +28,11 @@ ThemeData lightTheme = ThemeData(
       bodyMedium: TextStyle(fontSize: 16.0, color: Color(0xFF3C3C3E)),
       bodySmall: TextStyle(fontSize: 14.0, color: Color(0xFFEFEFEF)),
     ),
-    scaffoldBackgroundColor: const Color(0xFFFAFAFA),
+    scaffoldBackgroundColor: const Color(0xFFF8F8F8
+),
     appBarTheme: const AppBarTheme(
-      color: Color(0xFFFAFAFA),
+      color: Color(0xFFF8F8F8
+),
       elevation: 0,
     ),
     inputDecorationTheme: InputDecorationTheme(
@@ -59,7 +64,7 @@ ThemeData lightTheme = ThemeData(
         const ProgressIndicatorThemeData(color: Colors.black),
     snackBarTheme: const SnackBarThemeData(
       backgroundColor: Colors.black,
-      contentTextStyle: TextStyle(fontSize: 16.0, color: Color(0xFFFAFAFA)),
+      contentTextStyle: TextStyle(fontSize: 16.0, color: Color(0x00f8f8f8)),
     ));
 
 class AppSizes {

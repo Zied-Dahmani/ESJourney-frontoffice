@@ -1,3 +1,4 @@
+import 'package:esjourney/data/models/curriculum/user_course_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'user_model.freezed.dart';
 part 'user_model.g.dart';
@@ -8,7 +9,9 @@ class User with _$User {
     required String email,
     required String username,
     required String password,
+    required int grade,
     required String token,
+    List<UserCourse>? courses,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

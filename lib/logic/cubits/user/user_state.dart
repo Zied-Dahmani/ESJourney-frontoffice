@@ -8,6 +8,7 @@ class UserLoadInProgress extends UserState {}
 
 class UserLogInSuccess extends UserState {
   final User user;
+
   UserLogInSuccess(this.user);
 }
 
@@ -15,5 +16,7 @@ class UserLogOutSuccess extends UserState {}
 
 class UserIsFailure extends UserState {
   final String error;
+
+
   UserIsFailure(this.error);
 }
