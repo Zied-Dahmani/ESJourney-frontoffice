@@ -9,25 +9,33 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ClubCubit extends Cubit<ClubState> {
   ClubCubit(this._connectivityCubit) : super(ClubLoadInProgress()) {
-    //init();
-    getAllClubs();
-    // TODO  init
+    init();
   }
 
   final _clubRepository = ClubRepository();
   final ConnectivityCubit _connectivityCubit;
   StreamSubscription? _connectivityStreamSubscription;
 
-  StreamSubscription<ConnectivityState> init() {
+  void init() {
+    if (_connectivityCubit.state is ConnectivityConnectSuccess) {
+      getAllClubs();
+    } else {
+      emit(ClubLoadFailure(kcheckInternetConnection));
+    }
+    listen();
+  }
+
+  StreamSubscription<ConnectivityState> listen() {
     return _connectivityStreamSubscription =
         _connectivityCubit.stream.listen((connectivityState) {
-          if (connectivityState is ConnectivityConnectSuccess && state is! ClubLoadSuccess) {
-            getAllClubs();
-          }
-          else if (connectivityState is ConnectivityDisconnectSuccess && state is ClubLoadInProgress) {
-            emit(ClubLoadFailure(kcheckInternetConnection));
-          }
-        });
+      if (connectivityState is ConnectivityConnectSuccess &&
+          state is! ClubLoadSuccess) {
+        getAllClubs();
+      } else if (connectivityState is ConnectivityDisconnectSuccess &&
+          state is ClubLoadInProgress) {
+        emit(ClubLoadFailure(kcheckInternetConnection));
+      }
+    });
   }
 
   Future<void> getAllClubs() async {
