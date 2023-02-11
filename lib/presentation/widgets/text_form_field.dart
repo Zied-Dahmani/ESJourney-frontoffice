@@ -1,5 +1,6 @@
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:esjourney/utils/strings.dart';
+import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
 
 class TextFormFieldWidget extends StatefulWidget {
@@ -37,51 +38,31 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
           }
           return null;
         },
-        cursorColor: Colors.black,
+        cursorColor: theme.colorScheme.onBackground,
         keyboardType: widget.inputType,
         style: TextStyle(
           color: theme.colorScheme.secondary,
         ),
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(20.0),
+          contentPadding: const EdgeInsets.all(AppSizes.kbigSpace),
           suffixIcon: widget.inputType == TextInputType.visiblePassword
               ? IconButton(
-            icon: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Icon(
-                // password eye icon
-                _isObscure ? Icons.visibility_off : Icons.visibility,
-
-                color: theme.colorScheme.tertiary,
-              ),
-            ),
-            onPressed: () {
-              setState(() {
-                _isObscure = !_isObscure;
-              });
-            },
-          )
+                  icon: Padding(
+                    padding: const EdgeInsets.all(AppSizes.ksmallSpace),
+                    child: Icon(
+                      _isObscure ? Icons.visibility_off : Icons.visibility,
+                      color: theme.colorScheme.tertiary,
+                    ),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _isObscure = !_isObscure;
+                    });
+                  },
+                )
               : null,
           floatingLabelBehavior: FloatingLabelBehavior.never,
           labelText: widget.labelText,
-          labelStyle: TextStyle(
-            color: theme.colorScheme.tertiary,
-            fontFamily: 'VisbyRoundCF',
-            fontWeight: FontWeight.w400,
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
-            borderSide: BorderSide(
-              color: theme.colorScheme.tertiary,
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
-            borderSide: BorderSide(
-              color: theme.colorScheme.tertiary,
-              width: 1.0,
-            ),
-          ),
         ),
       ),
     );

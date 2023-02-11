@@ -1,41 +1,34 @@
-import 'package:esjourney/data/models/curriculum/course_model.dart';
-import 'package:esjourney/presentation/screens/curriculum/course_detail_screen.dart';
-import 'package:esjourney/presentation/screens/curriculum/games/jackpot/jackpot_screen.dart';
-import 'package:esjourney/presentation/screens/curriculum/level_map_screen.dart';
+import 'package:esjourney/presentation/screens/club/apply_to_club_screen.dart';
+import 'package:esjourney/presentation/screens/club/club_screen.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
 import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
 import 'package:flutter/material.dart';
-
 import 'routes.dart';
 
 class AppRouter {
-  Route<dynamic>? onGenerateRoute(RouteSettings settings) {
+  Route? onGenerateRoute(RouteSettings settings) {
     final Object? args = settings.arguments;
 
     switch (settings.name) {
       case AppRoutes.signInScreen:
-        return MaterialPageRoute(builder: (_) => SignInScreen());
+        return MaterialPageRoute(
+          builder: (_) => SignInScreen(),
+        );
 
       case AppRoutes.zoomDrawerScreen:
         return MaterialPageRoute(
           builder: (_) => const ZoomDrawerScreen(),
         );
 
-      case AppRoutes.courseDetails:
+      // Zied
+      case AppRoutes.clubScreen:
         return MaterialPageRoute(
-          builder: (_) => CourseDetailScreen(
-            course: args as Course,
-          ),
+          builder: (_) => ClubScreen(club: args),
         );
 
-      case AppRoutes.jackpotGame:
-        return MaterialPageRoute(builder: (_) => const JackpotScreen());
-
-      case AppRoutes.levelMap:
+      case AppRoutes.applyToClubScreen:
         return MaterialPageRoute(
-          builder: (_) => LevelMapScreen(
-            grade: args as int,
-          ),
+          builder: (_) => const ApplyToClubScreen(),
         );
 
       default:

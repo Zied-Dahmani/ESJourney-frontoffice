@@ -1,21 +1,58 @@
+import 'dart:convert';
 import 'package:esjourney/data/models/user_model.dart';
+import 'package:equatable/equatable.dart';
 
-abstract class UserState {}
+abstract class UserState extends Equatable {}
 
-class UserInitial extends UserState {}
+class UserInitial extends UserState {
+  @override
+  List<Object?> get props => [];
+}
 
-class UserLoadInProgress extends UserState {}
+class UserLoadInProgress extends UserState {
+  @override
+  List<Object?> get props => [];
+}
 
 class UserLogInSuccess extends UserState {
   final User user;
-
   UserLogInSuccess(this.user);
+
+  List<Object> get props => [user];
+
+  Map<String, dynamic> toMap() {
+    return {
+      'email': user.email,
+      'username': user.username,
+      'password': user.password,
+      'token': user.token
+    };
+  }
+
+  static UserLogInSuccess? fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+
+    return UserLogInSuccess(User(
+        email: map['email'],
+        username: map['username'],
+        password: map['password'],
+        token: map['token']));
+  }
+
+  String toJson() => json.encode(toMap());
+  static UserLogInSuccess? fromJson(String source) =>
+      fromMap(json.decode(source));
 }
 
-class UserLogOutSuccess extends UserState {}
+class UserLogOutSuccess extends UserState {
+  @override
+  List<Object?> get props => [];
+}
 
 class UserIsFailure extends UserState {
   final String error;
-
   UserIsFailure(this.error);
+
+  @override
+  List<Object?> get props => [];
 }
