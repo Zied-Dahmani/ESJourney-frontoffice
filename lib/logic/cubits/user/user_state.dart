@@ -1,6 +1,7 @@
 import 'dart:convert';
-import 'package:esjourney/data/models/user_model.dart';
+
 import 'package:equatable/equatable.dart';
+import 'package:esjourney/data/models/user_model.dart';
 
 abstract class UserState extends Equatable {}
 
@@ -16,6 +17,7 @@ class UserLoadInProgress extends UserState {
 
 class UserLogInSuccess extends UserState {
   final User user;
+
   UserLogInSuccess(this.user);
 
   List<Object> get props => [user];
@@ -25,21 +27,29 @@ class UserLogInSuccess extends UserState {
       'email': user.email,
       'username': user.username,
       'password': user.password,
-      'token': user.token
+      'grade': user.grade,
+      'token': user.token,
+      'courses': user.courses,
     };
   }
 
   static UserLogInSuccess? fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 
-    return UserLogInSuccess(User(
+    return UserLogInSuccess(
+      User(
         email: map['email'],
         username: map['username'],
         password: map['password'],
-        token: map['token'], grade: map['grade']));
+        token: map['token'],
+        grade: map['grade'],
+        courses: map['courses'],
+      ),
+    );
   }
 
   String toJson() => json.encode(toMap());
+
   static UserLogInSuccess? fromJson(String source) =>
       fromMap(json.decode(source));
 }
@@ -51,6 +61,7 @@ class UserLogOutSuccess extends UserState {
 
 class UserIsFailure extends UserState {
   final String error;
+
   UserIsFailure(this.error);
 
   @override
