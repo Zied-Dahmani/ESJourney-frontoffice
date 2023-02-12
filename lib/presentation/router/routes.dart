@@ -11,6 +11,7 @@ class AppRoutes {
   static const courseDetails = '/courseDetails';
   static const levelMap = '/levelMap';
   static const jackpotGame = '/jackpot';
+  static const chatUsers = '/chatUsers';
 
 // Souhail
 

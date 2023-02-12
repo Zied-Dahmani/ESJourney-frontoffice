@@ -24,8 +24,9 @@ mixin _$User {
   String get username => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
   int get grade => throw _privateConstructorUsedError;
-  String get token => throw _privateConstructorUsedError;
+  int get coins => throw _privateConstructorUsedError;
   List<UserCourse>? get courses => throw _privateConstructorUsedError;
+  String get token => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,8 +43,9 @@ abstract class $UserCopyWith<$Res> {
       String username,
       String password,
       int grade,
-      String token,
-      List<UserCourse>? courses});
+      int coins,
+      List<UserCourse>? courses,
+      String token});
 }
 
 /// @nodoc
@@ -63,8 +65,9 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? username = null,
     Object? password = null,
     Object? grade = null,
-    Object? token = null,
+    Object? coins = null,
     Object? courses = freezed,
+    Object? token = null,
   }) {
     return _then(_value.copyWith(
       email: null == email
@@ -83,14 +86,18 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.grade
           : grade // ignore: cast_nullable_to_non_nullable
               as int,
-      token: null == token
-          ? _value.token
-          : token // ignore: cast_nullable_to_non_nullable
-              as String,
+      coins: null == coins
+          ? _value.coins
+          : coins // ignore: cast_nullable_to_non_nullable
+              as int,
       courses: freezed == courses
           ? _value.courses
           : courses // ignore: cast_nullable_to_non_nullable
               as List<UserCourse>?,
+      token: null == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -106,8 +113,9 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String username,
       String password,
       int grade,
-      String token,
-      List<UserCourse>? courses});
+      int coins,
+      List<UserCourse>? courses,
+      String token});
 }
 
 /// @nodoc
@@ -123,8 +131,9 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? username = null,
     Object? password = null,
     Object? grade = null,
-    Object? token = null,
+    Object? coins = null,
     Object? courses = freezed,
+    Object? token = null,
   }) {
     return _then(_$_User(
       email: null == email
@@ -143,14 +152,18 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.grade
           : grade // ignore: cast_nullable_to_non_nullable
               as int,
-      token: null == token
-          ? _value.token
-          : token // ignore: cast_nullable_to_non_nullable
-              as String,
+      coins: null == coins
+          ? _value.coins
+          : coins // ignore: cast_nullable_to_non_nullable
+              as int,
       courses: freezed == courses
           ? _value._courses
           : courses // ignore: cast_nullable_to_non_nullable
               as List<UserCourse>?,
+      token: null == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -163,8 +176,9 @@ class _$_User implements _User {
       required this.username,
       required this.password,
       required this.grade,
-      required this.token,
-      final List<UserCourse>? courses})
+      required this.coins,
+      final List<UserCourse>? courses,
+      required this.token})
       : _courses = courses;
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
@@ -178,7 +192,7 @@ class _$_User implements _User {
   @override
   final int grade;
   @override
-  final String token;
+  final int coins;
   final List<UserCourse>? _courses;
   @override
   List<UserCourse>? get courses {
@@ -190,8 +204,11 @@ class _$_User implements _User {
   }
 
   @override
+  final String token;
+
+  @override
   String toString() {
-    return 'User(email: $email, username: $username, password: $password, grade: $grade, token: $token, courses: $courses)';
+    return 'User(email: $email, username: $username, password: $password, grade: $grade, coins: $coins, courses: $courses, token: $token)';
   }
 
   @override
@@ -205,14 +222,15 @@ class _$_User implements _User {
             (identical(other.password, password) ||
                 other.password == password) &&
             (identical(other.grade, grade) || other.grade == grade) &&
-            (identical(other.token, token) || other.token == token) &&
-            const DeepCollectionEquality().equals(other._courses, _courses));
+            (identical(other.coins, coins) || other.coins == coins) &&
+            const DeepCollectionEquality().equals(other._courses, _courses) &&
+            (identical(other.token, token) || other.token == token));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, email, username, password, grade,
-      token, const DeepCollectionEquality().hash(_courses));
+      coins, const DeepCollectionEquality().hash(_courses), token);
 
   @JsonKey(ignore: true)
   @override
@@ -234,8 +252,9 @@ abstract class _User implements User {
       required final String username,
       required final String password,
       required final int grade,
-      required final String token,
-      final List<UserCourse>? courses}) = _$_User;
+      required final int coins,
+      final List<UserCourse>? courses,
+      required final String token}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -248,9 +267,11 @@ abstract class _User implements User {
   @override
   int get grade;
   @override
-  String get token;
+  int get coins;
   @override
   List<UserCourse>? get courses;
+  @override
+  String get token;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;

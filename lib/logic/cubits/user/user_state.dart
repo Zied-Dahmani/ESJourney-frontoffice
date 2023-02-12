@@ -29,23 +29,22 @@ class UserLogInSuccess extends UserState {
       'password': user.password,
       'grade': user.grade,
       'token': user.token,
-      'courses': user.courses,
+      'courses': '',
+      'coins': user.coins,
     };
   }
 
   static UserLogInSuccess? fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 
-    return UserLogInSuccess(
-      User(
+    return UserLogInSuccess(User(
         email: map['email'],
         username: map['username'],
         password: map['password'],
-        token: map['token'],
         grade: map['grade'],
-        courses: map['courses'],
-      ),
-    );
+        coins: map['coins'],
+        token: map['token'],
+        courses: []));
   }
 
   String toJson() => json.encode(toMap());
