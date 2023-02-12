@@ -1,47 +1,52 @@
 import 'package:flutter/material.dart';
 
 ThemeData lightTheme = ThemeData(
+    useMaterial3: true,
     colorScheme: const ColorScheme(
         brightness: Brightness.dark,
-        primary: Color(0xff170B3B),
+        primary: Color(0xFFEB4A5A),
         onPrimary: Colors.white,
-        secondary: Color(0xffB19FF9),
+        secondary: Color(0xFF3C3C3E),
         onSecondary: Colors.white,
-        tertiary: Colors.grey,
-        background: Color(0xff170B3B),
-        onBackground: Colors.white,
-        error: Colors.red,
+        tertiary: Color(0xFFCFCFCF),
+        background: Color(0xFFFAFAFA),
+        onBackground: Colors.black,
+        error: Color(0xFFEB4A5A),
         onError: Colors.white,
-        surface: Color(0xff170B3B),
-        onSurface: Colors.white),
+        surface: Colors.white,
+        onSurface: Colors.black),
     fontFamily: 'Roboto',
     textTheme: const TextTheme(
-      headlineLarge: TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold, color: Colors.white),
-      headlineMedium: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white),
-      bodyLarge: TextStyle(fontSize: 18.0, color: Colors.grey),
-      bodyMedium: TextStyle(fontSize: 16.0, color: Colors.grey),
-      bodySmall: TextStyle(fontSize: 14.0, color: Colors.grey),
+      headlineLarge: TextStyle(
+          fontSize: 26.0, fontWeight: FontWeight.bold, color: Color(0xFF3C3C3E)),
+      headlineMedium: TextStyle(
+          fontSize: 20.0, fontWeight: FontWeight.bold, color: Color(0xFF3C3C3E)),
+      bodyLarge: TextStyle(fontSize: 18.0, color: Color(0xFFEFEFEF)),
+      bodyMedium: TextStyle(fontSize: 16.0, color: Color(0xFF3C3C3E)),
+      bodySmall: TextStyle(fontSize: 14.0, color: Color(0xFFEFEFEF)),
     ),
-    scaffoldBackgroundColor: const Color(0xff170B3B),
+    scaffoldBackgroundColor: const Color(0xFFF8F8F8
+),
     appBarTheme: const AppBarTheme(
-      color: Color(0xff170B3B),
+      color: Color(0xFFF8F8F8
+),
       elevation: 0,
     ),
     inputDecorationTheme: InputDecorationTheme(
       errorStyle: const TextStyle(
-          color: Colors.red, fontSize: 14.0, fontWeight: FontWeight.normal),
+          color: Color(0xFFEB4A5A), fontSize: 14.0, fontWeight: FontWeight.normal),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppSizes.kradius),
-        borderSide: const BorderSide(color: Colors.red, width: 2.0),
+        borderSide: const BorderSide(color: Color(0xFFEB4A5A), width: 2.0),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppSizes.kradius),
-        borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+        borderSide: const BorderSide(color: Colors.black, width: 2.0),
       ),
       focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSizes.kradius),
-          borderSide: const BorderSide(color: Color(0xffB19FF9), width: 2.0)),
-      labelStyle: const TextStyle(fontSize: 16.0, color: Colors.grey),
+          borderSide: const BorderSide(color: Colors.black, width: 2.0)),
+      labelStyle: const TextStyle(fontSize: 16.0, color: Color(0xFF3C3C3E)),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -50,13 +55,13 @@ ThemeData lightTheme = ThemeData(
       ),
     )),
     iconTheme:
-        const IconThemeData(color: Colors.white, size: AppSizes.kiconSize),
-    dividerTheme: const DividerThemeData(color: Colors.grey),
+        const IconThemeData(color: Colors.black, size: AppSizes.kiconSize),
+    dividerTheme: const DividerThemeData(color: Color(0xFFEFEFEF)),
     progressIndicatorTheme:
-        const ProgressIndicatorThemeData(color: Color(0xffB19FF9)),
+        const ProgressIndicatorThemeData(color: Colors.black),
     snackBarTheme: const SnackBarThemeData(
-      backgroundColor: Color(0xffB19FF9),
-      contentTextStyle: TextStyle(fontSize: 16.0, color: Colors.white),
+      backgroundColor: Colors.black,
+      contentTextStyle: TextStyle(fontSize: 16.0, color: Color(0x00f8f8f8)),
     ));
 
 class AppSizes {
