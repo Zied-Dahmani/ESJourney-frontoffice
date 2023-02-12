@@ -54,7 +54,7 @@ class EventDetails extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.arrow_back),
+                        icon: const Icon(Icons.arrow_back_ios_new_outlined),
                         onPressed: () => Navigator.pop(context),
                       ),
                       IconButton(
@@ -68,7 +68,18 @@ class EventDetails extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black26,
+                            blurRadius: 10.0,
+                            spreadRadius: 0.0,
+                            offset: Offset(
+                              0.0,
+                              10.0,
+                            ),
+                          ),
+                        ],
                       ),
                       child: Padding(
                         padding: EdgeInsets.all(screenWidth * 0.05),

@@ -4,7 +4,7 @@ import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
-import 'CalendarScreen.dart';
+import 'Events/calendar_screen.dart';
 
 class ZoomDrawerScreen extends StatefulWidget {
   const ZoomDrawerScreen({Key? key}) : super(key: key);
