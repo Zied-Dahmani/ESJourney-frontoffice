@@ -35,7 +35,7 @@ class SignInScreen extends StatelessWidget {
                 });
           } else if (state is UserLogInSuccess) {
             //Navigator.pop(dialogContext!);
-              Navigator.of(context).pushNamed(AppRoutes.quizResult);
+              Navigator.of(context).pushNamed(AppRoutes.leaderboardScreen);
 
           } else if (state is UserIsFailure) {
 

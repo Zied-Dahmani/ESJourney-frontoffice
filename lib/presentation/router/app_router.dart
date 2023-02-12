@@ -6,8 +6,10 @@ import 'package:esjourney/presentation/screens/sign_in_screen.dart';
 import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../screens/challenges/quiz.dart';
-import '../screens/challenges/quiz_result.dart';
+
+import '../screens/challenges/leaderboard/leaderboard_screen.dart';
+import '../screens/challenges/quiz/quiz.dart';
+import '../screens/challenges/quiz/quiz_result.dart';
 import 'routes.dart';
 
 class AppRouter {
@@ -39,15 +41,24 @@ class AppRouter {
             grade: args as int,
           ),
         );
-        case AppRoutes.quiz:
+        case AppRoutes.quizScreen:
         return MaterialPageRoute(
-          builder: (_) => const QuizScreen(
+          builder: (_) =>  QuizScreen(
+            //  language: args as String,
 
           ),
         );
         case AppRoutes.quizResult:
         return MaterialPageRoute(
-          builder: (_) => const QuizResultScreen(
+          builder: (_) =>  QuizResultScreen(
+            score : args as int,
+
+          ),
+        );
+          case AppRoutes.leaderboardScreen:
+        return MaterialPageRoute(
+          builder: (_) =>  const LeaderboardScreen(
+
 
           ),
         );

@@ -14,8 +14,10 @@ class AppRoutes {
 
 
 // Souhail
-  static const quiz = '/quiz';
+  static const quizScreen = '/quiz';
   static const quizResult = '/quizResult';
+  static const leaderboardScreen = '/leaderboard';
+
 // Seif
 
 // Youssef

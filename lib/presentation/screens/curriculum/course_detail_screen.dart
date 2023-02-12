@@ -175,7 +175,15 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
               ),
               padding: const EdgeInsets.all(6),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+
+                  Navigator.of(context).pushNamed(
+                      AppRoutes.quizScreen,
+                      arguments: "c",
+                  );
+
+
+                },
                 child: const Text(
                   'Quiz',
                   style: TextStyle(

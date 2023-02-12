@@ -1,3 +1,5 @@
+import 'package:esjourney/data/models/quiz/quiz_model.dart';
+
 abstract class QuizState {}
 
 class QuizInitial extends QuizState {}

@@ -8,7 +8,7 @@ class QuizDataProvider {
     ..options.receiveTimeout = 3000;
 
   Future<Response> getQuiz(String language) async {
-    dynamic req = await dio.request(
+  return await dio.request(
       kgetQuiz,
       queryParameters: {
         'language': language,
@@ -20,7 +20,6 @@ class QuizDataProvider {
         },
       ),
     );
-    print(req);
-    return req;
+
   }
 }
