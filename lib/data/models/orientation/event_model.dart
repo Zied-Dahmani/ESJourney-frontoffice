@@ -5,12 +5,15 @@ part 'event_model.g.dart';
 @freezed
 class Event with _$Event {
   const factory Event({
+    required String id,
     required String title,
     DateTime? date,
     required String startTime,
     String? endTime,
     required String description,
-     String? isDone,
+    String? isDone,
+    String? type,
+    String? eventImage,
   }) = _Event;
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
