@@ -11,10 +11,11 @@ _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
       username: json['username'] as String,
       password: json['password'] as String,
       grade: json['grade'] as int,
-      token: json['token'] as String,
+      coins: json['coins'] as int,
       courses: (json['courses'] as List<dynamic>?)
           ?.map((e) => UserCourse.fromJson(e as Map<String, dynamic>))
           .toList(),
+      token: json['token'] as String,
     );
 
 Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
@@ -22,6 +23,7 @@ Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
       'username': instance.username,
       'password': instance.password,
       'grade': instance.grade,
-      'token': instance.token,
+      'coins': instance.coins,
       'courses': instance.courses,
+      'token': instance.token,
     };
