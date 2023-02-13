@@ -36,4 +36,17 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
       emit(UserIsFailure(kcheckInternetConnection));
     }
   }
+
+  Future<void> signUp(String? id,String email, String password) async {
+    try {
+      emit(UserLoadInProgress());
+      final result = await _userRepository.signUp(id,email, password);
+      result != null
+          ? emit(UserLogInSuccess(result))
+          : emit(UserIsFailure("error in sign up"));
+    } catch (e) {
+      developer.log(e.toString(), name: 'Catch sign up');
+      emit(UserIsFailure(kcheckInternetConnection));
+    }
+  }
 }

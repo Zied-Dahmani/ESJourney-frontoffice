@@ -4,6 +4,7 @@ import 'package:esjourney/presentation/screens/curriculum/courses/course_detail_
 import 'package:esjourney/presentation/screens/curriculum/courses/level_map_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/jackpot/jackpot_screen.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
+import 'package:esjourney/presentation/screens/sign_up_screen.dart';
 import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
 import 'package:flutter/material.dart';
 import 'routes.dart';
@@ -16,6 +17,11 @@ class AppRouter {
       case AppRoutes.signInScreen:
         return MaterialPageRoute(
           builder: (_) => SignInScreen(),
+        );
+
+      case AppRoutes.signUpScreen:
+        return MaterialPageRoute(
+          builder: (_) => SignUpScreen(),
         );
 
       case AppRoutes.zoomDrawerScreen:

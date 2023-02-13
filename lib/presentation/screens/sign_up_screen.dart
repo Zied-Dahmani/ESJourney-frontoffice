@@ -10,11 +10,12 @@ import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SignInScreen extends StatelessWidget {
-  SignInScreen({Key? key}) : super(key: key);
+class SignUpScreen extends StatelessWidget {
+  SignUpScreen({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
   final _idController = TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   BuildContext? dialogContext;
 
@@ -44,7 +45,8 @@ class SignInScreen extends StatelessWidget {
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: Container(
             padding: const EdgeInsets.symmetric(
-                horizontal: AppSizes.kbigSpace, vertical: AppSizes.khugeSpace),
+                horizontal: AppSizes.kbigSpace,
+                vertical: AppSizes.khugeSpace),
             color: theme.colorScheme.background,
             child: Form(
               key: _formKey,
@@ -59,35 +61,35 @@ class SignInScreen extends StatelessWidget {
                     width: AppSizes.kimageSize,
                   ),
                   Text(
-                    AppStrings.ksignInPrompt,
+                    AppStrings.ksignUpPrompt,
                     style: theme.textTheme.headlineLarge,
                   ),
-                  const SizedBox(height: AppSizes.khugeSpace),
-                  TextFormFieldWidget(
-                      _idController, AppStrings.kusername, TextInputType.name),
-                  const SizedBox(height: AppSizes.kbigSpace),
-                  TextFormFieldWidget(_passwordController, AppStrings.kpassword,
-                      TextInputType.visiblePassword),
-                  const SizedBox(height: AppSizes.kbigSpace),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: GestureDetector(
-                      child: Text(AppStrings.kforgotPassword,
-                          style: theme.textTheme.bodyMedium!
-                              .copyWith(color: theme.colorScheme.primary)),
-                    ),
+                  const SizedBox(height: AppSizes.ksmallSpace),
+                  Text(
+                    AppStrings.ksignUpPrompt2,
+                    style: theme.textTheme.headlineSmall,
                   ),
+                  const SizedBox(height: AppSizes.khugeSpace),
+                  TextFormFieldWidget(_idController, AppStrings.kusername,
+                      TextInputType.name),
+                  const SizedBox(height: AppSizes.kbigSpace),
+                  TextFormFieldWidget(_emailController, AppStrings.kemail,
+                      TextInputType.name),
+                  const SizedBox(height: AppSizes.kbigSpace),
+                  TextFormFieldWidget(_passwordController,
+                      AppStrings.kpassword, TextInputType.visiblePassword),
                   const SizedBox(height: AppSizes.kbigSpace),
                   BlocBuilder<ConnectivityCubit, ConnectivityState>(
                     builder: (context, state) {
                       return Center(
                         child: ButtonWidget(
-                            text: AppStrings.klogin,
+                            text: AppStrings.ksignUp,
                             function: () {
                               if (_formKey.currentState!.validate()) {
                                 if (state is ConnectivityConnectSuccess) {
-                                  BlocProvider.of<UserCubit>(context).signIn(
+                                  BlocProvider.of<UserCubit>(context).signUp(
                                       _idController.text,
+                                      _emailController.text,
                                       _passwordController.text);
                                 } else {
                                   showScaffold(
@@ -105,16 +107,15 @@ class SignInScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            AppStrings.kdontHaveAccount,
+                            AppStrings.kalreadyHaveAnAccount,
                             style: theme.textTheme.bodyMedium,
                           ),
                           GestureDetector(
                             onTap: () {
-                              Navigator.of(context)
-                                  .pushNamed(AppRoutes.signUpScreen);
+                              Navigator.of(context).pushNamed(AppRoutes.signInScreen);
                             },
                             child: Text(
-                              AppStrings.ksignUp,
+                              AppStrings.ksignIn,
                               style: theme.textTheme.bodyMedium!
                                   .copyWith(color: theme.colorScheme.primary),
                             ),

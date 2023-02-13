@@ -19,4 +19,17 @@ class UserDataProvider {
       ),
     );
   }
+
+  Future<Response> signUp(String? id,String email, String password) async {
+    return await dio.request(
+      ksignUp,
+      data: {'username': id, 'email':email, 'password': password},
+      options: Options(
+        method: 'POST',
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+  }
 }
