@@ -12,4 +12,5 @@ const ktimeOut = 'Time out!';
 
 //curriculum
 const kgetCourses = 'course/get/user';
+const kaddAvatar = 'user/avatar';
 

@@ -13,6 +13,8 @@ class User with _$User {
     required String password,
     required int grade,
     required int coins,
+    String? twoDAvatar,
+    String? threeDAvatar,
     List<UserCourse>? courses,
     required String token,
   }) = _User;

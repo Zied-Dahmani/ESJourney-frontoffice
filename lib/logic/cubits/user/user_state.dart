@@ -31,6 +31,8 @@ class UserLogInSuccess extends UserState {
       'token': user.token,
       'courses': '',
       'coins': user.coins,
+      'threeDAvatar': user.threeDAvatar,
+      'twoDAvatar': user.twoDAvatar,
     };
   }
 
@@ -44,6 +46,8 @@ class UserLogInSuccess extends UserState {
         grade: map['grade'],
         coins: map['coins'],
         token: map['token'],
+        threeDAvatar: map['threeDAvatar'],
+        twoDAvatar: map['twoDAvatar'],
         courses: []));
   }
 

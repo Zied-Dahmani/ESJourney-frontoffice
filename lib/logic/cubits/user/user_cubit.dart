@@ -49,4 +49,17 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
       emit(UserIsFailure(kcheckInternetConnection));
     }
   }
+
+  Future<void> addAvatars(String token,String twoDAvatar, String threeDAvatar) async {
+    try {
+      emit(UserLoadInProgress());
+      final result = await _userRepository.addAvatars(token,twoDAvatar, threeDAvatar);
+      result != null
+          ? emit(UserLogInSuccess(result))
+          : emit(UserIsFailure("error in sign up"));
+    } catch (e) {
+      developer.log(e.toString(), name: 'Catch sign up');
+      emit(UserIsFailure(kcheckInternetConnection));
+    }
+  }
 }

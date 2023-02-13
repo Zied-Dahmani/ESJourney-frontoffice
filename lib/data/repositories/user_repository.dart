@@ -16,4 +16,10 @@ class UserRepository implements IUserRepository {
     final result = await _userDataProvider.signUp(id, email, password);
     return result.statusCode == 201 ? User.fromJson(result.data) : null;
   }
+
+  @override
+  Future addAvatars(String token, String twoDAvatar, String threeDAvatar) async {
+    final result = await _userDataProvider.addAvatars(token,twoDAvatar, threeDAvatar);
+    return result.statusCode == 200 ? User.fromJson(result.data) : null;
+  }
 }

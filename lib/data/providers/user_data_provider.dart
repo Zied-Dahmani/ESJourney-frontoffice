@@ -32,4 +32,20 @@ class UserDataProvider {
       ),
     );
   }
+
+  Future<Response> addAvatars(String token,String twoDAvatar, String threeDAvatar) async {
+    return await dio.request(
+      kaddAvatar,
+      data: { 'twoDAvatar':twoDAvatar, 'threeDAvatar': threeDAvatar},
+      options: Options(
+        method: 'POST',
+        headers: {
+          'jwt': token,
+        },
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+  }
 }
