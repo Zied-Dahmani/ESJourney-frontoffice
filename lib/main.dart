@@ -55,12 +55,8 @@ void main() async {
         ? HydratedStorage.webStorageDirectory
         : await getTemporaryDirectory(),
   );
-  BlocOverrides.runZoned(
-        () {
-      runApp(MyApp());
-    },
-    blocObserver: AppBlocObserver(),
-  );
+  Bloc.observer = AppBlocObserver();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
