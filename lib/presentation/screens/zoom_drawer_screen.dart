@@ -3,6 +3,8 @@ import 'package:esjourney/presentation/screens/main_screen.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'Internship/profile_screen.dart';
+import 'Internship/Internship_home_page.dart';
 
 class ZoomDrawerScreen extends StatefulWidget {
   const ZoomDrawerScreen({Key? key}) : super(key: key);
@@ -42,7 +44,8 @@ class _ZoomDrawerScreenState extends State<ZoomDrawerScreen> {
       case 0:
         return const MainScreen();
       case 1:
-        return Container(color: Colors.yellow);
+        //redirect to internship page
+        return const ProfileScreen();
       case 2:
         return const MainScreen();
       case 3:

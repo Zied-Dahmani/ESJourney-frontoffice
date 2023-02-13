@@ -9,6 +9,8 @@ class ConnectivityCubit extends Cubit<ConnectivityState> {
     listenConnectivity();
   }
 
+  // TODO init
+
   final Connectivity _connectivity = Connectivity();
   StreamSubscription? connectivityStreamSubscription;
 

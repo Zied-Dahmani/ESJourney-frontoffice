@@ -51,7 +51,7 @@ class _MainScreenState extends State<MainScreen> {
                 color: theme.colorScheme.surface,
               ),
             ),
-        text: ''),
+            text: ''),
         navBarBackgroundColor: theme.colorScheme.surface,
         //activeColor: Colors.yellow,
         //inActiveColor: theme.colorScheme.onBackground,
@@ -64,7 +64,7 @@ class _MainScreenState extends State<MainScreen> {
               inActiveIcon: const Icon(
                 FontAwesomeIcons.house,
               ),
-          text: ''),
+              text: ''),
           FABBottomAppBarItem(
               activeIcon: Icon(
                 FontAwesomeIcons.briefcase,
@@ -73,7 +73,7 @@ class _MainScreenState extends State<MainScreen> {
               inActiveIcon: const Icon(
                 FontAwesomeIcons.briefcase,
               ),
-          text: ''),
+              text: ''),
           FABBottomAppBarItem(
               activeIcon: Icon(
                 FontAwesomeIcons.graduationCap,
@@ -82,7 +82,7 @@ class _MainScreenState extends State<MainScreen> {
               inActiveIcon: const Icon(
                 FontAwesomeIcons.graduationCap,
               ),
-          text: ''),
+              text: ''),
           FABBottomAppBarItem(
               activeIcon: Icon(
                 FontAwesomeIcons.peopleGroup,
@@ -91,7 +91,7 @@ class _MainScreenState extends State<MainScreen> {
               inActiveIcon: const Icon(
                 FontAwesomeIcons.peopleGroup,
               ),
-          text: ''),
+              text: ''),
         ],
         bodyItems: [
           Container(
@@ -99,8 +99,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
           Container(),
           Container(),
-          Container(),
-          //const ClubsScreen()
+          Container()
         ],
         actionBarView: Container(),
       ),

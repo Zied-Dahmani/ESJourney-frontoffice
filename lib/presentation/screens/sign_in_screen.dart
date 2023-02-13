@@ -39,68 +39,65 @@ class SignInScreen extends StatelessWidget {
             showScaffold(context, state.error);
           }
         },
-        child: SingleChildScrollView(
-          child: GestureDetector(
-            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: AppSizes.kbigSpace,
-                  vertical: AppSizes.khugeSpace),
-              color: theme.colorScheme.background,
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: AppSizes.khugeSpace),
-                    Image.asset(
-                      'assets/images/app_logo.png',
-                      height: AppSizes.kimageSize,
-                      width: AppSizes.kimageSize,
+        child: GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+                horizontal: AppSizes.kbigSpace, vertical: AppSizes.khugeSpace),
+            color: theme.colorScheme.background,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(height: AppSizes.khugeSpace),
+                  Image.asset(
+                    'assets/images/app_logo.png',
+                    height: AppSizes.kimageSize,
+                    width: AppSizes.kimageSize,
+                  ),
+                  Text(
+                    AppStrings.ksignInPrompt,
+                    style: theme.textTheme.headlineLarge,
+                  ),
+                  const SizedBox(height: AppSizes.khugeSpace),
+                  TextFormFieldWidget(
+                      _idController, AppStrings.kusername, TextInputType.name),
+                  const SizedBox(height: AppSizes.kbigSpace),
+                  TextFormFieldWidget(_passwordController, AppStrings.kpassword,
+                      TextInputType.visiblePassword),
+                  const SizedBox(height: AppSizes.kbigSpace),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: GestureDetector(
+                      child: Text(AppStrings.kforgotPassword,
+                          style: theme.textTheme.bodyMedium!
+                              .copyWith(color: theme.colorScheme.primary)),
                     ),
-                    Text(
-                      AppStrings.ksignInPrompt,
-                      style: theme.textTheme.headlineLarge,
-                    ),
-                    const SizedBox(height: AppSizes.khugeSpace),
-                    TextFormFieldWidget(_idController, AppStrings.kusername,
-                        TextInputType.name),
-                    const SizedBox(height: AppSizes.kbigSpace),
-                    TextFormFieldWidget(_passwordController,
-                        AppStrings.kpassword, TextInputType.visiblePassword),
-                    const SizedBox(height: AppSizes.kbigSpace),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: GestureDetector(
-                        child: Text(AppStrings.kforgotPassword,
-                            style: theme.textTheme.bodyMedium!
-                                .copyWith(color: theme.colorScheme.primary)),
-                      ),
-                    ),
-                    const SizedBox(height: AppSizes.kbigSpace),
-                    BlocBuilder<ConnectivityCubit, ConnectivityState>(
-                      builder: (context, state) {
-                        return Center(
-                          child: ButtonWidget(
-                              text: AppStrings.klogin,
-                              function: () {
-                                if (_formKey.currentState!.validate()) {
-                                  if (state is ConnectivityConnectSuccess) {
-                                    BlocProvider.of<UserCubit>(context).signIn(
-                                        _idController.text,
-                                        _passwordController.text);
-                                  } else {
-                                    showScaffold(
-                                        context, kcheckInternetConnection);
-                                  }
+                  ),
+                  const SizedBox(height: AppSizes.kbigSpace),
+                  BlocBuilder<ConnectivityCubit, ConnectivityState>(
+                    builder: (context, state) {
+                      return Center(
+                        child: ButtonWidget(
+                            text: AppStrings.klogin,
+                            function: () {
+                              if (_formKey.currentState!.validate()) {
+                                if (state is ConnectivityConnectSuccess) {
+                                  BlocProvider.of<UserCubit>(context).signIn(
+                                      _idController.text,
+                                      _passwordController.text);
+                                } else {
+                                  showScaffold(
+                                      context, kcheckInternetConnection);
                                 }
-                              }),
-                        );
-                      },
-                    ),
-                  ],
-                ),
+                              }
+                            }),
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
           ),
