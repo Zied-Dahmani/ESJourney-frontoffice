@@ -40,6 +40,19 @@ dependencies:
   intl: ^0.17.0
   flutter_zoom_drawer: ^3.0.3
   curved_nav_bar: ^0.0.2
+  equatable: ^2.0.5
+
+  # louay
+  dynamic_height_grid_view: ^0.0.3
+  percent_indicator: ^4.2.2
+  just_audio: ^0.9.31
+  level_map: ^0.2.0
+
+ # Souhail
+  circular_countdown_timer: ^0.2.3
+  flutter_svg: ^2.0.0+1
+
+  # Seif
   table_calendar: ^3.0.3
 
 
@@ -78,7 +91,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/
+    - assets/
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

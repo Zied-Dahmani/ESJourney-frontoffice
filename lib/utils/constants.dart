@@ -9,3 +9,9 @@ const kidPasswordIncorrect = 'Id or password Incorrect!';
 const kbadRequest = 'Bad Request!';
 const ktryLater = 'Try later!';
 const ktimeOut = 'Time out!';
+
+//curriculum
+const kgetCourses = 'course/get/user';
+const kgetQuiz = 'quiz/get';
+const kquizResult = 'quiz/result';
+

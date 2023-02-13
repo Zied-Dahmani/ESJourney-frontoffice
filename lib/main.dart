@@ -1,5 +1,7 @@
 import 'package:esjourney/logic/app_bloc_observer.dart';
+import 'package:esjourney/logic/cubits/challenges/quiz_cubit.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
+import 'package:esjourney/logic/cubits/curriculum/course_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/presentation/router/app_router.dart';
 import 'package:esjourney/utils/strings.dart';
@@ -71,8 +73,10 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider<UserCubit>(create: (context) => UserCubit(), lazy: true),
+          BlocProvider<QuizCubit>(create: (context) => QuizCubit(), lazy: true),
+          BlocProvider<CourseCubit>(create: (context) => CourseCubit(), lazy: true),
           BlocProvider<ConnectivityCubit>(create: (context) => ConnectivityCubit(), lazy: false),
-          //BlocProvider<EventCubit>(create: (context) => EventCubit(BlocProvider.of<ConnectivityCubit>(context)), lazy: true),
+
         ],
         child: MaterialApp(
           title: 'ESJourney',

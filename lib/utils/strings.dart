@@ -23,7 +23,7 @@ class AppStrings {
   // Louay
 
   // Souhail
-
+  static const kleaderboard = 'Leaderboard';
   // Seif
 
   // Youssef

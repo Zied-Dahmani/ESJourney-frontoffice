@@ -3,13 +3,24 @@ class AppRoutes {
   //static const zoomDrawerScreen = 'zoom_drawer_screen';
   static const zoomDrawerScreen = 'x';
 
-    // Zied
+  //static const zoomDrawerScreen = 'zoom_drawer_screen';
+  static const zoomDrawerScreen = 'x';
 
-    // Louay
+  // Zied
 
-    // Souhail
+  // Louay
+  static const courses = '/courses';
+  static const courseDetails = '/courseDetails';
+  static const levelMap = '/levelMap';
+  static const jackpotGame = '/jackpot';
 
-    // Seif
 
-    // Youssef
+// Souhail
+  static const quizScreen = '/quiz';
+  static const quizResult = '/quizResult';
+  static const leaderboardScreen = '/leaderboard';
+
+// Seif
+
+// Youssef
 }
