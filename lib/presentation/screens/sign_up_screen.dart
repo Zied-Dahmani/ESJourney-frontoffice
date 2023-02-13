@@ -35,7 +35,7 @@ class SignUpScreen extends StatelessWidget {
                 });
           } else if (state is UserLogInSuccess) {
             //Navigator.pop(dialogContext!);
-            Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
+            Navigator.of(context).pushNamed(AppRoutes.avatar);
           } else if (state is UserIsFailure) {
             Navigator.pop(dialogContext!);
             showScaffold(context, state.error);

@@ -1,4 +1,5 @@
 import 'package:esjourney/data/models/curriculum/course_model.dart';
+import 'package:esjourney/presentation/screens/curriculum/avatar/avatar_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/chat_users_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/courses/course_detail_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/courses/level_map_screen.dart';
@@ -17,6 +18,11 @@ class AppRouter {
       case AppRoutes.signInScreen:
         return MaterialPageRoute(
           builder: (_) => SignInScreen(),
+        );
+
+      case AppRoutes.avatar:
+        return MaterialPageRoute(
+          builder: (_) => AvatarScreen(),
         );
 
       case AppRoutes.signUpScreen:
