@@ -78,10 +78,11 @@ class MyApp extends StatelessWidget {
 
     return MultiBlocProvider(
         providers: [
+          BlocProvider<ConnectivityCubit>(
+              create: (context) => ConnectivityCubit(), lazy: false),
           BlocProvider<UserCubit>(create: (context) => UserCubit(), lazy: true),
           BlocProvider<QuizCubit>(create: (context) => QuizCubit(), lazy: true),
           BlocProvider<CourseCubit>(create: (context) => CourseCubit(), lazy: true),
-          BlocProvider<ConnectivityCubit>(create: (context) => ConnectivityCubit(), lazy: false),
 
         ],
         child: MaterialApp(

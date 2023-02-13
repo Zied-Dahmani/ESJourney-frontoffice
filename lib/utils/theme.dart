@@ -16,28 +16,31 @@ ThemeData lightTheme = ThemeData(
         surface: Colors.white,
         outline: Color(0xFF3EB8D4),
         shadow: Color(0xFFA8A9A9),
-
         onSurface: Colors.black),
     fontFamily: 'Roboto',
     textTheme: const TextTheme(
       headlineLarge: TextStyle(
-          fontSize: 26.0, fontWeight: FontWeight.bold, color: Color(0xFF3C3C3E)),
+          fontSize: 26.0,
+          fontWeight: FontWeight.bold,
+          color: Color(0xFF3C3C3E)),
       headlineMedium: TextStyle(
-          fontSize: 20.0, fontWeight: FontWeight.bold, color: Color(0xFF3C3C3E)),
+          fontSize: 20.0,
+          fontWeight: FontWeight.bold,
+          color: Color(0xFF3C3C3E)),
       bodyLarge: TextStyle(fontSize: 18.0, color: Color(0xFFEFEFEF)),
       bodyMedium: TextStyle(fontSize: 16.0, color: Color(0xFF3C3C3E)),
       bodySmall: TextStyle(fontSize: 14.0, color: Color(0xFFEFEFEF)),
     ),
-    scaffoldBackgroundColor: const Color(0xFFF8F8F8
-),
+    scaffoldBackgroundColor: const Color(0xFFF8F8F8),
     appBarTheme: const AppBarTheme(
-      color: Color(0xFFF8F8F8
-),
+      color: Color(0xFFF8F8F8),
       elevation: 0,
     ),
     inputDecorationTheme: InputDecorationTheme(
       errorStyle: const TextStyle(
-          color: Color(0xFFEB4A5A), fontSize: 14.0, fontWeight: FontWeight.normal),
+          color: Color(0xFFEB4A5A),
+          fontSize: 14.0,
+          fontWeight: FontWeight.normal),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppSizes.kradius),
         borderSide: const BorderSide(color: Color(0xFFEB4A5A), width: 2.0),
@@ -76,6 +79,7 @@ class AppSizes {
 
   static const kradius = 20.0;
   static const kiconSize = 24.0;
+  static const kimageSize = 180.0;
   static const kiconBackgroundSize = 60.0;
   static const kiconBackgroundRadius = 99.0;
 }

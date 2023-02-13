@@ -118,7 +118,7 @@ class _CourseScreenState extends State<CourseScreen> {
                           children: <Widget>[
                             Image.asset(
                               "assets/images/curriculum/badge.png",
-                              scale: 10,
+                              scale: 0.03*width,
                             ),
                             Container(
                               margin: EdgeInsets.only(
