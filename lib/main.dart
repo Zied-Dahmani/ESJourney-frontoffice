@@ -55,12 +55,8 @@ void main() async {
         ? HydratedStorage.webStorageDirectory
         : await getTemporaryDirectory(),
   );
-  BlocOverrides.runZoned(
-    () {
-      runApp(MyApp());
-    },
-    blocObserver: AppBlocObserver(),
-  );
+  Bloc.observer = AppBlocObserver();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -95,7 +91,7 @@ class MyApp extends StatelessWidget {
           home: BlocBuilder<UserCubit, UserState>(
             buildWhen: (oldState, newState) => oldState is UserInitial && newState is! UserLoadInProgress,
             builder: (context, state) {
-              if(state is UserLogInSuccess) {
+              if (state is UserLogInSuccess) {
                 return const ZoomDrawerScreen();
               } else {
                 return SignInScreen();

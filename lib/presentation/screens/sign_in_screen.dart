@@ -31,12 +31,13 @@ class SignInScreen extends StatelessWidget {
                   dialogContext = context;
                   return const Center(child: CircularProgressIndicator());
                 });
-          } else if (state is UserLogInSuccess) {
+          } else {
             Navigator.pop(dialogContext!);
-            Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
-          } else if (state is UserIsFailure) {
-            Navigator.pop(dialogContext!);
-            showScaffold(context, state.error);
+            if (state is UserLogInSuccess) {
+              Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
+            } else if (state is UserIsFailure) {
+              showSnackBar(context, state.error);
+            }
           }
         },
         child: SingleChildScrollView(
@@ -91,7 +92,7 @@ class SignInScreen extends StatelessWidget {
                                         _idController.text,
                                         _passwordController.text);
                                   } else {
-                                    showScaffold(
+                                    showSnackBar(
                                         context, kcheckInternetConnection);
                                   }
                                 }
@@ -109,7 +110,7 @@ class SignInScreen extends StatelessWidget {
     );
   }
 
-  void showScaffold(BuildContext context, String text) {
+  void showSnackBar(BuildContext context, String text) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(text),
       duration: const Duration(milliseconds: 2000),

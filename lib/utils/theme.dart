@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 ThemeData lightTheme = ThemeData(
     useMaterial3: true,
+    unselectedWidgetColor: const Color(0xFFEB4A5A),
     colorScheme: const ColorScheme(
         brightness: Brightness.dark,
         primary: Color(0xFFEB4A5A),
@@ -25,9 +26,9 @@ ThemeData lightTheme = ThemeData(
           fontSize: 20.0,
           fontWeight: FontWeight.bold,
           color: Color(0xFF3C3C3E)),
-      bodyLarge: TextStyle(fontSize: 18.0, color: Color(0xFFEFEFEF)),
+      bodyLarge: TextStyle(fontSize: 18.0, color: Color(0xFF3C3C3E)),
       bodyMedium: TextStyle(fontSize: 16.0, color: Color(0xFF3C3C3E)),
-      bodySmall: TextStyle(fontSize: 14.0, color: Color(0xFFEFEFEF)),
+      bodySmall: TextStyle(fontSize: 14.0, color: Color(0xFF3C3C3E)),
     ),
     scaffoldBackgroundColor: const Color(0xFFF8F8F8),
     appBarTheme: const AppBarTheme(
@@ -73,7 +74,9 @@ ThemeData lightTheme = ThemeData(
       backgroundColor: Color(0xFFEB4A5A),
       contentTextStyle: TextStyle(fontSize: 16.0, color: Colors.white),
     ),
-
+    radioTheme: RadioThemeData(
+      fillColor: MaterialStateColor.resolveWith((states) => const Color(0xFFEB4A5A)),
+    ),
 );
 
 class AppSizes {

@@ -1,6 +1,6 @@
 import 'package:esjourney/logic/cubits/club/club_cubit.dart';
 import 'package:esjourney/logic/cubits/club/club_state.dart';
-import 'package:esjourney/presentation/widgets/clubs_list.dart';
+import 'package:esjourney/presentation/widgets/club/clubs_list.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/presentation/widgets/button.dart';
-import 'package:esjourney/presentation/widgets/icon_with_background.dart';
+import 'package:esjourney/presentation/widgets/club/icon_with_background.dart';
 import 'package:esjourney/utils/constants.dart';
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:esjourney/utils/strings.dart';
@@ -69,8 +69,7 @@ class ClubScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(
                 horizontal: AppSizes.kbigSpace, vertical: AppSizes.kbigSpace),
             child: Text(club.description,
-                style: theme.textTheme.bodySmall!
-                    .copyWith(color: theme.colorScheme.onBackground)),
+                style: theme.textTheme.bodySmall),
           ),
           const Spacer(),
           ButtonWidget(

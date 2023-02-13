@@ -99,8 +99,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
           Container(),
           Container(),
-          Container(),
-          //const ClubsScreen()
+          const ClubsScreen()
         ],
         actionBarView: Container(),
       ),

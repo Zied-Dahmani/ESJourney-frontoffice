@@ -161,8 +161,7 @@ class _ClubsListState extends State<ClubsList> {
                             visible: value,
                             child: Text(
                               item.description,
-                              style: theme.textTheme.bodySmall!
-                                  .copyWith(color: theme.colorScheme.secondary),
+                              style: theme.textTheme.bodySmall,
                             ),
                           );
                         },
