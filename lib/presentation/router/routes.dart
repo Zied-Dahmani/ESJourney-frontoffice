@@ -3,9 +3,6 @@ class AppRoutes {
   //static const zoomDrawerScreen = 'zoom_drawer_screen';
   static const zoomDrawerScreen = 'x';
 
-  //static const zoomDrawerScreen = 'zoom_drawer_screen';
-  static const zoomDrawerScreen = 'x';
-
   // Zied
 
   // Louay

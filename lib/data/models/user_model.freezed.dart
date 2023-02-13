@@ -25,6 +25,7 @@ mixin _$User {
   String get password => throw _privateConstructorUsedError;
   int get grade => throw _privateConstructorUsedError;
   String get token => throw _privateConstructorUsedError;
+  int get coins => throw _privateConstructorUsedError;
   List<UserCourse>? get courses => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,6 +44,7 @@ abstract class $UserCopyWith<$Res> {
       String password,
       int grade,
       String token,
+      int coins,
       List<UserCourse>? courses});
 }
 
@@ -64,6 +66,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? password = null,
     Object? grade = null,
     Object? token = null,
+    Object? coins = null,
     Object? courses = freezed,
   }) {
     return _then(_value.copyWith(
@@ -87,6 +90,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
+      coins: null == coins
+          ? _value.coins
+          : coins // ignore: cast_nullable_to_non_nullable
+              as int,
       courses: freezed == courses
           ? _value.courses
           : courses // ignore: cast_nullable_to_non_nullable
@@ -107,6 +114,7 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String password,
       int grade,
       String token,
+      int coins,
       List<UserCourse>? courses});
 }
 
@@ -124,6 +132,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? password = null,
     Object? grade = null,
     Object? token = null,
+    Object? coins = null,
     Object? courses = freezed,
   }) {
     return _then(_$_User(
@@ -147,6 +156,10 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
+      coins: null == coins
+          ? _value.coins
+          : coins // ignore: cast_nullable_to_non_nullable
+              as int,
       courses: freezed == courses
           ? _value._courses
           : courses // ignore: cast_nullable_to_non_nullable
@@ -164,6 +177,7 @@ class _$_User implements _User {
       required this.password,
       required this.grade,
       required this.token,
+      required this.coins,
       final List<UserCourse>? courses})
       : _courses = courses;
 
@@ -179,6 +193,8 @@ class _$_User implements _User {
   final int grade;
   @override
   final String token;
+  @override
+  final int coins;
   final List<UserCourse>? _courses;
   @override
   List<UserCourse>? get courses {
@@ -191,7 +207,7 @@ class _$_User implements _User {
 
   @override
   String toString() {
-    return 'User(email: $email, username: $username, password: $password, grade: $grade, token: $token, courses: $courses)';
+    return 'User(email: $email, username: $username, password: $password, grade: $grade, token: $token, coins: $coins, courses: $courses)';
   }
 
   @override
@@ -206,13 +222,14 @@ class _$_User implements _User {
                 other.password == password) &&
             (identical(other.grade, grade) || other.grade == grade) &&
             (identical(other.token, token) || other.token == token) &&
+            (identical(other.coins, coins) || other.coins == coins) &&
             const DeepCollectionEquality().equals(other._courses, _courses));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, email, username, password, grade,
-      token, const DeepCollectionEquality().hash(_courses));
+      token, coins, const DeepCollectionEquality().hash(_courses));
 
   @JsonKey(ignore: true)
   @override
@@ -235,6 +252,7 @@ abstract class _User implements User {
       required final String password,
       required final int grade,
       required final String token,
+      required final int coins,
       final List<UserCourse>? courses}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
@@ -249,6 +267,8 @@ abstract class _User implements User {
   int get grade;
   @override
   String get token;
+  @override
+  int get coins;
   @override
   List<UserCourse>? get courses;
   @override

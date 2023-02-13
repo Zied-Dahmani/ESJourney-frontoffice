@@ -11,6 +11,7 @@ class User with _$User {
     required String password,
     required int grade,
     required String token,
+    required int coins,
     List<UserCourse>? courses,
   }) = _User;
 

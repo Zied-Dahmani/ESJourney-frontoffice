@@ -3,7 +3,10 @@ import 'package:esjourney/logic/cubits/challenges/quiz_cubit.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
 import 'package:esjourney/logic/cubits/curriculum/course_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
+import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/router/app_router.dart';
+import 'package:esjourney/presentation/screens/sign_in_screen.dart';
+import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
 import 'package:esjourney/utils/strings.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/foundation.dart';
@@ -48,14 +51,17 @@ void main() async {
     );
   };
 
-  final storage = await HydratedStorage.build(
+  HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: kIsWeb
         ? HydratedStorage.webStorageDirectory
         : await getTemporaryDirectory(),
   );
-
-  HydratedBlocOverrides.runZoned(() => runApp(MyApp()),
-      storage: storage, blocObserver: AppBlocObserver());
+  BlocOverrides.runZoned(
+        () {
+      runApp(MyApp());
+    },
+    blocObserver: AppBlocObserver(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -72,10 +78,11 @@ class MyApp extends StatelessWidget {
 
     return MultiBlocProvider(
         providers: [
+          BlocProvider<ConnectivityCubit>(
+              create: (context) => ConnectivityCubit(), lazy: false),
           BlocProvider<UserCubit>(create: (context) => UserCubit(), lazy: true),
           BlocProvider<QuizCubit>(create: (context) => QuizCubit(), lazy: true),
           BlocProvider<CourseCubit>(create: (context) => CourseCubit(), lazy: true),
-          BlocProvider<ConnectivityCubit>(create: (context) => ConnectivityCubit(), lazy: false),
 
         ],
         child: MaterialApp(
@@ -85,12 +92,16 @@ class MyApp extends StatelessWidget {
           theme: lightTheme,
           themeMode: ThemeMode.light,
           onGenerateRoute: _appRouter.onGenerateRoute,
-          /*home: BlocBuilder<UserCubit, UserState>(builder: (context, state) {
-            if (state is UserLogInSuccess) {
-              return const MainScreen();
-            }
-            return const OnBoardingScreen();
-          }),*/
+          home: BlocBuilder<UserCubit, UserState>(
+            buildWhen: (oldState, newState) => oldState is UserInitial && newState is! UserLoadInProgress,
+            builder: (context, state) {
+              if(state is UserLogInSuccess) {
+                return const ZoomDrawerScreen();
+              } else {
+                return SignInScreen();
+              }
+            },
+          ),
         ));
   }
 }

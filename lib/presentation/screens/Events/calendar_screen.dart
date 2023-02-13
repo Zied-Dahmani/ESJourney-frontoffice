@@ -2,10 +2,12 @@ import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:esjourney/data/models/orientation/event_model.dart';
 
+import '../zoom_drawer_screen.dart';
 import 'event_details_screen.dart';
 
 class CalendarScreen extends StatefulWidget {
@@ -78,6 +80,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
       return Scaffold(
         appBar: AppBar(
           title: const Text('Calendar'),
+          centerTitle: true,
         ),
         body: Column(
           children: [
