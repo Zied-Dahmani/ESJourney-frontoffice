@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:esjourney/logic/cubits/curriculum/course_cubit.dart';
 import 'package:esjourney/logic/cubits/curriculum/course_state.dart';
@@ -30,7 +31,7 @@ class _CourseScreenState extends State<CourseScreen> {
           return Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              //TODO : DONE
+              //TODO : improve ui and make it responsive ( better )
               Container(
                 margin: EdgeInsets.only(
                   right: 0.08 * width,
@@ -59,22 +60,30 @@ class _CourseScreenState extends State<CourseScreen> {
                         ),
                       ],
                     ),
-                    Material(
-                      borderRadius: BorderRadius.circular(0.1 * width),
-                      elevation: 10,
-                      child: CircleAvatar(
-                        radius: 0.1 * width,
-                        backgroundImage: const AssetImage(
-                            "assets/images/curriculum/profile_pic.jpg"),
-                      ),
-                    ),
+                    CachedNetworkImage(
+                        imageUrl: user.twoDAvatar!,
+                        placeholderFadeInDuration: const Duration(seconds: 2),
+                        placeholder: (context, url) =>
+                            const CircularProgressIndicator(),
+                        imageBuilder: (context, imageProvider) {
+                          return Material(
+                            borderRadius: BorderRadius.circular(0.1 * width),
+                            elevation: 10,
+                            child: CircleAvatar(
+                              backgroundColor: Colors.transparent,
+                              radius: 0.1 * width,
+                              backgroundImage: imageProvider,
+                            ),
+                          );
+                        }),
                   ],
                 ),
               ),
-              //TODO : DONE
+              //coins & progress
               Container(
+                width: double.infinity,
                 margin: EdgeInsets.only(
-                  top: 0.05 * height,
+                  top: 0.03 * height,
                   right: 0.08 * width,
                   left: 0.08 * width,
                 ),
@@ -101,114 +110,93 @@ class _CourseScreenState extends State<CourseScreen> {
                     ),
                   ],
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Flexible(
-                      flex: 1,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            AppRoutes.levelMap,
-                            arguments: user.grade,
-                          );
-                        },
-                        child: Row(
-                          children: <Widget>[
-                            Image.asset(
-                              "assets/images/curriculum/badge.png",
-                              scale: 10,
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(
-                                left: 0.02 * width,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  const Text(
-                                    "View progress",
-                                    style: TextStyle(
-                                      fontSize: 14,
+                child: IntrinsicHeight(
+                  child: IntrinsicWidth(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                AppRoutes.levelMap,
+                                arguments: user.grade,
+                              );
+                            },
+                            child: Row(
+                              children: <Widget>[
+                                const Flexible(
+                                  child: CircleAvatar(
+                                    backgroundImage: AssetImage(
+                                      "assets/images/curriculum/badge.png",
                                     ),
-                                  ),
-                                  Text(
-                                    "Level ${user.grade}",
-                                    style: const TextStyle(
-                                      color: Colors.blue,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(
-                        top: 0.01 * height,
-                        bottom: 0.01 * height,
-                      ),
-                      child: const VerticalDivider(
-                        color: Colors.grey,
-                        thickness: 0.6,
-                      ),
-                    ),
-                    Flexible(
-                      child: Row(
-                        children: <Widget>[
-                          Image.asset(
-                            "assets/images/curriculum/coin.png",
-                            scale: 10,
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(
-                              left: 0.02 * width,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const <Widget>[
-                                Text(
-                                  "Points",
-                                  style: TextStyle(
-                                    fontSize: 14,
+                                    backgroundColor: Colors.transparent,
                                   ),
                                 ),
-                                Text(
-                                  "1200",
-                                  style: TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 18,
-                                  ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    const Text("View Progress"),
+                                    Text(user.grade.toString()),
+                                  ],
                                 ),
                               ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                            top: 0.01 * height,
+                            bottom: 0.01 * height,
+                          ),
+                          child: const VerticalDivider(
+                            color: Colors.grey,
+                            thickness: 0.6,
+                          ),
+                        ),
+                        Expanded(
+                          child: Row(
+                            children: <Widget>[
+                              const Flexible(
+                                child: CircleAvatar(
+                                  backgroundImage: AssetImage(
+                                    "assets/images/curriculum/coin.png",
+                                  ),
+                                  backgroundColor: Colors.transparent,
+                                ),
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  const Text("coins"),
+                                  Text(user.coins.toString()),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
-              //TODO : DONE
+              // courses text
               Container(
                 margin: EdgeInsets.only(
                   top: 0.03 * height,
                   right: 0.08 * width,
                   left: 0.08 * width,
                 ),
-                child: Align(
+                child: const Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "COURSES",
                     style: TextStyle(
                       color: Colors.black54,
-                      fontSize: 0.04 * width,
+                      fontSize: 12,
                       fontWeight: FontWeight.normal,
                     ),
                   ),
