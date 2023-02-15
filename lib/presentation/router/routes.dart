@@ -12,6 +12,7 @@ class AppRoutes {
   static const courseDetails = '/courseDetails';
   static const levelMap = '/levelMap';
   static const jackpotGame = '/jackpot';
+  static const wordlyGame = '/wordly';
   static const chatUsers = '/chatUsers';
   static const avatar = '/avatar';
 

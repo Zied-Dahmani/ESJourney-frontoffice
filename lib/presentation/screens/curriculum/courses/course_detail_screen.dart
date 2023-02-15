@@ -52,6 +52,14 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
           //Navigator.of(context).pushNamed(AppRoutes.jackpotGame);
         },
       ),
+      Game(
+        title: "Worldly",
+        imagePath: "assets/images/curriculum/remember.png",
+        onTap: () {
+          print("worldly");
+          Navigator.of(context).pushNamed(AppRoutes.wordlyGame);
+        },
+      ),
     ];
     return Scaffold(
       backgroundColor: Colors.white,
@@ -113,7 +121,8 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                   backgroundColor: Colors.transparent,
                   maxRadius: 100,
                   minRadius: 80,
-                  backgroundImage: AssetImage("assets/images/curriculum/hangman.png"),
+                  backgroundImage:
+                      AssetImage("assets/images/curriculum/hangman.png"),
                 ),
               ),
               Container(
