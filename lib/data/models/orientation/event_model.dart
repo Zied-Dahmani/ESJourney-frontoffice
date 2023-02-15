@@ -7,13 +7,15 @@ class Event with _$Event {
   const factory Event({
     required String id,
     required String title,
-    DateTime? date,
+    required DateTime date,
     required String startTime,
     String? endTime,
     required String description,
     String? isDone,
-    String? type,
+    required String type,
     String? eventImage,
+    String? location,
+    String? requirementsDescription,
   }) = _Event;
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);

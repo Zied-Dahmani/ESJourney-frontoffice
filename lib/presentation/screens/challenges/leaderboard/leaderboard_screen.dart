@@ -1,6 +1,7 @@
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:esjourney/utils/strings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class LeaderboardScreen extends StatefulWidget {
   const LeaderboardScreen({Key? key}) : super(key: key);
@@ -20,90 +21,36 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          ClipPath(
-            clipper: MyCustomClipper(),
-            child: Container(
-              height: 400,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    theme.colorScheme.primary,
-                    theme.colorScheme.onPrimary,
-                  ],
-                ),
-              ),
-              child: Stack(
+          Stack(
+            children: [
+            SvgPicture.asset(
+              'assets/icons/challenges/leaderboard.svg',
+              height: width * 1.035,
+            ),
+              Column(
                 children: [
-                  RandomCircles(
-                    width: 0.5 * width,
-                    height: 0.5 * width,
-                    left: 0.76 * width,
-                    top: -0.22 * width,
+                  SizedBox(
+                    height: width * 0.1,
                   ),
-                  RandomCircles(
-                    width: 0.1 * width,
-                    height: 0.1 * width,
-                    left: 0.58 * width,
-                    top: 0.076 * width,
-                  ),
-                  RandomCircles(
-                    width: 0.17 * width,
-                    height: 0.17 * width,
-                    left: 0.17 * width,
-                    top: 0.076 * width,
-                  ),
-                  RandomCircles(
-                    width: 0.17 * width,
-                    height: 0.17 * width,
-                    left: 0.76 * width,
-                    top: 0.3 * width,
-                  ),
-                  RandomCircles(
-                    width: 0.1 * width,
-                    height: 0.1 * width,
-                    left: 0.51 * width,
-                    top: 0.51 * width,
-                  ),
-                  RandomCircles(
-                    width: 0.05 * width,
-                    height: 0.05 * width,
-                    left: 0.17 * width,
-                    top: 0.51 * width,
-                  ),
-                  RandomCircles(
-                    width: 0.1 * width,
-                    height: 0.1 * width,
-                    left: 0.0255 * width,
-                    top: 0.51 * width,
-                  ),
-                  Column(
-                    children: [
-                      SizedBox(
-                        height: width * 0.1,
+                  Center(
+                    child: Text(
+                      AppStrings.kleaderboard,
+                      style: TextStyle(
+                        color: theme.colorScheme.onPrimary,
+                        fontSize: 25,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'VisbyRoundCF',
                       ),
-                      Center(
-                        child: Text(
-                          AppStrings.kleaderboard,
-                          style: TextStyle(
-                            color: theme.colorScheme.onPrimary,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'VisbyRoundCF',
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: width * 0.05,
-                      ),
-                      const LeaderboardHistory(
-                          buttonLabels: ["All time", "This week", "Month"]),
-                    ],
+                    ),
                   ),
+                  SizedBox(
+                    height: width * 0.05,
+                  ),
+                  const LeaderboardHistory(
+                      buttonLabels: ["All time", "This week", "Month"]),
                 ],
               ),
-            ),
+            ],
           ),
           TopThreeUsers(),
         ],

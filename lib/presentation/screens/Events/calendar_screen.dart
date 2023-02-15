@@ -2,6 +2,7 @@ import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -23,24 +24,32 @@ class _CalendarScreenState extends State<CalendarScreen> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   List<Event> events = [
     Event(
-        id: '1',
-        title: 'Student Management System C++',
-        date: DateTime.now(),
-        description:
-            'The Student Management System is a program that aims to simplify the process of recording and managing student data in a school or educational institution. It is a menu-driven program that allows users to perform various tasks such as adding new students, updating existing records, viewing student information, and generating reports. The program is written in C++ and utilizes object-oriented programming concepts such as classes, objects, and inheritance.The Student Management System is a program that aims to simplify the process of recording and managing student data in a school or educational institution. It is a menu-driven program that allows users to perform various tasks such as adding new students, updating existing records, viewing student information, and generating reports. The program is written in C++ and utilizes object-oriented programming concepts such as classes, objects, and inheritance.',
-        isDone: 'true',
-        type: 'Orientation',
-        startTime: "13:00",
-        endTime: "14:00",
-        eventImage: 'assets/images/C++event.png'),
+      id: '1',
+      title: 'Student Management System C++',
+      date: DateTime.now(),
+      description:
+          'The Student Management System is a program that aims to simplify the process of recording and managing student data in a school or educational institution. It is a menu-driven program that allows users to perform various tasks such as adding new students, updating existing records, viewing student information, and generating reports. The program is written in C++ and utilizes object-oriented programming concepts such as classes, objects, and inheritance.The Student Management System is a program that aims to simplify the process of recording and managing student data in a school or educational institution. It is a menu-driven program that allows users to perform various tasks such as adding new students, updating existing records, viewing student information, and generating reports. The program is written in C++ and utilizes object-oriented programming concepts such as classes, objects, and inheritance.',
+      isDone: 'true',
+      type: 'Project',
+      startTime: "13:00",
+      endTime: "14:00",
+      eventImage: 'assets/images/C++event.png',
+      location: 'ES-Journey ',
+      requirementsDescription:
+          'The Student Management System is a program that aims to simplify the process of recording and managing student data in a school or educational institution. It is a menu-driven program that allows users to perform various tasks such as adding new students, updating existing records, viewing student information, and generating reports. The program is written in C++ and utilizes object-oriented programming concepts such as classes, objects, and inheritance.',
+    ),
     Event(
-        id: '2',
-        title: 'Event 4',
-        date: DateTime.now(),
-        description: 'This is event 4',
-        isDone: 'false',
-        type: 'Project',
-        startTime: "All day"),
+      id: '2',
+      title: 'AI Talk',
+      date: DateTime.now(),
+      description: 'This is event 4',
+      isDone: 'false',
+      type: 'Orientation',
+      startTime: "All day",
+      eventImage: 'assets/images/AI.jpg',
+      location: 'Esprit bloc-C',
+      requirementsDescription: 'This is event 4',
+    ),
     Event(
       id: '3',
       title: 'Event 2',
@@ -50,15 +59,21 @@ class _CalendarScreenState extends State<CalendarScreen> {
       type: 'Orientation',
       startTime: "11:00",
       endTime: "12:00",
+      eventImage: 'assets/images/Event2.jpg',
+      location: 'Esprit bloc-C',
+      requirementsDescription: 'This is event 2',
     ),
     Event(
-        id: '4',
-        title: 'Event 3',
-        date: DateTime.now().add(const Duration(days: 2)),
-        description: 'This is event 3',
-        isDone: 'false',
-        type: 'Project',
-        startTime: "All day"),
+      id: '4',
+      title: 'Event 3',
+      date: DateTime.now().add(const Duration(days: 2)),
+      description: 'This is event 3',
+      isDone: 'false',
+      type: 'Project',
+      startTime: "All day",
+      eventImage: 'assets/images/Event3.jpg',
+      location: 'Esprit bloc-C',
+    ),
   ];
 
   List<Event> _getEventsForDay(DateTime day) {
@@ -76,11 +91,39 @@ class _CalendarScreenState extends State<CalendarScreen> {
   Widget build(BuildContext context) {
     var date = selectedDay;
     final eventsForSelectedDay = _getEventsForDay(selectedDay);
+    const myBorderRadius = BorderRadius.all(Radius.circular(10));
     return BlocBuilder<UserCubit, UserState>(builder: (context, state) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Calendar'),
+          title: const Text(
+            'Calendar',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
           centerTitle: true,
+          leading: IconButton(
+            icon: const Icon(
+              FontAwesomeIcons.bars,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              ZoomDrawer.of(context)!.toggle();
+            },
+          ),
+          actions: [
+            IconButton(
+              icon: const Icon(
+                FontAwesomeIcons.calendarAlt,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                currentDay();
+              },
+            ),
+          ],
         ),
         body: Column(
           children: [
@@ -113,7 +156,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   color: Colors.red[100],
                   shape: BoxShape.circle,
                 ),
-                defaultDecoration: const BoxDecoration(shape: BoxShape.circle),
+                defaultDecoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                ),
               ),
               calendarBuilders: CalendarBuilders(
                 markerBuilder: (context, day, events) => events.isNotEmpty
@@ -171,60 +216,101 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             startTime: event.startTime,
                             description: event.description,
                             endTime: event.endTime,
-                            type: event.type!,
+                            type: event.type,
                             date: date,
                             isDone: event.isDone!,
                             eventImage: event.eventImage,
+                            location: event.location,
+                            requirementsDescription:
+                                event.requirementsDescription,
+
                           ),
                         ),
                       );
                     },
                     child: Container(
-                      margin: const EdgeInsets.only(left: 8, top: 8),
+                      margin: const EdgeInsets.only(left: 2, top: 8, right: 2),
                       decoration:
                           border != null ? BoxDecoration(border: border) : null,
-                      child: ListTile(
-                        title: textStyle != null
-                            ? Text(event.title, style: textStyle)
-                            : null,
-                        subtitle: Text(event.description,
-                            style: const TextStyle(color: Colors.grey),
-                            overflow: TextOverflow.ellipsis
-                        ),
-                        trailing: event.isDone == 'true'
-                            ? Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Icon(Icons.check_circle, color: Colors.green),
-                                  Text('Done',
-                                      style: TextStyle(color: Colors.green))
-                                ],
-                              )
-                            : event.startTime != null
-                                ? FittedBox(
-                                    fit: BoxFit.fitWidth,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        const Icon(Icons.timer,
-                                            color: Colors.grey),
-                                        Text(
-                                          event.startTime,
+                      child: Material(
+                        elevation: 4,
+                        child: ListTile(
+                          title: textStyle != null
+                              ? Text(event.title, style: textStyle)
+                              : null,
+                          subtitle: Column(
+                            children: [
+                              const SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  const Icon(Icons.location_on,
+                                      color: Colors.black54, size: 18),
+                                  const SizedBox(width: 5),
+                                  event.location != null
+                                      ? Text(event.location!,
                                           style: const TextStyle(
-                                              color: Colors.black),
-                                        ),
-                                        event.endTime != null
-                                            ? Text(
-                                                event.endTime!,
-                                                style: const TextStyle(
-                                                    color: Colors.grey),
-                                              )
-                                            : const SizedBox(),
-                                      ],
-                                    ),
+                                              color: Colors.black54,
+                                              fontSize: 12))
+                                      : const Text('No location',
+                                          style: TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 12)),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  const Icon(Icons.access_time,
+                                      color: Colors.black54, size: 18),
+                                  const SizedBox(width: 5),
+                                  event.endTime != null
+                                      ? Text(
+                                          '${event.startTime} - ${event.endTime!}',
+                                          style: const TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 15))
+                                      : Text(event.startTime,
+                                          style: const TextStyle(
+                                              color: Colors.black54,
+                                              fontSize: 15)),
+                                ],
+                              ),
+                            ],
+                          ),
+                          trailing: Container(
+                            child: event.isDone == 'false'
+                                ? Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: const [
+                                      Icon(
+                                        Icons.timer,
+                                        color: Colors.grey,
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        'Soon',
+                                        style: TextStyle(
+                                            color: Colors.grey, fontSize: 10),
+                                      ),
+                                    ],
                                   )
-                                : const SizedBox(),
+                                : Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: const [
+                                      Icon(
+                                        Icons.check_circle,
+                                        color: Colors.green,
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        'Done',
+                                        style: TextStyle(
+                                            color: Colors.green, fontSize: 10),
+                                      ),
+                                    ],
+                                  ),
+                          ),
+                        ),
                       ),
                     ),
                   );
@@ -233,10 +319,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
             ),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
+        /*floatingActionButton: FloatingActionButton(
           onPressed: currentDay,
           child: const Icon(Icons.today),
-        ),
+        ),*/
       );
     });
   }
