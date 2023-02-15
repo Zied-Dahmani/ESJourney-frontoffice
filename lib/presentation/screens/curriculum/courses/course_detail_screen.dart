@@ -32,8 +32,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
         title: "Jackpot",
         imagePath: "assets/images/curriculum/jackpot.png",
         onTap: () {
-          print("jackpot");
-          //Navigator.of(context).pushNamed(AppRoutes.jackpotGame);
+          Navigator.of(context).pushNamed(AppRoutes.jackpotGame);
         },
       ),
       Game(
@@ -46,17 +45,15 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
       ),
       Game(
         title: "Remember",
-        imagePath: "assets/images/curriculum/remember.png",
+        imagePath: "assets/images/curriculum/memory.png",
         onTap: () {
-          print("remember");
-          //Navigator.of(context).pushNamed(AppRoutes.jackpotGame);
+          Navigator.of(context).pushNamed(AppRoutes.memoryGame);
         },
       ),
       Game(
         title: "Worldly",
         imagePath: "assets/images/curriculum/remember.png",
         onTap: () {
-          print("worldly");
           Navigator.of(context).pushNamed(AppRoutes.wordlyGame);
         },
       ),

@@ -4,6 +4,7 @@ import 'package:esjourney/presentation/screens/curriculum/chat/chat_users_screen
 import 'package:esjourney/presentation/screens/curriculum/courses/course_detail_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/courses/level_map_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/jackpot/jackpot_screen.dart';
+import 'package:esjourney/presentation/screens/curriculum/games/memory/screen/memory_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/worldy/screens/wordly_game.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
 import 'package:esjourney/presentation/screens/sign_up_screen.dart';
@@ -48,6 +49,9 @@ class AppRouter {
 
       case AppRoutes.wordlyGame:
         return MaterialPageRoute(builder: (_) => const WordlyPage());
+
+      case AppRoutes.memoryGame:
+        return MaterialPageRoute(builder: (_) => const MemoryScreen());
 
       case AppRoutes.chatUsers:
         return MaterialPageRoute(builder: (_) => const UserChatScreen());
