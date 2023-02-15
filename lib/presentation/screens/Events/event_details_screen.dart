@@ -31,14 +31,24 @@ class EventDetails extends StatefulWidget {
   @override
   State<EventDetails> createState() => _EventDetailsState();
 }
+var _buttonText = 'Register';
+var _buttonColor = Colors.green;
+
 
 class _EventDetailsState extends State<EventDetails> {
-
+  void updateButtonText(String text, MaterialColor color ) {
+    setState(() {
+      _buttonText = text;
+      _buttonColor = color;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     final textTheme = Theme.of(context).textTheme;
+
+
 
 
     return Scaffold(
@@ -183,102 +193,148 @@ class _EventDetailsState extends State<EventDetails> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
+
                                   StatefulBuilder(
                                     builder: (BuildContext context, StateSetter setState) {
-
-                                      var buttonText = 'Register';
-                                      return ElevatedButton(
-
-                                        onPressed: () {
-                                          if (buttonText == 'Register') {
-                                            showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                bool isChecked = false;
-                                                return StatefulBuilder(
-                                                  builder: (BuildContext context, StateSetter setState) {
-                                                    return AlertDialog(
-                                                      title: const Text(
-                                                        'Registration Requirements',
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontWeight: FontWeight.bold,
-                                                          fontSize: 18,
+                                      return Expanded(
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: _buttonColor,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(10),
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            if (_buttonText == 'Register') {
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  bool isChecked = false;
+                                                  return StatefulBuilder(
+                                                    builder: (BuildContext
+                                                    context,
+                                                        StateSetter setState) {
+                                                      return AlertDialog(
+                                                        title: const Text(
+                                                          'Registration Requirements',
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                            FontWeight.bold,
+                                                            fontSize: 18,
+                                                          ),
                                                         ),
-                                                      ),
-                                                      content: Column(
-                                                        mainAxisSize: MainAxisSize.min,
-                                                        children: <Widget>[
-                                                          const Text(
-                                                            'Please read and accept the requirements to register.',
-                                                            style: TextStyle(
-                                                              color: Colors.black,
-                                                              fontSize: 15.0,
-                                                              fontWeight: FontWeight.w600,
+                                                        content: Column(
+                                                          mainAxisSize:
+                                                          MainAxisSize.min,
+                                                          children: <Widget>[
+                                                            const Text(
+                                                              'Please read and accept the requirements to register.',
+                                                              style: TextStyle(
+                                                                color:
+                                                                Colors.black,
+                                                                fontSize: 15.0,
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .w600,
+                                                              ),
                                                             ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: MediaQuery.of(context).size.height * 0.01,
-                                                          ),
-                                                          Expanded(
-                                                            flex: 1,
-                                                            child: SingleChildScrollView(
-                                                              child: Text(
-                                                                widget.requirementsDescription!,
-                                                                style: textTheme.bodyMedium?.copyWith(
-                                                                  color: Colors.black,
-                                                                  fontWeight: FontWeight.w300,
+                                                            SizedBox(
+                                                              height: MediaQuery.of(
+                                                                  context)
+                                                                  .size
+                                                                  .height *
+                                                                  0.01,
+                                                            ),
+                                                            Expanded(
+                                                              flex: 1,
+                                                              child:
+                                                              SingleChildScrollView(
+                                                                child: Text(
+                                                                  widget
+                                                                      .requirementsDescription!,
+                                                                  style: textTheme
+                                                                      .bodyMedium
+                                                                      ?.copyWith(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                    FontWeight
+                                                                        .w300,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
-                                                          ),
-                                                          CheckboxListTile(
-                                                            title: Text('I accept the requirements.'),
-                                                            value: isChecked,
-                                                            onChanged: (bool? value) {
-                                                              setState(() {
-                                                                isChecked = value ?? false;
-                                                              });
+                                                            CheckboxListTile(
+                                                              title: const Text(
+                                                                  'I accept the requirements.'),
+                                                              value: isChecked,
+                                                              onChanged:
+                                                                  (bool? value) {
+                                                                setState(() {
+                                                                  isChecked =
+                                                                      value ??
+                                                                          false;
+                                                                });
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        actions: <Widget>[
+                                                          TextButton(
+                                                            child: const Text(
+                                                                'Cancel'),
+                                                            onPressed: () {
+                                                              Navigator.of(
+                                                                  context)
+                                                                  .pop();
                                                             },
                                                           ),
+                                                          ElevatedButton(
+                                                            onPressed: isChecked
+                                                                ? () {
+                                                              setState(() {
+                                                                _buttonColor = Colors.red;
+                                                                _buttonText =
+                                                                'Unregister';
+                                                                print(_buttonText);
+                                                              });
+                                                              updateButtonText(_buttonText,_buttonColor);
+                                                              Navigator.of(
+                                                                  context)
+                                                                  .pop();
+                                                            }
+
+                                                                : null,
+                                                            child: const Text(
+                                                                'Confirm'),
+                                                          ),
                                                         ],
-                                                      ),
-                                                      actions: <Widget>[
-                                                        TextButton(
-                                                          child: Text('Cancel'),
-                                                          onPressed: () {
-                                                            Navigator.of(context).pop();
-                                                          },
-                                                        ),
-                                                        ElevatedButton(
-                                                          child: Text('Register'),
-                                                          onPressed: isChecked
-                                                              ? () {
-                                                            setState(() {
-                                                              buttonText = 'Unregister';
-                                                              print('buttonText updated to $buttonText');
-                                                            });
-                                                            Navigator.of(context).pop();
-                                                          }
-                                                              : null,
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                            );
-                                          } else {
-                                            setState(() {
-                                              buttonText = 'Register';
-                                              print('buttonText updated to $buttonText');
-                                            });
-                                          }
-                                        },
-                                        child: Text(buttonText),
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                              );
+                                            } else {
+                                              setState(() {
+                                                _buttonText = 'Register';
+                                                _buttonColor = Colors.green;
+                                                print(_buttonText);
+                                              });
+                                              updateButtonText(_buttonText, _buttonColor);
+                                            }
+                                          },
+                                          child: Text(_buttonText,
+                                              style: textTheme.bodyLarge?.copyWith(
+                                                color: Colors.white,
+                                              )),
+                                        ),
                                       );
                                     },
-                                  ),
+                                  )
+
+
 
 
                                 ],

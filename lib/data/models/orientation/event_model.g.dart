@@ -18,6 +18,7 @@ _$_Event _$$_EventFromJson(Map<String, dynamic> json) => _$_Event(
       eventImage: json['eventImage'] as String?,
       location: json['location'] as String?,
       requirementsDescription: json['requirementsDescription'] as String?,
+      areRegistered: json['areRegistered'] as bool?,
     );
 
 Map<String, dynamic> _$$_EventToJson(_$_Event instance) => <String, dynamic>{
@@ -32,4 +33,5 @@ Map<String, dynamic> _$$_EventToJson(_$_Event instance) => <String, dynamic>{
       'eventImage': instance.eventImage,
       'location': instance.location,
       'requirementsDescription': instance.requirementsDescription,
+      'areRegistered': instance.areRegistered,
     };

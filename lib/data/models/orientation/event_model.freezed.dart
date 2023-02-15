@@ -31,6 +31,7 @@ mixin _$Event {
   String? get eventImage => throw _privateConstructorUsedError;
   String? get location => throw _privateConstructorUsedError;
   String? get requirementsDescription => throw _privateConstructorUsedError;
+  bool? get areRegistered => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,7 +54,8 @@ abstract class $EventCopyWith<$Res> {
       String type,
       String? eventImage,
       String? location,
-      String? requirementsDescription});
+      String? requirementsDescription,
+      bool? areRegistered});
 }
 
 /// @nodoc
@@ -80,6 +82,7 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
     Object? eventImage = freezed,
     Object? location = freezed,
     Object? requirementsDescription = freezed,
+    Object? areRegistered = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -126,6 +129,10 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
           ? _value.requirementsDescription
           : requirementsDescription // ignore: cast_nullable_to_non_nullable
               as String?,
+      areRegistered: freezed == areRegistered
+          ? _value.areRegistered
+          : areRegistered // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -147,7 +154,8 @@ abstract class _$$_EventCopyWith<$Res> implements $EventCopyWith<$Res> {
       String type,
       String? eventImage,
       String? location,
-      String? requirementsDescription});
+      String? requirementsDescription,
+      bool? areRegistered});
 }
 
 /// @nodoc
@@ -170,6 +178,7 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
     Object? eventImage = freezed,
     Object? location = freezed,
     Object? requirementsDescription = freezed,
+    Object? areRegistered = freezed,
   }) {
     return _then(_$_Event(
       id: null == id
@@ -216,6 +225,10 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
           ? _value.requirementsDescription
           : requirementsDescription // ignore: cast_nullable_to_non_nullable
               as String?,
+      areRegistered: freezed == areRegistered
+          ? _value.areRegistered
+          : areRegistered // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -234,7 +247,8 @@ class _$_Event implements _Event {
       required this.type,
       this.eventImage,
       this.location,
-      this.requirementsDescription});
+      this.requirementsDescription,
+      this.areRegistered});
 
   factory _$_Event.fromJson(Map<String, dynamic> json) =>
       _$$_EventFromJson(json);
@@ -261,10 +275,12 @@ class _$_Event implements _Event {
   final String? location;
   @override
   final String? requirementsDescription;
+  @override
+  final bool? areRegistered;
 
   @override
   String toString() {
-    return 'Event(id: $id, title: $title, date: $date, startTime: $startTime, endTime: $endTime, description: $description, isDone: $isDone, type: $type, eventImage: $eventImage, location: $location, requirementsDescription: $requirementsDescription)';
+    return 'Event(id: $id, title: $title, date: $date, startTime: $startTime, endTime: $endTime, description: $description, isDone: $isDone, type: $type, eventImage: $eventImage, location: $location, requirementsDescription: $requirementsDescription, areRegistered: $areRegistered)';
   }
 
   @override
@@ -288,7 +304,9 @@ class _$_Event implements _Event {
                 other.location == location) &&
             (identical(
                     other.requirementsDescription, requirementsDescription) ||
-                other.requirementsDescription == requirementsDescription));
+                other.requirementsDescription == requirementsDescription) &&
+            (identical(other.areRegistered, areRegistered) ||
+                other.areRegistered == areRegistered));
   }
 
   @JsonKey(ignore: true)
@@ -305,7 +323,8 @@ class _$_Event implements _Event {
       type,
       eventImage,
       location,
-      requirementsDescription);
+      requirementsDescription,
+      areRegistered);
 
   @JsonKey(ignore: true)
   @override
@@ -333,7 +352,8 @@ abstract class _Event implements Event {
       required final String type,
       final String? eventImage,
       final String? location,
-      final String? requirementsDescription}) = _$_Event;
+      final String? requirementsDescription,
+      final bool? areRegistered}) = _$_Event;
 
   factory _Event.fromJson(Map<String, dynamic> json) = _$_Event.fromJson;
 
@@ -359,6 +379,8 @@ abstract class _Event implements Event {
   String? get location;
   @override
   String? get requirementsDescription;
+  @override
+  bool? get areRegistered;
   @override
   @JsonKey(ignore: true)
   _$$_EventCopyWith<_$_Event> get copyWith =>

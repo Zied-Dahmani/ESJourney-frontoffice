@@ -16,6 +16,7 @@ class Event with _$Event {
     String? eventImage,
     String? location,
     String? requirementsDescription,
+    bool? areRegistered,
   }) = _Event;
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
