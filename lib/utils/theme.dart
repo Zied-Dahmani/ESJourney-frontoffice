@@ -10,6 +10,7 @@ ThemeData lightTheme = ThemeData(
         secondary: Color(0xFF3C3C3E),
         onSecondary: Colors.white,
         tertiary: Color(0xFFCFCFCF),
+        onTertiary: Colors.grey,
         background: Color(0xFFFAFAFA),
         onBackground: Colors.black,
         error: Color(0xFFEB4A5A),
@@ -92,4 +93,10 @@ class AppSizes {
   static const kiconSize = 24.0;
   static const kiconBackgroundSize = 54.0;
   static const kiconBackgroundRadius = 99.0;
+
+
+  static const kshimmerTextHeight = 8.0;
+  static const kshimmerTextWidth = 100.0;
+
+
 }

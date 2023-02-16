@@ -34,7 +34,7 @@ class SignInScreen extends StatelessWidget {
           } else {
             Navigator.pop(dialogContext!);
             if (state is UserLogInSuccess) {
-              Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
+              Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.zoomDrawerScreen, (Route<dynamic> route) => false);
             } else if (state is UserIsFailure) {
               showSnackBar(context, state.error);
             }
