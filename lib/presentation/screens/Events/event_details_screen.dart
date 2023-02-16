@@ -31,25 +31,23 @@ class EventDetails extends StatefulWidget {
   @override
   State<EventDetails> createState() => _EventDetailsState();
 }
+
 var _buttonText = 'Register';
 var _buttonColor = Colors.green;
 
-
 class _EventDetailsState extends State<EventDetails> {
-  void updateButtonText(String text, MaterialColor color ) {
+  void updateButtonText(String text, MaterialColor color) {
     setState(() {
       _buttonText = text;
       _buttonColor = color;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     final textTheme = Theme.of(context).textTheme;
-
-
-
 
     return Scaffold(
       body: Container(
@@ -193,27 +191,28 @@ class _EventDetailsState extends State<EventDetails> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-
                                   StatefulBuilder(
-                                    builder: (BuildContext context, StateSetter setState) {
+                                    builder: (BuildContext context,
+                                        StateSetter setState) {
                                       return Expanded(
                                         child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: _buttonColor,
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                              BorderRadius.circular(10),
+                                                  BorderRadius.circular(10),
                                             ),
                                           ),
                                           onPressed: () {
                                             if (_buttonText == 'Register') {
                                               showDialog(
                                                 context: context,
-                                                builder: (BuildContext context) {
+                                                builder:
+                                                    (BuildContext context) {
                                                   bool isChecked = false;
                                                   return StatefulBuilder(
                                                     builder: (BuildContext
-                                                    context,
+                                                            context,
                                                         StateSetter setState) {
                                                       return AlertDialog(
                                                         title: const Text(
@@ -221,36 +220,36 @@ class _EventDetailsState extends State<EventDetails> {
                                                           style: TextStyle(
                                                             color: Colors.black,
                                                             fontWeight:
-                                                            FontWeight.bold,
+                                                                FontWeight.bold,
                                                             fontSize: 18,
                                                           ),
                                                         ),
                                                         content: Column(
                                                           mainAxisSize:
-                                                          MainAxisSize.min,
+                                                              MainAxisSize.min,
                                                           children: <Widget>[
                                                             const Text(
                                                               'Please read and accept the requirements to register.',
                                                               style: TextStyle(
-                                                                color:
-                                                                Colors.black,
+                                                                color: Colors
+                                                                    .black,
                                                                 fontSize: 15.0,
                                                                 fontWeight:
-                                                                FontWeight
-                                                                    .w600,
+                                                                    FontWeight
+                                                                        .w600,
                                                               ),
                                                             ),
                                                             SizedBox(
                                                               height: MediaQuery.of(
-                                                                  context)
-                                                                  .size
-                                                                  .height *
+                                                                          context)
+                                                                      .size
+                                                                      .height *
                                                                   0.01,
                                                             ),
                                                             Expanded(
                                                               flex: 1,
                                                               child:
-                                                              SingleChildScrollView(
+                                                                  SingleChildScrollView(
                                                                 child: Text(
                                                                   widget
                                                                       .requirementsDescription!,
@@ -260,8 +259,8 @@ class _EventDetailsState extends State<EventDetails> {
                                                                     color: Colors
                                                                         .black,
                                                                     fontWeight:
-                                                                    FontWeight
-                                                                        .w300,
+                                                                        FontWeight
+                                                                            .w300,
                                                                   ),
                                                                 ),
                                                               ),
@@ -270,8 +269,8 @@ class _EventDetailsState extends State<EventDetails> {
                                                               title: const Text(
                                                                   'I accept the requirements.'),
                                                               value: isChecked,
-                                                              onChanged:
-                                                                  (bool? value) {
+                                                              onChanged: (bool?
+                                                                  value) {
                                                                 setState(() {
                                                                   isChecked =
                                                                       value ??
@@ -287,25 +286,30 @@ class _EventDetailsState extends State<EventDetails> {
                                                                 'Cancel'),
                                                             onPressed: () {
                                                               Navigator.of(
-                                                                  context)
+                                                                      context)
                                                                   .pop();
                                                             },
                                                           ),
                                                           ElevatedButton(
                                                             onPressed: isChecked
                                                                 ? () {
-                                                              setState(() {
-                                                                _buttonColor = Colors.red;
-                                                                _buttonText =
-                                                                'Unregister';
-                                                                print(_buttonText);
-                                                              });
-                                                              updateButtonText(_buttonText,_buttonColor);
-                                                              Navigator.of(
-                                                                  context)
-                                                                  .pop();
-                                                            }
-
+                                                                    setState(
+                                                                        () {
+                                                                      _buttonColor =
+                                                                          Colors
+                                                                              .red;
+                                                                      _buttonText =
+                                                                          'Unregister';
+                                                                      print(
+                                                                          _buttonText);
+                                                                    });
+                                                                    updateButtonText(
+                                                                        _buttonText,
+                                                                        _buttonColor);
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop();
+                                                                  }
                                                                 : null,
                                                             child: const Text(
                                                                 'Confirm'),
@@ -322,21 +326,19 @@ class _EventDetailsState extends State<EventDetails> {
                                                 _buttonColor = Colors.green;
                                                 print(_buttonText);
                                               });
-                                              updateButtonText(_buttonText, _buttonColor);
+                                              updateButtonText(
+                                                  _buttonText, _buttonColor);
                                             }
                                           },
                                           child: Text(_buttonText,
-                                              style: textTheme.bodyLarge?.copyWith(
+                                              style:
+                                                  textTheme.bodyLarge?.copyWith(
                                                 color: Colors.white,
                                               )),
                                         ),
                                       );
                                     },
                                   )
-
-
-
-
                                 ],
                               ),
                               SizedBox(
