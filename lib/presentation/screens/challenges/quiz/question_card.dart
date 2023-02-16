@@ -1,7 +1,6 @@
+import 'package:esjourney/data/models/challenges/quiz/quiz_model.dart';
 import 'package:flutter/material.dart';
 
-
-import '../../../../data/models/quiz/quiz_model.dart';
 import 'option.dart';
 
 class QuestionCard extends StatefulWidget {
@@ -15,7 +14,7 @@ class QuestionCard extends StatefulWidget {
   }) : super(key: key);
   final Quiz quiz;
   final Function onOptionTap;
-  late List<int>  selectedOptionIndices;
+  late List<int> selectedOptionIndices;
   final int correctOptionIndices;
   final bool isQuizAnswered;
 
@@ -23,11 +22,7 @@ class QuestionCard extends StatefulWidget {
   _QuestionCardState createState() => _QuestionCardState();
 }
 
-
-
 class _QuestionCardState extends State<QuestionCard> {
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,12 +39,11 @@ class _QuestionCardState extends State<QuestionCard> {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  if (widget.isQuizAnswered==false) {
+                  if (widget.isQuizAnswered == false) {
                     setState(() {
                       widget.selectedOptionIndices.clear();
                       widget.selectedOptionIndices.add(index);
                       widget.onOptionTap(widget.selectedOptionIndices);
-
                     });
                   }
                 },
@@ -57,15 +51,11 @@ class _QuestionCardState extends State<QuestionCard> {
                   isQuizAnswered: widget.isQuizAnswered,
                   isOptionCorrect: widget.correctOptionIndices == (index),
                   text: widget.quiz.options[index],
-                  isOptionSelected:
-                  widget.isQuizAnswered
+                  isOptionSelected: widget.isQuizAnswered
                       ? (widget.correctOptionIndices == index ||
                           widget.selectedOptionIndices.contains(index) &&
                               widget.correctOptionIndices != (index))
-                     :
-                    widget.selectedOptionIndices.contains(index),
-
-
+                      : widget.selectedOptionIndices.contains(index),
                 ),
               );
             },

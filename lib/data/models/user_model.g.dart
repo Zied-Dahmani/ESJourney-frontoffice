@@ -15,7 +15,10 @@ _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
       courses: (json['courses'] as List<dynamic>?)
           ?.map((e) => UserCourse.fromJson(e as Map<String, dynamic>))
           .toList(),
-      token: json['token'] as String,
+      token: json['token'] as String?,
+      score: json['score'] == null
+          ? null
+          : Score.fromJson(json['score'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
@@ -26,4 +29,5 @@ Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
       'coins': instance.coins,
       'courses': instance.courses,
       'token': instance.token,
+      'score': instance.score,
     };

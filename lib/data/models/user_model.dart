@@ -1,3 +1,4 @@
+import 'package:esjourney/data/models/challenges/score/score_model.dart';
 import 'package:esjourney/data/models/curriculum/user_course_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -14,8 +15,10 @@ class User with _$User {
     required int grade,
     required int coins,
     List<UserCourse>? courses,
-    required String token,
+    String? token,
+     Score? score,
   }) = _User;
+
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 }

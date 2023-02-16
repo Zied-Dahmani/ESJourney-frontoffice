@@ -1,4 +1,5 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
+import 'package:esjourney/data/models/challenges/quiz/quiz_model.dart';
 import 'package:esjourney/logic/cubits/challenges/quiz_cubit.dart';
 import 'package:esjourney/logic/cubits/challenges/quiz_state.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
@@ -6,8 +7,6 @@ import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/screens/challenges/question_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../data/models/quiz/quiz_model.dart';
 import '../../widgets/challenges/disco_button.dart';
 
 class QuizScreen extends StatefulWidget {
@@ -36,17 +35,17 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   void initState() {
     super.initState();
+    final getQuiz = BlocProvider.of<QuizCubit>(context);
+    getQuiz.getQuiz("c");
   }
 
   @override
   Widget build(BuildContext context) {
-    final getQuiz = BlocProvider.of<QuizCubit>(context);
     final theme = Theme.of(context);
 
     return BlocBuilder<UserCubit, UserState>(builder: (context, state) {
       if (state is UserLogInSuccess) {
         final user = state.user;
-        getQuiz.getQuiz("c");
         return BlocBuilder<QuizCubit, QuizState>(builder: (context, state) {
           if (state is QuizSuccess) {
             final quiz = state.quizzes;

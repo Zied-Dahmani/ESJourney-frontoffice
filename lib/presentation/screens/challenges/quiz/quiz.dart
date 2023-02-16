@@ -1,4 +1,5 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
+import 'package:esjourney/data/models/challenges/quiz/quiz_model.dart';
 import 'package:esjourney/logic/cubits/challenges/quiz_cubit.dart';
 import 'package:esjourney/logic/cubits/challenges/quiz_state.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
@@ -6,8 +7,6 @@ import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/screens/challenges/quiz/question_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../data/models/quiz/quiz_model.dart';
 import '../../../router/routes.dart';
 import '../../../widgets/challenges/disco_button.dart';
 

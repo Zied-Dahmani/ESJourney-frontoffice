@@ -1,5 +1,6 @@
 import 'package:esjourney/data/models/curriculum/course_model.dart';
 import 'package:esjourney/presentation/screens/curriculum/course_detail_screen.dart';
+import 'package:esjourney/presentation/screens/curriculum/course_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/jackpot/jackpot_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/level_map_screen.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';

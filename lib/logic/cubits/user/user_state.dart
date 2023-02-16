@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:esjourney/data/models/challenges/score/score_model.dart';
 import 'package:esjourney/data/models/user_model.dart';
 
 abstract class UserState extends Equatable {}
@@ -28,9 +29,10 @@ class UserLogInSuccess extends UserState {
       'username': user.username,
       'password': user.password,
       'grade': user.grade,
-      'token': user.token,
+      'token': user.token!,
       'courses': '',
       'coins': user.coins,
+      'score': user.score,
     };
   }
 
@@ -43,7 +45,8 @@ class UserLogInSuccess extends UserState {
         password: map['password'],
         grade: map['grade'],
         coins: map['coins'],
-        token: map['token'],
+        token: map['token']!,
+        score: Score.fromJson(map['score']),
         courses: []));
   }
 

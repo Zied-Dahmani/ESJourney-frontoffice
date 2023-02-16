@@ -10,5 +10,6 @@ class CourseRepository implements ICourseRepository {
     final result = await _courseDataProvider.getAllCourses(token);
     return result.statusCode == 200
         ? result.data.map((course) => Course.fromJson(course)).toList()
-        : null;  }
+        : null;
+  }
 }

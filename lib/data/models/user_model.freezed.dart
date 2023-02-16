@@ -26,7 +26,8 @@ mixin _$User {
   int get grade => throw _privateConstructorUsedError;
   int get coins => throw _privateConstructorUsedError;
   List<UserCourse>? get courses => throw _privateConstructorUsedError;
-  String get token => throw _privateConstructorUsedError;
+  String? get token => throw _privateConstructorUsedError;
+  Score? get score => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +46,10 @@ abstract class $UserCopyWith<$Res> {
       int grade,
       int coins,
       List<UserCourse>? courses,
-      String token});
+      String? token,
+      Score? score});
+
+  $ScoreCopyWith<$Res>? get score;
 }
 
 /// @nodoc
@@ -67,7 +71,8 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? grade = null,
     Object? coins = null,
     Object? courses = freezed,
-    Object? token = null,
+    Object? token = freezed,
+    Object? score = freezed,
   }) {
     return _then(_value.copyWith(
       email: null == email
@@ -94,11 +99,27 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.courses
           : courses // ignore: cast_nullable_to_non_nullable
               as List<UserCourse>?,
-      token: null == token
+      token: freezed == token
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      score: freezed == score
+          ? _value.score
+          : score // ignore: cast_nullable_to_non_nullable
+              as Score?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ScoreCopyWith<$Res>? get score {
+    if (_value.score == null) {
+      return null;
+    }
+
+    return $ScoreCopyWith<$Res>(_value.score!, (value) {
+      return _then(_value.copyWith(score: value) as $Val);
+    });
   }
 }
 
@@ -115,7 +136,11 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       int grade,
       int coins,
       List<UserCourse>? courses,
-      String token});
+      String? token,
+      Score? score});
+
+  @override
+  $ScoreCopyWith<$Res>? get score;
 }
 
 /// @nodoc
@@ -133,7 +158,8 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? grade = null,
     Object? coins = null,
     Object? courses = freezed,
-    Object? token = null,
+    Object? token = freezed,
+    Object? score = freezed,
   }) {
     return _then(_$_User(
       email: null == email
@@ -160,10 +186,14 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value._courses
           : courses // ignore: cast_nullable_to_non_nullable
               as List<UserCourse>?,
-      token: null == token
+      token: freezed == token
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      score: freezed == score
+          ? _value.score
+          : score // ignore: cast_nullable_to_non_nullable
+              as Score?,
     ));
   }
 }
@@ -178,7 +208,8 @@ class _$_User implements _User {
       required this.grade,
       required this.coins,
       final List<UserCourse>? courses,
-      required this.token})
+      this.token,
+      this.score})
       : _courses = courses;
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
@@ -204,11 +235,13 @@ class _$_User implements _User {
   }
 
   @override
-  final String token;
+  final String? token;
+  @override
+  final Score? score;
 
   @override
   String toString() {
-    return 'User(email: $email, username: $username, password: $password, grade: $grade, coins: $coins, courses: $courses, token: $token)';
+    return 'User(email: $email, username: $username, password: $password, grade: $grade, coins: $coins, courses: $courses, token: $token, score: $score)';
   }
 
   @override
@@ -224,13 +257,14 @@ class _$_User implements _User {
             (identical(other.grade, grade) || other.grade == grade) &&
             (identical(other.coins, coins) || other.coins == coins) &&
             const DeepCollectionEquality().equals(other._courses, _courses) &&
-            (identical(other.token, token) || other.token == token));
+            (identical(other.token, token) || other.token == token) &&
+            (identical(other.score, score) || other.score == score));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, email, username, password, grade,
-      coins, const DeepCollectionEquality().hash(_courses), token);
+      coins, const DeepCollectionEquality().hash(_courses), token, score);
 
   @JsonKey(ignore: true)
   @override
@@ -254,7 +288,8 @@ abstract class _User implements User {
       required final int grade,
       required final int coins,
       final List<UserCourse>? courses,
-      required final String token}) = _$_User;
+      final String? token,
+      final Score? score}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -271,7 +306,9 @@ abstract class _User implements User {
   @override
   List<UserCourse>? get courses;
   @override
-  String get token;
+  String? get token;
+  @override
+  Score? get score;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;

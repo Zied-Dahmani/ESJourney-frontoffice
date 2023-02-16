@@ -12,6 +12,9 @@ const ktimeOut = 'Time out!';
 
 //curriculum
 const kgetCourses = 'course/get/user';
+
+// challenges
 const kgetQuiz = 'quiz/get';
 const kquizResult = 'quiz/result';
+const kgetLeaderBoard = 'leaderboard/get';
 

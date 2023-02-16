@@ -26,7 +26,7 @@ class _CourseScreenState extends State<CourseScreen> {
       builder: (context, state) {
         if (state is UserLogInSuccess) {
           final user = state.user;
-          getCourses.getAllCourses(user.token);
+          //getCourses.getAllCourses(user.token!);
           return Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
