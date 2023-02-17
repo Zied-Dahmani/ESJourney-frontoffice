@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/memory/logic/game_logic.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/memory/utils/utils.dart'
     as utils;
@@ -21,7 +22,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
   var score = 0;
   var axisNumber = 4;
   late Timer timer;
-  int startTime = 60;
+  int startTime = 200;
   String level = '';
   var complete = 0;
 
@@ -77,7 +78,12 @@ class _MemoryScreenState extends State<MemoryScreen> {
                   willLeave = true;
                   Navigator.of(context).pop();
                 },
-                child: const Text('Yes'),
+                child: const Text(
+                  'Yes',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
               ),
               TextButton(
                 onPressed: () {
@@ -97,6 +103,34 @@ class _MemoryScreenState extends State<MemoryScreen> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: utils.redColor,
+          leading: IconButton(
+            onPressed: () {
+              timer.cancel();
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+          ),
+          title: const Text(
+            'Memory',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          centerTitle: true,
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.restorablePushReplacementNamed(context, AppRoutes.memoryGame);
+              },
+              icon: const Icon(
+                Icons.refresh,
+                color: Colors.white,
+              ),
+            ),
+          ],
         ),
         backgroundColor: utils.redColor,
         body: Column(
@@ -140,8 +174,8 @@ class _MemoryScreenState extends State<MemoryScreen> {
 
                               _game.matchCheck.clear();
                               if (complete * 2 == _game.cardCount) {
-                                _showDialog(context, 'Ganaste',
-                                    'Your score: $score');
+                                _showDialog(
+                                    context, 'Congratulations', 'Your score: $score');
                                 timer.cancel();
                               }
                             } else {
@@ -195,10 +229,10 @@ class _MemoryScreenState extends State<MemoryScreen> {
           content: Text(info),
           actions: <Widget>[
             TextButton(
-              child: const Text('Dialog'),
+              child: const Text('OK'),
               onPressed: () {
-                // Navigator.of(context).pop();
-                //Navigator.pushNamed(context, 'home');
+
+                Navigator.restorablePushReplacementNamed(context, AppRoutes.memoryGame);
               },
             )
           ],
