@@ -3,6 +3,7 @@ import 'package:esjourney/presentation/screens/curriculum/avatar/avatar_screen.d
 import 'package:esjourney/presentation/screens/curriculum/chat/chat_users_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/courses/course_detail_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/courses/level_map_screen.dart';
+import 'package:esjourney/presentation/screens/curriculum/games/hangman/screens/hangman_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/jackpot/jackpot_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/memory/screen/memory_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/worldy/screens/wordly_game.dart';
@@ -10,6 +11,7 @@ import 'package:esjourney/presentation/screens/sign_in_screen.dart';
 import 'package:esjourney/presentation/screens/sign_up_screen.dart';
 import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
 import 'package:flutter/material.dart';
+
 import 'routes.dart';
 
 class AppRouter {
@@ -24,7 +26,7 @@ class AppRouter {
 
       case AppRoutes.avatar:
         return MaterialPageRoute(
-          builder: (_) => AvatarScreen(),
+          builder: (_) => const AvatarScreen(),
         );
 
       case AppRoutes.signUpScreen:
@@ -52,6 +54,9 @@ class AppRouter {
 
       case AppRoutes.memoryGame:
         return MaterialPageRoute(builder: (_) => const MemoryScreen());
+
+      case AppRoutes.hangmanGame:
+        return MaterialPageRoute(builder: (_) => const HangmanScreen());
 
       case AppRoutes.chatUsers:
         return MaterialPageRoute(builder: (_) => const UserChatScreen());

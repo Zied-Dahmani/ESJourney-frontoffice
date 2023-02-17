@@ -70,7 +70,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
           context: context,
           builder: (_) => AlertDialog(
             title: const Text('Confirm dialog'),
-            actions: [
+            actions: <Widget>[
               ElevatedButton(
                 style:
                     ElevatedButton.styleFrom(backgroundColor: utils.redColor),
@@ -120,10 +120,11 @@ class _MemoryScreenState extends State<MemoryScreen> {
             ),
           ),
           centerTitle: true,
-          actions: [
+          actions: <Widget>[
             IconButton(
               onPressed: () {
-                Navigator.restorablePushReplacementNamed(context, AppRoutes.memoryGame);
+                Navigator.restorablePushReplacementNamed(
+                    context, AppRoutes.memoryGame);
               },
               icon: const Icon(
                 Icons.refresh,
@@ -134,7 +135,7 @@ class _MemoryScreenState extends State<MemoryScreen> {
         ),
         backgroundColor: utils.redColor,
         body: Column(
-          children: [
+          children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -174,8 +175,8 @@ class _MemoryScreenState extends State<MemoryScreen> {
 
                               _game.matchCheck.clear();
                               if (complete * 2 == _game.cardCount) {
-                                _showDialog(
-                                    context, 'Congratulations', 'Your score: $score');
+                                _showDialog(context, 'Congratulations',
+                                    'Your score: $score');
                                 timer.cancel();
                               }
                             } else {
@@ -231,8 +232,8 @@ class _MemoryScreenState extends State<MemoryScreen> {
             TextButton(
               child: const Text('OK'),
               onPressed: () {
-
-                Navigator.restorablePushReplacementNamed(context, AppRoutes.memoryGame);
+                Navigator.restorablePushReplacementNamed(
+                    context, AppRoutes.memoryGame);
               },
             )
           ],
