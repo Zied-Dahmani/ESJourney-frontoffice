@@ -1,11 +1,13 @@
 import 'dart:math';
 
+import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/worldy/provider/controller.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/worldy/utils/quick_box.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/worldy/widgets/grid.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/worldy/widgets/keyboard_row.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../constants/words.dart';
 
 class WordlyPage extends StatefulWidget {
@@ -38,6 +40,14 @@ class WordlyPageState extends State<WordlyPage> {
         title: const Text('Wordle'),
         centerTitle: true,
         elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Provider.of<Controller>(context,
+                listen: false).clearTiles();
+            Navigator.pop(context);
+          },
+        ),
         actions: [
           Consumer<Controller>(
             builder: (_, notifier, __) {
@@ -65,21 +75,16 @@ class WordlyPageState extends State<WordlyPage> {
                   },
                 );
               }
-              return IconButton(
-                  onPressed: () async {
-                    print("second");
-                    //TODO: check what to do here
-                    /*showDialog(context: context, builder: (_) => const StatsBox());*/
-                  },
-                  icon: const Icon(Icons.bar_chart_outlined));
+              return const SizedBox();
             },
           ),
           IconButton(
-              onPressed: () {
-                //TODO: check what to do here
-                /*Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Settings()));*/
-              },
-              icon: const Icon(Icons.settings))
+            onPressed: () {
+              Provider.of<Controller>(context, listen: false).clearTiles();
+              Navigator.restorablePushReplacementNamed(context, AppRoutes.wordlyGame);
+            },
+            icon: const Icon(Icons.refresh),
+          )
         ],
       ),
       body: Column(
@@ -88,11 +93,16 @@ class WordlyPageState extends State<WordlyPage> {
             height: 1,
             thickness: 2,
           ),
-          Expanded(flex: 7, child: Grid(word: _word,)),
+          Expanded(
+            flex: 7,
+            child: Grid(
+              word: _word,
+            ),
+          ),
           Expanded(
             flex: 4,
             child: Column(
-              children: const [
+              children:const  [
                 KeyboardRow(
                   min: 1,
                   max: 10,

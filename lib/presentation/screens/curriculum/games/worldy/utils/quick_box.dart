@@ -1,5 +1,5 @@
+import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/worldy/provider/controller.dart';
-import 'package:esjourney/presentation/screens/curriculum/games/worldy/screens/wordly_game.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,19 +14,23 @@ runQuickBox({required BuildContext context, required String message}) {
           return AlertDialog(
             // content: ,
             actions: [
-              IconButton(onPressed: (){
-                print("pressed");
-                Navigator.pop(context);
-                Navigator.pop(context);
-              }, icon: const Icon(Icons.close)),
-              IconButton(onPressed: (){
-                ChangeNotifierProvider(create: (_) => Controller());
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => const WordlyPage()),
-                        (route) => false);
-              }, icon: const Icon(Icons.replay)),
-
+              IconButton(
+                onPressed: () {
+                  Provider.of<Controller>(context,
+                      listen: false).clearTiles();
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.close),
+              ),
+              IconButton(
+                onPressed: () {
+                  Provider.of<Controller>(context, listen: false).clearTiles();
+                  Navigator.pop(context);
+                  Navigator.restorablePushReplacementNamed(context, AppRoutes.wordlyGame);
+                },
+                icon: const Icon(Icons.replay),
+              ),
             ],
             title: Text(
               message,

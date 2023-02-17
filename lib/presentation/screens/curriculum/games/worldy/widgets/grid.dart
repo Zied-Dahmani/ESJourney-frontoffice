@@ -7,8 +7,9 @@ import 'package:provider/provider.dart';
 import 'tile.dart';
 
 class Grid extends StatefulWidget {
-   const Grid({
-    Key? key, required this.word,
+  const Grid({
+    Key? key,
+    required this.word,
   }) : super(key: key);
 
   final String? word;
@@ -26,7 +27,7 @@ class _GridState extends State<Grid> {
   @override
   Widget build(BuildContext context) {
     final String correctWord = widget.word!;
-    print("correct: "+correctWord);
+    print("correct: " + correctWord);
     return GridView.builder(
         physics: const NeverScrollableScrollPhysics(),
         padding: const EdgeInsets.fromLTRB(36, 20, 36, 20),
@@ -52,7 +53,8 @@ class _GridState extends State<Grid> {
                     i++) {
                   if (index == i) {
                     animateDance = true;
-                    danceDelay += 150 * (i - ((notifier.currentRow - 1) * correctWord.length));
+                    danceDelay += 150 *
+                        (i - ((notifier.currentRow - 1) * correctWord.length));
                   }
                 }
               }
@@ -60,10 +62,11 @@ class _GridState extends State<Grid> {
                 delay: danceDelay,
                 animate: animateDance,
                 child: Bounce(
-                    animate: animate,
-                    child: Tile(
-                      index: index,
-                    )),
+                  animate: animate,
+                  child: Tile(
+                    index: index,
+                  ),
+                ),
               );
             },
           );

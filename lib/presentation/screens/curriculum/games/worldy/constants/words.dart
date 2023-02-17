@@ -1,5 +1,7 @@
 const List<String> words = [
   'SEIF',
   'SOUHAIL',
-  'RANDOM',
+  'LOUAY',
+  'ZIED',
+  'YOUSSEF'
 ];

@@ -121,4 +121,20 @@ class Controller extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  clearTiles() {
+    tilesEntered.clear();
+    currentTile = 0;
+    currentRow = 0;
+    checkLine = false;
+    gameWon = false;
+    gameCompleted = false;
+    notEnoughLetters = false;
+    backOrEnterTapped = false;
+    //clear keyboard key colors
+    keysMap.forEach((key, value) {
+      keysMap.update(key, (value) => AnswerStage.notAnswered);
+    });
+    notifyListeners();
+  }
 }

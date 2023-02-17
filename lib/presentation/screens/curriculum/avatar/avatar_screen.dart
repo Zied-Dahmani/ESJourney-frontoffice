@@ -19,10 +19,6 @@ class _AvatarScreenState extends State<AvatarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Avatar'),
-      ),
       body: BlocListener<UserCubit,UserState>(
         listener: (context, state) {
           if (state is UserLoadInProgress) {

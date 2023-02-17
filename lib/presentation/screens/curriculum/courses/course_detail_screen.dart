@@ -20,14 +20,14 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
     final double height = ScreenSize.height(context);
     final double width = ScreenSize.width(context);
     List<Game> games = [
-      Game(
+      /*Game(
         title: "Hangman",
         imagePath: "assets/images/curriculum/hangman.png",
         onTap: () {
           print("hangman");
           //Navigator.of(context).pushNamed(AppRoutes.hangmanGame);
         },
-      ),
+      ),*/
       Game(
         title: "Jackpot",
         imagePath: "assets/images/curriculum/jackpot.png",
@@ -35,14 +35,14 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
           Navigator.of(context).pushNamed(AppRoutes.jackpotGame);
         },
       ),
-      Game(
+      /*Game(
         title: "Sudoku",
         imagePath: "assets/images/curriculum/sudoku.png",
         onTap: () {
           print("sudoku");
           //Navigator.of(context).pushNamed(AppRoutes.jackpotGame);
         },
-      ),
+      ),*/
       Game(
         title: "Remember",
         imagePath: "assets/images/curriculum/memory.png",
