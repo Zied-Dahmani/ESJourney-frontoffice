@@ -16,6 +16,9 @@ _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
       courses: (json['courses'] as List<dynamic>?)
           ?.map((e) => UserCourse.fromJson(e as Map<String, dynamic>))
           .toList(),
+      events: (json['events'] as List<dynamic>?)
+          ?.map((e) => Event.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
@@ -26,4 +29,5 @@ Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
       'token': instance.token,
       'coins': instance.coins,
       'courses': instance.courses,
+      'events': instance.events,
     };

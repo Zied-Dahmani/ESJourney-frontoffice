@@ -24,14 +24,13 @@ mixin _$Event {
   String get title => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
   String get startTime => throw _privateConstructorUsedError;
-  String? get endTime => throw _privateConstructorUsedError;
+  String get endTime => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  String? get isDone => throw _privateConstructorUsedError;
+  bool get isDone => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
-  String? get eventImage => throw _privateConstructorUsedError;
-  String? get location => throw _privateConstructorUsedError;
-  String? get requirementsDescription => throw _privateConstructorUsedError;
-  bool? get areRegistered => throw _privateConstructorUsedError;
+  String get eventImage => throw _privateConstructorUsedError;
+  String get location => throw _privateConstructorUsedError;
+  String get requirementsDescription => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -48,14 +47,13 @@ abstract class $EventCopyWith<$Res> {
       String title,
       DateTime date,
       String startTime,
-      String? endTime,
+      String endTime,
       String description,
-      String? isDone,
+      bool isDone,
       String type,
-      String? eventImage,
-      String? location,
-      String? requirementsDescription,
-      bool? areRegistered});
+      String eventImage,
+      String location,
+      String requirementsDescription});
 }
 
 /// @nodoc
@@ -75,14 +73,13 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
     Object? title = null,
     Object? date = null,
     Object? startTime = null,
-    Object? endTime = freezed,
+    Object? endTime = null,
     Object? description = null,
-    Object? isDone = freezed,
+    Object? isDone = null,
     Object? type = null,
-    Object? eventImage = freezed,
-    Object? location = freezed,
-    Object? requirementsDescription = freezed,
-    Object? areRegistered = freezed,
+    Object? eventImage = null,
+    Object? location = null,
+    Object? requirementsDescription = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -101,38 +98,34 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
           ? _value.startTime
           : startTime // ignore: cast_nullable_to_non_nullable
               as String,
-      endTime: freezed == endTime
+      endTime: null == endTime
           ? _value.endTime
           : endTime // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      isDone: freezed == isDone
+      isDone: null == isDone
           ? _value.isDone
           : isDone // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as bool,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
-      eventImage: freezed == eventImage
+      eventImage: null == eventImage
           ? _value.eventImage
           : eventImage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      location: freezed == location
+              as String,
+      location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as String?,
-      requirementsDescription: freezed == requirementsDescription
+              as String,
+      requirementsDescription: null == requirementsDescription
           ? _value.requirementsDescription
           : requirementsDescription // ignore: cast_nullable_to_non_nullable
-              as String?,
-      areRegistered: freezed == areRegistered
-          ? _value.areRegistered
-          : areRegistered // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as String,
     ) as $Val);
   }
 }
@@ -148,14 +141,13 @@ abstract class _$$_EventCopyWith<$Res> implements $EventCopyWith<$Res> {
       String title,
       DateTime date,
       String startTime,
-      String? endTime,
+      String endTime,
       String description,
-      String? isDone,
+      bool isDone,
       String type,
-      String? eventImage,
-      String? location,
-      String? requirementsDescription,
-      bool? areRegistered});
+      String eventImage,
+      String location,
+      String requirementsDescription});
 }
 
 /// @nodoc
@@ -171,14 +163,13 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
     Object? title = null,
     Object? date = null,
     Object? startTime = null,
-    Object? endTime = freezed,
+    Object? endTime = null,
     Object? description = null,
-    Object? isDone = freezed,
+    Object? isDone = null,
     Object? type = null,
-    Object? eventImage = freezed,
-    Object? location = freezed,
-    Object? requirementsDescription = freezed,
-    Object? areRegistered = freezed,
+    Object? eventImage = null,
+    Object? location = null,
+    Object? requirementsDescription = null,
   }) {
     return _then(_$_Event(
       id: null == id
@@ -197,38 +188,34 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
           ? _value.startTime
           : startTime // ignore: cast_nullable_to_non_nullable
               as String,
-      endTime: freezed == endTime
+      endTime: null == endTime
           ? _value.endTime
           : endTime // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      isDone: freezed == isDone
+      isDone: null == isDone
           ? _value.isDone
           : isDone // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as bool,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
-      eventImage: freezed == eventImage
+      eventImage: null == eventImage
           ? _value.eventImage
           : eventImage // ignore: cast_nullable_to_non_nullable
-              as String?,
-      location: freezed == location
+              as String,
+      location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as String?,
-      requirementsDescription: freezed == requirementsDescription
+              as String,
+      requirementsDescription: null == requirementsDescription
           ? _value.requirementsDescription
           : requirementsDescription // ignore: cast_nullable_to_non_nullable
-              as String?,
-      areRegistered: freezed == areRegistered
-          ? _value.areRegistered
-          : areRegistered // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as String,
     ));
   }
 }
@@ -241,14 +228,13 @@ class _$_Event implements _Event {
       required this.title,
       required this.date,
       required this.startTime,
-      this.endTime,
+      required this.endTime,
       required this.description,
-      this.isDone,
+      required this.isDone,
       required this.type,
-      this.eventImage,
-      this.location,
-      this.requirementsDescription,
-      this.areRegistered});
+      required this.eventImage,
+      required this.location,
+      required this.requirementsDescription});
 
   factory _$_Event.fromJson(Map<String, dynamic> json) =>
       _$$_EventFromJson(json);
@@ -262,25 +248,23 @@ class _$_Event implements _Event {
   @override
   final String startTime;
   @override
-  final String? endTime;
+  final String endTime;
   @override
   final String description;
   @override
-  final String? isDone;
+  final bool isDone;
   @override
   final String type;
   @override
-  final String? eventImage;
+  final String eventImage;
   @override
-  final String? location;
+  final String location;
   @override
-  final String? requirementsDescription;
-  @override
-  final bool? areRegistered;
+  final String requirementsDescription;
 
   @override
   String toString() {
-    return 'Event(id: $id, title: $title, date: $date, startTime: $startTime, endTime: $endTime, description: $description, isDone: $isDone, type: $type, eventImage: $eventImage, location: $location, requirementsDescription: $requirementsDescription, areRegistered: $areRegistered)';
+    return 'Event(id: $id, title: $title, date: $date, startTime: $startTime, endTime: $endTime, description: $description, isDone: $isDone, type: $type, eventImage: $eventImage, location: $location, requirementsDescription: $requirementsDescription)';
   }
 
   @override
@@ -304,9 +288,7 @@ class _$_Event implements _Event {
                 other.location == location) &&
             (identical(
                     other.requirementsDescription, requirementsDescription) ||
-                other.requirementsDescription == requirementsDescription) &&
-            (identical(other.areRegistered, areRegistered) ||
-                other.areRegistered == areRegistered));
+                other.requirementsDescription == requirementsDescription));
   }
 
   @JsonKey(ignore: true)
@@ -323,8 +305,7 @@ class _$_Event implements _Event {
       type,
       eventImage,
       location,
-      requirementsDescription,
-      areRegistered);
+      requirementsDescription);
 
   @JsonKey(ignore: true)
   @override
@@ -346,14 +327,13 @@ abstract class _Event implements Event {
       required final String title,
       required final DateTime date,
       required final String startTime,
-      final String? endTime,
+      required final String endTime,
       required final String description,
-      final String? isDone,
+      required final bool isDone,
       required final String type,
-      final String? eventImage,
-      final String? location,
-      final String? requirementsDescription,
-      final bool? areRegistered}) = _$_Event;
+      required final String eventImage,
+      required final String location,
+      required final String requirementsDescription}) = _$_Event;
 
   factory _Event.fromJson(Map<String, dynamic> json) = _$_Event.fromJson;
 
@@ -366,21 +346,19 @@ abstract class _Event implements Event {
   @override
   String get startTime;
   @override
-  String? get endTime;
+  String get endTime;
   @override
   String get description;
   @override
-  String? get isDone;
+  bool get isDone;
   @override
   String get type;
   @override
-  String? get eventImage;
+  String get eventImage;
   @override
-  String? get location;
+  String get location;
   @override
-  String? get requirementsDescription;
-  @override
-  bool? get areRegistered;
+  String get requirementsDescription;
   @override
   @JsonKey(ignore: true)
   _$$_EventCopyWith<_$_Event> get copyWith =>

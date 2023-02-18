@@ -27,6 +27,7 @@ mixin _$User {
   String get token => throw _privateConstructorUsedError;
   int get coins => throw _privateConstructorUsedError;
   List<UserCourse>? get courses => throw _privateConstructorUsedError;
+  List<Event>? get events => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +46,8 @@ abstract class $UserCopyWith<$Res> {
       int grade,
       String token,
       int coins,
-      List<UserCourse>? courses});
+      List<UserCourse>? courses,
+      List<Event>? events});
 }
 
 /// @nodoc
@@ -68,6 +70,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? token = null,
     Object? coins = null,
     Object? courses = freezed,
+    Object? events = freezed,
   }) {
     return _then(_value.copyWith(
       email: null == email
@@ -98,6 +101,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.courses
           : courses // ignore: cast_nullable_to_non_nullable
               as List<UserCourse>?,
+      events: freezed == events
+          ? _value.events
+          : events // ignore: cast_nullable_to_non_nullable
+              as List<Event>?,
     ) as $Val);
   }
 }
@@ -115,7 +122,8 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       int grade,
       String token,
       int coins,
-      List<UserCourse>? courses});
+      List<UserCourse>? courses,
+      List<Event>? events});
 }
 
 /// @nodoc
@@ -134,6 +142,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? token = null,
     Object? coins = null,
     Object? courses = freezed,
+    Object? events = freezed,
   }) {
     return _then(_$_User(
       email: null == email
@@ -164,6 +173,10 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value._courses
           : courses // ignore: cast_nullable_to_non_nullable
               as List<UserCourse>?,
+      events: freezed == events
+          ? _value._events
+          : events // ignore: cast_nullable_to_non_nullable
+              as List<Event>?,
     ));
   }
 }
@@ -178,8 +191,10 @@ class _$_User implements _User {
       required this.grade,
       required this.token,
       required this.coins,
-      final List<UserCourse>? courses})
-      : _courses = courses;
+      final List<UserCourse>? courses,
+      final List<Event>? events})
+      : _courses = courses,
+        _events = events;
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
@@ -205,9 +220,19 @@ class _$_User implements _User {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<Event>? _events;
+  @override
+  List<Event>? get events {
+    final value = _events;
+    if (value == null) return null;
+    if (_events is EqualUnmodifiableListView) return _events;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'User(email: $email, username: $username, password: $password, grade: $grade, token: $token, coins: $coins, courses: $courses)';
+    return 'User(email: $email, username: $username, password: $password, grade: $grade, token: $token, coins: $coins, courses: $courses, events: $events)';
   }
 
   @override
@@ -223,13 +248,22 @@ class _$_User implements _User {
             (identical(other.grade, grade) || other.grade == grade) &&
             (identical(other.token, token) || other.token == token) &&
             (identical(other.coins, coins) || other.coins == coins) &&
-            const DeepCollectionEquality().equals(other._courses, _courses));
+            const DeepCollectionEquality().equals(other._courses, _courses) &&
+            const DeepCollectionEquality().equals(other._events, _events));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, email, username, password, grade,
-      token, coins, const DeepCollectionEquality().hash(_courses));
+  int get hashCode => Object.hash(
+      runtimeType,
+      email,
+      username,
+      password,
+      grade,
+      token,
+      coins,
+      const DeepCollectionEquality().hash(_courses),
+      const DeepCollectionEquality().hash(_events));
 
   @JsonKey(ignore: true)
   @override
@@ -253,7 +287,8 @@ abstract class _User implements User {
       required final int grade,
       required final String token,
       required final int coins,
-      final List<UserCourse>? courses}) = _$_User;
+      final List<UserCourse>? courses,
+      final List<Event>? events}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -271,6 +306,8 @@ abstract class _User implements User {
   int get coins;
   @override
   List<UserCourse>? get courses;
+  @override
+  List<Event>? get events;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;

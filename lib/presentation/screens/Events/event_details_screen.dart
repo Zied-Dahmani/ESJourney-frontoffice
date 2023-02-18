@@ -1,3 +1,4 @@
+import 'package:esjourney/data/models/events/event_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -8,7 +9,7 @@ class EventDetails extends StatefulWidget {
   final String startTime;
   final String? endTime;
   final String description;
-  final String isDone;
+  final bool isDone;
   final String type;
   final String? eventImage;
   final String? location;

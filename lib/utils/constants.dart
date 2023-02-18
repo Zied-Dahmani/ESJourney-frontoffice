@@ -1,4 +1,5 @@
-const kbaseUrl = 'http://192.168.1.14:3003/';
+
+ var kbaseUrl = 'http://192.168.1.14:3003/';
 const ksignUp = 'user/signUp';
 const ksignIn = 'user/signIn';
 
@@ -15,3 +16,7 @@ const kgetCourses = 'course/get/user';
 const kgetQuiz = 'quiz/get';
 const kquizResult = 'quiz/result';
 
+//events
+const kgetEvents = 'event/getEvents';
+const kgetUserEvent = 'event/getUserEvents';
+const kregisterEvent = 'event/register';

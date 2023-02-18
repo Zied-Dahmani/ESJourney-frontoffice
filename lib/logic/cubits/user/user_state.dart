@@ -31,6 +31,7 @@ class UserLogInSuccess extends UserState {
       'token': user.token,
       'courses': '',
       'coins': user.coins,
+      'events': '',
     };
   }
 
@@ -44,7 +45,7 @@ class UserLogInSuccess extends UserState {
         grade: map['grade'],
         coins: map['coins'],
         token: map['token'],
-        courses: []));
+        courses: [], events: []));
   }
 
   String toJson() => json.encode(toMap());
