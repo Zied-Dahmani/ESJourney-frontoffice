@@ -53,7 +53,7 @@ class _AvatarScreenState extends State<AvatarScreen> {
                       if (json.isNotEmpty) {
                         final user3DUrl = json['data']['url'];
                         final userId = user3DUrl?.split('/').last.toString().replaceAll('.glb', '').trim();
-                        final user2DUrl = '$api$userId''.png?scene=fullbody-posture-v1-transparent';
+                        final user2DUrl = '$api$userId''.png';
                         BlocProvider.of<UserCubit>(context).addAvatars(
                             state.user.token,user2DUrl, user3DUrl);
 
