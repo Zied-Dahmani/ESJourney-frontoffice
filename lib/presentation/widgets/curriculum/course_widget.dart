@@ -45,10 +45,14 @@ class CourseItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Image.asset(
-              imagePath,
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: CircleAvatar(
+                backgroundColor: Colors.transparent,
+                radius: 0.15 * width,
+                backgroundImage: AssetImage(imagePath),
+              ),
             ),
           ),
           Container(

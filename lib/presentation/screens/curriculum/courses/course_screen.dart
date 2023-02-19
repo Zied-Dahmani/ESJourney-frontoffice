@@ -303,18 +303,37 @@ class _CourseScreenState extends State<CourseScreen> {
 
   List<Game> allGames = [
     Game(
-      title: "Game 1",
-      imagePath: "assets/images/app_logo.png",
+      title: "Hangman",
+      imagePath: "assets/images/curriculum/hangman.png",
       onTap: () {},
     ),
     Game(
-      title: "Game 2",
-      imagePath: "assets/images/app_logo.png",
+      title: "Wordly",
+      imagePath: "assets/images/curriculum/wordle.png",
       onTap: () {},
     ),
     Game(
-      title: "Game 3",
-      imagePath: "assets/images/app_logo.png",
+      title: "Memory",
+      imagePath: "assets/images/curriculum/memory.png",
+      onTap: () {},
+    ),
+    Game(
+      title: "Slide",
+      imagePath: "assets/images/curriculum/slide.png",
+      onTap: () {},
+    ),
+    Game(
+      title: "Jackpot",
+      imagePath: "assets/images/curriculum/jackpot.png",
+      onTap: () {},
+    ),
+    Game(
+      title: "LogicBot",
+      imagePath: "assets/images/curriculum/logicbot.png",
+      onTap: () {},
+    ),Game(
+      title: "Draw",
+      imagePath: "assets/images/curriculum/draw.png",
       onTap: () {},
     ),
   ];
