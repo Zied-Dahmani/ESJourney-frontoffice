@@ -42,7 +42,6 @@ class EventDataProvider {
     );
     return req;
   }
-
   Future<Response> registerEvent(String token, String eventId) async {
     dynamic req = await dio.request(
       kregisterEvent,

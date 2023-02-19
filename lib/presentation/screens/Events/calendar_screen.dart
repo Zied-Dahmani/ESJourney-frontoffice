@@ -36,7 +36,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
       final getEvents = BlocProvider.of<EventCubit>(context);
       getEvents.getUserEvents(token);
     } else {
-      Navigator.pushNamed(context, '/login');
+      Navigator.pushNamed(context, '/');
     }
   }
 
@@ -63,7 +63,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
         isLoading = false;
       });
     } else {
-      Navigator.pushNamed(context, '/login');
+      Navigator.pushNamed(context, '/');
     }
   }
 

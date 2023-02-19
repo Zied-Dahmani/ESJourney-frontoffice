@@ -1,15 +1,19 @@
 import 'package:esjourney/data/models/events/event_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+import '../../../logic/cubits/events/event_cubit.dart';
+import '../../../logic/cubits/user/user_cubit.dart';
+import '../../../logic/cubits/user/user_state.dart';
+
 class EventDetails extends StatefulWidget {
-    final Event event;
+  final Event event;
 
   const EventDetails({
     Key? key,
     required this.event,
   }) : super(key: key);
-
 
   @override
   State<EventDetails> createState() => _EventDetailsState();
@@ -19,6 +23,26 @@ var _buttonText = 'Register';
 var _buttonColor = Colors.green;
 
 class _EventDetailsState extends State<EventDetails> {
+
+  @override
+  void initState() {
+    super.initState();
+    final userState = context.read<UserCubit>().state;
+    if (userState is UserLogInSuccess) {
+      final userEvents = userState.user.events?.map((e) => e.id).toList();
+      if (userEvents?.contains(widget.event.id) ?? false) {
+        _buttonText = 'Unregister';
+        _buttonColor = Colors.red;
+      }else{
+        _buttonText = 'Register';
+        _buttonColor = Colors.green;
+      }
+    } else {
+      Navigator.pushNamed(context, '/');
+    }
+  }
+
+
   void updateButtonText(String text, MaterialColor color) {
     setState(() {
       _buttonText = text;
@@ -119,7 +143,8 @@ class _EventDetailsState extends State<EventDetails> {
                                       width: MediaQuery.of(context).size.width *
                                           0.02),
                                   Text(
-                                    DateFormat.yMMMMEEEEd().format(widget.event.date),
+                                    DateFormat.yMMMMEEEEd()
+                                        .format(widget.event.date),
                                     style: textTheme.titleSmall?.copyWith(
                                       color: Colors.black,
                                     ),
@@ -143,14 +168,23 @@ class _EventDetailsState extends State<EventDetails> {
                                         ),
                                       ),
                                       SizedBox(width: screenWidth * 0.1),
-                                      const Icon(
-                                        Icons.location_on_outlined,
-                                        color: Colors.black,
-                                      ),
-                                      Text(
-                                        widget.event.location ?? '',
-                                        style: textTheme.titleSmall?.copyWith(
-                                          color: Colors.black,
+                                      Expanded(
+                                        child: Wrap(
+                                          crossAxisAlignment:
+                                              WrapCrossAlignment.center,
+                                          children: [
+                                            const Icon(
+                                              Icons.location_on_outlined,
+                                              color: Colors.black,
+                                            ),
+                                            Text(
+                                              widget.event.location ?? '',
+                                              style: textTheme.titleSmall
+                                                  ?.copyWith(
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],
