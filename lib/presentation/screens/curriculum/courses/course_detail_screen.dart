@@ -77,7 +77,6 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
       ),
     ];
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
           height: double.infinity,
@@ -106,54 +105,74 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                   ),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(
-                  top: 0.01 * height,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const Icon(
-                      Icons.av_timer_outlined,
-                      color: Color(0xffEB4A5A),
-                      size: 40,
+              Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(
+                      top: 0.02 * height,
+                      left: 0.02 * height,
                     ),
-                    Text(
-                      widget.course.estimatedTime,
-                      style: const TextStyle(
-                        color: Color(0xffEB4A5A),
-                        fontSize: 22,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(0.1 * width),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 4,
+                          blurRadius: 16,
+                          offset: const Offset(5, 5),
+                        ),
+                      ],
+                    ),
+                    child: CircleAvatar(
+                      backgroundColor:Colors.transparent,
+                      radius: 0.1 * width,
+                      //TODO : change to course image
+                      child: Image.asset(
+                        "assets/images/curriculum/hangman.png",
+                        fit: BoxFit.cover,
                       ),
                     ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(
-                  top: 0.01 * height,
-                ),
-                child: const CircleAvatar(
-                  backgroundColor: Colors.transparent,
-                  maxRadius: 100,
-                  minRadius: 80,
-                  backgroundImage:
-                      AssetImage("assets/images/curriculum/hangman.png"),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(
-                  top: 0.01 * height,
-                ),
-                child: Text(
-                  widget.course.title,
-                  style: const TextStyle(
-                    fontSize: 22,
                   ),
-                ),
+                  Container(
+                    margin: EdgeInsets.only(
+                      top: 0.02 * height,
+                      left: 0.02 * height,
+                    ),
+                    child: Column(
+                      children: [
+                        Text(
+                          widget.course.title,
+                          style: const TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            const Icon(
+                              Icons.av_timer_outlined,
+                              color: Color(0xffEB4A5A),
+                              size: 30,
+                            ),
+                            Text(
+                              widget.course.estimatedTime,
+                              style: const TextStyle(
+                                color: Color(0xffEB4A5A),
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
+              //progress bar
               Container(
                 margin: EdgeInsets.only(
-                  top: 0.01 * height,
+                  top: 0.03 * height,
                   bottom: 0.02 * height,
                 ),
                 child: LinearPercentIndicator(

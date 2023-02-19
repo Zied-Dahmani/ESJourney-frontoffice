@@ -65,6 +65,7 @@ class CourseItem extends StatelessWidget {
                     fontSize: 14.0,
                   ),
                 ),
+                const Spacer(),
                 Expanded(
                   child: IconButton(
                     onPressed: onTap,

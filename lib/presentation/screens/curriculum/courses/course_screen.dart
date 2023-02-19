@@ -9,6 +9,7 @@ import 'package:esjourney/presentation/widgets/curriculum/course_widget.dart';
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tab_container/tab_container.dart';
 
 class CourseScreen extends StatefulWidget {
   const CourseScreen({Key? key}) : super(key: key);
@@ -18,6 +19,20 @@ class CourseScreen extends StatefulWidget {
 }
 
 class _CourseScreenState extends State<CourseScreen> {
+  late final TabContainerController _controller;
+
+  @override
+  void initState() {
+    _controller = TabContainerController(length: 2);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final double height = ScreenSize.height(context);
@@ -31,47 +46,55 @@ class _CourseScreenState extends State<CourseScreen> {
           return Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              //TODO : improve ui and make it responsive ( better )
               Container(
-                margin: EdgeInsets.only(
-                  right: 0.08 * width,
-                  left: 0.08 * width,
-                ),
+                margin: const EdgeInsets.only(top: 8, right: 20, left: 20),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                          "Hi, ${user.username}",
+                        const Text(
+                          "Hi",
                           style: TextStyle(
-                            fontSize: 0.08 * width,
-                            fontWeight: FontWeight.normal,
+                            overflow: TextOverflow.fade,
+                            fontSize: 16,
+                            color: Colors.grey,
                           ),
                         ),
                         Text(
-                          "Let's make this day productive",
-                          style: TextStyle(
-                            fontSize: 0.035 * width,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.grey,
+                          user.username,
+                          style: const TextStyle(
+                            overflow: TextOverflow.fade,
+                            letterSpacing: 1.5,
+                            color: Colors.black,
+                            fontSize: 20,
                           ),
                         ),
                       ],
                     ),
+                    const Spacer(),
                     CachedNetworkImage(
                         imageUrl: user.twoDAvatar!,
                         placeholderFadeInDuration: const Duration(seconds: 2),
                         placeholder: (context, url) =>
                             const CircularProgressIndicator(),
                         imageBuilder: (context, imageProvider) {
-                          return Material(
-                            borderRadius: BorderRadius.circular(0.1 * width),
-                            elevation: 10,
+                          return Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(width * 0.1),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  spreadRadius: 4,
+                                  blurRadius: 8,
+                                  offset: const Offset(2, 4),
+                                ),
+                              ],
+                            ),
                             child: CircleAvatar(
+                              radius: width * 0.1,
                               backgroundColor: Colors.transparent,
-                              radius: 0.1 * width,
                               backgroundImage: imageProvider,
                             ),
                           );
@@ -79,181 +102,232 @@ class _CourseScreenState extends State<CourseScreen> {
                   ],
                 ),
               ),
-              //coins & progress
               Container(
-                width: double.infinity,
-                margin: EdgeInsets.only(
-                  top: 0.03 * height,
-                  right: 0.08 * width,
-                  left: 0.08 * width,
-                ),
-                padding: EdgeInsets.only(
-                  top: 0.02 * height,
-                  bottom: 0.02 * height,
-                  right: 0.02 * width,
-                  left: 0.02 * width,
-                ),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10),
-                  ),
+                  borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      spreadRadius: 2,
-                      blurRadius: 10,
-                      offset: const Offset(0, 1),
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 4,
+                      blurRadius: 8,
+                      offset: const Offset(2, 4),
                     ),
                   ],
                 ),
-                child: IntrinsicHeight(
-                  child: IntrinsicWidth(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: <Widget>[
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                context,
-                                AppRoutes.levelMap,
-                                arguments: user.grade,
-                              );
-                            },
-                            child: Row(
-                              children: <Widget>[
-                                const Flexible(
-                                  child: CircleAvatar(
-                                    backgroundImage: AssetImage(
-                                      "assets/images/curriculum/badge.png",
-                                    ),
-                                    backgroundColor: Colors.transparent,
-                                  ),
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    const Text("View Progress"),
-                                    Text(user.grade.toString()),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            top: 0.01 * height,
-                            bottom: 0.01 * height,
-                          ),
-                          child: const VerticalDivider(
-                            color: Colors.grey,
-                            thickness: 0.6,
-                          ),
-                        ),
-                        Expanded(
-                          child: Row(
-                            children: <Widget>[
-                              const Flexible(
-                                child: CircleAvatar(
-                                  backgroundImage: AssetImage(
-                                    "assets/images/curriculum/coin.png",
-                                  ),
-                                  backgroundColor: Colors.transparent,
-                                ),
+                margin: const EdgeInsets.only(top: 16, right: 20, left: 20),
+                width: double.infinity,
+                child: Row(
+                  children: <Widget>[
+                    //first item
+                    Expanded(
+                      child: Container(
+                        margin: const EdgeInsets.only(
+                            top: 16, bottom: 16, left: 10),
+                        child: Row(
+                          children: <Widget>[
+                            const CircleAvatar(
+                              backgroundColor: Colors.transparent,
+                              backgroundImage: AssetImage(
+                                "assets/images/curriculum/badge.png",
                               ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(left: 10),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  const Text("coins"),
-                                  Text(user.coins.toString()),
+                                children: [
+                                  const Text(
+                                    "View Progress",
+                                    style: TextStyle(
+                                      overflow: TextOverflow.fade,
+                                      color: Colors.grey,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  Text(
+                                    user.grade.toString(),
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                    ),
+                                  ),
                                 ],
                               ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              // courses text
-              Container(
-                margin: EdgeInsets.only(
-                  top: 0.03 * height,
-                  right: 0.08 * width,
-                  left: 0.08 * width,
-                ),
-                child: const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "COURSES",
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 12,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-              ),
-              //TODO : DONE
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.only(
-                    top: 0.03 * height,
-                    right: 0.08 * width,
-                    left: 0.08 * width,
-                    bottom: 0.03 * height,
-                  ),
-                  child: BlocBuilder<CourseCubit, CourseState>(
-                    builder: (context, state) {
-                      if (state is CourseLoadInProgress) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else if (state is CourseSuccess) {
-                        final courses = state.courses;
-                        return CustomScrollView(
-                          slivers: <Widget>[
-                            SliverDynamicHeightGridView(
-                              itemCount: courses.length,
-                              crossAxisCount: 2,
-                              builder: (ctx, index) {
-                                final course = courses[index];
-                                return CourseItem(
-                                  height: height,
-                                  width: width,
-                                  imagePath:
-                                      "assets/images/curriculum/hangman.png",
-                                  courseTitle: course.title,
-                                  onTap: () {
-                                    Navigator.of(context).pushNamed(
-                                      AppRoutes.courseDetails,
-                                      arguments: course,
-                                    );
-                                  },
-                                );
-                              },
                             ),
                           ],
-                        );
-                      } else {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                    },
+                        ),
+                      ),
+                    ),
+                    //separator
+                    const VerticalDivider(
+                      indent: 10,
+                      endIndent: 10,
+                      color: Colors.grey,
+                      thickness: 1,
+                    ),
+                    //second item
+                    Expanded(
+                      child: Container(
+                        margin: const EdgeInsets.only(
+                            top: 16, bottom: 16, left: 10),
+                        child: Row(
+                          children: <Widget>[
+                            const CircleAvatar(
+                              backgroundColor: Colors.transparent,
+                              backgroundImage: AssetImage(
+                                "assets/images/curriculum/coin.png",
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(left: 10),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Balance",
+                                    softWrap: true,
+                                    overflow: TextOverflow.fade,
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  Text(
+                                    user.coins.toString(),
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.only(top: 16, right: 20, left: 20),
+                  child: TabContainer(
+                    color: Colors.white,
+                    controller: _controller,
+                    radius: 20,
+                    tabEdge: TabEdge.top,
+                    tabCurve: Curves.easeIn,
+                    tabs: _getTabs1(),
+                    children: _getChildren1(height, width),
                   ),
                 ),
               ),
             ],
           );
         } else {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         }
       },
     );
   }
+
+  List<String> _getTabs1() {
+    return <String>[
+      "Courses",
+      "Games",
+    ];
+  }
+
+  List<Widget> _getChildren1(double height, double width) {
+    return <Widget>[
+      BlocBuilder<CourseCubit, CourseState>(
+        builder: (context, state) {
+          if (state is CourseLoadInProgress) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is CourseSuccess) {
+            final courses = state.courses;
+            return CustomScrollView(
+              slivers: <Widget>[
+                SliverDynamicHeightGridView(
+                  itemCount: courses.length,
+                  crossAxisCount: 2,
+                  builder: (ctx, index) {
+                    final course = courses[index];
+                    return CourseItem(
+                      height: height,
+                      width: width,
+                      imagePath: "assets/images/curriculum/hangman.png",
+                      courseTitle: course.title,
+                      onTap: () {
+                        Navigator.of(context).pushNamed(
+                          AppRoutes.courseDetails,
+                          arguments: course,
+                        );
+                      },
+                    );
+                  },
+                ),
+              ],
+            );
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
+      CustomScrollView(
+        slivers: <Widget>[
+          SliverDynamicHeightGridView(
+            itemCount: allGames.length,
+            crossAxisCount: 2,
+            builder: (ctx, index) {
+              final course = allGames[index];
+              return CourseItem(
+                height: height,
+                width: width,
+                imagePath: "assets/images/curriculum/hangman.png",
+                courseTitle: course.title,
+                onTap: () {},
+              );
+            },
+          ),
+        ],
+      ),
+    ];
+  }
+
+  List<Game> allGames = [
+    Game(
+      title: "Game 1",
+      imagePath: "assets/images/app_logo.png",
+      onTap: () {},
+    ),
+    Game(
+      title: "Game 2",
+      imagePath: "assets/images/app_logo.png",
+      onTap: () {},
+    ),
+    Game(
+      title: "Game 3",
+      imagePath: "assets/images/app_logo.png",
+      onTap: () {},
+    ),
+  ];
+}
+
+class Game {
+  final String title;
+  final String imagePath;
+  final void Function() onTap;
+
+  Game({
+    required this.title,
+    required this.imagePath,
+    required this.onTap,
+  });
 }

@@ -108,6 +108,7 @@ class _MainScreenState extends State<MainScreen> {
           Container()
         ],
         actionBarView: const CourseScreen(),
+        extendBody: false,
       ),
     );
   }
