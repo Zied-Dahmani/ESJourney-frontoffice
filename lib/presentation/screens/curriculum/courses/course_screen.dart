@@ -286,12 +286,12 @@ class _CourseScreenState extends State<CourseScreen> {
             itemCount: allGames.length,
             crossAxisCount: 2,
             builder: (ctx, index) {
-              final course = allGames[index];
+              final game = allGames[index];
               return CourseItem(
                 height: height,
                 width: width,
-                imagePath: "assets/images/curriculum/hangman.png",
-                courseTitle: course.title,
+                imagePath: game.imagePath,
+                courseTitle: game.title,
                 onTap: () {},
               );
             },
