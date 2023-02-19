@@ -12,10 +12,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
+import 'presentation/screens/curriculum/games/slide/tools/board_controller.dart';
+import 'presentation/screens/curriculum/games/slide/tools/navigation.dart';
 import 'presentation/screens/curriculum/games/worldy/provider/controller.dart';
 
 void main() async {
@@ -77,10 +79,13 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => Controller()),
+          ChangeNotifierProvider(create: (context) => BoardController()),
+          ChangeNotifierProvider(create: (context) => Navigation()),
           BlocProvider<ConnectivityCubit>(
               create: (context) => ConnectivityCubit(), lazy: false),
           BlocProvider<UserCubit>(create: (context) => UserCubit(), lazy: true),
-          BlocProvider<CourseCubit>(create: (context) => CourseCubit(), lazy: true),
+          BlocProvider<CourseCubit>(
+              create: (context) => CourseCubit(), lazy: true),
         ],
         child: MaterialApp(
           title: 'ESJourney',
@@ -90,9 +95,10 @@ class MyApp extends StatelessWidget {
           themeMode: ThemeMode.light,
           onGenerateRoute: _appRouter.onGenerateRoute,
           home: BlocBuilder<UserCubit, UserState>(
-            buildWhen: (oldState, newState) => oldState is UserInitial && newState is! UserLoadInProgress,
+            buildWhen: (oldState, newState) =>
+                oldState is UserInitial && newState is! UserLoadInProgress,
             builder: (context, state) {
-              if(state is UserLogInSuccess) {
+              if (state is UserLogInSuccess) {
                 return const ZoomDrawerScreen();
               } else {
                 return SignInScreen();

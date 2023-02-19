@@ -50,6 +50,15 @@ dependencies:
   webview_flutter: ^3.0.4
   cached_network_image: ^3.2.3
   provider: ^6.0.5
+  animated_text_kit: ^4.2.1
+  flutter_feather_icons: any
+  image: ^3.1.1
+  file_picker: ^4.4.0
+  animated_background: ^2.0.0
+  google_fonts: any
+  assets_audio_player: ^3.0.4+1
+  rive: ^0.8.1
+  adaptive_dialog: ^1.3.0
 
 
   # The following adds the Cupertino Icons font to your application.

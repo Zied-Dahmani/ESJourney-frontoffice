@@ -17,6 +17,7 @@ class AppRoutes {
   static const hangmanGame = '/hangman';
   static const chatUsers = '/chatUsers';
   static const avatar = '/avatar';
+  static const slideGame = '/slide';
 
 // Souhail
 

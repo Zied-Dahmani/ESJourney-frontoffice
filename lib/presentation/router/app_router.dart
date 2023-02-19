@@ -6,6 +6,7 @@ import 'package:esjourney/presentation/screens/curriculum/courses/level_map_scre
 import 'package:esjourney/presentation/screens/curriculum/games/hangman/screens/hangman_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/jackpot/jackpot_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/memory/screen/memory_screen.dart';
+import 'package:esjourney/presentation/screens/curriculum/games/slide/pages/slide_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/worldy/screens/wordly_game.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
 import 'package:esjourney/presentation/screens/sign_up_screen.dart';
@@ -27,6 +28,11 @@ class AppRouter {
       case AppRoutes.avatar:
         return MaterialPageRoute(
           builder: (_) => const AvatarScreen(),
+        );
+
+      case AppRoutes.slideGame:
+        return MaterialPageRoute(
+          builder: (_) => const SlideScreen(),
         );
 
       case AppRoutes.signUpScreen:

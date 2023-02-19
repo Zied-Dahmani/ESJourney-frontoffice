@@ -1,10 +1,12 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:esjourney/data/models/curriculum/course_model.dart';
 import 'package:esjourney/presentation/router/routes.dart';
+import 'package:esjourney/presentation/screens/curriculum/games/slide/tools/board_controller.dart';
 import 'package:esjourney/presentation/widgets/curriculum/course_widget.dart';
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:provider/provider.dart';
 
 class CourseDetailScreen extends StatefulWidget {
   const CourseDetailScreen({Key? key, required this.course}) : super(key: key);
@@ -32,6 +34,23 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
         imagePath: "assets/images/curriculum/jackpot.png",
         onTap: () {
           Navigator.of(context).pushNamed(AppRoutes.jackpotGame);
+        },
+      ),
+      Game(
+        title: "Slide",
+        imagePath: "assets/images/curriculum/jackpot.png",
+        onTap: () {
+          double swidth = MediaQuery.of(context).size.width * 0.8;
+          if (width >= 425) {
+            swidth = MediaQuery.of(context).size.width * 0.4;
+          }
+          if (width >= 1000) {
+            swidth = MediaQuery.of(context).size.width * 0.28;
+          }
+
+          Provider.of<BoardController>(context, listen: false)
+              .init(width: swidth);
+          Navigator.of(context).pushNamed(AppRoutes.slideGame);
         },
       ),
       /*Game(
