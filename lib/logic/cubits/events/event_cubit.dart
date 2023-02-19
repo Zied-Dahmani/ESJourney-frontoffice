@@ -43,4 +43,16 @@ class EventCubit extends Cubit<EventState> {
       emit(EventIsFailure(kcheckInternetConnection));
     }
   }
+  Future<void> registerEvent(String token, String eventId) async {
+    try {
+      emit(EventLoadInProgress());
+      final result = await _eventRepository.registerEvent(token, eventId);
+      result != null
+          ? emit(EventSuccess(result))
+          : emit(EventIsFailure("error while getting data"));
+    } catch (e) {
+      developer.log(e.toString(), name: 'error event');
+      emit(EventIsFailure(kcheckInternetConnection));
+    }
+  }
 }

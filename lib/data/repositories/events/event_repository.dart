@@ -45,4 +45,12 @@ class EventRepository implements IEventRepository {
       return eventProvider.events;
     }
   }
+  Future<dynamic> registerEvent(String token, String eventId) async {
+    final result = await _eventDataProvider.registerEvent(token, eventId);
+    if (result.statusCode == 200) {
+      return result.data;
+    } else {
+      return null;
+    }
+  }
 }

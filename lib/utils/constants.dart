@@ -1,8 +1,6 @@
-
- var kbaseUrl = 'http://192.168.1.14:3003/';
+var kbaseUrl = 'http://192.168.1.14:3003/';
 const ksignUp = 'user/signUp';
 const ksignIn = 'user/signIn';
-
 
 const kcheckInternetConnection = 'Check your internet connection!';
 const kidPasswordIncorrect = 'Id or password Incorrect!';
@@ -20,3 +18,5 @@ const kquizResult = 'quiz/result';
 const kgetEvents = 'event/getEvents';
 const kgetUserEvent = 'event/getUserEvents';
 const kregisterEvent = 'event/register';
+final DateTime kFirstDay = DateTime(2021, 1, 1);
+final DateTime kLastDay = DateTime(2030, 12, 31);

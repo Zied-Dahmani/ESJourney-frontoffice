@@ -42,4 +42,25 @@ class EventDataProvider {
     );
     return req;
   }
+
+  Future<Response> registerEvent(String token, String eventId) async {
+    dynamic req = await dio.request(
+      kregisterEvent,
+      data: {
+        'eventId': eventId,
+      },
+      options: Options(
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt': token,
+        },
+        validateStatus: (status) {
+          print(status);
+          return status! < 500;
+        },
+      ),
+    );
+    return req;
+  }
 }

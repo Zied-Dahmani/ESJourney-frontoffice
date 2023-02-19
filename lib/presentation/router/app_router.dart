@@ -1,4 +1,5 @@
 import 'package:esjourney/data/models/curriculum/course_model.dart';
+import 'package:esjourney/data/models/events/event_model.dart';
 import 'package:esjourney/presentation/screens/curriculum/course_detail_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/jackpot/jackpot_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/level_map_screen.dart';
@@ -7,6 +8,7 @@ import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
 import 'package:flutter/material.dart';
 
 
+import '../screens/Events/event_details_screen.dart';
 import '../screens/challenges/leaderboard/leaderboard_screen.dart';
 import '../screens/challenges/quiz/quiz.dart';
 import '../screens/challenges/quiz/quiz_result.dart';
@@ -52,6 +54,15 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) =>  QuizResultScreen(
             score : args as int,
+
+          ),
+        );
+
+
+      case AppRoutes.eventDetails:
+        return MaterialPageRoute(
+          builder: (_) =>  EventDetails(
+            event : args as Event,
 
           ),
         );

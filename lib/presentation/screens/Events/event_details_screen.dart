@@ -3,31 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class EventDetails extends StatefulWidget {
-  final String eventId;
-  final String title;
-  final DateTime date;
-  final String startTime;
-  final String? endTime;
-  final String description;
-  final bool isDone;
-  final String type;
-  final String? eventImage;
-  final String? location;
-  final String? requirementsDescription;
+    final Event event;
 
   const EventDetails({
-    required this.eventId,
-    required this.title,
-    required this.date,
-    required this.startTime,
-    this.endTime,
-    required this.description,
-    required this.isDone,
-    required this.type,
-    this.eventImage,
-    this.location,
-    this.requirementsDescription,
-  });
+    Key? key,
+    required this.event,
+  }) : super(key: key);
+
 
   @override
   State<EventDetails> createState() => _EventDetailsState();
@@ -55,13 +37,13 @@ class _EventDetailsState extends State<EventDetails> {
         color: Colors.grey[500],
         child: Stack(
           children: [
-            widget.eventImage != null
+            widget.event.eventImage != null
                 ? Material(
                     elevation: 3,
                     child: Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage(widget.eventImage!),
+                          image: AssetImage(widget.event.eventImage!),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -114,7 +96,7 @@ class _EventDetailsState extends State<EventDetails> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      widget.title,
+                                      widget.event.title,
                                       style: textTheme.titleSmall?.copyWith(
                                         color: const Color(0xFFEB4A5A),
                                         fontWeight: FontWeight.bold,
@@ -137,16 +119,14 @@ class _EventDetailsState extends State<EventDetails> {
                                       width: MediaQuery.of(context).size.width *
                                           0.02),
                                   Text(
-                                    DateFormat.yMMMMEEEEd().format(widget.date),
+                                    DateFormat.yMMMMEEEEd().format(widget.event.date),
                                     style: textTheme.titleSmall?.copyWith(
                                       color: Colors.black,
                                     ),
                                   ),
                                 ],
                               ),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.01),
+                              SizedBox(height: screenHeight * 0.01),
                               Column(
                                 children: [
                                   Row(
@@ -155,28 +135,20 @@ class _EventDetailsState extends State<EventDetails> {
                                         Icons.access_time,
                                         color: Colors.black,
                                       ),
-                                      SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.01),
+                                      SizedBox(width: screenWidth * 0.01),
                                       Text(
-                                        '${widget.startTime}${widget.endTime != null ? ' - ${widget.endTime}' : ''}',
+                                        '${widget.event.startTime}${widget.event.endTime != null ? ' - ${widget.event.endTime}' : ''}',
                                         style: textTheme.titleSmall?.copyWith(
                                           color: Colors.black,
                                         ),
                                       ),
-                                      SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.1),
+                                      SizedBox(width: screenWidth * 0.1),
                                       const Icon(
                                         Icons.location_on_outlined,
                                         color: Colors.black,
                                       ),
                                       Text(
-                                        widget.location ?? '',
+                                        widget.event.location ?? '',
                                         style: textTheme.titleSmall?.copyWith(
                                           color: Colors.black,
                                         ),
@@ -186,9 +158,7 @@ class _EventDetailsState extends State<EventDetails> {
                                 ],
                               ),
                               //button
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.01),
+                              SizedBox(height: screenHeight * 0.01),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -241,28 +211,24 @@ class _EventDetailsState extends State<EventDetails> {
                                                               ),
                                                             ),
                                                             SizedBox(
-                                                              height: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .height *
-                                                                  0.01,
+                                                              height:
+                                                                  screenHeight *
+                                                                      0.01,
                                                             ),
                                                             Expanded(
                                                               flex: 1,
                                                               child:
                                                                   SingleChildScrollView(
                                                                 child: Text(
-                                                                  widget
+                                                                  widget.event
                                                                       .requirementsDescription!,
                                                                   style: textTheme
                                                                       .bodyMedium
                                                                       ?.copyWith(
-                                                                    color: Colors
-                                                                        .black,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w300,
-                                                                  ),
+                                                                          color: Colors
+                                                                              .black,
+                                                                          fontWeight:
+                                                                              FontWeight.w300),
                                                                 ),
                                                               ),
                                                             ),
@@ -342,27 +308,23 @@ class _EventDetailsState extends State<EventDetails> {
                                   )
                                 ],
                               ),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.02),
+                              SizedBox(height: screenHeight * 0.02),
                               Expanded(
                                 flex: 1,
                                 child: SingleChildScrollView(
                                   child: Text(
-                                    widget.description,
+                                    widget.event.description,
                                     style: textTheme.bodyMedium?.copyWith(
                                       color: Colors.black,
                                     ),
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.02),
+                              SizedBox(height: screenHeight * 0.02),
 
                               Row(
                                 children: [
-                                  widget.isDone == 'true'
+                                  widget.event.isDone == 'true'
                                       ? const Icon(
                                           Icons.check_circle,
                                           color: Colors.green,
@@ -373,20 +335,18 @@ class _EventDetailsState extends State<EventDetails> {
                                         ),
                                   SizedBox(width: screenWidth * 0.03),
                                   Text(
-                                    widget.isDone == 'true'
+                                    widget.event.isDone == 'true'
                                         ? 'Done'
                                         : 'Pending',
                                     style: textTheme.bodyMedium?.copyWith(
-                                      color: widget.isDone == 'true'
+                                      color: widget.event.isDone == 'true'
                                           ? Colors.green
                                           : Colors.grey,
                                     ),
                                   ),
                                 ],
                               ),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.02),
+                              SizedBox(height: screenHeight * 0.02),
                               Row(
                                 children: [
                                   const Icon(
@@ -395,7 +355,7 @@ class _EventDetailsState extends State<EventDetails> {
                                   ),
                                   SizedBox(width: screenWidth * 0.03),
                                   Text(
-                                    widget.type,
+                                    widget.event.type,
                                     style: textTheme.bodyMedium?.copyWith(
                                       color: Colors.black,
                                     ),
