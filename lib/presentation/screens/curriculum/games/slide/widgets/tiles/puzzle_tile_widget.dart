@@ -104,6 +104,7 @@ class _TileState extends State<Tile> with TickerProviderStateMixin {
                             child: Text(
                               widget.tile.name(alphabet: value.isAlphabet),
                               style: GoogleFonts.montserrat(
+                                color: Colors.white,
                                   fontSize: 18, fontWeight: FontWeight.w500),
                               //    style: Theme.of(context).textTheme.headline4,
                             ),

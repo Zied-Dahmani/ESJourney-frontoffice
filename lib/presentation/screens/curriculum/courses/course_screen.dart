@@ -5,10 +5,12 @@ import 'package:esjourney/logic/cubits/curriculum/course_state.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/router/routes.dart';
+import 'package:esjourney/presentation/screens/curriculum/games/slide/tools/board_controller.dart';
 import 'package:esjourney/presentation/widgets/curriculum/course_widget.dart';
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:tab_container/tab_container.dart';
 
 class CourseScreen extends StatefulWidget {
@@ -260,21 +262,31 @@ class _CourseScreenState extends State<CourseScreen> {
         title: "Memory",
         imagePath: "assets/images/curriculum/memory.png",
         onTap: () {
-          //Navigator.of(context).pushNamed(AppRoutes.memoryGame);
+          Navigator.of(context).pushNamed(AppRoutes.memoryGame);
         },
       ),
       Game(
         title: "Slide",
         imagePath: "assets/images/curriculum/slide.png",
         onTap: () {
-          //Navigator.of(context).pushNamed(AppRoutes.slideGame);
+          double swidth = MediaQuery.of(context).size.width * 0.8;
+          if (width >= 425) {
+            swidth = MediaQuery.of(context).size.width * 0.4;
+          }
+          if (width >= 1000) {
+            swidth = MediaQuery.of(context).size.width * 0.28;
+          }
+
+          Provider.of<BoardController>(context, listen: false)
+              .init(width: swidth);
+          Navigator.of(context).pushNamed(AppRoutes.slideGame);
         },
       ),
       Game(
         title: "Jackpot",
         imagePath: "assets/images/curriculum/jackpot.png",
         onTap: () {
-          //Navigator.of(context).pushNamed(AppRoutes.jackpotGame);
+          Navigator.of(context).pushNamed(AppRoutes.jackpotGame);
         },
       ),
       Game(

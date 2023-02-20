@@ -2,7 +2,6 @@ import 'package:animated_background/animated_background.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/slide/consts/Textstyles/text_styles.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/slide/enums/stage.dart';
-import 'package:esjourney/presentation/screens/curriculum/games/slide/services/dialogs.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/slide/tools/board_controller.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/slide/tools/navigation.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/slide/widgets/inputs/puzzle_restart_button.dart';
@@ -146,7 +145,7 @@ class _SlideScreenState extends State<SlideScreen> with TickerProviderStateMixin
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          'Slide Puzzle\nHack',
+          'Slide IN',
           style: SlideTextStyle.instructions.copyWith(color: Colors.black),
         ),
         const PuzzleStatsBar(fontSize: 18),
@@ -331,7 +330,7 @@ class _SlideScreenState extends State<SlideScreen> with TickerProviderStateMixin
             height: 25,
           ),
           Text(
-            'Slide Puzzle Hack',
+            'Slide IN',
             style: SlideTextStyle.instructions
                 .copyWith(color: Colors.black, fontSize: 30, letterSpacing: 2),
           ),
@@ -426,27 +425,12 @@ class _SlideScreenState extends State<SlideScreen> with TickerProviderStateMixin
                         ));
               });
             }),
-            const Spacer(),
             const PuzzleSizeButton(
               size: 3,
-            ),
-            const SizedBox(
-              width: 20,
             ),
             const PuzzleSizeButton(
               size: 4,
             ),
-            const Spacer(),
-            IconButton(
-                onPressed: () {
-                  PuzzleDialog().gameInstructions(
-                    context: context,
-                  );
-                },
-                icon: const Icon(
-                  Icons.help_outline_rounded,
-                  size: 28,
-                )),
           ],
         ),
         const SizedBox(

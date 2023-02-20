@@ -82,22 +82,22 @@ class BoardController extends ChangeNotifier {
   void startGame() {
     if (!busy) {
       resetGame();
-      tilesMoveAnimationDuration = Duration(milliseconds: 600);
+      tilesMoveAnimationDuration = const Duration(milliseconds: 600);
       busy = true;
       notifyListeners();
 
-      Future.delayed(Duration(seconds: 1), () {
+      Future.delayed(const Duration(seconds: 1), () {
         showCountDown = true;
         notifyListeners();
       });
 
-      Timer t = Timer.periodic(Duration(seconds: 1), (val) {
+      Timer t = Timer.periodic(const Duration(seconds: 1), (val) {
         board.scrumbleBoard(val.tick == 3);
         notifyListeners();
         if (val.tick == 3) {
           val.cancel();
           Future.delayed(tilesMoveAnimationDuration, () {
-            tilesMoveAnimationDuration = Duration(milliseconds: 200);
+            tilesMoveAnimationDuration = const Duration(milliseconds: 200);
             busy = false;
             timer.start();
             notifyListeners();
@@ -147,12 +147,12 @@ class BoardController extends ChangeNotifier {
   void changeSize(int size) {
     if (!busy && size != board.size) {
       resetGame();
-      tilesMoveAnimationDuration = Duration(milliseconds: 600);
+      tilesMoveAnimationDuration = const Duration(milliseconds: 600);
       busy = true;
       board = PuzzleBoard(size: size, width: board.width, image: board.image);
       notifyListeners();
       Future.delayed(tilesMoveAnimationDuration, () {
-        tilesMoveAnimationDuration = Duration(milliseconds: 200);
+        tilesMoveAnimationDuration = const Duration(milliseconds: 200);
         busy = false;
         notifyListeners();
       });
@@ -162,12 +162,12 @@ class BoardController extends ChangeNotifier {
   void changeImageToBoard() {
     if (!busy) {
       resetGame();
-      tilesMoveAnimationDuration = Duration(milliseconds: 600);
+      tilesMoveAnimationDuration = const Duration(milliseconds: 600);
       busy = true;
       board = PuzzleBoard(size: board.size, width: board.width, image: null);
       notifyListeners();
       Future.delayed(tilesMoveAnimationDuration, () {
-        tilesMoveAnimationDuration = Duration(milliseconds: 200);
+        tilesMoveAnimationDuration = const Duration(milliseconds: 200);
         busy = false;
         notifyListeners();
       });
@@ -177,7 +177,7 @@ class BoardController extends ChangeNotifier {
   Future<void> changeBoardToImage() async {
     if (!busy) {
       resetGame();
-      tilesMoveAnimationDuration = Duration(milliseconds: 600);
+      tilesMoveAnimationDuration = const Duration(milliseconds: 600);
       busy = true;
 
       FilePickerResult? result =
@@ -185,16 +185,15 @@ class BoardController extends ChangeNotifier {
 
       if (result != null) {
         File file = File(result.files.single.path!);
-        bytesFromPicker = await file.readAsBytesSync();
+        bytesFromPicker = file.readAsBytesSync();
         await compute(im.decodeImage, bytesFromPicker!).then((value) {
           board =
               PuzzleBoard(size: board.size, width: board.width, image: value!);
         });
-        //  im.Image img = await im.decodeImage(bytesFromPicker!)!;
 
         notifyListeners();
         Future.delayed(tilesMoveAnimationDuration, () {
-          tilesMoveAnimationDuration = Duration(milliseconds: 200);
+          tilesMoveAnimationDuration = const Duration(milliseconds: 200);
           busy = false;
           notifyListeners();
         });
@@ -240,21 +239,4 @@ class BoardController extends ChangeNotifier {
     }
   }
 
-  Future<void> animateSolution(List<PuzzleTile> tiles) async {
-    numberOfPossibleSolutions = tiles.length;
-    notifyListeners();
-    print("final moves are $tiles");
-    for (var move in tiles) {
-      if (tiles.indexOf(move) == 0) {
-        tileClicked(move);
-        numberOfPossibleSolutions--;
-      } else {
-        await Future.delayed(const Duration(seconds: 1), () {
-          tileClicked(move);
-          numberOfPossibleSolutions--;
-        });
-      }
-    }
-    numberOfPossibleSolutions = tiles.length;
-  }
 }

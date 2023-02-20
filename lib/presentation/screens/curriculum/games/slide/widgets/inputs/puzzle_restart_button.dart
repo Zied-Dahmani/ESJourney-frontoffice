@@ -16,6 +16,7 @@ class PuzzzleRestartButton extends StatefulWidget {
 
 class _PuzzzleRestartButtonState extends State<PuzzzleRestartButton> {
   bool hover = false;
+
   @override
   Widget build(BuildContext context) {
     return ResponsiveWidget(
@@ -43,7 +44,8 @@ class _PuzzzleRestartButtonState extends State<PuzzzleRestartButton> {
                     ? MaterialStateProperty.all<Color>(SlideColors.primary3)
                     : MaterialStateProperty.all<Color>(SlideColors.primary1)),
             onPressed: () {
-              if (Provider.of<BoardController>(context, listen: false).shouldShowResetDialog) {
+              if (Provider.of<BoardController>(context, listen: false)
+                  .shouldShowResetDialog) {
                 PuzzleDialog().gameRest(
                     context: context,
                     confirm:
@@ -62,23 +64,31 @@ class _PuzzzleRestartButtonState extends State<PuzzzleRestartButton> {
                         Icon(
                           FeatherIcons.play,
                           size: 20,
+                          color: Colors.white,
                         ),
                         SizedBox(
                           width: 10,
                         ),
                         Text(
                           "Begin",
+                          style: TextStyle(color: Colors.white),
                         ),
                       ]
                     : const [
                         Icon(
                           FeatherIcons.refreshCcw,
                           size: 20,
+                          color: Colors.white,
                         ),
                         SizedBox(
                           width: 10,
                         ),
-                        Text("Restart"),
+                        Text(
+                          "Restart",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
                       ],
               );
             })),
@@ -129,23 +139,31 @@ class _PuzzzleRestartButtonState extends State<PuzzzleRestartButton> {
                         Icon(
                           FeatherIcons.play,
                           size: 16,
+                          color: Colors.white,
                         ),
                         SizedBox(
                           width: 10,
                         ),
                         Text(
                           "Begin",
+                          style: TextStyle(color: Colors.white),
                         ),
                       ]
                     : const [
                         Icon(
                           FeatherIcons.refreshCcw,
                           size: 16,
+                          color: Colors.white,
                         ),
                         SizedBox(
                           width: 10,
                         ),
-                        Text("Restart"),
+                  Text(
+                    "Restart",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                       ],
               );
             })),
@@ -196,23 +214,31 @@ class _PuzzzleRestartButtonState extends State<PuzzzleRestartButton> {
                         Icon(
                           FeatherIcons.play,
                           size: 16,
+                          color: Colors.white,
                         ),
                         SizedBox(
                           width: 10,
                         ),
                         Text(
                           "Begin",
+                          style: TextStyle(color: Colors.white),
                         ),
                       ]
                     : const [
                         Icon(
                           FeatherIcons.refreshCcw,
                           size: 16,
+                          color: Colors.white,
                         ),
                         SizedBox(
                           width: 10,
                         ),
-                        Text("Restart"),
+                  Text(
+                    "Restart",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                       ],
               );
             })),
