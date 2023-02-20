@@ -1,12 +1,10 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:esjourney/data/models/curriculum/course_model.dart';
 import 'package:esjourney/presentation/router/routes.dart';
-import 'package:esjourney/presentation/screens/curriculum/games/slide/tools/board_controller.dart';
 import 'package:esjourney/presentation/widgets/curriculum/course_widget.dart';
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:provider/provider.dart';
 
 class CourseDetailScreen extends StatefulWidget {
   const CourseDetailScreen({Key? key, required this.course}) : super(key: key);
@@ -29,14 +27,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
           Navigator.of(context).pushNamed(AppRoutes.hangmanGame);
         },
       ),
-      Game(
-        title: "Jackpot",
-        imagePath: "assets/images/curriculum/jackpot.png",
-        onTap: () {
-          Navigator.of(context).pushNamed(AppRoutes.jackpotGame);
-        },
-      ),
-      Game(
+      /*Game(
         title: "Slide",
         imagePath: "assets/images/curriculum/jackpot.png",
         onTap: () {
@@ -52,25 +43,10 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
               .init(width: swidth);
           Navigator.of(context).pushNamed(AppRoutes.slideGame);
         },
-      ),
-      /*Game(
-        title: "Sudoku",
-        imagePath: "assets/images/curriculum/sudoku.png",
-        onTap: () {
-          print("sudoku");
-          //Navigator.of(context).pushNamed(AppRoutes.jackpotGame);
-        },
       ),*/
       Game(
-        title: "Remember",
-        imagePath: "assets/images/curriculum/memory.png",
-        onTap: () {
-          Navigator.of(context).pushNamed(AppRoutes.memoryGame);
-        },
-      ),
-      Game(
         title: "Worldly",
-        imagePath: "assets/images/curriculum/remember.png",
+        imagePath: "assets/images/curriculum/wordle.png",
         onTap: () {
           Navigator.of(context).pushNamed(AppRoutes.wordlyGame);
         },
@@ -125,7 +101,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                       ],
                     ),
                     child: CircleAvatar(
-                      backgroundColor:Colors.transparent,
+                      backgroundColor: Colors.transparent,
                       radius: 0.1 * width,
                       //TODO : change to course image
                       child: Image.asset(

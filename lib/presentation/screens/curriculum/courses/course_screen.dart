@@ -119,7 +119,6 @@ class _CourseScreenState extends State<CourseScreen> {
                 width: double.infinity,
                 child: Row(
                   children: <Widget>[
-                    //first item
                     Expanded(
                       child: Container(
                         margin: const EdgeInsets.only(
@@ -132,42 +131,37 @@ class _CourseScreenState extends State<CourseScreen> {
                                 "assets/images/curriculum/badge.png",
                               ),
                             ),
-                            Container(
-                              margin: const EdgeInsets.only(left: 10),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    "View Progress",
-                                    style: TextStyle(
-                                      overflow: TextOverflow.fade,
-                                      color: Colors.grey,
-                                      fontSize: 16,
+                            Expanded(
+                              child: Container(
+                                margin: const EdgeInsets.only(left: 10),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      "View progress",
+                                      softWrap: false,
+                                      style: TextStyle(
+                                        overflow: TextOverflow.fade,
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    user.grade.toString(),
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 20,
+                                    Text(
+                                      user.grade.toString(),
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ],
                         ),
                       ),
                     ),
-                    //separator
-                    const VerticalDivider(
-                      indent: 10,
-                      endIndent: 10,
-                      color: Colors.grey,
-                      thickness: 1,
-                    ),
-                    //second item
                     Expanded(
                       child: Container(
                         margin: const EdgeInsets.only(
@@ -180,29 +174,31 @@ class _CourseScreenState extends State<CourseScreen> {
                                 "assets/images/curriculum/coin.png",
                               ),
                             ),
-                            Container(
-                              margin: const EdgeInsets.only(left: 10),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    "Balance",
-                                    softWrap: true,
-                                    overflow: TextOverflow.fade,
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 16,
+                            Expanded(
+                              child: Container(
+                                margin: const EdgeInsets.only(left: 10),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      "Balance",
+                                      softWrap: false,
+                                      overflow: TextOverflow.fade,
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    user.coins.toString(),
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 20,
+                                    Text(
+                                      user.coins.toString(),
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ],
@@ -245,6 +241,58 @@ class _CourseScreenState extends State<CourseScreen> {
   }
 
   List<Widget> _getChildren1(double height, double width) {
+
+    List<Game> allGames = [
+      Game(
+        title: "Hangman",
+        imagePath: "assets/images/curriculum/hangman.png",
+        onTap: () {
+          Navigator.of(context).pushNamed(AppRoutes.hangmanGame);
+        },
+      ),
+      Game(
+        title: "Wordly",
+        imagePath: "assets/images/curriculum/wordle.png",
+        onTap: () {
+          Navigator.of(context).pushNamed(AppRoutes.wordlyGame);
+        },
+      ),
+      Game(
+        title: "Memory",
+        imagePath: "assets/images/curriculum/memory.png",
+        onTap: () {
+          //Navigator.of(context).pushNamed(AppRoutes.memoryGame);
+        },
+      ),
+      Game(
+        title: "Slide",
+        imagePath: "assets/images/curriculum/slide.png",
+        onTap: () {
+          //Navigator.of(context).pushNamed(AppRoutes.slideGame);
+        },
+      ),
+      Game(
+        title: "Jackpot",
+        imagePath: "assets/images/curriculum/jackpot.png",
+        onTap: () {
+          //Navigator.of(context).pushNamed(AppRoutes.jackpotGame);
+        },
+      ),
+      Game(
+        title: "LogicBot",
+        imagePath: "assets/images/curriculum/logicbot.png",
+        onTap: () {
+          print("unity game in progress");
+        },
+      ),Game(
+        title: "Draw",
+        imagePath: "assets/images/curriculum/draw.png",
+        onTap: () {
+          print("server/draw game in progress");
+        },
+      ),
+    ];
+
     return <Widget>[
       BlocBuilder<CourseCubit, CourseState>(
         builder: (context, state) {
@@ -301,42 +349,7 @@ class _CourseScreenState extends State<CourseScreen> {
     ];
   }
 
-  List<Game> allGames = [
-    Game(
-      title: "Hangman",
-      imagePath: "assets/images/curriculum/hangman.png",
-      onTap: () {},
-    ),
-    Game(
-      title: "Wordly",
-      imagePath: "assets/images/curriculum/wordle.png",
-      onTap: () {},
-    ),
-    Game(
-      title: "Memory",
-      imagePath: "assets/images/curriculum/memory.png",
-      onTap: () {},
-    ),
-    Game(
-      title: "Slide",
-      imagePath: "assets/images/curriculum/slide.png",
-      onTap: () {},
-    ),
-    Game(
-      title: "Jackpot",
-      imagePath: "assets/images/curriculum/jackpot.png",
-      onTap: () {},
-    ),
-    Game(
-      title: "LogicBot",
-      imagePath: "assets/images/curriculum/logicbot.png",
-      onTap: () {},
-    ),Game(
-      title: "Draw",
-      imagePath: "assets/images/curriculum/draw.png",
-      onTap: () {},
-    ),
-  ];
+
 }
 
 class Game {

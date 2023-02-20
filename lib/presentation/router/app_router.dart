@@ -47,9 +47,10 @@ class AppRouter {
 
       case AppRoutes.courseDetails:
         return MaterialPageRoute(
-          builder: (_) => CourseDetailScreen(
-            course: args as Course,
-          ),
+          builder: (_) =>
+              CourseDetailScreen(
+                course: args as Course,
+              ),
         );
 
       case AppRoutes.jackpotGame:
@@ -69,9 +70,10 @@ class AppRouter {
 
       case AppRoutes.levelMap:
         return MaterialPageRoute(
-          builder: (_) => LevelMapScreen(
-            grade: args as int,
-          ),
+          builder: (_) =>
+              LevelMapScreen(
+                grade: args as int,
+              ),
         );
 
       default:

@@ -77,9 +77,11 @@ class MyApp extends StatelessWidget {
 
     return MultiBlocProvider(
         providers: [
+          //start game providers
           ChangeNotifierProvider(create: (_) => Controller()),
           ChangeNotifierProvider(create: (context) => BoardController()),
           ChangeNotifierProvider(create: (context) => Navigation()),
+          //end game providers
           BlocProvider<ConnectivityCubit>(
               create: (context) => ConnectivityCubit(), lazy: false),
           BlocProvider<UserCubit>(create: (context) => UserCubit(), lazy: true),
