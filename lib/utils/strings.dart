@@ -15,12 +15,16 @@ class AppStrings {
 
   static const khome = 'Home';
   static const kevents = 'Events';
+  static const kclubEvents = 'Club Events';
   static const ksettings = 'Settings';
 
 
   // Zied
   static const kapply = 'Apply';
   static const kcontinue = 'Continue';
+  static const kapplyToClubTitle1 = 'Personal informations';
+  static const kapplyToClubTitle2 = 'Why us?';
+  static const kapplyToClubTitle3 = 'Resume';
   static const kphoneNumber = 'Phone number';
   static const kbirthDate = 'Birthdate';
   static const kstudyLevel = 'Study level';
@@ -28,6 +32,9 @@ class AppStrings {
   static const kWhyWouldYouLikeToJoinUs = 'Why would you like to join us?';
   static const klinkedInProfileLink = 'LinkedIn profile link';
   static const kdoYouHaveXP = 'Have you had any experience or responsibility in another club or association?';
+  static const kcompleteTheForm = 'Complete the form!';
+  static const ktypeValidPhoneNumber = 'Type a valid phone number!';
+  static const ktypeValidLink = 'Type a valid link!';
 
   // Louay
 

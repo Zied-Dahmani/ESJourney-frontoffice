@@ -9,11 +9,14 @@ class Apply1 extends StatelessWidget {
   Apply1(
       {super.key,
       required this.phoneNumberController,
-      required this.birthDate,
-      required this.studyLevel,
-      required this.speciality});
+      this.updateBirthdate,
+      this.updateStudyLevel,
+      this.updateSpeciality});
 
-  final phoneNumberController, birthDate, studyLevel, speciality;
+  final phoneNumberController,
+      updateBirthdate,
+      updateStudyLevel,
+      updateSpeciality;
 
   final _studyLevels = [
     '1st year',
@@ -22,7 +25,6 @@ class Apply1 extends StatelessWidget {
     '4th year',
     '5th year'
   ];
-
   final _specialties = ['TIC', 'GCEM', 'ESB', 'PREPA'];
 
   @override
@@ -32,17 +34,19 @@ class Apply1 extends StatelessWidget {
         TextFormFieldWidget(phoneNumberController, AppStrings.kphoneNumber,
             TextInputType.phone),
         const SizedBox(height: AppSizes.ksmallSpace),
-        DatePicker(birthDate: birthDate),
+        DatePicker(title: AppStrings.kbirthDate, updateValue: updateBirthdate),
         const SizedBox(height: AppSizes.ksmallSpace),
         DropDownButton(
-            title: AppStrings.kstudyLevel,
-            items: _studyLevels,
-            selectedItem: studyLevel),
+          title: AppStrings.kstudyLevel,
+          items: _studyLevels,
+          updateValue: updateStudyLevel,
+        ),
         const SizedBox(height: AppSizes.ksmallSpace),
         DropDownButton(
-            title: AppStrings.kspeciality,
-            items: _specialties,
-            selectedItem: speciality)
+          title: AppStrings.kspeciality,
+          items: _specialties,
+          updateValue: updateSpeciality,
+        )
       ],
     );
   }

@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DatePicker extends StatefulWidget {
-  DatePicker({Key? key, this.birthDate}) : super(key: key);
+  DatePicker({Key? key,this.title, this.updateValue})
+      : super(key: key);
 
-  var birthDate;
+  var title;
+  final updateValue;
 
   @override
   State<DatePicker> createState() => _DatePickerState();
@@ -47,7 +49,8 @@ class _DatePickerState extends State<DatePicker> {
         if (pickedDate != null) {
           String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
           setState(() {
-            widget.birthDate = formattedDate;
+            widget.title = formattedDate;
+            widget.updateValue(formattedDate);
           });
         }
       },
@@ -63,7 +66,7 @@ class _DatePickerState extends State<DatePicker> {
             color: theme.colorScheme.tertiary,
           ),
         ),
-        child: Text(widget.birthDate),
+        child: Text(widget.title),
       ),
     );
   }

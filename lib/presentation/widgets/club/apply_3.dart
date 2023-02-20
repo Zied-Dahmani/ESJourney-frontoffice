@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Apply3 extends StatefulWidget {
-  const Apply3({Key? key, this.linkedInLinkController}) : super(key: key);
+  const Apply3({Key? key, this.linkedInLinkController, this.updatePDFFile}) : super(key: key);
 
-  final linkedInLinkController;
+  final linkedInLinkController,updatePDFFile;
 
   @override
   State<Apply3> createState() => _Apply3State();
@@ -37,6 +37,7 @@ class _Apply3State extends State<Apply3> {
               PlatformFile file = result.files.first;
               setState(() {
                 _fileUploaded = true;
+                widget.updatePDFFile(file);
               });
             }
           },

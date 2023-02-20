@@ -94,9 +94,12 @@ class AppSizes {
   static const kiconBackgroundSize = 54.0;
   static const kiconBackgroundRadius = 99.0;
 
-
   static const kshimmerTextHeight = 8.0;
   static const kshimmerTextWidth = 100.0;
+
+  static const kmarkerSizeExpanded = 55.0;
+  static const kmarkerSizeShrinked = 38.0;
+
 
 
 }

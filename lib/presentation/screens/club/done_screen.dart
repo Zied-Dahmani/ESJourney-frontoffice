@@ -31,8 +31,10 @@ class _DoneScreenState extends State<DoneScreen>
     );
     Future.delayed(
         const Duration(seconds: 1),
-        () => _controller.forward().then(
-            (_) => Navigator.of(context).popUntil((route) => route.isFirst)));
+        () => _controller.forward().then((_) {
+              FocusManager.instance.primaryFocus?.unfocus();
+              Navigator.of(context).popUntil((route) => route.isFirst);
+            }));
   }
 
   @override

@@ -13,6 +13,7 @@ class ClubScreen extends StatelessWidget {
 
   final club;
 
+  // TODO Build UI
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

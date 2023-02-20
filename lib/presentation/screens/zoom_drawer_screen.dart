@@ -1,3 +1,4 @@
+import 'package:esjourney/presentation/screens/club_event/club_events_map_screen.dart';
 import 'package:esjourney/presentation/screens/drawer_screen.dart';
 import 'package:esjourney/presentation/screens/main_screen.dart';
 import 'package:esjourney/utils/theme.dart';
@@ -44,7 +45,7 @@ class _ZoomDrawerScreenState extends State<ZoomDrawerScreen> {
       case 1:
         return Container(color: Colors.yellow);
       case 2:
-        return const MainScreen();
+        return ClubEventsMapScreen();
       case 3:
         return const MainScreen();
       default:

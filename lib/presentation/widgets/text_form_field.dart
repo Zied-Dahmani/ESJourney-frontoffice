@@ -29,7 +29,6 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
 
     return SizedBox(
       width: width,
-      height: AppSizes.kbuttonHeight + 10,
       child: TextFormField(
         obscureText: _isObscure,
         controller: widget.controller,

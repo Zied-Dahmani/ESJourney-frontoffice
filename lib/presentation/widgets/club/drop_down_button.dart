@@ -4,16 +4,19 @@ import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
 
 class DropDownButton extends StatefulWidget {
-  DropDownButton({Key? key, this.items, this.selectedItem, this.title}) : super(key: key);
+  const DropDownButton(
+      {Key? key, this.items, this.title, this.updateValue})
+      : super(key: key);
 
-  final items,title;
-  var selectedItem;
+  final items, title, updateValue;
   @override
   State<DropDownButton> createState() => _DropDownButtonState();
 }
 
 class _DropDownButtonState extends State<DropDownButton> {
+
   late List<String> items;
+  String? selectedItem;
 
   @override
   void initState() {
@@ -40,19 +43,21 @@ class _DropDownButtonState extends State<DropDownButton> {
                   ),
                 ))
             .toList(),
-        value: widget.selectedItem,
+        value: selectedItem,
         onChanged: (value) {
           setState(() {
-            widget.selectedItem = value;
+            selectedItem = value;
+            widget.updateValue(value);
           });
         },
         icon: const Icon(
           Icons.arrow_drop_down_rounded,
         ),
         iconEnabledColor: theme.colorScheme.primary,
-        buttonHeight: AppSizes.kbuttonHeight + 10 ,
+        buttonHeight: AppSizes.kbuttonHeight + 10,
         buttonWidth: ScreenSize.width(context),
-        buttonPadding: const EdgeInsets.symmetric(horizontal: AppSizes.kbigSpace),
+        buttonPadding:
+            const EdgeInsets.symmetric(horizontal: AppSizes.kbigSpace),
         buttonDecoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSizes.kradius),
           border: Border.all(
