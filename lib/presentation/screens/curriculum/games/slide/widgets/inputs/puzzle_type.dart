@@ -71,8 +71,8 @@ class _PuzzleTypeButtonState extends State<PuzzleTypeButton> {
               Text(
                 widget.stage.name,
                 style: value.game == widget.stage
-                    ? AppTextStyles.appbarEnabled
-                    : AppTextStyles.appbarDisabled,
+                    ? SlideTextStyle.appbarEnabled
+                    : SlideTextStyle.appbarDisabled,
               ),
               AnimatedContainer(
                 duration: const Duration(milliseconds: 200),

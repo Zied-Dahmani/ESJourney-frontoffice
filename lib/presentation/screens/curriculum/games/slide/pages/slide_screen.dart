@@ -24,7 +24,7 @@ class SlideScreen extends StatefulWidget {
   const SlideScreen({Key? key}) : super(key: key);
 
   @override
-  _SlideScreenState createState() => _SlideScreenState();
+  State<SlideScreen> createState() => _SlideScreenState();
 }
 
 class _SlideScreenState extends State<SlideScreen> with TickerProviderStateMixin {
@@ -147,7 +147,7 @@ class _SlideScreenState extends State<SlideScreen> with TickerProviderStateMixin
       children: [
         Text(
           'Slide Puzzle\nHack',
-          style: AppTextStyles.instructions.copyWith(color: Colors.black),
+          style: SlideTextStyle.instructions.copyWith(color: Colors.black),
         ),
         const PuzzleStatsBar(fontSize: 18),
         const SizedBox(
@@ -332,7 +332,7 @@ class _SlideScreenState extends State<SlideScreen> with TickerProviderStateMixin
           ),
           Text(
             'Slide Puzzle Hack',
-            style: AppTextStyles.instructions
+            style: SlideTextStyle.instructions
                 .copyWith(color: Colors.black, fontSize: 30, letterSpacing: 2),
           ),
           Row(

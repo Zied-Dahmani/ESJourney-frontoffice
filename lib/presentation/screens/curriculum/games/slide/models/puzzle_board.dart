@@ -1,7 +1,4 @@
-import 'dart:typed_data';
-
 import 'package:esjourney/presentation/screens/curriculum/games/slide/models/slide.dart';
-import 'package:esjourney/presentation/screens/curriculum/games/slide/services/audio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image/image.dart' as im;
@@ -16,6 +13,7 @@ class PuzzleBoard {
   double width;
   List<Move> moves = [];
   im.Image? image;
+
   PuzzleBoard({
     required this.size,
     required this.width,
@@ -32,6 +30,7 @@ class PuzzleBoard {
       initBoard(image);
     }
   }
+
   factory PuzzleBoard.clone(PuzzleBoard source) {
     return PuzzleBoard(
         size: source.size,
@@ -142,7 +141,6 @@ class PuzzleBoard {
     end.offset = md;
     end.index = index;
     if (sound) {
-      AppAudio().tileTransition();
       moves.add(
           Move(slides: [Slide(startIndex: start.index, endIndex: end.index)]));
     }
@@ -302,7 +300,6 @@ class PuzzleBoard {
         }
       }
       if (slides.isNotEmpty) {
-        AppAudio().tileTransition();
         moves.add(Move(slides: slides));
       }
     } else if (empty.index < tile.index) {
@@ -322,7 +319,6 @@ class PuzzleBoard {
         }
       }
       if (slides.isNotEmpty) {
-        AppAudio().tileTransition();
         moves.add(Move(slides: slides));
       }
     }
@@ -342,7 +338,6 @@ class PuzzleBoard {
       for (var item in colTiles.reversed.toList()) {
         Slide? slide = slideDown(item);
         if (slide != null) {
-          AppAudio().tileTransition();
           slides.add(slide);
         }
       }
@@ -361,7 +356,6 @@ class PuzzleBoard {
       for (var item in colTiles) {
         Slide? slide = slideUp(item);
         if (slide != null) {
-          AppAudio().tileTransition();
           slides.add(slide);
         }
       }

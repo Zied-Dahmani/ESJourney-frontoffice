@@ -56,7 +56,6 @@ class _AvatarScreenState extends State<AvatarScreen> {
                         final user2DUrl = '$api$userId''.png';
                         BlocProvider.of<UserCubit>(context).addAvatars(
                             state.user.token,user2DUrl, user3DUrl);
-
                       }
                     },
                   ),

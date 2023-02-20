@@ -40,7 +40,7 @@ class _TimerTimeState extends State<StopwatchTimer> {
           children: [
             Text(
               "${hours.toString().padLeft(2, '0')} : ${minutes.toString().padLeft(2, '0')} : ${seconds.toString().padLeft(2, '0')}",
-              style: AppTextStyles.heading18.copyWith(
+              style: SlideTextStyle.heading18.copyWith(
                   color: SlideColors.primary2,
                   fontSize: 26,
                   fontWeight: FontWeight.bold),
@@ -53,14 +53,14 @@ class _TimerTimeState extends State<StopwatchTimer> {
         ),
         medium: Text(
           "${hours.toString().padLeft(2, '0')} : ${minutes.toString().padLeft(2, '0')} : ${seconds.toString().padLeft(2, '0')}",
-          style: AppTextStyles.heading18.copyWith(
+          style: SlideTextStyle.heading18.copyWith(
               color: SlideColors.grey3,
               fontSize: 28,
               fontWeight: FontWeight.bold),
         ),
         large: Text(
           "${hours.toString().padLeft(2, '0')} : ${minutes.toString().padLeft(2, '0')} : ${seconds.toString().padLeft(2, '0')}",
-          style: AppTextStyles.heading18.copyWith(
+          style: SlideTextStyle.heading18.copyWith(
               color: SlideColors.grey3,
               fontSize: 30,
               fontWeight: FontWeight.bold),

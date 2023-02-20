@@ -1,12 +1,9 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:esjourney/presentation/screens/curriculum/games/slide/models/puzzle_board.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/slide/models/puzzle_tile.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/slide/models/score.dart';
-import 'package:esjourney/presentation/screens/curriculum/games/slide/models/solver.dart';
-import 'package:esjourney/presentation/screens/curriculum/games/slide/services/audio.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/slide/services/dialogs.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
@@ -62,7 +59,6 @@ class BoardController extends ChangeNotifier {
     bool res = board.isPuzzleSolved(board.tiles);
     if (res) {
       timer.stop();
-      AppAudio().gameEnded();
       notifyListeners();
     }
   }
@@ -92,7 +88,6 @@ class BoardController extends ChangeNotifier {
 
       Future.delayed(Duration(seconds: 1), () {
         showCountDown = true;
-        AppAudio().gameStarted();
         notifyListeners();
       });
 
@@ -245,21 +240,10 @@ class BoardController extends ChangeNotifier {
     }
   }
 
-  Future<void> solvePuzzle() async {
-    isSolving = true;
-    botSolved = true;
-    numberOfPossibleSolutions = 0;
-    notifyListeners();
-    await animateSolution(
-        await PuzzleSolver().solve(board: PuzzleBoard.clone(board)));
-    isSolving = false;
-    notifyListeners();
-  }
-
   Future<void> animateSolution(List<PuzzleTile> tiles) async {
     numberOfPossibleSolutions = tiles.length;
     notifyListeners();
-    print("final moves are " + tiles.toString());
+    print("final moves are $tiles");
     for (var move in tiles) {
       if (tiles.indexOf(move) == 0) {
         tileClicked(move);

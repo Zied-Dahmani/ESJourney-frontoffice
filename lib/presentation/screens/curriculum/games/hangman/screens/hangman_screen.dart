@@ -1,4 +1,4 @@
-import 'package:esjourney/presentation/screens/curriculum/games/hangman/utils/consts.dart';
+import 'package:esjourney/presentation/screens/curriculum/games/hangman/utils/hangmanConsts.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/hangman/widgets/figure_widget.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/hangman/widgets/hidden_letter.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +19,7 @@ class HangmanScreenState extends State<HangmanScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey,
       appBar: AppBar(
         elevation: 0.0,
         centerTitle: true,

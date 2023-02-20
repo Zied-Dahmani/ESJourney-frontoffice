@@ -29,12 +29,12 @@ class _PuzzleStatsBarState extends State<PuzzleStatsBar> {
               RichText(
                 text: TextSpan(
                     text: value.moves.toString().padLeft(2, '0'),
-                    style: AppTextStyles.heading18
+                    style: SlideTextStyle.heading18
                         .copyWith(fontSize: widget.fontSize),
                     children: <TextSpan>[
                       TextSpan(
                         text: ' Moves',
-                        style: AppTextStyles.heading16
+                        style: SlideTextStyle.heading16
                             .copyWith(fontSize: widget.fontSize - 2),
                       )
                     ]),
@@ -51,12 +51,12 @@ class _PuzzleStatsBarState extends State<PuzzleStatsBar> {
               RichText(
                 text: TextSpan(
                     text: value.tilesLeft.toString().padLeft(2, '0'),
-                    style: AppTextStyles.heading18
+                    style: SlideTextStyle.heading18
                         .copyWith(fontSize: widget.fontSize),
                     children: <TextSpan>[
                       TextSpan(
                         text: ' Tiles',
-                        style: AppTextStyles.heading16
+                        style: SlideTextStyle.heading16
                             .copyWith(fontSize: widget.fontSize - 2),
                       )
                     ]),
@@ -77,12 +77,12 @@ class _PuzzleStatsBarState extends State<PuzzleStatsBar> {
               RichText(
                 text: TextSpan(
                     text: value.moves.toString().padLeft(2, '0'),
-                    style: AppTextStyles.heading18
+                    style: SlideTextStyle.heading18
                         .copyWith(fontSize: widget.fontSize),
                     children: <TextSpan>[
                       TextSpan(
                         text: ' Moves',
-                        style: AppTextStyles.heading16
+                        style: SlideTextStyle.heading16
                             .copyWith(fontSize: widget.fontSize - 2),
                       )
                     ]),
@@ -98,12 +98,12 @@ class _PuzzleStatsBarState extends State<PuzzleStatsBar> {
               RichText(
                 text: TextSpan(
                     text: value.tilesLeft.toString().padLeft(2, '0'),
-                    style: AppTextStyles.heading18
+                    style: SlideTextStyle.heading18
                         .copyWith(fontSize: widget.fontSize),
                     children: <TextSpan>[
                       TextSpan(
                         text: ' Tiles',
-                        style: AppTextStyles.heading16
+                        style: SlideTextStyle.heading16
                             .copyWith(fontSize: widget.fontSize - 2),
                       )
                     ]),
@@ -124,12 +124,12 @@ class _PuzzleStatsBarState extends State<PuzzleStatsBar> {
               RichText(
                 text: TextSpan(
                     text: value.moves.toString().padLeft(2, '0'),
-                    style: AppTextStyles.heading18
+                    style: SlideTextStyle.heading18
                         .copyWith(fontSize: widget.fontSize),
                     children: <TextSpan>[
                       TextSpan(
                         text: ' Moves',
-                        style: AppTextStyles.heading16
+                        style: SlideTextStyle.heading16
                             .copyWith(fontSize: widget.fontSize - 2),
                       )
                     ]),
@@ -145,12 +145,12 @@ class _PuzzleStatsBarState extends State<PuzzleStatsBar> {
               RichText(
                 text: TextSpan(
                     text: value.tilesLeft.toString().padLeft(2, '0'),
-                    style: AppTextStyles.heading18
+                    style: SlideTextStyle.heading18
                         .copyWith(fontSize: widget.fontSize),
                     children: <TextSpan>[
                       TextSpan(
                         text: ' Tiles',
-                        style: AppTextStyles.heading16
+                        style: SlideTextStyle.heading16
                             .copyWith(fontSize: widget.fontSize - 2),
                       )
                     ]),

@@ -2,7 +2,7 @@ import 'package:esjourney/presentation/screens/curriculum/games/slide/consts/Col
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AppTextStyles {
+class SlideTextStyle {
   static TextStyle heading18 = GoogleFonts.rowdies(
     color: SlideColors.primary3,
     fontSize: 20,

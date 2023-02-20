@@ -27,7 +27,6 @@ class JackpotScreenState extends State<JackpotScreen>
   @override
   void initState() {
     super.initState();
-    gameserivce.playSound('riseup');
     controller.forward();
     spinnercontroller.forward();
   }

@@ -1,4 +1,4 @@
-const kbaseUrl = 'http://172.16.6.63:3003/';
+const kbaseUrl = 'http://192.168.1.100:3003/';
 const ksignUp = 'user/signUp';
 const ksignIn = 'user/signIn';
 

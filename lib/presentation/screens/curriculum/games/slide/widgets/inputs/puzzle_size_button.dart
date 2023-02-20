@@ -50,8 +50,8 @@ class _PuzzleSizeButtonState extends State<PuzzleSizeButton> {
                   Text(
                     (widget.size * widget.size - 1).toString(),
                     style: enabled
-                        ? AppTextStyles.appbarEnabled.copyWith(fontSize: 18)
-                        : AppTextStyles.appbarDisabled.copyWith(fontSize: 17),
+                        ? SlideTextStyle.appbarEnabled.copyWith(fontSize: 18)
+                        : SlideTextStyle.appbarDisabled.copyWith(fontSize: 17),
                   ),
                   AnimatedContainer(
                     duration: const Duration(milliseconds: 200),

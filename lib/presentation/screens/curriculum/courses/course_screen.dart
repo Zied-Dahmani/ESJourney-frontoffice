@@ -241,7 +241,6 @@ class _CourseScreenState extends State<CourseScreen> {
   }
 
   List<Widget> _getChildren1(double height, double width) {
-
     List<Game> allGames = [
       Game(
         title: "Hangman",
@@ -284,7 +283,8 @@ class _CourseScreenState extends State<CourseScreen> {
         onTap: () {
           print("unity game in progress");
         },
-      ),Game(
+      ),
+      Game(
         title: "Draw",
         imagePath: "assets/images/curriculum/draw.png",
         onTap: () {
@@ -340,7 +340,7 @@ class _CourseScreenState extends State<CourseScreen> {
                 width: width,
                 imagePath: game.imagePath,
                 courseTitle: game.title,
-                onTap: () {},
+                onTap: game.onTap,
               );
             },
           ),
@@ -348,8 +348,6 @@ class _CourseScreenState extends State<CourseScreen> {
       ),
     ];
   }
-
-
 }
 
 class Game {

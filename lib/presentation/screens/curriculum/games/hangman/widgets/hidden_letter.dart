@@ -1,4 +1,4 @@
-import 'package:esjourney/presentation/screens/curriculum/games/hangman/utils/consts.dart';
+import 'package:esjourney/presentation/screens/curriculum/games/hangman/utils/hangmanConsts.dart';
 import 'package:flutter/material.dart';
 
 Widget hiddenLetter(String char, bool visible) {

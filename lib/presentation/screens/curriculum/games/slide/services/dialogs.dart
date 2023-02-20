@@ -100,7 +100,7 @@ class _GameInstructionsState extends State<GameInstructions> {
           children: [
             Text(
               'Just to let you know!',
-              style: AppTextStyles.instructions
+              style: SlideTextStyle.instructions
                   .copyWith(color: Colors.black, fontSize: 25),
             ),
             const SizedBox(
@@ -110,12 +110,12 @@ class _GameInstructionsState extends State<GameInstructions> {
                 textAlign: TextAlign.justify,
                 text: TextSpan(
                     text: "this is a modern replication of the",
-                    style: AppTextStyles.heading16.copyWith(
+                    style: SlideTextStyle.heading16.copyWith(
                         color: Colors.black.withOpacity(0.5), fontSize: 16),
                     children: [
                       TextSpan(
                         text: " Classic Slide puzzle",
-                        style: AppTextStyles.heading16.copyWith(
+                        style: SlideTextStyle.heading16.copyWith(
                             color: Colors.black.withOpacity(0.6),
                             fontWeight: FontWeight.bold,
                             fontSize: 16),
@@ -123,7 +123,7 @@ class _GameInstructionsState extends State<GameInstructions> {
                       TextSpan(
                         text: " it has various Sizes 3 , 4 and even 5 "
                             "of alphabetical or numerical tiles and if you to go even advanced you can import your own images and have fun with them  ",
-                        style: AppTextStyles.heading16.copyWith(
+                        style: SlideTextStyle.heading16.copyWith(
                             color: Colors.black.withOpacity(0.5), fontSize: 16),
                       )
                     ])),
@@ -135,7 +135,7 @@ class _GameInstructionsState extends State<GameInstructions> {
               children: [
                 Text(
                   'Switch ',
-                  style: AppTextStyles.instructions
+                  style: SlideTextStyle.instructions
                       .copyWith(color: Colors.black, fontSize: 18),
                 ),
                 const SizedBox(
@@ -152,7 +152,7 @@ class _GameInstructionsState extends State<GameInstructions> {
               child: Text(
                 "use Switch to swap 2 tiles to there correct place keep in mind that you have 5 tries only.",
                 textAlign: TextAlign.justify,
-                style: AppTextStyles.heading16.copyWith(
+                style: SlideTextStyle.heading16.copyWith(
                     color: Colors.black.withOpacity(0.6), fontSize: 15),
               ),
             ),
@@ -164,7 +164,7 @@ class _GameInstructionsState extends State<GameInstructions> {
               children: [
                 Text(
                   'Solve ',
-                  style: AppTextStyles.instructions
+                  style: SlideTextStyle.instructions
                       .copyWith(color: Colors.black, fontSize: 18),
                 ),
                 const SizedBox(
@@ -181,7 +181,7 @@ class _GameInstructionsState extends State<GameInstructions> {
               child: Text(
                 "when stressed out use Solve to unlock the puzzle, the more moves it takes to solve the longer the time to solve it.",
                 textAlign: TextAlign.justify,
-                style: AppTextStyles.heading16.copyWith(
+                style: SlideTextStyle.heading16.copyWith(
                     color: Colors.black.withOpacity(0.6), fontSize: 15),
               ),
             ),
@@ -202,7 +202,7 @@ class _GameInstructionsState extends State<GameInstructions> {
           children: [
             Text(
               'Just to let you know!',
-              style: AppTextStyles.instructions
+              style: SlideTextStyle.instructions
                   .copyWith(color: Colors.black, fontSize: 25),
             ),
             const SizedBox(
@@ -212,12 +212,12 @@ class _GameInstructionsState extends State<GameInstructions> {
                 textAlign: TextAlign.justify,
                 text: TextSpan(
                     text: "this is a modern replication of the",
-                    style: AppTextStyles.heading16.copyWith(
+                    style: SlideTextStyle.heading16.copyWith(
                         color: Colors.black.withOpacity(0.5), fontSize: 16),
                     children: [
                       TextSpan(
                         text: " Classic Slide puzzle",
-                        style: AppTextStyles.heading16.copyWith(
+                        style: SlideTextStyle.heading16.copyWith(
                             color: Colors.black.withOpacity(0.6),
                             fontWeight: FontWeight.bold,
                             fontSize: 16),
@@ -225,7 +225,7 @@ class _GameInstructionsState extends State<GameInstructions> {
                       TextSpan(
                         text: " it has various Sizes 3 , 4 and even 5 "
                             "of alphabetical or numerical tiles and if you to go even advanced you can import your own images and have fun with them  ",
-                        style: AppTextStyles.heading16.copyWith(
+                        style: SlideTextStyle.heading16.copyWith(
                             color: Colors.black.withOpacity(0.5), fontSize: 16),
                       )
                     ])),
@@ -237,7 +237,7 @@ class _GameInstructionsState extends State<GameInstructions> {
               children: [
                 Text(
                   'Switch ',
-                  style: AppTextStyles.instructions
+                  style: SlideTextStyle.instructions
                       .copyWith(color: Colors.black, fontSize: 18),
                 ),
                 const SizedBox(
@@ -254,7 +254,7 @@ class _GameInstructionsState extends State<GameInstructions> {
               child: Text(
                 "use Switch to swap 2 tiles to there correct place keep in mind that you have 5 tries only.",
                 textAlign: TextAlign.justify,
-                style: AppTextStyles.heading16.copyWith(
+                style: SlideTextStyle.heading16.copyWith(
                     color: Colors.black.withOpacity(0.6), fontSize: 15),
               ),
             ),
@@ -266,7 +266,7 @@ class _GameInstructionsState extends State<GameInstructions> {
               children: [
                 Text(
                   'Solve ',
-                  style: AppTextStyles.instructions
+                  style: SlideTextStyle.instructions
                       .copyWith(color: Colors.black, fontSize: 18),
                 ),
                 const SizedBox(
@@ -283,7 +283,7 @@ class _GameInstructionsState extends State<GameInstructions> {
               child: Text(
                 "when stressed out use Solve to unlock the puzzle, the more moves it takes to solve the longer the time to solve it.",
                 textAlign: TextAlign.justify,
-                style: AppTextStyles.heading16.copyWith(
+                style: SlideTextStyle.heading16.copyWith(
                     color: Colors.black.withOpacity(0.6), fontSize: 15),
               ),
             ),
@@ -305,7 +305,7 @@ class _GameInstructionsState extends State<GameInstructions> {
           children: [
             Text(
               'Just to let you know!',
-              style: AppTextStyles.instructions
+              style: SlideTextStyle.instructions
                   .copyWith(color: Colors.black, fontSize: 25),
             ),
             const SizedBox(
@@ -315,12 +315,12 @@ class _GameInstructionsState extends State<GameInstructions> {
                 textAlign: TextAlign.justify,
                 text: TextSpan(
                     text: "this is a modern replication of the",
-                    style: AppTextStyles.heading16.copyWith(
+                    style: SlideTextStyle.heading16.copyWith(
                         color: Colors.black.withOpacity(0.5), fontSize: 16),
                     children: [
                       TextSpan(
                         text: " Classic Slide puzzle",
-                        style: AppTextStyles.heading16.copyWith(
+                        style: SlideTextStyle.heading16.copyWith(
                             color: Colors.black.withOpacity(0.6),
                             fontWeight: FontWeight.bold,
                             fontSize: 16),
@@ -328,7 +328,7 @@ class _GameInstructionsState extends State<GameInstructions> {
                       TextSpan(
                         text: " it has various Sizes 3 , 4 and even 5 "
                             "of alphabetical or numerical tiles and if you to go even advanced you can import your own images and have fun with them  ",
-                        style: AppTextStyles.heading16.copyWith(
+                        style: SlideTextStyle.heading16.copyWith(
                             color: Colors.black.withOpacity(0.5), fontSize: 16),
                       )
                     ])),
@@ -340,7 +340,7 @@ class _GameInstructionsState extends State<GameInstructions> {
               children: [
                 Text(
                   'Switch ',
-                  style: AppTextStyles.instructions
+                  style: SlideTextStyle.instructions
                       .copyWith(color: Colors.black, fontSize: 18),
                 ),
                 const SizedBox(
@@ -357,7 +357,7 @@ class _GameInstructionsState extends State<GameInstructions> {
               child: Text(
                 "use Switch to swap 2 tiles to there correct place keep in mind that you have 5 tries only.",
                 textAlign: TextAlign.justify,
-                style: AppTextStyles.heading16.copyWith(
+                style: SlideTextStyle.heading16.copyWith(
                     color: Colors.black.withOpacity(0.6), fontSize: 15),
               ),
             ),
@@ -369,7 +369,7 @@ class _GameInstructionsState extends State<GameInstructions> {
               children: [
                 Text(
                   'Solve ',
-                  style: AppTextStyles.instructions
+                  style: SlideTextStyle.instructions
                       .copyWith(color: Colors.black, fontSize: 18),
                 ),
                 const SizedBox(
@@ -386,7 +386,7 @@ class _GameInstructionsState extends State<GameInstructions> {
               child: Text(
                 "when stressed out use Solve to unlock the puzzle, the more moves it takes to solve the longer the time to solve it.",
                 textAlign: TextAlign.justify,
-                style: AppTextStyles.heading16.copyWith(
+                style: SlideTextStyle.heading16.copyWith(
                     color: Colors.black.withOpacity(0.6), fontSize: 15),
               ),
             ),
@@ -446,7 +446,7 @@ class _GameEndedDialogState extends State<GameEndedDialog> {
                   ),
                   Text(
                     'Congratulations!!',
-                    style: AppTextStyles.instructions
+                    style: SlideTextStyle.instructions
                         .copyWith(color: Colors.black, fontSize: 28),
                   ),
                   const SizedBox(
@@ -456,53 +456,53 @@ class _GameEndedDialogState extends State<GameEndedDialog> {
                       textAlign: TextAlign.justify,
                       text: TextSpan(
                           text: "puzzle solved in ",
-                          style: AppTextStyles.heading16.copyWith(
+                          style: SlideTextStyle.heading16.copyWith(
                               color: Colors.black.withOpacity(0.5),
                               fontSize: 16),
                           children: [
                             if (minutes > 0)
                               TextSpan(
                                   text: "$minutes min",
-                                  style: AppTextStyles.heading18.copyWith(
+                                  style: SlideTextStyle.heading18.copyWith(
                                       color: Colors.black.withOpacity(0.9),
                                       fontSize: 18)),
                             TextSpan(
                               text: ",",
-                              style: AppTextStyles.heading16.copyWith(
+                              style: SlideTextStyle.heading16.copyWith(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: 16),
                             ),
                             TextSpan(
                                 text: "$seconds sec",
-                                style: AppTextStyles.heading18.copyWith(
+                                style: SlideTextStyle.heading18.copyWith(
                                     color: Colors.black.withOpacity(0.9),
                                     fontSize: 18)),
                             TextSpan(
                               text: " by moving ",
-                              style: AppTextStyles.heading16.copyWith(
+                              style: SlideTextStyle.heading16.copyWith(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: 16),
                             ),
                             TextSpan(
                                 text: widget.score.moves.toString(),
-                                style: AppTextStyles.heading18.copyWith(
+                                style: SlideTextStyle.heading18.copyWith(
                                     color: Colors.black.withOpacity(0.9),
                                     fontSize: 18)),
                             TextSpan(
                               text: " tiles, score is:\n",
-                              style: AppTextStyles.heading16.copyWith(
+                              style: SlideTextStyle.heading16.copyWith(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: 16),
                             ),
                           ])),
                   Text(
                     widget.score.points.toString(),
-                    style: AppTextStyles.instructions
+                    style: SlideTextStyle.instructions
                         .copyWith(color: Colors.black, fontSize: 32),
                   ),
                   Text(
                     "points",
-                    style: AppTextStyles.heading16.copyWith(
+                    style: SlideTextStyle.heading16.copyWith(
                         color: Colors.black.withOpacity(0.5), fontSize: 16),
                   ),
                   const SizedBox(
@@ -536,7 +536,7 @@ class _GameEndedDialogState extends State<GameEndedDialog> {
                   ),
                   Text(
                     'Congratulations!!',
-                    style: AppTextStyles.instructions
+                    style: SlideTextStyle.instructions
                         .copyWith(color: Colors.black, fontSize: 28),
                   ),
                   const SizedBox(
@@ -546,53 +546,53 @@ class _GameEndedDialogState extends State<GameEndedDialog> {
                       textAlign: TextAlign.justify,
                       text: TextSpan(
                           text: "puzzle solved in ",
-                          style: AppTextStyles.heading16.copyWith(
+                          style: SlideTextStyle.heading16.copyWith(
                               color: Colors.black.withOpacity(0.5),
                               fontSize: 16),
                           children: [
                             if (minutes > 0)
                               TextSpan(
                                   text: "$minutes min",
-                                  style: AppTextStyles.heading18.copyWith(
+                                  style: SlideTextStyle.heading18.copyWith(
                                       color: Colors.black.withOpacity(0.9),
                                       fontSize: 18)),
                             TextSpan(
                               text: ",",
-                              style: AppTextStyles.heading16.copyWith(
+                              style: SlideTextStyle.heading16.copyWith(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: 16),
                             ),
                             TextSpan(
                                 text: "$seconds sec",
-                                style: AppTextStyles.heading18.copyWith(
+                                style: SlideTextStyle.heading18.copyWith(
                                     color: Colors.black.withOpacity(0.9),
                                     fontSize: 18)),
                             TextSpan(
                               text: " by moving ",
-                              style: AppTextStyles.heading16.copyWith(
+                              style: SlideTextStyle.heading16.copyWith(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: 16),
                             ),
                             TextSpan(
                                 text: widget.score.moves.toString(),
-                                style: AppTextStyles.heading18.copyWith(
+                                style: SlideTextStyle.heading18.copyWith(
                                     color: Colors.black.withOpacity(0.9),
                                     fontSize: 18)),
                             TextSpan(
                               text: " tiles, score is:\n",
-                              style: AppTextStyles.heading16.copyWith(
+                              style: SlideTextStyle.heading16.copyWith(
                                   color: Colors.black.withOpacity(0.5),
                                   fontSize: 16),
                             ),
                           ])),
                   Text(
                     widget.score.points.toString(),
-                    style: AppTextStyles.instructions
+                    style: SlideTextStyle.instructions
                         .copyWith(color: Colors.black, fontSize: 32),
                   ),
                   Text(
                     "points",
-                    style: AppTextStyles.heading16.copyWith(
+                    style: SlideTextStyle.heading16.copyWith(
                         color: Colors.black.withOpacity(0.5), fontSize: 16),
                   ),
                   const SizedBox(
@@ -623,7 +623,7 @@ class _GameEndedDialogState extends State<GameEndedDialog> {
                 ),
                 Text(
                   'Congratulations!!',
-                  style: AppTextStyles.instructions
+                  style: SlideTextStyle.instructions
                       .copyWith(color: Colors.black, fontSize: 28),
                 ),
                 const SizedBox(
@@ -633,52 +633,52 @@ class _GameEndedDialogState extends State<GameEndedDialog> {
                     textAlign: TextAlign.justify,
                     text: TextSpan(
                         text: "puzzle solved in ",
-                        style: AppTextStyles.heading16.copyWith(
+                        style: SlideTextStyle.heading16.copyWith(
                             color: Colors.black.withOpacity(0.5), fontSize: 16),
                         children: [
                           if (minutes > 0)
                             TextSpan(
                                 text: "$minutes min",
-                                style: AppTextStyles.heading18.copyWith(
+                                style: SlideTextStyle.heading18.copyWith(
                                     color: Colors.black.withOpacity(0.9),
                                     fontSize: 18)),
                           TextSpan(
                             text: ",",
-                            style: AppTextStyles.heading16.copyWith(
+                            style: SlideTextStyle.heading16.copyWith(
                                 color: Colors.black.withOpacity(0.5),
                                 fontSize: 16),
                           ),
                           TextSpan(
                               text: "$seconds sec",
-                              style: AppTextStyles.heading18.copyWith(
+                              style: SlideTextStyle.heading18.copyWith(
                                   color: Colors.black.withOpacity(0.9),
                                   fontSize: 18)),
                           TextSpan(
                             text: " by moving ",
-                            style: AppTextStyles.heading16.copyWith(
+                            style: SlideTextStyle.heading16.copyWith(
                                 color: Colors.black.withOpacity(0.5),
                                 fontSize: 16),
                           ),
                           TextSpan(
                               text: widget.score.moves.toString(),
-                              style: AppTextStyles.heading18.copyWith(
+                              style: SlideTextStyle.heading18.copyWith(
                                   color: Colors.black.withOpacity(0.9),
                                   fontSize: 18)),
                           TextSpan(
                             text: " tiles, score is:\n",
-                            style: AppTextStyles.heading16.copyWith(
+                            style: SlideTextStyle.heading16.copyWith(
                                 color: Colors.black.withOpacity(0.5),
                                 fontSize: 16),
                           ),
                         ])),
                 Text(
                   widget.score.points.toString(),
-                  style: AppTextStyles.instructions
+                  style: SlideTextStyle.instructions
                       .copyWith(color: Colors.black, fontSize: 32),
                 ),
                 Text(
                   "points",
-                  style: AppTextStyles.heading16.copyWith(
+                  style: SlideTextStyle.heading16.copyWith(
                       color: Colors.black.withOpacity(0.5), fontSize: 16),
                 ),
                 const SizedBox(
@@ -720,7 +720,7 @@ class _ResetGameDialogState extends State<ResetGameDialog> {
         children: [
           Text(
             'Unfinnished Game!!',
-            style: AppTextStyles.instructions
+            style: SlideTextStyle.instructions
                 .copyWith(color: Colors.black, fontSize: 20),
           ),
           const SizedBox(
@@ -729,7 +729,7 @@ class _ResetGameDialogState extends State<ResetGameDialog> {
           RichText(
               text: TextSpan(
                   text: "Are you sure you want to leave this game?",
-                  style: AppTextStyles.heading16.copyWith(
+                  style: SlideTextStyle.heading16.copyWith(
                       color: Colors.black.withOpacity(0.5), fontSize: 14),
                   children: [])),
           const SizedBox(
@@ -744,7 +744,7 @@ class _ResetGameDialogState extends State<ResetGameDialog> {
                   },
                   child: Text(
                     'cancel',
-                    style: AppTextStyles.instructions
+                    style: SlideTextStyle.instructions
                         .copyWith(color: Colors.black, fontSize: 18),
                   )),
               TextButton(
@@ -754,7 +754,7 @@ class _ResetGameDialogState extends State<ResetGameDialog> {
                   },
                   child: Text(
                     'yes!',
-                    style: AppTextStyles.instructions
+                    style: SlideTextStyle.instructions
                         .copyWith(color: Colors.redAccent, fontSize: 18),
                   )),
             ],
