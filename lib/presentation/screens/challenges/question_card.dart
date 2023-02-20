@@ -1,7 +1,7 @@
+import 'package:esjourney/data/models/challenges/quiz/quiz_model.dart';
 import 'package:flutter/material.dart';
 
 
-import '../../../data/models/quiz/quiz_model.dart';
 import 'option.dart';
 
 class QuestionCard extends StatefulWidget {

@@ -7,6 +7,8 @@ import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/screens/challenges/question_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tflite_flutter/tflite_flutter.dart';
+
 import '../../widgets/challenges/disco_button.dart';
 
 class QuizScreen extends StatefulWidget {
@@ -16,9 +18,7 @@ class QuizScreen extends StatefulWidget {
   State<QuizScreen> createState() => _QuizScreenState();
 }
 
-List<int> apiAnswers = [];
-List<Quiz> quiz = [];
-bool _isLoading = true;
+var _predictionInput = List.filled(1, List.filled(2, 0.0));
 int _questionIndex = 0;
 CountDownController _controller = CountDownController();
 bool _isSelected = false;
@@ -30,13 +30,45 @@ bool _isQuizAnswered = false;
 bool timerEnded = false;
 bool hasSetState = false;
 bool _isAnswerAdded = false;
-
+List<Quiz> apiQuiz = [];
+double _isAnswerCorrect = 0.0;
+List<String> _answeredQuestions = [];
+String _discoBtnText = "Next";
 class _QuizScreenState extends State<QuizScreen> {
   @override
   void initState() {
     super.initState();
     final getQuiz = BlocProvider.of<QuizCubit>(context);
     getQuiz.getQuiz("c");
+  }
+
+  String hardness(String currentHardness, int predictedHardness) {
+    final Map<int, int> incDecreaseHardness = {0: -1, 1: 0, 2: 1};
+    final List<String> hardness = ["easy", "medium", "hard"];
+    int nextHardnessIndex = hardness.indexOf(currentHardness) +
+        incDecreaseHardness[predictedHardness]!;
+
+    String nextQuestionHardness;
+    if (0 <= nextHardnessIndex && nextHardnessIndex < 3) {
+      nextQuestionHardness = hardness[hardness.indexOf(currentHardness) +
+          incDecreaseHardness[predictedHardness]!];
+    } else {
+      nextQuestionHardness = currentHardness;
+    }
+
+    return nextQuestionHardness;
+  }
+
+  Future<int> predData(List<List<double>> input) async {
+    final interpreter = await Interpreter.fromAsset('quiz.tflite');
+    var output = List.filled(1 * 3, 0).reshape([1, 3]);
+
+    interpreter.run(input, output);
+
+    var predictedDifficultyIndex = output[0]
+        .indexOf(output[0].reduce((double a, double b) => a > b ? a : b));
+
+    return predictedDifficultyIndex;
   }
 
   @override
@@ -48,10 +80,11 @@ class _QuizScreenState extends State<QuizScreen> {
         final user = state.user;
         return BlocBuilder<QuizCubit, QuizState>(builder: (context, state) {
           if (state is QuizSuccess) {
-            final quiz = state.quizzes;
-            for (int i = 0; i < quiz.length; i++) {
-              correctOptionIndices.add(quiz[i].answer);
+            final apiQuiz = state.quizzes;
+            for (int i = 0; i < apiQuiz.length; i++) {
+              correctOptionIndices.add(apiQuiz[i].answer);
             }
+
             return Scaffold(
               backgroundColor: Colors.white,
               body: Column(
@@ -86,14 +119,14 @@ class _QuizScreenState extends State<QuizScreen> {
                               backgroundColor: Colors.grey[300],
                               valueColor: AlwaysStoppedAnimation<Color>(
                                   theme.colorScheme.shadow),
-                              value: (_questionIndex + 1) / quiz.length,
+                              value: (_questionIndex + 1) / apiQuiz.length,
                             ),
                           ),
                         ),
                         Container(
                           margin: const EdgeInsets.only(right: 20),
                           child: Text(
-                            "${_questionIndex + 1}/${quiz.length}",
+                            "${_questionIndex + 1}/${apiQuiz.length}",
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -129,7 +162,7 @@ class _QuizScreenState extends State<QuizScreen> {
                         child: Container(
                           margin: const EdgeInsets.fromLTRB(20, 45, 20, 0),
                           child: Text(
-                            quiz[_questionIndex].question,
+                            apiQuiz[_questionIndex].question,
                             style: theme.textTheme.bodyMedium,
                           ),
                         ),
@@ -140,7 +173,7 @@ class _QuizScreenState extends State<QuizScreen> {
                           child: Container(
                             margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                             child: CircularCountDownTimer(
-                              duration: 3,
+                              duration: 99999,
                               initialDuration: 0,
                               controller: _controller,
                               width: 60,
@@ -173,7 +206,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                     _userAnswers.add(-1);
                                     _isAnswerAdded = true;
                                   }
-                                  if (_questionIndex < quiz.length) {
+                                  if (_questionIndex < apiQuiz.length) {
                                     if (!hasSetState) {
                                       setState(() {
                                         _questionIndex++;
@@ -215,7 +248,7 @@ class _QuizScreenState extends State<QuizScreen> {
                   ),
                   QuestionCard(
                     isQuizAnswered: _isQuizAnswered,
-                    quiz: quiz[_questionIndex],
+                    quiz: apiQuiz[_questionIndex],
                     correctOptionIndices: correctOptionIndices[_questionIndex],
                     selectedOptionIndices: _isQuizAnswered
                         ? [_userAnswers[_questionIndex]]
@@ -230,32 +263,69 @@ class _QuizScreenState extends State<QuizScreen> {
                     },
                   ),
                   DiscoButton(
-                    isActive: _isSelected || _isQuizAnswered,
-                    onPressed: () {
+                    isActive: true,
+
+                    //_isSelected || _isQuizAnswered,
+                    onPressed: () async {
+                      _answeredQuestions.add(apiQuiz[_questionIndex].question);
+                      print("question isss " + apiQuiz[_questionIndex].difficulty);
+                      if (_selectedOptionIndex ==
+                          correctOptionIndices[_questionIndex]) {
+                        _isAnswerCorrect = 1;
+                      } else {
+                        _isAnswerCorrect = 0;
+                      }
+
+                      //print("is answer correct: $_isAnswerCorrect");
+                      double timeTaken = double.parse(_controller.getTime()!);
+                      _predictionInput[0][0] = timeTaken;
+                      _predictionInput[0][1] = _isAnswerCorrect;
+                      int predictedDifficulty =
+                          await predData(_predictionInput);
+                      String nextQuestionDifficulty = hardness(
+                          apiQuiz[_questionIndex].difficulty,
+                          predictedDifficulty);
+
+                      for (int i = 0; i < apiQuiz.length; i++) {
+                        if (apiQuiz[i].difficulty == nextQuestionDifficulty &&
+                            !_answeredQuestions.contains(apiQuiz[i].question)) {
+print("answereed question: ${_answeredQuestions}");
+
+                          _questionIndex = i;
+                          print("question index: $i");
+                          break;
+                        }
+
+                      }
+
                       if (!_isQuizAnswered) {
                         _userAnswers.add(_selectedOptionIndex);
                         //  setUsersAnswers(_userAnswers);
 
-                        if (_questionIndex == quiz.length - 1) {
+                        if (_answeredQuestions.length == apiQuiz.length) {
                           setState(() {
                             selectedOptionIndices = [];
                             _questionIndex = 0;
                             _isQuizAnswered = true;
                             _controller.pause();
+                            _discoBtnText = "Finish Quiz";
+
                           });
                         } else {
                           setState(() {
                             timerEnded = true;
                             selectedOptionIndices = [];
-                            _questionIndex++;
-                            _controller.restart(duration: 7);
+                            _controller.restart(duration: 99999);
                           });
                         }
                       } else {
                         setState(() {
                           selectedOptionIndices = [];
+                          _answeredQuestions
+                              .add(apiQuiz[_questionIndex].question);
                           _questionIndex++;
-                          if (_questionIndex == quiz.length) {
+
+                          if (_questionIndex == apiQuiz.length) {
                             setState(() {
                               _questionIndex = 0;
                             });
@@ -265,8 +335,8 @@ class _QuizScreenState extends State<QuizScreen> {
                     },
                     height: MediaQuery.of(context).size.height * 0.065,
                     width: MediaQuery.of(context).size.width * 0.335,
-                    child: const Text(
-                      "Next",
+                    child:  Text(
+                      _discoBtnText,
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ),

@@ -7,6 +7,7 @@ import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/router/app_router.dart';
 import 'package:esjourney/presentation/screens/challenges/leaderboard/leaderboard_screen.dart';
+import 'package:esjourney/presentation/screens/challenges/quiz.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
 import 'package:esjourney/utils/strings.dart';
 import 'package:esjourney/utils/theme.dart';
@@ -98,7 +99,7 @@ class MyApp extends StatelessWidget {
             buildWhen: (oldState, newState) => oldState is UserInitial && newState is! UserLoadInProgress,
             builder: (context, state) {
               if(state is UserLogInSuccess) {
-                return const LeaderboardScreen();
+                return const QuizScreen();
               } else {
                 return SignInScreen();
               }

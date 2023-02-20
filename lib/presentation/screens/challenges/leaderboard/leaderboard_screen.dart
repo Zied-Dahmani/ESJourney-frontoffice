@@ -1,7 +1,6 @@
 import 'package:esjourney/data/models/challenges/leaderboard/leaderboard_res.dart';
 import 'package:esjourney/logic/cubits/challenges/leaderboard_cubit.dart';
 import 'package:esjourney/logic/cubits/challenges/leaderboard_state.dart';
-import 'package:esjourney/presentation/screens/challenges/leaderboard/leaderboard_screen.dart';
 import 'package:esjourney/presentation/widgets/challenges/leaderboard_history.dart';
 import 'package:esjourney/presentation/widgets/challenges/leaderboard_list.dart';
 import 'package:esjourney/presentation/widgets/challenges/top_three_users.dart';
