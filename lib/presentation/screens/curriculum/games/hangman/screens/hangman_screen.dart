@@ -23,8 +23,25 @@ class HangmanScreenState extends State<HangmanScreen> {
       appBar: AppBar(
         elevation: 0.0,
         centerTitle: true,
+        //add back button
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
         backgroundColor: Colors.transparent,
-        title: const Text('Hangman'),
+        title: const Text(
+          'Hangman',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 24.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: Column(
         children: <Widget>[
@@ -91,6 +108,7 @@ class HangmanScreenState extends State<HangmanScreen> {
                         e,
                         style: const TextStyle(
                           fontSize: 20.0,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

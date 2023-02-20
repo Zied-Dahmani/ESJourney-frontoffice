@@ -27,23 +27,6 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
           Navigator.of(context).pushNamed(AppRoutes.hangmanGame);
         },
       ),
-      /*Game(
-        title: "Slide",
-        imagePath: "assets/images/curriculum/jackpot.png",
-        onTap: () {
-          double swidth = MediaQuery.of(context).size.width * 0.8;
-          if (width >= 425) {
-            swidth = MediaQuery.of(context).size.width * 0.4;
-          }
-          if (width >= 1000) {
-            swidth = MediaQuery.of(context).size.width * 0.28;
-          }
-
-          Provider.of<BoardController>(context, listen: false)
-              .init(width: swidth);
-          Navigator.of(context).pushNamed(AppRoutes.slideGame);
-        },
-      ),*/
       Game(
         title: "Worldly",
         imagePath: "assets/images/curriculum/wordle.png",
