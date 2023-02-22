@@ -36,6 +36,8 @@ class AppStrings {
   static const ktypeValidPhoneNumber = 'Type a valid phone number!';
   static const ktypeValidLink = 'Type a valid link!';
 
+  static const kturnOnLocation = 'Turn on location!';
+
   // Louay
 
   // Souhail

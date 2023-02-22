@@ -57,8 +57,8 @@ class SignInScreen extends StatelessWidget {
                     const SizedBox(height: AppSizes.khugeSpace),
                     Image.asset(
                       'assets/images/app_logo.png',
-                      height: AppSizes.kimageSize,
-                      width: AppSizes.kimageSize,
+                      height: AppSizes.ksmallImageSize,
+                      width: AppSizes.ksmallImageSize,
                     ),
                     Text(
                       AppStrings.ksignInPrompt,

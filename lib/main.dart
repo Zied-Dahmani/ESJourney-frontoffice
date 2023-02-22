@@ -1,6 +1,8 @@
 import 'package:esjourney/logic/app_bloc_observer.dart';
 import 'package:esjourney/logic/cubits/club/club_cubit.dart';
+import 'package:esjourney/logic/cubits/club_event/club_event_cubit.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
+import 'package:esjourney/logic/cubits/location/location_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/router/app_router.dart';
@@ -77,9 +79,10 @@ class MyApp extends StatelessWidget {
               create: (context) => ConnectivityCubit(), lazy: false),
           BlocProvider<UserCubit>(create: (context) => UserCubit(), lazy: true),
           BlocProvider<ClubCubit>(
-              create: (context) =>
-                  ClubCubit(BlocProvider.of<ConnectivityCubit>(context)),
+              create: (context) => ClubCubit(BlocProvider.of<ConnectivityCubit>(context)),
               lazy: true),
+          BlocProvider<LocationCubit>(create: (context) => LocationCubit(), lazy: true),
+          BlocProvider<ClubEventCubit>(create: (context) => ClubEventCubit(BlocProvider.of<ConnectivityCubit>(context)), lazy: true),
         ],
         child: MaterialApp(
           title: 'ESJourney',

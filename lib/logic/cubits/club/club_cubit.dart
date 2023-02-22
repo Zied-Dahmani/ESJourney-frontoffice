@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:developer' as developer;
 import 'package:esjourney/data/models/club_model.dart';
-import 'package:esjourney/data/repositories/club_repository.dart';
+import 'package:esjourney/data/repositories/club/club_repository.dart';
 import 'package:esjourney/logic/cubits/club/club_state.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
 import 'package:esjourney/utils/constants.dart';

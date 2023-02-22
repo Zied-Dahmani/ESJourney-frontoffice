@@ -16,7 +16,9 @@ ThemeData lightTheme = ThemeData(
         error: Color(0xFFEB4A5A),
         onError: Colors.white,
         surface: Colors.white,
-        onSurface: Colors.black),
+        onSurface: Colors.black,
+        outline: Color(0xFF3EB8D4)
+    ),
     fontFamily: 'VisbyRoundCF',
     textTheme: const TextTheme(
       headlineLarge: TextStyle(
@@ -89,7 +91,8 @@ class AppSizes {
 
   static const kradius = 20.0;
   static const kbuttonHeight = 56.0;
-  static const kimageSize = 180.0;
+  static const ksmallImageSize = 180.0;
+  static const kbigImageSize = 240.0;
   static const kiconSize = 24.0;
   static const kiconBackgroundSize = 54.0;
   static const kiconBackgroundRadius = 99.0;

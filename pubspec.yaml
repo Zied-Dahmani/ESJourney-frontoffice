@@ -49,6 +49,7 @@ dependencies:
   regexed_validator: ^2.0.0+1
   flutter_map: ^3.1.0
   flutter_svg: ^1.1.6
+  location: ^4.4.0
 
 
 
