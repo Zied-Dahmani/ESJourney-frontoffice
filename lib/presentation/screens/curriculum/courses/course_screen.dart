@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:esjourney/logic/cubits/curriculum/course_cubit.dart';
@@ -10,6 +13,7 @@ import 'package:esjourney/presentation/widgets/curriculum/course_widget.dart';
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:tab_container/tab_container.dart';
 
@@ -235,6 +239,28 @@ class _CourseScreenState extends State<CourseScreen> {
     );
   }
 
+  Future<bool> canNavigateToScreen() async {
+    Directory directory = await getApplicationDocumentsDirectory();
+    String path = '${directory.path}/last_visit.json';
+
+    if (File(path).existsSync()) {
+      String fileContents = File(path).readAsStringSync();
+      Map<String, dynamic> data = jsonDecode(fileContents);
+      DateTime lastVisitDate = DateTime.parse(data['last_visit_date']);
+
+      DateTime now = DateTime.now();
+      if (lastVisitDate.year == now.year &&
+          lastVisitDate.month == now.month &&
+          lastVisitDate.day == now.day) {
+        return false;
+      }
+    }
+
+    Map<String, dynamic> data = {'last_visit_date': DateTime.now().toString()};
+    File(path).writeAsStringSync(jsonEncode(data));
+    return true;
+  }
+
   List<String> _getTabs1() {
     return <String>[
       "Courses",
@@ -285,23 +311,33 @@ class _CourseScreenState extends State<CourseScreen> {
       Game(
         title: "Jackpot",
         imagePath: "assets/images/curriculum/jackpot.png",
-        onTap: () {
-          Navigator.of(context).pushNamed(AppRoutes.jackpotGame);
+        onTap: () async {
+          bool canNavigate = await canNavigateToScreen();
+          if (canNavigate) {
+            Navigator.of(context).pushNamed(AppRoutes.jackpotGame);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text(
+                  "You can only play this game once a day",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            );
+          }
         },
       ),
       Game(
         title: "LogicBot",
         imagePath: "assets/images/curriculum/logicbot.png",
-        onTap: () {
-          print("unity game in progress");
-        },
+        onTap: () {},
       ),
       Game(
         title: "Draw",
         imagePath: "assets/images/curriculum/draw.png",
-        onTap: () {
-          print("server/draw game in progress");
-        },
+        onTap: () {},
       ),
     ];
 
