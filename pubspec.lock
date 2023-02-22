@@ -217,6 +217,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.17.0"
+  comment_tree:
+    dependency: "direct main"
+    description:
+      name: comment_tree
+      sha256: f99978c6f4a47f9aec284753cc10442e509851d7d86192b963db70e6873f2ddb
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.0"
   connectivity_plus:
     dependency: "direct main"
     description:
@@ -840,6 +848,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.27.7"
+  searchbar_animation:
+    dependency: "direct main"
+    description:
+      name: searchbar_animation
+      sha256: "8c9b82e666dae343f8ec34137da18f0de3f019da42691ec8b2c492ee434cc0ba"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   shelf:
     dependency: transitive
     description:
