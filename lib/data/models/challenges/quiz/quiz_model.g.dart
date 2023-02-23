@@ -13,6 +13,7 @@ _$_Quiz _$$_QuizFromJson(Map<String, dynamic> json) => _$_Quiz(
           (json['options'] as List<dynamic>).map((e) => e as String).toList(),
       answer: json['answer'] as int,
       difficulty: json['difficulty'] as String,
+      hasCode: json['hasCode'] as bool,
     );
 
 Map<String, dynamic> _$$_QuizToJson(_$_Quiz instance) => <String, dynamic>{
@@ -21,4 +22,5 @@ Map<String, dynamic> _$$_QuizToJson(_$_Quiz instance) => <String, dynamic>{
       'options': instance.options,
       'answer': instance.answer,
       'difficulty': instance.difficulty,
+      'hasCode': instance.hasCode,
     };

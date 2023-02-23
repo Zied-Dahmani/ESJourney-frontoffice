@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:esjourney/presentation/router/routes.dart';
 import 'package:flutter/material.dart';
 
 class QuizResultScreen extends StatelessWidget {
@@ -157,6 +158,12 @@ final int score;
                     icon: Icons.leaderboard_outlined,
                     text: "Leaderboard",
                     width: width,
+                    onTap: () {
+                      Navigator.of(context).pushNamed(
+                        AppRoutes.leaderboardScreen,
+
+                      );
+                    },
                   ),
                 ),
               ],

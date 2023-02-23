@@ -35,6 +35,7 @@ class _QuestionCardState extends State<QuestionCard> {
         children: [
           ListView.builder(
             shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: widget.quiz.options.length,
             itemBuilder: (context, index) {
               return GestureDetector(

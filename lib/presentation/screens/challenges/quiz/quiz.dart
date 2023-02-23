@@ -5,26 +5,21 @@ import 'package:esjourney/logic/cubits/challenges/quiz_state.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/screens/challenges/quiz/question_card.dart';
+import 'package:esjourney/presentation/widgets/challenges/disco_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../router/routes.dart';
-import '../../../widgets/challenges/disco_button.dart';
-
-
+import 'package:tflite_flutter/tflite_flutter.dart';
 
 class QuizScreen extends StatefulWidget {
-  const QuizScreen({
-    Key? key,
-  }) : super(key: key);
+  const QuizScreen({Key? key}) : super(key: key);
 
-//final String language;
-//  required this.language
   @override
   State<QuizScreen> createState() => _QuizScreenState();
 }
 
-List<Quiz> quiz = [];
+var _predictionInput = List.filled(1, List.filled(2, 0.0));
 int _questionIndex = 0;
+int _displayedQuestionIndex = 1;
 CountDownController _controller = CountDownController();
 bool _isSelected = false;
 List<int> selectedOptionIndices = [];
@@ -35,7 +30,19 @@ bool _isQuizAnswered = false;
 bool timerEnded = false;
 bool hasSetState = false;
 bool _isAnswerAdded = false;
-int _userScore = 0;
+List<Quiz> apiQuiz = [];
+double _isAnswerCorrect = 0.0;
+const _totalQuestions = 3;
+String _discoBtnText = "Next";
+Quiz _currentQuestion = Quiz(
+  answer: 1,
+  difficulty: "",
+  hasCode: false,
+  language: "",
+  options: [],
+  question: "",
+);
+List<Quiz> _answeredQuestions = [];
 
 class _QuizScreenState extends State<QuizScreen> {
   @override
@@ -43,6 +50,35 @@ class _QuizScreenState extends State<QuizScreen> {
     super.initState();
     final getQuiz = BlocProvider.of<QuizCubit>(context);
     getQuiz.getQuiz("c");
+  }
+
+  String hardness(String currentHardness, int predictedHardness) {
+    final Map<int, int> incDecreaseHardness = {0: -1, 1: 0, 2: 1};
+    final List<String> hardness = ["easy", "medium", "hard"];
+    int nextHardnessIndex = hardness.indexOf(currentHardness) +
+        incDecreaseHardness[predictedHardness]!;
+
+    String nextQuestionHardness;
+    if (0 <= nextHardnessIndex && nextHardnessIndex < 3) {
+      nextQuestionHardness = hardness[hardness.indexOf(currentHardness) +
+          incDecreaseHardness[predictedHardness]!];
+    } else {
+      nextQuestionHardness = currentHardness;
+    }
+
+    return nextQuestionHardness;
+  }
+
+  Future<int> predData(List<List<double>> input) async {
+    final interpreter = await Interpreter.fromAsset('quiz.tflite');
+    var output = List.filled(1 * 3, 0).reshape([1, 3]);
+
+    interpreter.run(input, output);
+
+    var predictedDifficultyIndex = output[0]
+        .indexOf(output[0].reduce((double a, double b) => a > b ? a : b));
+
+    return predictedDifficultyIndex;
   }
 
   @override
@@ -53,11 +89,15 @@ class _QuizScreenState extends State<QuizScreen> {
       if (state is UserLogInSuccess) {
         final user = state.user;
         return BlocBuilder<QuizCubit, QuizState>(builder: (context, state) {
-          if (state is QuizSuccess) {
-            final quiz = state.quizzes;
-            for (int i = 0; i < quiz.length; i++) {
-              correctOptionIndices.add(quiz[i].answer);
+          if (state is QuizSuccess )  {
+            if (_isQuizAnswered == false){
+            apiQuiz = state.quizzes.cast<Quiz>().toList();}
+            for (int i = 0; i < apiQuiz.length; i++) {
+              correctOptionIndices.add(apiQuiz[i].answer);
             }
+            _currentQuestion = apiQuiz[_questionIndex];
+            // fill easy questions list with easy questions
+
             return Scaffold(
               backgroundColor: Colors.white,
               body: Column(
@@ -80,8 +120,8 @@ class _QuizScreenState extends State<QuizScreen> {
                       children: [
                         Container(
                           margin: const EdgeInsets.only(left: 20),
-                          width: MediaQuery.of(context).size.width * 0.7,
-                          height: 10,
+                          width: MediaQuery.of(context).size.width * 0.68,
+                          height: MediaQuery.of(context).size.height * 0.012,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
                             color: Colors.grey[300],
@@ -92,14 +132,14 @@ class _QuizScreenState extends State<QuizScreen> {
                               backgroundColor: Colors.grey[300],
                               valueColor: AlwaysStoppedAnimation<Color>(
                                   theme.colorScheme.shadow),
-                              value: (_questionIndex + 1) / quiz.length,
+                              value: _displayedQuestionIndex / _totalQuestions,
                             ),
                           ),
                         ),
                         Container(
                           margin: const EdgeInsets.only(right: 20),
                           child: Text(
-                            "${_questionIndex + 1}/${quiz.length}",
+                            "${_displayedQuestionIndex}/${_totalQuestions}",
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -135,7 +175,7 @@ class _QuizScreenState extends State<QuizScreen> {
                         child: Container(
                           margin: const EdgeInsets.fromLTRB(20, 45, 20, 0),
                           child: Text(
-                            quiz[_questionIndex].question,
+                            _currentQuestion.question,
                             style: theme.textTheme.bodyMedium,
                           ),
                         ),
@@ -146,7 +186,7 @@ class _QuizScreenState extends State<QuizScreen> {
                           child: Container(
                             margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                             child: CircularCountDownTimer(
-                              duration: 50,
+                              duration: 99999,
                               initialDuration: 0,
                               controller: _controller,
                               width: 60,
@@ -179,17 +219,16 @@ class _QuizScreenState extends State<QuizScreen> {
                                     _userAnswers.add(-1);
                                     _isAnswerAdded = true;
                                   }
-                                  if (_questionIndex < quiz.length) {
+                                  if (_questionIndex < apiQuiz.length) {
                                     if (!hasSetState) {
                                       setState(() {
-                                        _questionIndex++;
                                         _isSelected = false;
                                         selectedOptionIndices = [];
                                         timerEnded =
                                             false; // set timerEnded to false
                                         hasSetState = true;
                                         _controller.reset();
-                                        _controller.restart(duration: 50);
+                                        _controller.restart(duration: 3);
                                         _isAnswerAdded = false;
                                       });
                                       hasSetState = false;
@@ -199,10 +238,6 @@ class _QuizScreenState extends State<QuizScreen> {
                                       _questionIndex = 0;
                                       _isQuizAnswered = true;
                                       _controller.pause();
-                                      Navigator.of(context).pushNamed(
-                                        AppRoutes.quizResult,
-                                        arguments: _userScore,
-                                      );
                                     });
                                   }
                                 }
@@ -225,7 +260,7 @@ class _QuizScreenState extends State<QuizScreen> {
                   ),
                   QuestionCard(
                     isQuizAnswered: _isQuizAnswered,
-                    quiz: quiz[_questionIndex],
+                    quiz: _currentQuestion,
                     correctOptionIndices: correctOptionIndices[_questionIndex],
                     selectedOptionIndices: _isQuizAnswered
                         ? [_userAnswers[_questionIndex]]
@@ -240,54 +275,90 @@ class _QuizScreenState extends State<QuizScreen> {
                     },
                   ),
                   DiscoButton(
-                    isActive: _isSelected || _isQuizAnswered,
-                    onPressed: () {
-                      if (!_isQuizAnswered) {
-                        if (_selectedOptionIndex ==
-                            correctOptionIndices[_questionIndex]) {
-                          _userScore++; // Increase score if answer is correct
-                        }
+                    isActive: true,
 
-                        _userAnswers.add(_selectedOptionIndex);
-                        //  setUsersAnswers(_userAnswers);
-
-                        if (_questionIndex == quiz.length - 1) {
-                          Navigator.of(context).pushNamed(
-                            AppRoutes.quizResult,
-                            arguments: _userScore,
-                          );
+                    //_isSelected || _isQuizAnswered,
+                    onPressed: () async {
+                      // if quiz is answered, just display the questions
+                      if (_isQuizAnswered) {
+                        if (_questionIndex == _totalQuestions - 2) {
+                          _discoBtnText = "Play Again";
                           setState(() {
-                            selectedOptionIndices = [];
-                            _questionIndex = 0;
-                            _isQuizAnswered = true;
-                            _controller.pause();
+                            _isQuizAnswered=false;
+                            _displayedQuestionIndex=1;
+                            _questionIndex=0;
+                            _userAnswers.clear();
+                            _answeredQuestions.clear();
                           });
-                        } else {
-                          setState(() {
-                            timerEnded = true;
-                            selectedOptionIndices = [];
-                            _questionIndex++;
-                            _controller.restart(duration: 50);
-                          });
-                        }
-                      } else {
 
+
+                          // go to results page
+                        } else if (_questionIndex == _totalQuestions - 1) {
+                          return;
+                        }
                         setState(() {
-                          selectedOptionIndices = [];
+                          apiQuiz = _answeredQuestions;
+                          _displayedQuestionIndex++;
                           _questionIndex++;
-
-                          if (_questionIndex == quiz.length) {
-                            setState(() {
-                              _questionIndex = 0;
-                            });
-                          }
                         });
+
+                        return;
+                      }
+
+                      // Add answer to the answerQuestion list
+                      if (_selectedOptionIndex ==
+                          correctOptionIndices[_questionIndex]) {
+                        _isAnswerCorrect = 1;
+                      } else {
+                        _isAnswerCorrect = 0;
+                      }
+                      _userAnswers.add(_selectedOptionIndex);
+                      _answeredQuestions.add(_currentQuestion);
+
+                      // Calculate the severity of the next question
+                      double timeTaken = double.parse(_controller.getTime()!);
+                      _predictionInput[0][0] = timeTaken;
+                      _predictionInput[0][1] = _isAnswerCorrect;
+                      int predictedDifficulty =
+                          await predData(_predictionInput);
+                      String nextQuestionDifficulty = hardness(
+                          _currentQuestion.difficulty, predictedDifficulty);
+
+                      // shuffle the quiz list and grab question with resulting difficulty
+                      apiQuiz.remove(_currentQuestion);
+                      // apiQuiz.shuffle();
+                      // if in last question set "next" button to "finish quiz",
+                      if (_questionIndex == _totalQuestions - 2) {
+                        _discoBtnText = "Finish Quiz";
+                      } else if (_questionIndex == _totalQuestions - 1) {
+                        _isQuizAnswered = true;
+                        _discoBtnText = "Next Answer";
+                        setState(() {
+                          _questionIndex = 0;
+                          _displayedQuestionIndex = 1;
+                          _controller.pause();
+                        });
+                      }
+
+                      if (!_isQuizAnswered) {
+                        for (int i = 0; i < apiQuiz.length; i++) {
+                          if (apiQuiz[i].difficulty == nextQuestionDifficulty) {
+                            _questionIndex++;
+                            _displayedQuestionIndex++;
+                            setState(() {
+                              timerEnded = true;
+                              selectedOptionIndices = [];
+                              _controller.restart(duration: 99999);
+                            });
+                            return;
+                          }
+                        }
                       }
                     },
                     height: MediaQuery.of(context).size.height * 0.065,
                     width: MediaQuery.of(context).size.width * 0.335,
-                    child: const Text(
-                      "Next",
+                    child: Text(
+                      _discoBtnText,
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ),

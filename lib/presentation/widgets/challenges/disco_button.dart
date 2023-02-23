@@ -34,7 +34,6 @@ class DiscoButton extends StatelessWidget {
             onPressed();
           }
 
-
         },
         child: CustomPaint(
           painter: DiscoPainter(buttonColor, isActive),
