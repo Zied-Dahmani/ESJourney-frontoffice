@@ -91,8 +91,9 @@ class AppSizes {
 
   static const kradius = 20.0;
   static const kbuttonHeight = 56.0;
-  static const ksmallImageSize = 180.0;
-  static const kbigImageSize = 240.0;
+  static const ksmallImageSize = 70.0;
+  static const kbigImageSize = 180.0;
+  static const khugeImageSize = 240.0;
   static const kiconSize = 24.0;
   static const kiconBackgroundSize = 54.0;
   static const kiconBackgroundRadius = 99.0;

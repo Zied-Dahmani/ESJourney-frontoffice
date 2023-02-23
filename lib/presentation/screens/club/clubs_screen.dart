@@ -2,9 +2,11 @@ import 'package:esjourney/logic/cubits/club/club_cubit.dart';
 import 'package:esjourney/logic/cubits/club/club_state.dart';
 import 'package:esjourney/presentation/widgets/club/clubs_list.dart';
 import 'package:esjourney/presentation/widgets/club/loading_clubs_list.dart';
+import 'package:esjourney/utils/strings.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
@@ -19,7 +21,8 @@ class ClubsScreen extends StatelessWidget {
       child: Scaffold(
         body: Container(
             padding: const EdgeInsets.symmetric(vertical: AppSizes.khugeSpace),
-            child: BlocConsumer<ClubCubit, ClubState>(listener: (context, state) {
+            child:
+                BlocConsumer<ClubCubit, ClubState>(listener: (context, state) {
               if (state is ClubLoadFailure) {
                 showTopSnackBar(
                   Overlay.of(context)!,
@@ -32,8 +35,18 @@ class ClubsScreen extends StatelessWidget {
               return state is ClubLoadSuccess && state.clubs.isNotEmpty
                   ? ClubsList(clubs: state.clubs)
                   : state is ClubLoadSuccess
-                      // TODO Display an image ( empty list )
-                      ? const SizedBox()
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                                height: AppSizes.khugeImageSize,
+                                width: AppSizes.khugeImageSize,
+                                child: SvgPicture.asset('assets/images/sad.svg')),
+                            const SizedBox(height: AppSizes.kbigSpace),
+                            Text(AppStrings.knoClubs, style: Theme.of(context).textTheme.bodyMedium!)
+                          ],
+                        )
                       : state is ClubLoadInProgress || state is ClubLoadFailure
                           ? const LoadingClubsList()
                           : const SizedBox();

@@ -14,6 +14,4 @@ class Club with _$Club {
 
   factory Club.fromJson(Map<String, dynamic> json) => _$ClubFromJson(json);
 
-  //String convertDate() => DateFormat('MMM d, h:mm a').format(dateTime);
-
 }

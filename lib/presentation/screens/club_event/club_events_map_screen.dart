@@ -15,8 +15,6 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:latlong2/latlong.dart';
 
-// TODO Event details card, and check again the code
-
 class ClubEventsMapScreen extends StatefulWidget {
   const ClubEventsMapScreen({Key? key}) : super(key: key);
 
@@ -25,7 +23,6 @@ class ClubEventsMapScreen extends StatefulWidget {
 }
 
 class _ClubEventsMapScreenState extends State<ClubEventsMapScreen> with SingleTickerProviderStateMixin {
-
   final _pageController = PageController();
   late final AnimationController _animationController;
   int _selectedIndex = 0;
@@ -55,8 +52,7 @@ class _ClubEventsMapScreenState extends State<ClubEventsMapScreen> with SingleTi
         return Stack(
           children: [
             FlutterMap(
-              options: MapOptions(
-                  maxZoom: 16, zoom: 13, center: locationState.latLng),
+              options: MapOptions(maxZoom: 16, zoom: 13, center: locationState.latLng),
               nonRotatedChildren: [
                 TileLayer(
                   urlTemplate: mapUrlTemplate,
@@ -73,8 +69,7 @@ class _ClubEventsMapScreenState extends State<ClubEventsMapScreen> with SingleTi
                         width: AppSizes.kmarkerSizeExpanded,
                         point: locationState.latLng,
                         builder: (_) {
-                          return MyLocationMarker(
-                              animation: _animationController);
+                          return MyLocationMarker(animation: _animationController);
                         })
                   ],
                 ),
@@ -82,13 +77,15 @@ class _ClubEventsMapScreenState extends State<ClubEventsMapScreen> with SingleTi
                   left: 0,
                   right: 0,
                   bottom: AppSizes.ksmallSpace,
-                  height: ScreenSize.height(context) * .3,
+                  height: ScreenSize.height(context) * .35,
                   child: PageView.builder(
                       controller: _pageController,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: clubEvents.length,
                       itemBuilder: (context, index) {
-                        return EventDetailsCard(marker: clubEvents[index]);
+                        return EventDetailsCard(
+                            clubEvent: clubEventState.clubEvents[index],
+                            clubEventCubit: BlocProvider.of<ClubEventCubit>(context));
                       }),
                 ),
                 const Positioned(
@@ -99,7 +96,8 @@ class _ClubEventsMapScreenState extends State<ClubEventsMapScreen> with SingleTi
             ),
           ],
         );
-      } else if (locationState is LocationTurnOffSuccess || clubEventState is ClubEventLoadFailure) {
+      } else if (locationState is LocationTurnOffSuccess ||
+          clubEventState is ClubEventLoadFailure) {
         return Scaffold(
             appBar: AppBar(leading: const DrawerIcon()),
             body: Center(
@@ -107,8 +105,8 @@ class _ClubEventsMapScreenState extends State<ClubEventsMapScreen> with SingleTi
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                      height: AppSizes.kbigImageSize,
-                      width: AppSizes.kbigImageSize,
+                      height: AppSizes.khugeImageSize,
+                      width: AppSizes.khugeImageSize,
                       child: SvgPicture.asset(
                           locationState is LocationTurnOffSuccess
                               ? 'assets/images/turn_on_location.svg'
@@ -117,7 +115,8 @@ class _ClubEventsMapScreenState extends State<ClubEventsMapScreen> with SingleTi
                   AbsorbPointer(
                     absorbing: locationState is! LocationTurnOffSuccess,
                     child: GestureDetector(
-                        onTap: () => BlocProvider.of<LocationCubit>(context).currentLocation(false),
+                        onTap: () => BlocProvider.of<LocationCubit>(context)
+                            .currentLocation(false),
                         child: Text(
                             locationState is LocationTurnOffSuccess
                                 ? AppStrings.kturnOnLocation
@@ -126,9 +125,10 @@ class _ClubEventsMapScreenState extends State<ClubEventsMapScreen> with SingleTi
                                 .textTheme
                                 .bodyMedium!
                                 .copyWith(
-                                    color: locationState is LocationTurnOffSuccess
-                                        ? theme.colorScheme.primary
-                                        : theme.colorScheme.secondary))),
+                                    color:
+                                        locationState is LocationTurnOffSuccess
+                                            ? theme.colorScheme.primary
+                                            : theme.colorScheme.secondary))),
                   )
                 ],
               ),

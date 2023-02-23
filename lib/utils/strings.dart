@@ -20,9 +20,10 @@ class AppStrings {
 
 
   // Zied
+  static const knoClubs = 'No clubs';
   static const kapply = 'Apply';
   static const kcontinue = 'Continue';
-  static const kapplyToClubTitle1 = 'Personal informations';
+  static const kapplyToClubTitle1 = 'Personal information';
   static const kapplyToClubTitle2 = 'Why us?';
   static const kapplyToClubTitle3 = 'Resume';
   static const kphoneNumber = 'Phone number';

@@ -8,7 +8,9 @@ class EventMarker extends StatelessWidget {
   final bool isSelected;
   @override
   Widget build(BuildContext context) {
-    final size = isSelected ? AppSizes.kmarkerSizeExpanded : AppSizes.kmarkerSizeShrinked;
+    final size = isSelected
+        ? AppSizes.kmarkerSizeExpanded
+        : AppSizes.kmarkerSizeShrinked;
     return Center(
       child: AnimatedContainer(
         height: size,

@@ -6,6 +6,7 @@ import 'package:esjourney/logic/cubits/club_event/club_event_state.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
 import 'package:esjourney/utils/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 
 class ClubEventCubit extends Cubit<ClubEventState> {
   ClubEventCubit(this._connectivityCubit) : super(ClubEventLoadInProgress()) {
@@ -49,6 +50,8 @@ class ClubEventCubit extends Cubit<ClubEventState> {
       emit(ClubEventLoadFailure(kcheckInternetConnection));
     }
   }
+
+  Future<void> launchGoogleMaps(double latitude, double longitude) async => MapsLauncher.launchCoordinates(latitude, longitude);
 
   @override
   Future<void> close() {
