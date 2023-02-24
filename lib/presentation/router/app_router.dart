@@ -46,17 +46,22 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) =>  QuizScreen(
             //  language: args as String,
+            restart: args as bool,
 
           ),
         );
-        case AppRoutes.quizResult:
+      case AppRoutes.quizResult:
+        final Map<String, dynamic> argsMap = args as Map<String, dynamic>;
+        final int score = argsMap['score'] as int;
+        final int numberOfQuestions = argsMap['numberOfQuestions'] as int;
         return MaterialPageRoute(
-          builder: (_) =>  QuizResultScreen(
-            score : args as int,
-
+          builder: (_) => QuizResultScreen(
+            score: score,
+            nbrOfQuestions: numberOfQuestions,
           ),
         );
-          case AppRoutes.leaderboardScreen:
+
+      case AppRoutes.leaderboardScreen:
         return MaterialPageRoute(
           builder: (_) =>  const LeaderboardScreen(
 

@@ -4,36 +4,46 @@ import 'package:esjourney/logic/cubits/challenges/quiz_cubit.dart';
 import 'package:esjourney/logic/cubits/challenges/quiz_state.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
+import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/presentation/screens/challenges/quiz/question_card.dart';
+import 'package:esjourney/presentation/screens/challenges/quiz/quiz_result.dart';
 import 'package:esjourney/presentation/widgets/challenges/disco_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 
 class QuizScreen extends StatefulWidget {
-  const QuizScreen({Key? key}) : super(key: key);
+  QuizScreen({Key? key, this.restart = false}) : super(key: key);
+  bool restart;
 
   @override
   State<QuizScreen> createState() => _QuizScreenState();
 }
 
 var _predictionInput = List.filled(1, List.filled(2, 0.0));
+const int questionDuration = 10;
 int _questionIndex = 0;
 int _displayedQuestionIndex = 1;
+String nextQuestionDifficulty = "";
 CountDownController _controller = CountDownController();
 bool _isSelected = false;
 List<int> selectedOptionIndices = [];
 List<int> correctOptionIndices = [];
 List<int> _userAnswers = [];
 late int _selectedOptionIndex;
+bool goToLeaderBoard = false;
 bool _isQuizAnswered = false;
 bool timerEnded = false;
 bool hasSetState = false;
 bool _isAnswerAdded = false;
+bool _firstCall = true;
 List<Quiz> apiQuiz = [];
+List<Quiz> allQuestions = [];
 double _isAnswerCorrect = 0.0;
 const _totalQuestions = 3;
 String _discoBtnText = "Next";
+int _userScore = 0;
+
 Quiz _currentQuestion = Quiz(
   answer: 1,
   difficulty: "",
@@ -48,37 +58,17 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   void initState() {
     super.initState();
-    final getQuiz = BlocProvider.of<QuizCubit>(context);
-    getQuiz.getQuiz("c");
-  }
-
-  String hardness(String currentHardness, int predictedHardness) {
-    final Map<int, int> incDecreaseHardness = {0: -1, 1: 0, 2: 1};
-    final List<String> hardness = ["easy", "medium", "hard"];
-    int nextHardnessIndex = hardness.indexOf(currentHardness) +
-        incDecreaseHardness[predictedHardness]!;
-
-    String nextQuestionHardness;
-    if (0 <= nextHardnessIndex && nextHardnessIndex < 3) {
-      nextQuestionHardness = hardness[hardness.indexOf(currentHardness) +
-          incDecreaseHardness[predictedHardness]!];
-    } else {
-      nextQuestionHardness = currentHardness;
+    if (widget.restart) {
+      _isQuizAnswered = false;
+      _displayedQuestionIndex = 1;
+      _questionIndex = 0;
+      _userAnswers.clear();
+      correctOptionIndices.clear();
+      selectedOptionIndices.clear();
+      _discoBtnText = "Next";
+      _answeredQuestions.clear();
     }
-
-    return nextQuestionHardness;
-  }
-
-  Future<int> predData(List<List<double>> input) async {
-    final interpreter = await Interpreter.fromAsset('quiz.tflite');
-    var output = List.filled(1 * 3, 0).reshape([1, 3]);
-
-    interpreter.run(input, output);
-
-    var predictedDifficultyIndex = output[0]
-        .indexOf(output[0].reduce((double a, double b) => a > b ? a : b));
-
-    return predictedDifficultyIndex;
+    goToLeaderBoard = false;
   }
 
   @override
@@ -89,12 +79,19 @@ class _QuizScreenState extends State<QuizScreen> {
       if (state is UserLogInSuccess) {
         final user = state.user;
         return BlocBuilder<QuizCubit, QuizState>(builder: (context, state) {
-          if (state is QuizSuccess )  {
-            if (_isQuizAnswered == false){
-            apiQuiz = state.quizzes.cast<Quiz>().toList();}
+          if (state is QuizSuccess) {
+            print("rebuilt");
+            allQuestions = state.quizzes.cast<Quiz>().toList();
+
+            if (_firstCall == true) {
+              apiQuiz = allQuestions;
+              apiQuiz.shuffle();
+              _firstCall = false;
+            }
             for (int i = 0; i < apiQuiz.length; i++) {
               correctOptionIndices.add(apiQuiz[i].answer);
             }
+
             _currentQuestion = apiQuiz[_questionIndex];
             // fill easy questions list with easy questions
 
@@ -186,7 +183,7 @@ class _QuizScreenState extends State<QuizScreen> {
                           child: Container(
                             margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                             child: CircularCountDownTimer(
-                              duration: 99999,
+                              duration: questionDuration,
                               initialDuration: 0,
                               controller: _controller,
                               width: 60,
@@ -210,37 +207,28 @@ class _QuizScreenState extends State<QuizScreen> {
                               isTimerTextShown: true,
                               autoStart: true,
                               onStart: () {},
-                              onComplete: () {
-                                if (!timerEnded) {
-                                  if (_isSelected == true && !_isAnswerAdded) {
-                                    _userAnswers.add(_selectedOptionIndex);
-                                    _isAnswerAdded = true;
-                                  } else if (!_isAnswerAdded) {
-                                    _userAnswers.add(-1);
-                                    _isAnswerAdded = true;
-                                  }
-                                  if (_questionIndex < apiQuiz.length) {
-                                    if (!hasSetState) {
-                                      setState(() {
-                                        _isSelected = false;
-                                        selectedOptionIndices = [];
-                                        timerEnded =
-                                            false; // set timerEnded to false
-                                        hasSetState = true;
-                                        _controller.reset();
-                                        _controller.restart(duration: 3);
-                                        _isAnswerAdded = false;
-                                      });
-                                      hasSetState = false;
-                                    }
-                                  } else {
-                                    setState(() {
-                                      _questionIndex = 0;
-                                      _isQuizAnswered = true;
-                                      _controller.pause();
-                                    });
-                                  }
+                              onComplete: () async {
+                                if (timerEnded) {
+                                  timerEnded = false;
+                                  return;
                                 }
+                                if (goToLeaderBoard) {
+                                  Navigator.of(context).pushNamed(
+                                    AppRoutes.quizResult,
+                                    arguments: {
+                                      'score': 5,
+                                      'numberOfQuestions': 10,
+                                    },
+                                  );
+
+                                  return;
+                                }
+                                _selectedOptionIndex = -1;
+                                saveAnswer();
+                                await findNextQuestion();
+                                // shuffle the quiz list and grab question with resulting difficulty
+
+                                setNextQuestion();
                               },
                               onChange: (String timeStamp) {},
                               timeFormatterFunction:
@@ -280,80 +268,22 @@ class _QuizScreenState extends State<QuizScreen> {
                     //_isSelected || _isQuizAnswered,
                     onPressed: () async {
                       // if quiz is answered, just display the questions
-                      if (_isQuizAnswered) {
-                        if (_questionIndex == _totalQuestions - 2) {
-                          _discoBtnText = "Play Again";
-                          setState(() {
-                            _isQuizAnswered=false;
-                            _displayedQuestionIndex=1;
-                            _questionIndex=0;
-                            _userAnswers.clear();
-                            _answeredQuestions.clear();
-                          });
-
-
-                          // go to results page
-                        } else if (_questionIndex == _totalQuestions - 1) {
-                          return;
-                        }
-                        setState(() {
-                          apiQuiz = _answeredQuestions;
-                          _displayedQuestionIndex++;
-                          _questionIndex++;
-                        });
-
+                      if (goToLeaderBoard) {
+                        Navigator.of(context).pushReplacementNamed(
+                          AppRoutes.quizResult,
+                          arguments: _userScore,
+                        );
                         return;
                       }
 
-                      // Add answer to the answerQuestion list
-                      if (_selectedOptionIndex ==
-                          correctOptionIndices[_questionIndex]) {
-                        _isAnswerCorrect = 1;
-                      } else {
-                        _isAnswerCorrect = 0;
-                      }
-                      _userAnswers.add(_selectedOptionIndex);
-                      _answeredQuestions.add(_currentQuestion);
-
-                      // Calculate the severity of the next question
-                      double timeTaken = double.parse(_controller.getTime()!);
-                      _predictionInput[0][0] = timeTaken;
-                      _predictionInput[0][1] = _isAnswerCorrect;
-                      int predictedDifficulty =
-                          await predData(_predictionInput);
-                      String nextQuestionDifficulty = hardness(
-                          _currentQuestion.difficulty, predictedDifficulty);
-
-                      // shuffle the quiz list and grab question with resulting difficulty
-                      apiQuiz.remove(_currentQuestion);
-                      // apiQuiz.shuffle();
-                      // if in last question set "next" button to "finish quiz",
-                      if (_questionIndex == _totalQuestions - 2) {
-                        _discoBtnText = "Finish Quiz";
-                      } else if (_questionIndex == _totalQuestions - 1) {
-                        _isQuizAnswered = true;
-                        _discoBtnText = "Next Answer";
-                        setState(() {
-                          _questionIndex = 0;
-                          _displayedQuestionIndex = 1;
-                          _controller.pause();
-                        });
+                      if (_isQuizAnswered) {
+                        shuffleThroughQuestions();
+                        return;
                       }
 
-                      if (!_isQuizAnswered) {
-                        for (int i = 0; i < apiQuiz.length; i++) {
-                          if (apiQuiz[i].difficulty == nextQuestionDifficulty) {
-                            _questionIndex++;
-                            _displayedQuestionIndex++;
-                            setState(() {
-                              timerEnded = true;
-                              selectedOptionIndices = [];
-                              _controller.restart(duration: 99999);
-                            });
-                            return;
-                          }
-                        }
-                      }
+                      saveAnswer();
+                      await findNextQuestion();
+                      setNextQuestion();
                     },
                     height: MediaQuery.of(context).size.height * 0.065,
                     width: MediaQuery.of(context).size.width * 0.335,
@@ -373,4 +303,108 @@ class _QuizScreenState extends State<QuizScreen> {
       return const Center(child: CircularProgressIndicator());
     });
   }
+
+  void setNextQuestion() {
+    apiQuiz.remove(_currentQuestion);
+    if (_questionIndex == _totalQuestions - 2) {
+      _discoBtnText = "Finish Quiz";
+      goToLeaderBoard = true;
+    } else if (_questionIndex == _totalQuestions - 1) {
+      _isQuizAnswered = true;
+      _discoBtnText = "Next Answer";
+      setState(() {
+        _questionIndex = 0;
+        _displayedQuestionIndex = 1;
+        _controller.pause();
+      });
+    }
+    if (!_isQuizAnswered) {
+      for (int i = 0; i < apiQuiz.length; i++) {
+        if (apiQuiz[i].difficulty == nextQuestionDifficulty) {
+          _questionIndex++;
+          _displayedQuestionIndex++;
+          setState(() {
+            timerEnded = true;
+            selectedOptionIndices = [];
+            _controller.restart();
+          });
+          return;
+        }
+      }
+    }
+  }
+
+  void shuffleThroughQuestions() {
+    if (_questionIndex == _totalQuestions - 2) {
+      _discoBtnText = "Go to leaderboard";
+      _firstCall = true;
+      // go to results page
+
+// destroy the quiz
+    } else if (_questionIndex == _totalQuestions - 1) {
+      Navigator.of(context).pushNamed(
+        AppRoutes.quizResult,
+        arguments: _userScore,
+      );
+
+      return;
+    }
+    setState(() {
+      apiQuiz = _answeredQuestions;
+      _displayedQuestionIndex++;
+      _questionIndex++;
+    });
+  }
+}
+
+Future<void> findNextQuestion() async {
+  double timeTaken = double.parse(_controller.getTime()!);
+  _predictionInput[0][0] = timeTaken;
+  _predictionInput[0][1] = _isAnswerCorrect;
+  int predictedDifficulty = await predData(_predictionInput);
+  nextQuestionDifficulty =
+      hardness(_currentQuestion.difficulty, predictedDifficulty);
+}
+
+Future<int> predData(List<List<double>> input) async {
+  final interpreter = await Interpreter.fromAsset('quiz.tflite');
+  var output = List.filled(1 * 3, 0).reshape([1, 3]);
+
+  interpreter.run(input, output);
+
+  var predictedDifficultyIndex = output[0]
+      .indexOf(output[0].reduce((double a, double b) => a > b ? a : b));
+
+  return predictedDifficultyIndex;
+}
+
+String hardness(String currentHardness, int predictedHardness) {
+  final Map<int, int> incDecreaseHardness = {0: -1, 1: 0, 2: 1};
+  final List<String> hardness = ["easy", "medium", "hard"];
+  int nextHardnessIndex = hardness.indexOf(currentHardness) +
+      incDecreaseHardness[predictedHardness]!;
+
+  String nextQuestionHardness;
+  if (0 <= nextHardnessIndex && nextHardnessIndex < 3) {
+    nextQuestionHardness = hardness[hardness.indexOf(currentHardness) +
+        incDecreaseHardness[predictedHardness]!];
+  } else {
+    nextQuestionHardness = currentHardness;
+  }
+
+  return nextQuestionHardness;
+}
+
+void saveAnswer() {
+  if (!_isSelected) {
+    _selectedOptionIndex = -1;
+  } else if (_selectedOptionIndex == correctOptionIndices[_questionIndex]) {
+    _isAnswerCorrect = 1;
+    _userScore++;
+  } else {
+    _isAnswerCorrect = 0;
+  }
+  _userAnswers.add(_selectedOptionIndex);
+  _answeredQuestions.add(_currentQuestion);
+  _isSelected = false;
 }

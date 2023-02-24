@@ -2,7 +2,11 @@
 
 abstract class QuizState {}
 
-class QuizInitial extends QuizState {}
+class QuizInitial extends QuizState {
+
+
+
+}
 
 class QuizLoadInProgress extends QuizState {}
 

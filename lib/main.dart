@@ -100,7 +100,7 @@ class MyApp extends StatelessWidget {
             buildWhen: (oldState, newState) => oldState is UserInitial && newState is! UserLoadInProgress,
             builder: (context, state) {
               if(state is UserLogInSuccess) {
-                return   IdeScreen();
+                return   QuizScreen();
               } else {
                 return SignInScreen();
               }

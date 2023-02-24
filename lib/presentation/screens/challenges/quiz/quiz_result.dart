@@ -1,19 +1,24 @@
 import 'dart:ui';
 
 import 'package:esjourney/presentation/router/routes.dart';
+import 'package:esjourney/presentation/screens/challenges/quiz/quiz.dart';
 import 'package:flutter/material.dart';
 
 class QuizResultScreen extends StatelessWidget {
-  const QuizResultScreen({Key? key, required this.score}) : super(key: key);
-final int score;
+  final int score;
+  final nbrOfQuestions;
+
+  QuizResultScreen({required this.score, this.nbrOfQuestions});
+
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     bool isCompleted = score >= 2;
-        //score >= 2;
-
+print("score is $score");
+print("nyumber of questions is $nbrOfQuestions");
     return Scaffold(
       body: Center(
         child: Column(
@@ -139,7 +144,8 @@ final int score;
                   width: width,
                 ),
                 Visibility(
-                    visible: !isCompleted, child: SizedBox(width: width * 0.05)),
+                    visible: !isCompleted,
+                    child: SizedBox(width: width * 0.05)),
                 QuizResultOption(
                   theme: theme,
                   icon: isCompleted
@@ -148,7 +154,14 @@ final int score;
                   text: isCompleted ? "Review Answer" : "Try Again",
                   width: width,
                   onTap: () {
-                    Navigator.pop(context);
+                    // Navigator.pop(context);
+                    isCompleted
+                        ? Navigator.of(context).pushNamed(
+                            AppRoutes.quizScreen,
+                            arguments: false,
+                          )
+                        : Navigator.of(context)
+                            .pushNamed(AppRoutes.quizScreen, arguments: true);
                   },
                 ),
                 Visibility(
@@ -161,7 +174,6 @@ final int score;
                     onTap: () {
                       Navigator.of(context).pushNamed(
                         AppRoutes.leaderboardScreen,
-
                       );
                     },
                   ),
