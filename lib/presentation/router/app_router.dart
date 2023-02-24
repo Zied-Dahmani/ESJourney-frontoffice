@@ -1,6 +1,7 @@
 import 'package:esjourney/data/models/curriculum/course_model.dart';
 import 'package:esjourney/presentation/screens/curriculum/avatar/avatar_screen.dart';
-import 'package:esjourney/presentation/screens/curriculum/chat/chat_users_screen.dart';
+import 'package:esjourney/presentation/screens/curriculum/chat/conversation_screen.dart';
+import 'package:esjourney/presentation/screens/curriculum/chat/messages_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/courses/course_detail_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/courses/level_map_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/draw/feature/draw/presentation/drawing_screen.dart';
@@ -88,8 +89,11 @@ class AppRouter {
       case AppRoutes.hangmanGame:
         return MaterialPageRoute(builder: (_) => const HangmanScreen());
 
-      case AppRoutes.chatUsers:
-        return MaterialPageRoute(builder: (_) => const UserChatScreen());
+      case AppRoutes.messages:
+        return MaterialPageRoute(builder: (_) => const MessagesScreen());
+
+      case AppRoutes.conversation:
+        return MaterialPageRoute(builder: (_) => const ConversationScreen());
 
       case AppRoutes.levelMap:
         return MaterialPageRoute(

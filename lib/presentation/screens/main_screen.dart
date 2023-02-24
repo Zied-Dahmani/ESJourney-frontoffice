@@ -26,7 +26,7 @@ class _MainScreenState extends State<MainScreen> {
           IconButton(
             icon: const Icon(FontAwesomeIcons.solidMessage),
             onPressed: () {
-              Navigator.of(context).pushNamed(AppRoutes.chatUsers);
+              Navigator.of(context).pushNamed(AppRoutes.messages);
             },
           ),
           const SizedBox(width: AppSizes.ksmallSpace),

@@ -15,7 +15,8 @@ class AppRoutes {
   static const wordlyGame = '/wordly';
   static const memoryGame = '/memory';
   static const hangmanGame = '/hangman';
-  static const chatUsers = '/chatUsers';
+  static const messages = '/messages';
+  static const conversation = '/conversation';
   static const avatar = '/avatar';
   static const slideGame = '/slide';
   static const listDrawRoom = "/listDrawRoom";
