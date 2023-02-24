@@ -3,6 +3,8 @@ import 'package:esjourney/presentation/screens/curriculum/avatar/avatar_screen.d
 import 'package:esjourney/presentation/screens/curriculum/chat/chat_users_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/courses/course_detail_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/courses/level_map_screen.dart';
+import 'package:esjourney/presentation/screens/curriculum/games/draw/feature/draw/presentation/drawing_screen.dart';
+import 'package:esjourney/presentation/screens/curriculum/games/draw/feature/room/presentation/room_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/hangman/screens/hangman_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/jackpot/jackpot_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/memory/screen/memory_screen.dart';
@@ -35,6 +37,28 @@ class AppRouter {
           builder: (_) => const SlideScreen(),
         );
 
+      case AppRoutes.listDrawRoom:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => const RoomScreen(),
+        );
+
+      case AppRoutes.drawingRoom:
+        return PageRouteBuilder(
+          settings: settings,
+          pageBuilder: (_, __, ___) => const DrawingRoomScreen(),
+          transitionDuration: const Duration(milliseconds: 400),
+          transitionsBuilder: (_, animation, __, child) {
+            return SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(1, 0),
+                end: Offset.zero,
+              ).animate(animation),
+              child: child,
+            );
+          },
+        );
+
       case AppRoutes.signUpScreen:
         return MaterialPageRoute(
           builder: (_) => SignUpScreen(),
@@ -47,10 +71,9 @@ class AppRouter {
 
       case AppRoutes.courseDetails:
         return MaterialPageRoute(
-          builder: (_) =>
-              CourseDetailScreen(
-                course: args as Course,
-              ),
+          builder: (_) => CourseDetailScreen(
+            course: args as Course,
+          ),
         );
 
       case AppRoutes.jackpotGame:
@@ -70,10 +93,9 @@ class AppRouter {
 
       case AppRoutes.levelMap:
         return MaterialPageRoute(
-          builder: (_) =>
-              LevelMapScreen(
-                grade: args as int,
-              ),
+          builder: (_) => LevelMapScreen(
+            grade: args as int,
+          ),
         );
 
       default:

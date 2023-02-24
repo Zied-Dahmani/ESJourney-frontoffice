@@ -4,6 +4,7 @@ import 'package:esjourney/logic/cubits/curriculum/course_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/router/app_router.dart';
+import 'package:esjourney/presentation/screens/curriculum/games/draw/core/bloc/user_cubit/drawer_cubit.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
 import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
 import 'package:esjourney/utils/strings.dart';
@@ -15,12 +16,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+
+import 'presentation/screens/curriculum/games/draw/main_module.dart';
 import 'presentation/screens/curriculum/games/slide/tools/board_controller.dart';
 import 'presentation/screens/curriculum/games/slide/tools/navigation.dart';
 import 'presentation/screens/curriculum/games/worldy/provider/controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await MainModule.init();
 
   ErrorWidget.builder = (FlutterErrorDetails details) {
     if (kDebugMode) {
@@ -81,6 +85,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => Controller()),
           ChangeNotifierProvider(create: (context) => BoardController()),
           ChangeNotifierProvider(create: (context) => Navigation()),
+          BlocProvider(create: (context) => DrawerCubit()),
           //end game providers
           BlocProvider<ConnectivityCubit>(
               create: (context) => ConnectivityCubit(), lazy: false),

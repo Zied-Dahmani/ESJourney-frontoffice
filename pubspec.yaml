@@ -60,6 +60,11 @@ dependencies:
   tab_container: ^2.0.0
   searchbar_animation: ^0.0.4
   comment_tree: ^0.3.0
+  #freezed_annotation: ^2.2.0
+  get_it: ^7.2.0
+  #json_annotation: ^4.7.0
+  pull_to_refresh: ^2.0.0
+  web_socket_channel: ^2.3.0
 
 
   # The following adds the Cupertino Icons font to your application.

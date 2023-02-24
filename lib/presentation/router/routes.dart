@@ -18,6 +18,8 @@ class AppRoutes {
   static const chatUsers = '/chatUsers';
   static const avatar = '/avatar';
   static const slideGame = '/slide';
+  static const listDrawRoom = "/listDrawRoom";
+  static const drawingRoom = "/drawingRoom";
 
 // Souhail
 

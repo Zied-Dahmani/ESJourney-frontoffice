@@ -8,6 +8,7 @@ import 'package:esjourney/logic/cubits/curriculum/course_state.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/router/routes.dart';
+import 'package:esjourney/presentation/screens/curriculum/games/draw/core/bloc/user_cubit/drawer_cubit.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/slide/tools/board_controller.dart';
 import 'package:esjourney/presentation/widgets/curriculum/course_widget.dart';
 import 'package:esjourney/utils/screen_size.dart';
@@ -39,15 +40,19 @@ class _CourseScreenState extends State<CourseScreen> {
     super.dispose();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     final double height = ScreenSize.height(context);
     final double width = ScreenSize.width(context);
     final getCourses = BlocProvider.of<CourseCubit>(context);
+
     return BlocBuilder<UserCubit, UserState>(
       builder: (context, state) {
         if (state is UserLogInSuccess) {
           final user = state.user;
+          context.read<DrawerCubit>().setUsername(user.username);
           getCourses.getAllCourses(user.token);
           return Column(
             mainAxisSize: MainAxisSize.max,
@@ -337,7 +342,10 @@ class _CourseScreenState extends State<CourseScreen> {
       Game(
         title: "Draw",
         imagePath: "assets/images/curriculum/draw.png",
-        onTap: () {},
+        onTap: () {
+          //Navigator.of(context).pushNamed(AppRoutes.homeDraw);
+          Navigator.pushNamed(context, AppRoutes.listDrawRoom);
+        },
       ),
     ];
 
