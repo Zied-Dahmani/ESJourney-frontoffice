@@ -104,6 +104,10 @@ class AppSizes {
   static const kmarkerSizeExpanded = 55.0;
   static const kmarkerSizeShrinked = 38.0;
 
+  static const ktimeLineIcon = 30.0;
+  static const ktimelineDotSize = 15.0;
+
+
 
 
 }

@@ -38,6 +38,7 @@ class AppStrings {
   static const ktypeValidLink = 'Type a valid link!';
 
   static const kturnOnLocation = 'Turn on location!';
+  static const ktimeline = 'Timeline';
 
   // Louay
 

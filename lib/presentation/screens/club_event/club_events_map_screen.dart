@@ -22,7 +22,8 @@ class ClubEventsMapScreen extends StatefulWidget {
   State<ClubEventsMapScreen> createState() => _ClubEventsMapScreenState();
 }
 
-class _ClubEventsMapScreenState extends State<ClubEventsMapScreen> with SingleTickerProviderStateMixin {
+class _ClubEventsMapScreenState extends State<ClubEventsMapScreen>
+    with SingleTickerProviderStateMixin {
   final _pageController = PageController();
   late final AnimationController _animationController;
   int _selectedIndex = 0;
@@ -30,7 +31,8 @@ class _ClubEventsMapScreenState extends State<ClubEventsMapScreen> with SingleTi
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 600));
+    _animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 600));
     _animationController.repeat(reverse: true);
   }
 
@@ -47,12 +49,14 @@ class _ClubEventsMapScreenState extends State<ClubEventsMapScreen> with SingleTi
       final locationState = context.watch<LocationCubit>().state;
       final clubEventState = context.watch<ClubEventCubit>().state;
 
-      if (locationState is LocationTurnOnSuccess && clubEventState is ClubEventLoadSuccess) {
+      if (locationState is LocationTurnOnSuccess &&
+          clubEventState is ClubEventLoadSuccess) {
         final clubEvents = _clubEventMarkers(clubEventState.clubEvents);
         return Stack(
           children: [
             FlutterMap(
-              options: MapOptions(maxZoom: 16, zoom: 13, center: locationState.latLng),
+              options: MapOptions(
+                  maxZoom: 16, zoom: 13, center: locationState.latLng),
               nonRotatedChildren: [
                 TileLayer(
                   urlTemplate: mapUrlTemplate,
@@ -69,7 +73,8 @@ class _ClubEventsMapScreenState extends State<ClubEventsMapScreen> with SingleTi
                         width: AppSizes.kmarkerSizeExpanded,
                         point: locationState.latLng,
                         builder: (_) {
-                          return MyLocationMarker(animation: _animationController);
+                          return MyLocationMarker(
+                              animation: _animationController);
                         })
                   ],
                 ),
@@ -85,7 +90,8 @@ class _ClubEventsMapScreenState extends State<ClubEventsMapScreen> with SingleTi
                       itemBuilder: (context, index) {
                         return EventDetailsCard(
                             clubEvent: clubEventState.clubEvents[index],
-                            clubEventCubit: BlocProvider.of<ClubEventCubit>(context));
+                            clubEventCubit:
+                                BlocProvider.of<ClubEventCubit>(context));
                       }),
                 ),
                 const Positioned(
@@ -96,8 +102,7 @@ class _ClubEventsMapScreenState extends State<ClubEventsMapScreen> with SingleTi
             ),
           ],
         );
-      } else if (locationState is LocationTurnOffSuccess ||
-          clubEventState is ClubEventLoadFailure) {
+      } else if (locationState is LocationTurnOffSuccess || (clubEventState is ClubEventLoadFailure && clubEventState.error == kcheckInternetConnection)) {
         return Scaffold(
             appBar: AppBar(leading: const DrawerIcon()),
             body: Center(
@@ -107,10 +112,9 @@ class _ClubEventsMapScreenState extends State<ClubEventsMapScreen> with SingleTi
                   SizedBox(
                       height: AppSizes.khugeImageSize,
                       width: AppSizes.khugeImageSize,
-                      child: SvgPicture.asset(
-                          locationState is LocationTurnOffSuccess
-                              ? 'assets/images/turn_on_location.svg'
-                              : 'assets/images/no_internet.svg')),
+                      child: SvgPicture.asset(clubEventState is ClubEventLoadFailure && clubEventState.error == kcheckInternetConnection
+                          ? 'assets/images/no_internet.svg'
+                          : 'assets/images/turn_on_location.svg')),
                   const SizedBox(height: AppSizes.kbigSpace),
                   AbsorbPointer(
                     absorbing: locationState is! LocationTurnOffSuccess,
@@ -118,17 +122,17 @@ class _ClubEventsMapScreenState extends State<ClubEventsMapScreen> with SingleTi
                         onTap: () => BlocProvider.of<LocationCubit>(context)
                             .currentLocation(false),
                         child: Text(
-                            locationState is LocationTurnOffSuccess
-                                ? AppStrings.kturnOnLocation
-                                : kcheckInternetConnection,
+                            clubEventState is ClubEventLoadFailure && clubEventState.error == kcheckInternetConnection
+                                ? kcheckInternetConnection
+                                : AppStrings.kturnOnLocation,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
                                 .copyWith(
                                     color:
-                                        locationState is LocationTurnOffSuccess
-                                            ? theme.colorScheme.primary
-                                            : theme.colorScheme.secondary))),
+                                    clubEventState is ClubEventLoadFailure && clubEventState.error == kcheckInternetConnection
+                                            ? theme.colorScheme.secondary
+                                            : theme.colorScheme.primary))),
                   )
                 ],
               ),

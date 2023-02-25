@@ -26,6 +26,7 @@ mixin _$ClubEvent {
   String get description => throw _privateConstructorUsedError;
   DateTime get dateTime => throw _privateConstructorUsedError;
   List<double> get latLng => throw _privateConstructorUsedError;
+  List<String> get timeline => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,7 +45,8 @@ abstract class $ClubEventCopyWith<$Res> {
       String image,
       String description,
       DateTime dateTime,
-      List<double> latLng});
+      List<double> latLng,
+      List<String> timeline});
 }
 
 /// @nodoc
@@ -66,6 +68,7 @@ class _$ClubEventCopyWithImpl<$Res, $Val extends ClubEvent>
     Object? description = null,
     Object? dateTime = null,
     Object? latLng = null,
+    Object? timeline = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -92,6 +95,10 @@ class _$ClubEventCopyWithImpl<$Res, $Val extends ClubEvent>
           ? _value.latLng
           : latLng // ignore: cast_nullable_to_non_nullable
               as List<double>,
+      timeline: null == timeline
+          ? _value.timeline
+          : timeline // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ) as $Val);
   }
 }
@@ -109,7 +116,8 @@ abstract class _$$_ClubEventCopyWith<$Res> implements $ClubEventCopyWith<$Res> {
       String image,
       String description,
       DateTime dateTime,
-      List<double> latLng});
+      List<double> latLng,
+      List<String> timeline});
 }
 
 /// @nodoc
@@ -129,6 +137,7 @@ class __$$_ClubEventCopyWithImpl<$Res>
     Object? description = null,
     Object? dateTime = null,
     Object? latLng = null,
+    Object? timeline = null,
   }) {
     return _then(_$_ClubEvent(
       id: freezed == id
@@ -155,6 +164,10 @@ class __$$_ClubEventCopyWithImpl<$Res>
           ? _value._latLng
           : latLng // ignore: cast_nullable_to_non_nullable
               as List<double>,
+      timeline: null == timeline
+          ? _value._timeline
+          : timeline // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -168,8 +181,10 @@ class _$_ClubEvent extends _ClubEvent {
       required this.image,
       required this.description,
       required this.dateTime,
-      required final List<double> latLng})
+      required final List<double> latLng,
+      required final List<String> timeline})
       : _latLng = latLng,
+        _timeline = timeline,
         super._();
 
   factory _$_ClubEvent.fromJson(Map<String, dynamic> json) =>
@@ -193,9 +208,17 @@ class _$_ClubEvent extends _ClubEvent {
     return EqualUnmodifiableListView(_latLng);
   }
 
+  final List<String> _timeline;
+  @override
+  List<String> get timeline {
+    if (_timeline is EqualUnmodifiableListView) return _timeline;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_timeline);
+  }
+
   @override
   String toString() {
-    return 'ClubEvent(id: $id, name: $name, image: $image, description: $description, dateTime: $dateTime, latLng: $latLng)';
+    return 'ClubEvent(id: $id, name: $name, image: $image, description: $description, dateTime: $dateTime, latLng: $latLng, timeline: $timeline)';
   }
 
   @override
@@ -210,7 +233,8 @@ class _$_ClubEvent extends _ClubEvent {
                 other.description == description) &&
             (identical(other.dateTime, dateTime) ||
                 other.dateTime == dateTime) &&
-            const DeepCollectionEquality().equals(other._latLng, _latLng));
+            const DeepCollectionEquality().equals(other._latLng, _latLng) &&
+            const DeepCollectionEquality().equals(other._timeline, _timeline));
   }
 
   @JsonKey(ignore: true)
@@ -222,7 +246,8 @@ class _$_ClubEvent extends _ClubEvent {
       image,
       description,
       dateTime,
-      const DeepCollectionEquality().hash(_latLng));
+      const DeepCollectionEquality().hash(_latLng),
+      const DeepCollectionEquality().hash(_timeline));
 
   @JsonKey(ignore: true)
   @override
@@ -245,7 +270,8 @@ abstract class _ClubEvent extends ClubEvent {
       required final String image,
       required final String description,
       required final DateTime dateTime,
-      required final List<double> latLng}) = _$_ClubEvent;
+      required final List<double> latLng,
+      required final List<String> timeline}) = _$_ClubEvent;
   const _ClubEvent._() : super._();
 
   factory _ClubEvent.fromJson(Map<String, dynamic> json) =
@@ -263,6 +289,8 @@ abstract class _ClubEvent extends ClubEvent {
   DateTime get dateTime;
   @override
   List<double> get latLng;
+  @override
+  List<String> get timeline;
   @override
   @JsonKey(ignore: true)
   _$$_ClubEventCopyWith<_$_ClubEvent> get copyWith =>

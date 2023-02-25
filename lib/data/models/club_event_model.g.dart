@@ -15,6 +15,8 @@ _$_ClubEvent _$$_ClubEventFromJson(Map<String, dynamic> json) => _$_ClubEvent(
       latLng: (json['latLng'] as List<dynamic>)
           .map((e) => (e as num).toDouble())
           .toList(),
+      timeline:
+          (json['timeline'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$$_ClubEventToJson(_$_ClubEvent instance) =>
@@ -25,4 +27,5 @@ Map<String, dynamic> _$$_ClubEventToJson(_$_ClubEvent instance) =>
       'description': instance.description,
       'dateTime': instance.dateTime.toIso8601String(),
       'latLng': instance.latLng,
+      'timeline': instance.timeline,
     };

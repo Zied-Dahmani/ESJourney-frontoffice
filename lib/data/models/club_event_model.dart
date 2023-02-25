@@ -12,8 +12,8 @@ class ClubEvent with _$ClubEvent {
       required String image,
       required String description,
       required DateTime dateTime,
-      required List<double> latLng
-      }) = _ClubEvent;
+      required List<double> latLng,
+      required List<String> timeline}) = _ClubEvent;
 
   factory ClubEvent.fromJson(Map<String, dynamic> json) =>
       _$ClubEventFromJson(json);
