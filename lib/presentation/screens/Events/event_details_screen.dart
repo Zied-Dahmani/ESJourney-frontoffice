@@ -9,11 +9,11 @@ import '../../../logic/cubits/user/user_cubit.dart';
 import '../../../logic/cubits/user/user_state.dart';
 
 class EventDetails extends StatefulWidget {
-  final String eventId;
+  final Event event;
 
   const EventDetails({
     Key? key,
-     required this.eventId,
+     required this.event,
   }) : super(key: key);
 
   @override
@@ -24,7 +24,7 @@ class _EventDetailsState extends State<EventDetails> {
   get screenHeight => MediaQuery.of(context).size.height;
   get screenWidth => MediaQuery.of(context).size.width;
   get textTheme => Theme.of(context).textTheme;
-  late Event event;
+  late Event event = widget.event;
   String _buttonText = 'Register';
   MaterialColor _buttonColor = Colors.green;
 
@@ -61,27 +61,22 @@ class _EventDetailsState extends State<EventDetails> {
     }
   }*/
   void _fetchEvent() {
-    final eventState = context.read<EventCubit>().state;
-    if (eventState is! EventSuccess) return;
-
-    final events = eventState.events;
     final userState = context.read<UserCubit>().state;
-    if (userState is! UserLogInSuccess) return;
 
+    if (userState is! UserLogInSuccess) return;
     final isRegistered = userState.user.events
-        ?.map((e) => e.id)
-        .contains(widget.eventId) ??
-        false;
+        ?.where((element) => element.id == event.id)
+        .isNotEmpty;
     print('isRegistered $isRegistered');
-    print('widget.eventId ${widget.eventId}');
-    print('aaaaaaaaaaa');
-    print(userState.user.events);
-    print('aaaaaaaaaaaa');
-    print('events hereeee $events');
+    print('userEvents ${userState.user.events}');
+    print('widget.eventId ${widget.event.id}');
     setState(() {
-      event = events.firstWhere((element) => element.id == widget.eventId);
-      updateButtonText(isRegistered ? 'Unregister' : 'Register',
-          isRegistered ? Colors.red : Colors.green);
+
+      if (isRegistered!) {
+        updateButtonText('Unregister', Colors.red);
+      } else {
+        updateButtonText('Register', Colors.green);
+      }
     });
   }
 
@@ -91,49 +86,139 @@ class _EventDetailsState extends State<EventDetails> {
     super.initState();
     _fetchEvent();
   }
+  void checkEventStatus() {
+    final currentTime = DateTime.now();
+    final endTime = DateFormat.Hm().parse(event.endTime);
+    final eventDate = event.date;
+    final eventEndTime = DateTime(
+      eventDate.year,
+      eventDate.month,
+      eventDate.day,
+      endTime.hour,
+      endTime.minute,
+    );
+    if (currentTime.isAfter(eventEndTime)) {
+      setState(() {
+        event = event.copyWith(isDone: true);
+      });
+    }
+  }
 
   Future<void> _registerOrUnregister() async {
     final userState = context.read<UserCubit>().state;
     if (userState is UserLogInSuccess) {
-      final userEvents = userState.user.events?.map((e) => e.id).toList();
-      final eventState = context.read<EventCubit>().state;
-      if (eventState is EventSuccess)  {
-        final event = eventState.events.firstWhere(
-              (element) => element.id == widget.eventId,
-        );
-        if (userEvents!.contains(event.id)) {
-          // user is already registered, so unregister them
-          await context.read<EventCubit>().registerEvent(
-            userState.user.token,
-            widget.eventId,
+      if (_buttonText == 'Register') {
+        final requirementsDescription = widget.event.requirementsDescription;
+        if (requirementsDescription != null && requirementsDescription.isNotEmpty) {
+          await showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              bool isChecked = false;
+              return StatefulBuilder(
+                builder: (BuildContext context, StateSetter setState) {
+                  return AlertDialog(
+                    title: const Text(
+                      'Registration Requirements',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        const Text(
+                          'Please read and accept the requirements to register.',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.01,
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: SingleChildScrollView(
+                            child: Text(
+                              requirementsDescription,
+                              style: textTheme.bodyMedium?.copyWith(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                          ),
+                        ),
+                        CheckboxListTile(
+                          title: Text('I accept the requirements.'),
+                          value: isChecked,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              isChecked = value ?? false;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        child: Text('Cancel'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      ElevatedButton(
+                        child: Text('Register'),
+                        onPressed: isChecked
+                            ? () async {
+                          await context.read<EventCubit>().registerEvent(
+                            userState.user.token,
+                            widget.event.id,
+                          );
+                          setState(() {
+                            updateButtonText('Unregister', Colors.red);
+                          });
+                          Navigator.of(context).pop();
+                        }
+                            : null,
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
           );
-          setState(() {
-            _buttonText = 'Register';
-            _buttonColor = Colors.green;
-          });
-          updateButtonText(_buttonText, _buttonColor);
         } else {
-          // user is not registered, so register them
           await context.read<EventCubit>().registerEvent(
             userState.user.token,
-            widget.eventId,
+            widget.event.id,
           );
           setState(() {
-            _buttonText = 'Unregister';
-            _buttonColor = Colors.red;
+            updateButtonText('Unregister', Colors.red);
           });
-          updateButtonText(_buttonText, _buttonColor);
         }
       } else {
-        Navigator.pushNamed(context, '/');
+        await context.read<EventCubit>().registerEvent(
+          userState.user.token,
+          widget.event.id,
+        );
+        setState(() {
+          updateButtonText('Register', Colors.green);
+        });
       }
     }
   }
 
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body:event == null ? const CircularProgressIndicator() : Container(
         color: Colors.grey[500],
         child: Stack(
           children: [

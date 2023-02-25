@@ -62,7 +62,7 @@ class AppRouter {
       case AppRoutes.eventDetails:
         return MaterialPageRoute(
           builder: (_) =>  EventDetails(
-            eventId : args as String,
+            event : args as Event,
           ),
         );
           case AppRoutes.leaderboardScreen:

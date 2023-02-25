@@ -33,7 +33,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
     super.initState();
     final userState = context.read<UserCubit>().state;
     if (userState is UserLogInSuccess) {
-      List<Event>? events = userState.user.events;
+      final token = userState.user.token;
+      context.read<UserCubit>().refreshUserData(token);
 
     } else {
       Navigator.pushNamed(context, '/');
@@ -43,7 +44,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
   Future<void> _onRefresh() async {
     final userState = context.read<UserCubit>().state;
     if (userState is UserLogInSuccess) {
-      List<Event>? events = userState.user.events;
+      final token = userState.user.token;
+      context.read<UserCubit>().refreshUserData(token);
     }
   }
   void _currentDay() {
@@ -181,7 +183,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
                         return InkWell(
                           onTap: () {
-                            Navigator.of(context).pushNamed(AppRoutes.eventDetails, arguments: event.id);
+                            Navigator.of(context).pushNamed(AppRoutes.eventDetails, arguments: event);
                           },
                           child: Container(
                             margin: const EdgeInsets.only(
