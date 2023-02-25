@@ -16,7 +16,6 @@ class SocketService with ChangeNotifier {
 
   void connect(String token) async {
 
-    // Dart client
     _socket = io.io(kbaseUrl, {
       'transports': ['websocket'],
       'autoConnect': true,

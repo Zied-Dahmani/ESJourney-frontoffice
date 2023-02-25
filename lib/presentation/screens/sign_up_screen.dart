@@ -1,3 +1,4 @@
+import 'package:esjourney/chatest/socket_service.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
@@ -9,6 +10,7 @@ import 'package:esjourney/utils/strings.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({Key? key}) : super(key: key);
@@ -35,6 +37,7 @@ class SignUpScreen extends StatelessWidget {
                 });
           } else if (state is UserLogInSuccess) {
             //Navigator.pop(dialogContext!);
+            Provider.of<SocketService>(context, listen: false).connect(state.user.token!);
             Navigator.of(context).pushNamed(AppRoutes.avatar);
           } else if (state is UserIsFailure) {
             Navigator.pop(dialogContext!);

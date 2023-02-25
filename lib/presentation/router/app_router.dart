@@ -91,9 +91,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const HangmanScreen());
 
       case AppRoutes.messages:
-        return MaterialPageRoute(builder: (_) =>  MessagesScreen(
-          token: args as String,
-        ));
+        return MaterialPageRoute(builder: (_) =>  MessagesScreen());
 
       case AppRoutes.conversation:
         final Map<String, dynamic> argsMap = args as Map<String, dynamic>;

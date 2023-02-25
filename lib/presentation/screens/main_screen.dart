@@ -16,9 +16,6 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWY3NmYzMWVmNWIyMmEwNjg0MTlmNiIsImlhdCI6MTY3NzMzMzMyMCwiZXhwIjoxNjc3NTkyNTIwfQ.Wgh7KVWrtV1zPS4_fp-iIgYGd3yGScOqJeAw0d3KHjA";
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -29,10 +26,7 @@ class _MainScreenState extends State<MainScreen> {
           IconButton(
             icon: const Icon(FontAwesomeIcons.solidMessage),
             onPressed: () {
-              Navigator.of(context).pushNamed(
-                AppRoutes.messages,
-                arguments: token,
-              );
+              Navigator.of(context).pushNamed(AppRoutes.messages);
             },
           ),
           const SizedBox(width: AppSizes.ksmallSpace),

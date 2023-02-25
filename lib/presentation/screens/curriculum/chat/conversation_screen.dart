@@ -1,16 +1,16 @@
-import 'dart:io';
-
 import 'package:esjourney/chatest/chat_service.dart';
 import 'package:esjourney/chatest/message_model.dart';
 import 'package:esjourney/chatest/socket_service.dart';
 import 'package:esjourney/data/models/user_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ConversationScreen extends StatefulWidget {
   const ConversationScreen(
-      {Key? key, required this.receiver, required this.myId, required this.token})
+      {Key? key,
+      required this.receiver,
+      required this.myId,
+      required this.token})
       : super(key: key);
   final User receiver;
   final String myId;
@@ -22,7 +22,6 @@ class ConversationScreen extends StatefulWidget {
 
 class _ConversationScreenState extends State<ConversationScreen>
     with TickerProviderStateMixin {
-
   final _textController = TextEditingController();
   final _focusNode = FocusNode();
   bool _isWriting = false;
@@ -45,7 +44,8 @@ class _ConversationScreenState extends State<ConversationScreen>
         duration: const Duration(
           milliseconds: 400,
         ),
-      ), uid: widget.receiver.id,
+      ),
+      uid: widget.receiver.id,
     );
 
     _messages.insert(0, newMessage);
@@ -55,21 +55,8 @@ class _ConversationScreenState extends State<ConversationScreen>
       _isWriting = false;
     });
 
-    socketService.emit('private-message', {
-      'from': widget.myId,
-      'to': widget.receiver.id,
-      'message': text
-    });
-
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    socketService = Provider.of<SocketService>(context, listen: false);
-    chatService = Provider.of<ChatService>(context, listen: false);
-    socketService.socket.on("private-message", _listenMessage);
-    _chargeHistory(widget.receiver.id,widget.token);
+    socketService.emit('private-message',
+        {'from': widget.myId, 'to': widget.receiver.id, 'message': text});
   }
 
   void _listenMessage(dynamic payload) {
@@ -89,6 +76,15 @@ class _ConversationScreenState extends State<ConversationScreen>
   }
 
   @override
+  void initState() {
+    super.initState();
+    socketService = Provider.of<SocketService>(context, listen: false);
+    chatService = Provider.of<ChatService>(context, listen: false);
+    socketService.socket.on("private-message", _listenMessage);
+    _chargeHistory(widget.receiver.id, widget.token);
+  }
+
+  @override
   void dispose() {
     super.dispose();
     for (ChatMessage message in _messages) {
@@ -98,18 +94,18 @@ class _ConversationScreenState extends State<ConversationScreen>
     socketService.socket.off("private-message");
   }
 
-  void _chargeHistory(String userID,String token) async {
-    List<Message> messages = await chatService.getMessages(userID,token);
+  void _chargeHistory(String userID, String token) async {
+    List<Message> messages = await chatService.getMessages(userID, token);
 
     final history = messages.map((m) => ChatMessage(
-      currentUserId: widget.myId,
-      animationController: AnimationController(
-        vsync: this,
-        duration: const Duration(milliseconds: 0),
-      )..forward(),
-      msg: m.message,
-      uid: m.from,
-    ));
+          currentUserId: widget.myId,
+          animationController: AnimationController(
+            vsync: this,
+            duration: const Duration(milliseconds: 0),
+          )..forward(),
+          msg: m.message,
+          uid: m.from,
+        ));
     setState(() {
       _messages.insertAll(0, history);
     });
@@ -128,39 +124,28 @@ class _ConversationScreenState extends State<ConversationScreen>
             children: [
               Flexible(
                 child: TextField(
-                    controller: _textController,
-                    onSubmitted: (text) {
-                      _handleSubmit(text);
-                    },
-                    onChanged: (String msg) {
+                  controller: _textController,
+                  onSubmitted: (text) {
+                    _handleSubmit(text);
+                  },
+                  onChanged: (String msg) {
+                    setState(() {
                       if (msg.trim().isNotEmpty) {
-                        setState(() {
-                          _isWriting = true;
-                        });
+                        _isWriting = true;
                       } else {
-                        setState(() {
-                          _isWriting = false;
-                        });
+                        _isWriting = false;
                       }
-                    },
-                    decoration: const InputDecoration.collapsed(
-                      hintText: "Enviar mensagem",
-                    ),
-                    focusNode: _focusNode),
+                    });
+                  },
+                  decoration: const InputDecoration.collapsed(
+                    hintText: "Send message",
+                  ),
+                  focusNode: _focusNode,
+                ),
               ),
-              //botao enviar
-
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 4.0),
-                child: Platform.isIOS
-                    ? CupertinoButton(
-                  onPressed: _isWriting
-                      ? () => _handleSubmit(
-                      _textController.text.trim())
-                      : null,
-                  child: const Text("Enviar"),
-                )
-                    : Container(
+                child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 4.0),
                   child: IconTheme(
                     data: IconThemeData(color: Colors.blue[400]),
@@ -169,8 +154,7 @@ class _ConversationScreenState extends State<ConversationScreen>
                       highlightColor: Colors.transparent,
                       icon: const Icon(Icons.send),
                       onPressed: _isWriting
-                          ? () => _handleSubmit(
-                          _textController.text.trim())
+                          ? () => _handleSubmit(_textController.text.trim())
                           : null,
                     ),
                   ),
