@@ -1,5 +1,5 @@
-import 'package:esjourney/chatest/chat_service.dart';
-import 'package:esjourney/chatest/socket_service.dart';
+import 'package:esjourney/data/repositories/chat/chat_service.dart';
+import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/data/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -1,4 +1,4 @@
-import 'package:esjourney/chatest/message_model.dart';
+import 'package:esjourney/data/models/curriculum/message_model.dart';
 import 'package:esjourney/data/providers/chat/chat_data_provider.dart';
 import 'package:flutter/material.dart';
 

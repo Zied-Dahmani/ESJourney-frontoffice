@@ -1,4 +1,4 @@
-import 'package:esjourney/chatest/socket_service.dart';
+import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';

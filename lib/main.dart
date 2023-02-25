@@ -1,5 +1,5 @@
-import 'package:esjourney/chatest/chat_service.dart';
-import 'package:esjourney/chatest/socket_service.dart';
+import 'package:esjourney/data/repositories/chat/chat_service.dart';
+import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/logic/app_bloc_observer.dart';
 import 'package:esjourney/logic/cubits/chat/user/users_cubit.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
