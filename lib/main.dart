@@ -1,6 +1,8 @@
 import 'package:esjourney/logic/app_bloc_observer.dart';
+import 'package:esjourney/logic/cubits/challenges/coding_problem_cubit.dart';
 import 'package:esjourney/logic/cubits/challenges/leaderboard_cubit.dart';
 import 'package:esjourney/logic/cubits/challenges/quiz_cubit.dart';
+import 'package:esjourney/logic/cubits/challenges/submission_cubit.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
 import 'package:esjourney/logic/cubits/curriculum/course_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
@@ -87,6 +89,9 @@ class MyApp extends StatelessWidget {
           BlocProvider<QuizCubit>(create: (context) => QuizCubit(), lazy: true),
           BlocProvider<CourseCubit>(create: (context) => CourseCubit(), lazy: true),
           BlocProvider<LeaderboardCubit>(create: (context) => LeaderboardCubit(), lazy: true),
+          BlocProvider<CodingProblemCubit>(create: (context) => CodingProblemCubit(), lazy: true),
+          BlocProvider<SubmissionCubit>(create: (context) => SubmissionCubit(), lazy: true),
+
 
         ],
         child: MaterialApp(
@@ -100,7 +105,7 @@ class MyApp extends StatelessWidget {
             buildWhen: (oldState, newState) => oldState is UserInitial && newState is! UserLoadInProgress,
             builder: (context, state) {
               if(state is UserLogInSuccess) {
-                return   QuizScreen();
+                return   IdeScreen();
               } else {
                 return SignInScreen();
               }

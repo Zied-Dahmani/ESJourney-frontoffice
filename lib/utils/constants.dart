@@ -17,4 +17,6 @@ const kgetCourses = 'course/get/user';
 const kgetQuiz = 'quiz/get';
 const kquizResult = 'quiz/result';
 const kgetLeaderBoard = 'leaderboard/get';
+const kgetCodingProblem = 'problem/get';
+const kSubmission = 'problem/submit';
 
