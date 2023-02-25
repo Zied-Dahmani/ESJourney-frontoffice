@@ -4,8 +4,9 @@ import 'package:esjourney/chatest/message_model.dart';
 import 'package:esjourney/data/models/user_model.dart';
 import 'package:esjourney/data/providers/chat/chat_data_provider.dart';
 import 'package:esjourney/data/repositories/chat/chat_repository_interface.dart';
+import 'package:flutter/material.dart';
 
-class ChatRepository implements IChatRepository {
+class ChatRepository with ChangeNotifier implements IChatRepository  {
   final ChatDataProvider _chatDataProvider = ChatDataProvider();
 
   @override

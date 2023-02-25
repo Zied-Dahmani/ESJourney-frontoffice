@@ -1,5 +1,4 @@
 import 'package:esjourney/chatest/chat_service.dart';
-import 'package:esjourney/chatest/message_model.dart';
 import 'package:esjourney/chatest/socket_service.dart';
 import 'package:esjourney/data/models/user_model.dart';
 import 'package:flutter/material.dart';
@@ -95,7 +94,7 @@ class _ConversationScreenState extends State<ConversationScreen>
   }
 
   void _chargeHistory(String userID, String token) async {
-    List<Message> messages = await chatService.getMessages(userID, token);
+    List<dynamic> messages = await chatService.getMessages(userID, token);
 
     final history = messages.map((m) => ChatMessage(
           currentUserId: widget.myId,
