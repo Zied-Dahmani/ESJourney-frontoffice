@@ -6,8 +6,8 @@ import 'package:esjourney/presentation/screens/curriculum/games/draw/feature/roo
 import 'package:get_it/get_it.dart';
 
 class MainModule {
-  static const baseUrl = "http://192.168.0.9:2020/";
-  static const wsUrl = "ws://192.168.0.9:2020/";
+  static const baseUrl = "http://192.168.1.100:2020/";
+  static const wsUrl = "ws://192.168.1.100:2020/";
   static Future<void> init() async {
     GetIt.I.registerLazySingleton<Dio>(
       () => Dio().initClient(baseUrl),

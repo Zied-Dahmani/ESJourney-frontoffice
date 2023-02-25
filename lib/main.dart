@@ -1,4 +1,7 @@
+import 'package:esjourney/chatest/chat_service.dart';
+import 'package:esjourney/chatest/socket_service.dart';
 import 'package:esjourney/logic/app_bloc_observer.dart';
+import 'package:esjourney/logic/cubits/chat/user/users_cubit.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
 import 'package:esjourney/logic/cubits/curriculum/course_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
@@ -87,6 +90,12 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (context) => Navigation()),
           BlocProvider(create: (context) => DrawerCubit()),
           //end game providers
+          //chat provider
+          ChangeNotifierProvider(create: (context) => SocketService()),
+          ChangeNotifierProvider(create: (context) => ChatService()),
+          BlocProvider<UsersDataCubit>(
+              create: (context) => UsersDataCubit(), lazy: true),
+          //end chat provider
           BlocProvider<ConnectivityCubit>(
               create: (context) => ConnectivityCubit(), lazy: false),
           BlocProvider<UserCubit>(create: (context) => UserCubit(), lazy: true),
@@ -105,6 +114,9 @@ class MyApp extends StatelessWidget {
                 oldState is UserInitial && newState is! UserLoadInProgress,
             builder: (context, state) {
               if (state is UserLogInSuccess) {
+                final socketService =
+                    Provider.of<SocketService>(context, listen: false);
+                socketService.connect(state.user.token!);
                 return const ZoomDrawerScreen();
               } else {
                 return SignInScreen();

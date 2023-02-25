@@ -49,7 +49,7 @@ class ChatMessage {
 
   ChatMessage({
     this.text = '',
-    required this.messageType,
+    this.messageType = ChatMessageType.text,
     required this.messageStatus,
     required this.isSender,
   });

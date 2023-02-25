@@ -48,12 +48,12 @@ class _CourseScreenState extends State<CourseScreen> {
     final double width = ScreenSize.width(context);
     final getCourses = BlocProvider.of<CourseCubit>(context);
 
-    return BlocBuilder<UserCubit, UserState>(
+    return BlocBuilder<UserCubit, UserState> (
       builder: (context, state) {
         if (state is UserLogInSuccess) {
           final user = state.user;
           context.read<DrawerCubit>().setUsername(user.username);
-          getCourses.getAllCourses(user.token);
+          getCourses.getAllCourses(user.token!);
           return Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[

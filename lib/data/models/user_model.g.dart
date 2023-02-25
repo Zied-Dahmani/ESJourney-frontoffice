@@ -7,6 +7,7 @@ part of 'user_model.dart';
 // **************************************************************************
 
 _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
+      id: json['_id'],
       email: json['email'] as String,
       username: json['username'] as String,
       password: json['password'] as String,
@@ -17,10 +18,12 @@ _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
       courses: (json['courses'] as List<dynamic>?)
           ?.map((e) => UserCourse.fromJson(e as Map<String, dynamic>))
           .toList(),
-      token: json['token'] as String,
+      online: json['online'] as bool,
+      token: json['token'] as String?,
     );
 
 Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
+      '_id': instance.id,
       'email': instance.email,
       'username': instance.username,
       'password': instance.password,
@@ -29,5 +32,6 @@ Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
       'twoDAvatar': instance.twoDAvatar,
       'threeDAvatar': instance.threeDAvatar,
       'courses': instance.courses,
+      'online': instance.online,
       'token': instance.token,
     };

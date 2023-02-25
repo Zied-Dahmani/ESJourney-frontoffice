@@ -1,3 +1,4 @@
+import 'package:esjourney/data/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 class ConversationCard extends StatelessWidget {
@@ -7,7 +8,7 @@ class ConversationCard extends StatelessWidget {
     required this.press,
   }) : super(key: key);
 
-  final Messages chat;
+  final User chat;
   final VoidCallback press;
 
   @override
@@ -25,9 +26,9 @@ class ConversationCard extends StatelessWidget {
                 CircleAvatar(
                   radius: 24,
                   backgroundColor: Colors.white,
-                  backgroundImage: AssetImage(chat.image),
+                  backgroundImage: Image.network(chat.twoDAvatar!).image,
                 ),
-                if (chat.isActive)
+                if (chat.online)
                   Positioned(
                     right: 0,
                     bottom: 0,
@@ -52,7 +53,7 @@ class ConversationCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      chat.name,
+                      chat.username,
                       style: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.w500),
                     ),
@@ -60,7 +61,7 @@ class ConversationCard extends StatelessWidget {
                     Opacity(
                       opacity: 0.64,
                       child: Text(
-                        chat.lastMessage,
+                        chat.email,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -71,7 +72,7 @@ class ConversationCard extends StatelessWidget {
             ),
             Opacity(
               opacity: 0.64,
-              child: Text(chat.time),
+              child: Text(chat.grade.toString()),
             ),
           ],
         ),
