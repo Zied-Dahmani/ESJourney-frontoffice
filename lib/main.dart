@@ -1,4 +1,3 @@
-import 'package:esjourney/chatest/chat_service.dart';
 import 'package:esjourney/chatest/socket_service.dart';
 import 'package:esjourney/logic/app_bloc_observer.dart';
 import 'package:esjourney/logic/cubits/chat/user/users_cubit.dart';
@@ -20,6 +19,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
+import 'logic/cubits/chat/message/message_cubit.dart';
 import 'presentation/screens/curriculum/games/draw/main_module.dart';
 import 'presentation/screens/curriculum/games/slide/tools/board_controller.dart';
 import 'presentation/screens/curriculum/games/slide/tools/navigation.dart';
@@ -92,9 +92,10 @@ class MyApp extends StatelessWidget {
           //end game providers
           //chat provider
           ChangeNotifierProvider(create: (context) => SocketService()),
-          ChangeNotifierProvider(create: (context) => ChatService()),
           BlocProvider<UsersDataCubit>(
               create: (context) => UsersDataCubit(), lazy: true),
+          BlocProvider<MessagesCubit>(
+              create: (context) => MessagesCubit(), lazy: true),
           //end chat provider
           BlocProvider<ConnectivityCubit>(
               create: (context) => ConnectivityCubit(), lazy: false),

@@ -16,7 +16,7 @@ class MessagesCubit extends Cubit<MessagesState> {
       emit(MessagesLoadInProgress());
       final result = await _chatRepository.getChat(token, id);
       result != null
-          ? emit(MessagesLoadingSuccess(result))
+          ? emit(MessagesSuccess(result))
           : emit(MessagesIsFailure("error while getting data"));
     } catch (e) {
       developer.log(e.toString(), name: 'error chat');

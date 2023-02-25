@@ -14,4 +14,4 @@ const ktimeOut = 'Time out!';
 const kgetCourses = 'course/get/user';
 const kaddAvatar = 'user/avatar';
 const kgetAllUsers = 'user/all';
-const kgetChat = 'messages/:from';
+const kgetChat = 'messages/';

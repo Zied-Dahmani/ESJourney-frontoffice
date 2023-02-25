@@ -1,13 +1,15 @@
+import 'package:esjourney/chatest/message_model.dart';
+
 abstract class MessagesState {}
 
 class MessagesInitial extends MessagesState {}
 
 class MessagesLoadInProgress extends MessagesState {}
 
-class MessagesLoadingSuccess extends MessagesState {
+class MessagesSuccess extends MessagesState {
   final List<dynamic> messages;
 
-  MessagesLoadingSuccess(this.messages);
+  MessagesSuccess(this.messages);
 }
 
 class MessagesIsFailure extends MessagesState {
