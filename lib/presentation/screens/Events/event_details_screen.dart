@@ -4,44 +4,29 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import '../../../logic/cubits/events/event_cubit.dart';
+import '../../../logic/cubits/events/event_state.dart';
 import '../../../logic/cubits/user/user_cubit.dart';
 import '../../../logic/cubits/user/user_state.dart';
 
 class EventDetails extends StatefulWidget {
-  final Event event;
+  final String eventId;
 
   const EventDetails({
     Key? key,
-    required this.event,
+     required this.eventId,
   }) : super(key: key);
 
   @override
   State<EventDetails> createState() => _EventDetailsState();
 }
 
-var _buttonText = 'Register';
-var _buttonColor = Colors.green;
-
 class _EventDetailsState extends State<EventDetails> {
-
-  @override
-  void initState() {
-    super.initState();
-    final userState = context.read<UserCubit>().state;
-    if (userState is UserLogInSuccess) {
-      final userEvents = userState.user.events?.map((e) => e.id).toList();
-      if (userEvents?.contains(widget.event.id) ?? false) {
-        _buttonText = 'Unregister';
-        _buttonColor = Colors.red;
-      }else{
-        _buttonText = 'Register';
-        _buttonColor = Colors.green;
-      }
-    } else {
-      Navigator.pushNamed(context, '/');
-    }
-  }
-
+  get screenHeight => MediaQuery.of(context).size.height;
+  get screenWidth => MediaQuery.of(context).size.width;
+  get textTheme => Theme.of(context).textTheme;
+  late Event event;
+  String _buttonText = 'Register';
+  MaterialColor _buttonColor = Colors.green;
 
   void updateButtonText(String text, MaterialColor color) {
     setState(() {
@@ -50,24 +35,115 @@ class _EventDetailsState extends State<EventDetails> {
     });
   }
 
+  /*void _fetchEvent() async {
+    final eventState = context.read<EventCubit>().state;
+    final userEvents = (eventState as EventSuccess).events;
+      final events = eventState.events;
+      final userState = context.read<UserCubit>().state;
+      if (userState is UserLogInSuccess) {
+        final isRegistered = userEvents
+            .where((element) => element.id == widget.eventId)
+            .isNotEmpty;
+        print('isRegistered $isRegistered');
+        print('userEvents $userEvents');
+        print(userState.user.events);
+        print('widget.eventId ${widget.eventId}');
+        print('events hereeee $events');
+        setState(() {
+          event = events.firstWhere((element) => element.id == widget.eventId);
+          if (isRegistered) {
+            updateButtonText('Unregister', Colors.red);
+          } else {
+            updateButtonText('Register', Colors.green);
+          }
+        });
+
+    }
+  }*/
+  void _fetchEvent() {
+    final eventState = context.read<EventCubit>().state;
+    if (eventState is! EventSuccess) return;
+
+    final events = eventState.events;
+    final userState = context.read<UserCubit>().state;
+    if (userState is! UserLogInSuccess) return;
+
+    final isRegistered = userState.user.events
+        ?.map((e) => e.id)
+        .contains(widget.eventId) ??
+        false;
+    print('isRegistered $isRegistered');
+    print('widget.eventId ${widget.eventId}');
+    print('aaaaaaaaaaa');
+    print(userState.user.events);
+    print('aaaaaaaaaaaa');
+    print('events hereeee $events');
+    setState(() {
+      event = events.firstWhere((element) => element.id == widget.eventId);
+      updateButtonText(isRegistered ? 'Unregister' : 'Register',
+          isRegistered ? Colors.red : Colors.green);
+    });
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchEvent();
+  }
+
+  Future<void> _registerOrUnregister() async {
+    final userState = context.read<UserCubit>().state;
+    if (userState is UserLogInSuccess) {
+      final userEvents = userState.user.events?.map((e) => e.id).toList();
+      final eventState = context.read<EventCubit>().state;
+      if (eventState is EventSuccess)  {
+        final event = eventState.events.firstWhere(
+              (element) => element.id == widget.eventId,
+        );
+        if (userEvents!.contains(event.id)) {
+          // user is already registered, so unregister them
+          await context.read<EventCubit>().registerEvent(
+            userState.user.token,
+            widget.eventId,
+          );
+          setState(() {
+            _buttonText = 'Register';
+            _buttonColor = Colors.green;
+          });
+          updateButtonText(_buttonText, _buttonColor);
+        } else {
+          // user is not registered, so register them
+          await context.read<EventCubit>().registerEvent(
+            userState.user.token,
+            widget.eventId,
+          );
+          setState(() {
+            _buttonText = 'Unregister';
+            _buttonColor = Colors.red;
+          });
+          updateButtonText(_buttonText, _buttonColor);
+        }
+      } else {
+        Navigator.pushNamed(context, '/');
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
-    final textTheme = Theme.of(context).textTheme;
-
     return Scaffold(
       body: Container(
         color: Colors.grey[500],
         child: Stack(
           children: [
-            widget.event.eventImage != null
+            event.eventImage != null
                 ? Material(
                     elevation: 3,
                     child: Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage(widget.event.eventImage!),
+                          image: AssetImage(event.eventImage!),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -120,11 +196,10 @@ class _EventDetailsState extends State<EventDetails> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      widget.event.title,
+                                      event.title,
                                       style: textTheme.titleSmall?.copyWith(
                                         color: const Color(0xFFEB4A5A),
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 17,
                                       ),
                                     ),
                                   ),
@@ -144,7 +219,7 @@ class _EventDetailsState extends State<EventDetails> {
                                           0.02),
                                   Text(
                                     DateFormat.yMMMMEEEEd()
-                                        .format(widget.event.date),
+                                        .format(event.date),
                                     style: textTheme.titleSmall?.copyWith(
                                       color: Colors.black,
                                     ),
@@ -162,7 +237,7 @@ class _EventDetailsState extends State<EventDetails> {
                                       ),
                                       SizedBox(width: screenWidth * 0.01),
                                       Text(
-                                        '${widget.event.startTime}${widget.event.endTime != null ? ' - ${widget.event.endTime}' : ''}',
+                                        '${event.startTime}${event.endTime != null ? ' - ${event.endTime}' : ''}',
                                         style: textTheme.titleSmall?.copyWith(
                                           color: Colors.black,
                                         ),
@@ -178,7 +253,7 @@ class _EventDetailsState extends State<EventDetails> {
                                               color: Colors.black,
                                             ),
                                             Text(
-                                              widget.event.location ?? '',
+                                              event.location ?? '',
                                               style: textTheme.titleSmall
                                                   ?.copyWith(
                                                 color: Colors.black,
@@ -201,6 +276,9 @@ class _EventDetailsState extends State<EventDetails> {
                                         StateSetter setState) {
                                       return Expanded(
                                         child: ElevatedButton(
+                                          onPressed: () {
+                                            _registerOrUnregister();
+                                          },
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: _buttonColor,
                                             shape: RoundedRectangleBorder(
@@ -208,134 +286,12 @@ class _EventDetailsState extends State<EventDetails> {
                                                   BorderRadius.circular(10),
                                             ),
                                           ),
-                                          onPressed: () {
-                                            if (_buttonText == 'Register') {
-                                              showDialog(
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  bool isChecked = false;
-                                                  return StatefulBuilder(
-                                                    builder: (BuildContext
-                                                            context,
-                                                        StateSetter setState) {
-                                                      return AlertDialog(
-                                                        title: const Text(
-                                                          'Registration Requirements',
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 18,
-                                                          ),
-                                                        ),
-                                                        content: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          children: <Widget>[
-                                                            const Text(
-                                                              'Please read and accept the requirements to register.',
-                                                              style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 15.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                              height:
-                                                                  screenHeight *
-                                                                      0.01,
-                                                            ),
-                                                            Expanded(
-                                                              flex: 1,
-                                                              child:
-                                                                  SingleChildScrollView(
-                                                                child: Text(
-                                                                  widget.event
-                                                                      .requirementsDescription!,
-                                                                  style: textTheme
-                                                                      .bodyMedium
-                                                                      ?.copyWith(
-                                                                          color: Colors
-                                                                              .black,
-                                                                          fontWeight:
-                                                                              FontWeight.w300),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            CheckboxListTile(
-                                                              title: const Text(
-                                                                  'I accept the requirements.'),
-                                                              value: isChecked,
-                                                              onChanged: (bool?
-                                                                  value) {
-                                                                setState(() {
-                                                                  isChecked =
-                                                                      value ??
-                                                                          false;
-                                                                });
-                                                              },
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        actions: <Widget>[
-                                                          TextButton(
-                                                            child: const Text(
-                                                                'Cancel'),
-                                                            onPressed: () {
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop();
-                                                            },
-                                                          ),
-                                                          ElevatedButton(
-                                                            onPressed: isChecked
-                                                                ? () {
-                                                                    setState(
-                                                                        () {
-                                                                      _buttonColor =
-                                                                          Colors
-                                                                              .red;
-                                                                      _buttonText =
-                                                                          'Unregister';
-                                                                      print(
-                                                                          _buttonText);
-                                                                    });
-                                                                    updateButtonText(
-                                                                        _buttonText,
-                                                                        _buttonColor);
-                                                                    Navigator.of(
-                                                                            context)
-                                                                        .pop();
-                                                                  }
-                                                                : null,
-                                                            child: const Text(
-                                                                'Confirm'),
-                                                          ),
-                                                        ],
-                                                      );
-                                                    },
-                                                  );
-                                                },
-                                              );
-                                            } else {
-                                              setState(() {
-                                                _buttonText = 'Register';
-                                                _buttonColor = Colors.green;
-                                                print(_buttonText);
-                                              });
-                                              updateButtonText(
-                                                  _buttonText, _buttonColor);
-                                            }
-                                          },
                                           child: Text(_buttonText,
-                                              style:
-                                                  textTheme.bodyLarge?.copyWith(
+                                              style: textTheme.titleSmall
+                                                  ?.copyWith(
                                                 color: Colors.white,
-                                              )),
+                                              )
+                                          ),
                                         ),
                                       );
                                     },
@@ -347,7 +303,7 @@ class _EventDetailsState extends State<EventDetails> {
                                 flex: 1,
                                 child: SingleChildScrollView(
                                   child: Text(
-                                    widget.event.description,
+                                    event.description,
                                     style: textTheme.bodyMedium?.copyWith(
                                       color: Colors.black,
                                     ),
@@ -358,7 +314,7 @@ class _EventDetailsState extends State<EventDetails> {
 
                               Row(
                                 children: [
-                                  widget.event.isDone == 'true'
+                                  event.isDone == 'true'
                                       ? const Icon(
                                           Icons.check_circle,
                                           color: Colors.green,
@@ -369,11 +325,11 @@ class _EventDetailsState extends State<EventDetails> {
                                         ),
                                   SizedBox(width: screenWidth * 0.03),
                                   Text(
-                                    widget.event.isDone == 'true'
+                                    event.isDone == 'true'
                                         ? 'Done'
                                         : 'Pending',
                                     style: textTheme.bodyMedium?.copyWith(
-                                      color: widget.event.isDone == 'true'
+                                      color: event.isDone == 'true'
                                           ? Colors.green
                                           : Colors.grey,
                                     ),
@@ -389,7 +345,7 @@ class _EventDetailsState extends State<EventDetails> {
                                   ),
                                   SizedBox(width: screenWidth * 0.03),
                                   Text(
-                                    widget.event.type,
+                                    event.type,
                                     style: textTheme.bodyMedium?.copyWith(
                                       color: Colors.black,
                                     ),
@@ -411,3 +367,4 @@ class _EventDetailsState extends State<EventDetails> {
     );
   }
 }
+

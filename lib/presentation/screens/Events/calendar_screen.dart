@@ -28,13 +28,13 @@ class _CalendarScreenState extends State<CalendarScreen> {
   BuildContext? dialogContext;
 
   @override
+  @override
   void initState() {
     super.initState();
     final userState = context.read<UserCubit>().state;
     if (userState is UserLogInSuccess) {
-      final token = userState.user.token;
-      final getEvents = BlocProvider.of<EventCubit>(context);
-      getEvents.getUserEvents(token);
+      List<Event>? events = userState.user.events;
+
     } else {
       Navigator.pushNamed(context, '/');
     }
@@ -43,30 +43,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
   Future<void> _onRefresh() async {
     final userState = context.read<UserCubit>().state;
     if (userState is UserLogInSuccess) {
-      final token = userState.user.token;
-      setState(() {
-        isLoading = true;
-      });
-
-      final getEvents = BlocProvider.of<EventCubit>(context);
-      if (getEvents.state is EventSuccess) {
-        getEvents.getUserEvents(token);
-      } else {
-        setState(() {
-          isLoading = false;
-        });
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Error loading events. Please try again later.'),
-        ));
-      }
-      setState(() {
-        isLoading = false;
-      });
-    } else {
-      Navigator.pushNamed(context, '/');
+      List<Event>? events = userState.user.events;
     }
   }
-
   void _currentDay() {
     setState(() {
       selectedDay = DateTime.now();
@@ -108,11 +87,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
           ),
         ],
       ),
-      body: BlocBuilder<EventCubit, EventState>(
+      body: BlocBuilder<UserCubit, UserState>(
         builder: (context, state) {
-          if (state is EventSuccess) {
-            final events = state.events;
-            final eventsForSelectedDay = _getEventsForDay(selectedDay, events);
+          if (state is UserLogInSuccess) {
+            final events = state.user.events;
+            final eventsForSelectedDay = _getEventsForDay(selectedDay, events!);
             return Column(
               children: [
                 TableCalendar(
@@ -151,27 +130,27 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   calendarBuilders: CalendarBuilders(
                     markerBuilder: (context, day, events) => events.isNotEmpty
                         ? Container(
-                            width: MediaQuery.of(context).size.width * 0.05,
-                            height: MediaQuery.of(context).size.width * 0.05,
-                            alignment: Alignment.center,
-                            decoration: const BoxDecoration(
-                              color: Colors.black54,
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black12,
-                                  blurRadius: 2,
-                                  spreadRadius: 1,
-                                  offset: Offset(1, 1),
-                                ),
-                              ],
-                            ),
-                            child: Text(
-                              '${events.length}',
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 12),
-                            ),
-                          )
+                      width: MediaQuery.of(context).size.width * 0.05,
+                      height: MediaQuery.of(context).size.width * 0.05,
+                      alignment: Alignment.center,
+                      decoration: const BoxDecoration(
+                        color: Colors.black54,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 2,
+                            spreadRadius: 1,
+                            offset: Offset(1, 1),
+                          ),
+                        ],
+                      ),
+                      child: Text(
+                        '${events.length}',
+                        style: const TextStyle(
+                            color: Colors.white, fontSize: 12),
+                      ),
+                    )
                         : null,
                   ),
                 ),
@@ -181,125 +160,125 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     child: isLoading
                         ? const Center()
                         : ListView.builder(
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            itemCount: eventsForSelectedDay.length,
-                            itemBuilder: (context, index) {
-                              final event = eventsForSelectedDay[index];
-                              final border = event.type == 'Orientation'
-                                  ? const Border(
-                                      left: BorderSide(
-                                          color: Color(0xFFEB4A5A), width: 5))
-                                  : event.type == 'Project'
-                                      ? const Border(
-                                          left: BorderSide(
-                                              color: Colors.black, width: 5))
-                                      : null;
-                              final textStyle = event.type == 'Orientation'
-                                  ? const TextStyle(color: Color(0xFFEB4A5A))
-                                  : event.type == 'Project'
-                                      ? const TextStyle(color: Colors.black)
-                                      : null;
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      itemCount: eventsForSelectedDay.length,
+                      itemBuilder: (context, index) {
+                        final event = eventsForSelectedDay[index];
+                        final border = event.type == 'Orientation'
+                            ? const Border(
+                            left: BorderSide(
+                                color: Color(0xFFEB4A5A), width: 5))
+                            : event.type == 'Project'
+                            ? const Border(
+                            left: BorderSide(
+                                color: Colors.black, width: 5))
+                            : null;
+                        final textStyle = event.type == 'Orientation'
+                            ? const TextStyle(color: Color(0xFFEB4A5A))
+                            : event.type == 'Project'
+                            ? const TextStyle(color: Colors.black)
+                            : null;
 
-                              return InkWell(
-                                onTap: () {
-                                  Navigator.of(context).pushNamed(AppRoutes.eventDetails, arguments: event);
-                                },
-                                child: Container(
-                                  margin: const EdgeInsets.only(
-                                      left: 2, top: 8, right: 2),
-                                  decoration: border != null
-                                      ? BoxDecoration(border: border)
-                                      : null,
-                                  child: Material(
-                                    elevation: 4,
-                                    child: ListTile(
-                                      title: textStyle != null
-                                          ? Text(event.title, style: textStyle)
-                                          : null,
-                                      subtitle: Column(
-                                        children: [
-                                          const SizedBox(height: 10),
-                                          Row(
-                                            children: [
-                                              const Icon(Icons.location_on,
-                                                  color: Colors.black54,
-                                                  size: 18),
-                                              const SizedBox(width: 5),
-                                              event.location != null
-                                                  ? Text(event.location!,
-                                                      style: const TextStyle(
-                                                          color: Colors.black54,
-                                                          fontSize: 12))
-                                                  : const Text('No location',
-                                                      style: TextStyle(
-                                                          color: Colors.black54,
-                                                          fontSize: 12)),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 10),
-                                          Row(
-                                            children: [
-                                              const Icon(Icons.access_time,
-                                                  color: Colors.black54,
-                                                  size: 18),
-                                              const SizedBox(width: 5),
-                                              event.endTime != null
-                                                  ? Text(
-                                                      '${event.startTime} - ${event.endTime!}',
-                                                      style: const TextStyle(
-                                                          color: Colors.black54,
-                                                          fontSize: 15))
-                                                  : Text(event.startTime,
-                                                      style: const TextStyle(
-                                                          color: Colors.black54,
-                                                          fontSize: 15)),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      trailing: Container(
-                                        child: event.isDone == false
-                                            ? Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                children: const [
-                                                  Icon(
-                                                    Icons.timer,
-                                                    color: Colors.grey,
-                                                  ),
-                                                  SizedBox(height: 5),
-                                                  Text(
-                                                    'Soon',
-                                                    style: TextStyle(
-                                                        color: Colors.grey,
-                                                        fontSize: 10),
-                                                  ),
-                                                ],
-                                              )
-                                            : Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                children: const [
-                                                  Icon(
-                                                    Icons.check_circle,
-                                                    color: Colors.green,
-                                                  ),
-                                                  SizedBox(height: 5),
-                                                  Text(
-                                                    'Done',
-                                                    style: TextStyle(
-                                                        color: Colors.green,
-                                                        fontSize: 10),
-                                                  ),
-                                                ],
-                                              ),
-                                      ),
+                        return InkWell(
+                          onTap: () {
+                            Navigator.of(context).pushNamed(AppRoutes.eventDetails, arguments: event.id);
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.only(
+                                left: 2, top: 8, right: 2),
+                            decoration: border != null
+                                ? BoxDecoration(border: border)
+                                : null,
+                            child: Material(
+                              elevation: 4,
+                              child: ListTile(
+                                title: textStyle != null
+                                    ? Text(event.title, style: textStyle)
+                                    : null,
+                                subtitle: Column(
+                                  children: [
+                                    const SizedBox(height: 10),
+                                    Row(
+                                      children: [
+                                        const Icon(Icons.location_on,
+                                            color: Colors.black54,
+                                            size: 18),
+                                        const SizedBox(width: 5),
+                                        event.location != null
+                                            ? Text(event.location!,
+                                            style: const TextStyle(
+                                                color: Colors.black54,
+                                                fontSize: 12))
+                                            : const Text('No location',
+                                            style: TextStyle(
+                                                color: Colors.black54,
+                                                fontSize: 12)),
+                                      ],
                                     ),
+                                    const SizedBox(height: 10),
+                                    Row(
+                                      children: [
+                                        const Icon(Icons.access_time,
+                                            color: Colors.black54,
+                                            size: 18),
+                                        const SizedBox(width: 5),
+                                        event.endTime != null
+                                            ? Text(
+                                            '${event.startTime} - ${event.endTime!}',
+                                            style: const TextStyle(
+                                                color: Colors.black54,
+                                                fontSize: 15))
+                                            : Text(event.startTime,
+                                            style: const TextStyle(
+                                                color: Colors.black54,
+                                                fontSize: 15)),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                trailing: Container(
+                                  child: event.isDone == false
+                                      ? Column(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.end,
+                                    children: const [
+                                      Icon(
+                                        Icons.timer,
+                                        color: Colors.grey,
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        'Soon',
+                                        style: TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 10),
+                                      ),
+                                    ],
+                                  )
+                                      : Column(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.end,
+                                    children: const [
+                                      Icon(
+                                        Icons.check_circle,
+                                        color: Colors.green,
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        'Done',
+                                        style: TextStyle(
+                                            color: Colors.green,
+                                            fontSize: 10),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              );
-                            },
+                              ),
+                            ),
                           ),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],

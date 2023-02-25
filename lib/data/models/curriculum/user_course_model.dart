@@ -14,4 +14,13 @@ class UserCourse with _$UserCourse {
   }) = _UserCourse;
 
   factory UserCourse.fromJson(Map<String, dynamic> json) => _$UserCourseFromJson(json);
+
+  factory UserCourse.fromMap(Map<String, dynamic> map) {
+    return UserCourse(
+      id: map['id'],
+      courseId: map['courseId'],
+      words: List<String>.from(map['words']),
+      definitions: List<String>.from(map['definitions']),
+    );
+  }
 }

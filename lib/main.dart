@@ -19,56 +19,54 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  ErrorWidget.builder = (FlutterErrorDetails details) {
-    if (kDebugMode) {
-      return ErrorWidget(details.exception);
-    }
-    return Container(
-      color: Colors.white,
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text(
-            AppStrings.kerror,
-            textDirection: TextDirection.ltr,
-            style: TextStyle(
-                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: AppSizes.ksmallSpace),
-          Text(
-            details.exception.toString(),
-            textDirection: TextDirection.ltr,
-            style: const TextStyle(
-                color: Colors.grey,
-                fontWeight: FontWeight.normal,
-                fontSize: 16),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
-  };
-
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: kIsWeb
         ? HydratedStorage.webStorageDirectory
         : await getTemporaryDirectory(),
   );
-  BlocOverrides.runZoned(
-        () {
-      runApp(MyApp());
-    },
-    blocObserver: AppBlocObserver(),
-  );
+  runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  final AppRouter _appRouter = AppRouter();
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
 
-  MyApp({Key? key}) : super(key: key);
+  @override
+  State<MyApp> createState() => _AppState();
+}
+
+class _AppState extends State<MyApp> with WidgetsBindingObserver {
+  late UserCubit _userCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    _userCubit = UserCubit();
+    WidgetsBinding.instance.addObserver(this);
+    if (_userCubit.state is UserLogInSuccess) {
+      final token = (_userCubit.state as UserLogInSuccess).user.token;
+      _userCubit.refreshUserData(token);
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _userCubit.close();
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    if (state == AppLifecycleState.resumed ||
+        state == AppLifecycleState.inactive) {
+      final token = _userCubit.state is UserLogInSuccess
+          ? (_userCubit.state as UserLogInSuccess).user.token
+          : null;
+      if (token != null) {
+        await _userCubit.refreshUserData(token);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,12 +78,11 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider<ConnectivityCubit>(
-              create: (context) => ConnectivityCubit(), lazy: false),
-          BlocProvider<UserCubit>(create: (context) => UserCubit(), lazy: true),
-          BlocProvider<QuizCubit>(create: (context) => QuizCubit(), lazy: true),
-          BlocProvider<CourseCubit>(create: (context) => CourseCubit(), lazy: true),
-          BlocProvider<EventCubit>(create: (context) => EventCubit(), lazy: true),
-
+              create: (context) => ConnectivityCubit()),
+          BlocProvider<UserCubit>.value(value: _userCubit),
+          BlocProvider<QuizCubit>(create: (context) => QuizCubit()),
+          BlocProvider<CourseCubit>(create: (context) => CourseCubit()),
+          BlocProvider<EventCubit>(create: (context) => EventCubit()),
         ],
         child: MaterialApp(
           title: 'ESJourney',
@@ -93,7 +90,7 @@ class MyApp extends StatelessWidget {
           showPerformanceOverlay: false,
           theme: lightTheme,
           themeMode: ThemeMode.light,
-          onGenerateRoute: _appRouter.onGenerateRoute,
+          onGenerateRoute: AppRouter().onGenerateRoute,
           home: BlocBuilder<UserCubit, UserState>(
             buildWhen: (oldState, newState) => oldState is UserInitial && newState is! UserLoadInProgress,
             builder: (context, state) {

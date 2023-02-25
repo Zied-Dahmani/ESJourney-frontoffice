@@ -1,6 +1,8 @@
-var kbaseUrl = 'http://192.168.1.14:3003/';
+var kbaseUrl = 'http://192.168.1.15:3003/';
 const ksignUp = 'user/signUp';
 const ksignIn = 'user/signIn';
+const kgetUserData = 'user/getUserData';
+const krefreshToken = 'user/refreshToken';
 
 const kcheckInternetConnection = 'Check your internet connection!';
 const kidPasswordIncorrect = 'Id or password Incorrect!';

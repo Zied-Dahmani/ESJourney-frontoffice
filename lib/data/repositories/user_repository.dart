@@ -10,4 +10,11 @@ class UserRepository implements IUserRepository {
     final result = await _userDataProvider.signIn(id,password);
     return result.statusCode == 200 ? User.fromJson(result.data) : null;
   }
+
+  @override
+  Future<dynamic> getUserData(String token) async {
+    final result = await _userDataProvider.getUserData(token);
+    return result.statusCode == 200 ? User.fromJson(result.data) : null;
+  }
+
 }
