@@ -36,6 +36,7 @@ class _ConversationScreenState extends State<ConversationScreen>
     _focusNode.requestFocus();
 
     final newMessage = ChatMessage(
+      twoDAvatar: widget.receiver.twoDAvatar,
       currentUserId: widget.myId,
       msg: text,
       animationController: AnimationController(
@@ -60,6 +61,7 @@ class _ConversationScreenState extends State<ConversationScreen>
 
   void _listenMessage(dynamic payload) {
     ChatMessage message = ChatMessage(
+      twoDAvatar: widget.receiver.twoDAvatar,
       animationController: AnimationController(
           vsync: this, duration: const Duration(milliseconds: 300)),
       uid: payload["from"],
@@ -97,6 +99,7 @@ class _ConversationScreenState extends State<ConversationScreen>
     List<dynamic> messages = await chatService.getMessages(userID, token);
 
     final history = messages.map((m) => ChatMessage(
+          twoDAvatar: widget.receiver.twoDAvatar,
           currentUserId: widget.myId,
           animationController: AnimationController(
             vsync: this,
@@ -112,7 +115,6 @@ class _ConversationScreenState extends State<ConversationScreen>
 
   @override
   Widget build(BuildContext context) {
-
     Widget userInput() {
       return Container(
         padding: const EdgeInsets.symmetric(
@@ -139,10 +141,11 @@ class _ConversationScreenState extends State<ConversationScreen>
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.camera_alt_outlined, color: Color(0xFFF03738)),
+                      const Icon(Icons.camera_alt_outlined,
+                          color: Color(0xFFF03738)),
                       Expanded(
                         child: Container(
-                          margin: const EdgeInsets.only(left: 5,right: 5),
+                          margin: const EdgeInsets.only(left: 5, right: 5),
                           child: TextField(
                             style: const TextStyle(
                               color: Color(0xFF3C4046),
@@ -251,13 +254,14 @@ class ChatMessage extends StatelessWidget {
   final String uid;
   final String currentUserId;
   final AnimationController animationController;
+  final String? twoDAvatar;
 
   const ChatMessage({
     Key? key,
     required this.msg,
     required this.uid,
     required this.animationController,
-    required this.currentUserId,
+    required this.currentUserId, this.twoDAvatar,
   }) : super(key: key);
 
   @override
@@ -267,67 +271,53 @@ class ChatMessage extends StatelessWidget {
       child: SizeTransition(
         sizeFactor: CurvedAnimation(
             parent: animationController, curve: Curves.easeInOut),
-        child: Container(
-          child: uid == currentUserId ? _myMessage() : _noMyMesssage(),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 10, left: 4, right: 4),
+          child: Row(
+            mainAxisAlignment: uid == currentUserId
+                ? MainAxisAlignment.end
+                : MainAxisAlignment.start,
+            children: [
+              if (uid != currentUserId) ...[
+                 CircleAvatar(
+                  radius: 14,
+                  backgroundColor: Colors.white,
+                  backgroundImage: Image.network(twoDAvatar!).image,
+                ),
+                const SizedBox(width: 20 / 2),
+              ],
+              messageBox(context),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _myMessage() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Align(
-          alignment: Alignment.centerRight,
-          child: Container(
-            padding: const EdgeInsets.all(8.0),
-            margin: const EdgeInsets.only(right: 5, bottom: 5, left: 50),
-            decoration: BoxDecoration(
-                color: const Color(0xff060a37),
-                borderRadius: BorderRadius.circular(20)),
-            child: Column(
-              children: [
-                Text(
-                  msg,
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
+  Widget messageBox(BuildContext ctx) {
+    return Flexible(
+      child: Container(
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(ctx).size.width * 0.7,
+        ),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 10,
+        ),
+        decoration: BoxDecoration(
+          color: const Color(0xFFF03738)
+              .withOpacity(uid == currentUserId ? 1 : 0.1),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Text(
+          msg,
+          softWrap: true,
+          overflow: TextOverflow.fade,
+          style: TextStyle(
+            color: uid == currentUserId ? Colors.white : Colors.black,
           ),
         ),
-        const SizedBox(height: 4),
-        // Text(
-        //     createdAt?.toString().substring(0, 16) ??
-        //         DateTime.now().toString().substring(0, 16),
-        //     style: TextStyle(color: Colors.grey, fontSize: 10))
-      ],
-    );
-  }
-
-  Widget _noMyMesssage() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Container(
-            padding: const EdgeInsets.all(8.0),
-            margin: const EdgeInsets.only(left: 5, bottom: 5, right: 50),
-            decoration: BoxDecoration(
-                color: const Color(0xffE4E5E8),
-                borderRadius: BorderRadius.circular(20)),
-            child: Text(
-              msg,
-              style: const TextStyle(color: Colors.black87),
-            ),
-          ),
-        ),
-        const SizedBox(height: 4),
-        // Text(createdAt.toString().substring(0, 16),
-        //     style: TextStyle(color: Colors.grey, fontSize: 10))
-      ],
+      ),
     );
   }
 }
