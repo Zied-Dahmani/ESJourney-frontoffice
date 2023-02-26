@@ -1,6 +1,6 @@
+import 'package:esjourney/data/models/user_model.dart';
 import 'package:esjourney/data/repositories/chat/chat_service.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
-import 'package:esjourney/data/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -112,50 +112,74 @@ class _ConversationScreenState extends State<ConversationScreen>
 
   @override
   Widget build(BuildContext context) {
-    final userTo = widget.receiver;
 
-    Widget inputChat(User userTo) {
-      return SafeArea(
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 8.0),
+    Widget userInput() {
+      return Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 10,
+          vertical: 10,
+        ),
+        decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          boxShadow: [
+            BoxShadow(
+              offset: const Offset(0, 4),
+              blurRadius: 32,
+              color: const Color(0xFF087949).withOpacity(0.08),
+            ),
+          ],
+        ),
+        child: SafeArea(
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Flexible(
-                child: TextField(
-                  controller: _textController,
-                  onSubmitted: (text) {
-                    _handleSubmit(text);
-                  },
-                  onChanged: (String msg) {
-                    setState(() {
-                      if (msg.trim().isNotEmpty) {
-                        _isWriting = true;
-                      } else {
-                        _isWriting = false;
-                      }
-                    });
-                  },
-                  decoration: const InputDecoration.collapsed(
-                    hintText: "Send message",
-                  ),
-                  focusNode: _focusNode,
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 4.0),
+              Expanded(
                 child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: IconTheme(
-                    data: IconThemeData(color: Colors.blue[400]),
-                    child: IconButton(
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      icon: const Icon(Icons.send),
-                      onPressed: _isWriting
-                          ? () => _handleSubmit(_textController.text.trim())
-                          : null,
-                    ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.camera_alt_outlined, color: Color(0xFFF03738)),
+                      Expanded(
+                        child: Container(
+                          margin: const EdgeInsets.only(left: 5,right: 5),
+                          child: TextField(
+                            style: const TextStyle(
+                              color: Color(0xFF3C4046),
+                            ),
+                            controller: _textController,
+                            onSubmitted: (text) {
+                              _handleSubmit(text);
+                            },
+                            onChanged: (String msg) {
+                              setState(() {
+                                if (msg.trim().isNotEmpty) {
+                                  _isWriting = true;
+                                } else {
+                                  _isWriting = false;
+                                }
+                              });
+                            },
+                            focusNode: _focusNode,
+                            decoration: const InputDecoration(
+                              hintText: "Type message",
+                              hintStyle: TextStyle(
+                                color: Color(0xFFA0A5BD),
+                              ),
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const Icon(Icons.mic, color: Color(0xFFF03738)),
+                      IconButton(
+                        onPressed: _isWriting
+                            ? () => _handleSubmit(_textController.text.trim())
+                            : null,
+                        icon: const Icon(Icons.send_outlined,
+                            color: Color(0xFFF03738)),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -215,13 +239,7 @@ class _ConversationScreenState extends State<ConversationScreen>
               reverse: true,
             ),
           ),
-          const Divider(
-            height: 1,
-          ),
-          SizedBox(
-            height: 50,
-            child: inputChat(userTo),
-          ),
+          userInput(),
         ],
       ),
     );
