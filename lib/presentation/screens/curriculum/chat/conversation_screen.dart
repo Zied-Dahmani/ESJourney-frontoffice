@@ -5,11 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ConversationScreen extends StatefulWidget {
-  const ConversationScreen(
-      {Key? key,
-      required this.receiver,
-      required this.myId,
-      required this.token})
+  const ConversationScreen({Key? key,
+    required this.receiver,
+    required this.myId,
+    required this.token})
       : super(key: key);
   final User receiver;
   final String myId;
@@ -76,12 +75,41 @@ class _ConversationScreenState extends State<ConversationScreen>
     message.animationController.forward();
   }
 
+  void _listenIsTyping(dynamic payload) {
+    final isTypingWidget = ChatMessage(msg: "...",
+        uid: widget.receiver.id,
+        twoDAvatar: widget.receiver.twoDAvatar,
+        animationController: AnimationController(
+            vsync: this, duration: const Duration(milliseconds: 300)),
+        currentUserId: widget.myId);
+    if (payload["isTyping"]) {
+      setState(() {
+        _isWriting = true;
+        _messages.insert(0, isTypingWidget);
+      });
+    } else {
+      setState(() {
+        _isWriting = false;
+        _messages.remove(isTypingWidget);
+      });
+    }
+  }
+
+  void sendTypingEvent(bool isTyping) {
+    socketService.emit('is-typing', {
+      'from': widget.myId,
+      'to': widget.receiver.id,
+      'isTyping': isTyping,
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     socketService = Provider.of<SocketService>(context, listen: false);
     chatService = Provider.of<ChatService>(context, listen: false);
     socketService.socket.on("private-message", _listenMessage);
+    socketService.socket.on("is-typing", _listenIsTyping);
     _chargeHistory(widget.receiver.id, widget.token);
   }
 
@@ -93,18 +121,21 @@ class _ConversationScreenState extends State<ConversationScreen>
     }
 
     socketService.socket.off("private-message");
+    socketService.socket.off("is-typing");
   }
 
   void _chargeHistory(String userID, String token) async {
     List<dynamic> messages = await chatService.getMessages(userID, token);
 
-    final history = messages.map((m) => ChatMessage(
+    final history = messages.map((m) =>
+        ChatMessage(
           twoDAvatar: widget.receiver.twoDAvatar,
           currentUserId: widget.myId,
           animationController: AnimationController(
             vsync: this,
             duration: const Duration(milliseconds: 0),
-          )..forward(),
+          )
+            ..forward(),
           msg: m.message,
           uid: m.from,
         ));
@@ -115,7 +146,6 @@ class _ConversationScreenState extends State<ConversationScreen>
 
   @override
   Widget build(BuildContext context) {
-
     Widget userInput() {
       return Container(
         padding: const EdgeInsets.symmetric(
@@ -123,7 +153,9 @@ class _ConversationScreenState extends State<ConversationScreen>
           vertical: 10,
         ),
         decoration: BoxDecoration(
-          color: Theme.of(context).scaffoldBackgroundColor,
+          color: Theme
+              .of(context)
+              .scaffoldBackgroundColor,
           boxShadow: [
             BoxShadow(
               offset: const Offset(0, 4),
@@ -154,15 +186,14 @@ class _ConversationScreenState extends State<ConversationScreen>
                             controller: _textController,
                             onSubmitted: (text) {
                               _handleSubmit(text);
+                              sendTypingEvent(false);
                             },
                             onChanged: (String msg) {
-                              setState(() {
-                                if (msg.trim().isNotEmpty) {
-                                  _isWriting = true;
-                                } else {
-                                  _isWriting = false;
-                                }
-                              });
+                              if (msg.isEmpty) {
+                                sendTypingEvent(false);
+                              } else {
+                                sendTypingEvent(true);
+                              }
                             },
                             focusNode: _focusNode,
                             decoration: const InputDecoration(
@@ -177,9 +208,14 @@ class _ConversationScreenState extends State<ConversationScreen>
                       ),
                       const Icon(Icons.mic, color: Color(0xFFF03738)),
                       IconButton(
-                        onPressed: _isWriting
-                            ? () => _handleSubmit(_textController.text.trim())
-                            : null,
+                        onPressed: () {
+                          if (_textController.text.isNotEmpty) {
+                            _handleSubmit(_textController.text.trim());
+                            sendTypingEvent(false);
+                          } else {
+                            null;
+                          }
+                        },
                         icon: const Icon(Icons.send_outlined,
                             color: Color(0xFFF03738)),
                       ),
@@ -198,13 +234,20 @@ class _ConversationScreenState extends State<ConversationScreen>
         backgroundColor: const Color(0xFFEB4A5A),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () =>
+          {
+            _isWriting = false,
+            sendTypingEvent(false),
+            Navigator.of(context).pop(),
+          },
         ),
         title: Row(
           children: [
             CircleAvatar(
               backgroundColor: Colors.white,
-              backgroundImage: Image.network(widget.receiver.twoDAvatar!).image,
+              backgroundImage: Image
+                  .network(widget.receiver.twoDAvatar!)
+                  .image,
             ),
             const SizedBox(width: 8),
             Column(
@@ -214,10 +257,16 @@ class _ConversationScreenState extends State<ConversationScreen>
                   widget.receiver.username,
                   style: const TextStyle(color: Colors.white, fontSize: 14),
                 ),
+                if(!_isWriting)
                 Text(
                   widget.receiver.online ? "Online" : "Offline",
                   style: const TextStyle(fontSize: 12, color: Colors.white),
                 )
+                else
+                  const Text(
+                    'typing...',
+                    style: TextStyle(fontSize: 12, color: Colors.white),
+                  )
               ],
             )
           ],
@@ -247,7 +296,6 @@ class _ConversationScreenState extends State<ConversationScreen>
         ],
       ),
     );
-
   }
 }
 
@@ -286,7 +334,9 @@ class ChatMessage extends StatelessWidget {
                 CircleAvatar(
                   radius: 14,
                   backgroundColor: Colors.white,
-                  backgroundImage: Image.network(twoDAvatar!).image,
+                  backgroundImage: Image
+                      .network(twoDAvatar!)
+                      .image,
                 ),
                 const SizedBox(width: 10),
               ],
@@ -302,7 +352,10 @@ class ChatMessage extends StatelessWidget {
     return Flexible(
       child: Container(
         constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(ctx).size.width * 0.7,
+          maxWidth: MediaQuery
+              .of(ctx)
+              .size
+              .width * 0.7,
         ),
         padding: const EdgeInsets.symmetric(
           horizontal: 16,
