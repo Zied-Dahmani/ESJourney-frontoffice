@@ -114,7 +114,7 @@ class _ApplyToClubScreenState extends State<ApplyToClubScreen>
                       const SizedBox(height: AppSizes.kbigSpace),
                       CustomAnimatedOpacity(
                         animation: _controller.topOpacityAnimation,
-                        child: content(),
+                        child: _content(),
                       )
                     ],
                   ),
@@ -167,7 +167,7 @@ class _ApplyToClubScreenState extends State<ApplyToClubScreen>
     });
   }
 
-  Widget content() {
+  Widget _content() {
     switch (activeStep) {
       case 0:
         return Apply1(

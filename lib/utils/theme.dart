@@ -17,7 +17,8 @@ ThemeData lightTheme = ThemeData(
         onError: Colors.white,
         surface: Colors.white,
         onSurface: Colors.black,
-        outline: Color(0xFF3EB8D4)
+        outline: Color(0xFF3EB8D4),
+        onPrimaryContainer: Colors.black26
     ),
     fontFamily: 'VisbyRoundCF',
     textTheme: const TextTheme(

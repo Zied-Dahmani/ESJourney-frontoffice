@@ -56,7 +56,7 @@ class ClubsScreen extends StatelessWidget {
           shape: const RoundedRectangleBorder(
               borderRadius:
                   BorderRadius.all(Radius.circular(AppSizes.kradius))),
-          child: const Icon(FontAwesomeIcons.plus),
+          child:  Icon(FontAwesomeIcons.plus,color: Theme.of(context).colorScheme.onPrimary),
           onPressed: () {
             HydratedBloc.storage.clear();
           },

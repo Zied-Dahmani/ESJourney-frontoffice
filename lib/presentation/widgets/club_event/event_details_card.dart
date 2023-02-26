@@ -2,6 +2,7 @@ import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/utils/constants.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class EventDetailsCard extends StatelessWidget {
   const EventDetailsCard({
@@ -54,21 +55,18 @@ class EventDetailsCard extends StatelessWidget {
                   )
                 ],
               ),
-              const SizedBox(height: AppSizes.ksmallSpace),
               Row(
                 children: [
                   Text(clubEvent.convertDate(), style: theme.textTheme.bodySmall),
                   const Spacer(),
-                  GestureDetector(
-                      onTap: () => clubEventCubit.launchGoogleMaps(clubEvent.latLng[0], clubEvent.latLng[1]),
-                      child: Container(
-                        padding: const EdgeInsets.only(bottom: AppSizes.ksmallSpace - 4),
-                        width: AppSizes.kiconSize,
-                        child: Image.asset('assets/images/google-maps.png'),
-                      )),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 6.0),
+                    child: IconButton(icon: Icon(FontAwesomeIcons.route,color: theme.colorScheme.primary), onPressed: () {
+                      clubEventCubit.launchGoogleMaps(clubEvent.latLng[0], clubEvent.latLng[1]);
+                    },),
+                  ),
                 ],
               ),
-              const SizedBox(height: AppSizes.ksmallSpace),
               Text(clubEvent.description,
                   style: theme.textTheme.bodySmall!
                       .copyWith(color: theme.colorScheme.tertiary,fontSize: 12))

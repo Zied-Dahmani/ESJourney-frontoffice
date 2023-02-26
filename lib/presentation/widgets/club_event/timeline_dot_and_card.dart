@@ -5,15 +5,13 @@ import 'package:flutter/material.dart';
 class TimelineDotAndCard extends StatefulWidget {
   const TimelineDotAndCard(
       {Key? key,
-      this.isSelected = false,
       this.displayCard = false,
-      this.left = false,
+      this.isLeft = false,
       required this.delay,
       required this.text})
       : super(key: key);
 
-  final bool isSelected, displayCard, left;
-  final delay,text;
+  final displayCard, isLeft, delay, text;
 
   @override
   State<TimelineDotAndCard> createState() => _TimelineDotAndCardState();
@@ -22,7 +20,53 @@ class TimelineDotAndCard extends StatefulWidget {
 class _TimelineDotAndCardState extends State<TimelineDotAndCard> {
   bool _animated = false;
 
-  void _animateWithDelay() async {
+  @override
+  void didUpdateWidget(covariant TimelineDotAndCard oldWidget) {
+    _animateAfterDelay();
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Row(
+      children: [
+        if (_animated && widget.isLeft) ...[
+          _card(),
+          Container(
+            width: 20,
+            height: AppSizes.kdividerHeight,
+            color: theme.colorScheme.tertiary,
+          ),
+        ],
+        Container(
+          height: AppSizes.ktimelineDotSize,
+          width: AppSizes.ktimelineDotSize,
+          decoration: BoxDecoration(
+              border: Border.all(color: theme.colorScheme.tertiary),
+              shape: BoxShape.circle,
+              color: theme.colorScheme.background),
+          child: Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: CircleAvatar(
+                backgroundColor: widget.isLeft
+                    ? theme.colorScheme.primary
+                    : theme.colorScheme.outline),
+          ),
+        ),
+        if (_animated && !widget.isLeft) ...[
+          Container(
+            width: 20,
+            height: AppSizes.kdividerHeight,
+            color: theme.colorScheme.tertiary,
+          ),
+          _card(),
+        ],
+      ],
+    );
+  }
+
+  void _animateAfterDelay() async {
     if (widget.displayCard) {
       await Future.delayed(widget.delay);
       setState(() {
@@ -31,13 +75,7 @@ class _TimelineDotAndCardState extends State<TimelineDotAndCard> {
     }
   }
 
-  @override
-  void didUpdateWidget(covariant TimelineDotAndCard oldWidget) {
-    _animateWithDelay();
-    super.didUpdateWidget(oldWidget);
-  }
-
-  Widget _buildCard() => TweenAnimationBuilder(
+  Widget _card() => TweenAnimationBuilder(
       tween: Tween(begin: 0.0, end: 1.0),
       duration: const Duration(milliseconds: 300),
       child: Container(
@@ -53,46 +91,10 @@ class _TimelineDotAndCardState extends State<TimelineDotAndCard> {
         ),
       ),
       builder: (context, value, child) {
-        return Transform.scale(alignment: widget.left ? Alignment.centerRight: Alignment.centerLeft ,scale: value, child: child);
+        return Transform.scale(
+            alignment: widget.isLeft ? Alignment.centerRight : Alignment.centerLeft,
+            scale: value,
+            child: child);
       });
 
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Row(
-      children: [
-        if (_animated && widget.left) ...[
-          _buildCard(),
-          Container(
-            width: 20,
-            height: 2,
-            color: theme.colorScheme.tertiary,
-          ),
-        ],
-        Container(
-          height: AppSizes.ktimelineDotSize,
-          width: AppSizes.ktimelineDotSize,
-          decoration: BoxDecoration(
-              border: Border.all(color: theme.colorScheme.tertiary),
-              shape: BoxShape.circle,
-              color: theme.colorScheme.background),
-          child: Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: CircleAvatar(
-                backgroundColor: widget.isSelected
-                    ? theme.colorScheme.primary
-                    : theme.colorScheme.outline),
-          ),
-        ),
-        if (_animated && !widget.left) ...[
-          Container(
-            width: 20,
-            height: 2,
-            color: theme.colorScheme.tertiary,
-          ),
-          _buildCard(),
-        ],
-      ],
-    );
-  }
 }

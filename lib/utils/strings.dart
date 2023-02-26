@@ -21,6 +21,8 @@ class AppStrings {
 
   // Zied
   static const knoClubs = 'No clubs';
+  static const kdescription = 'Description';
+  static const kstories = 'Stories';
   static const kapply = 'Apply';
   static const kcontinue = 'Continue';
   static const kapplyToClubTitle1 = 'Personal information';

@@ -51,6 +51,7 @@ dependencies:
   flutter_svg: ^1.1.6
   location: ^4.4.0
   maps_launcher: ^2.2.0
+  like_button: ^2.0.5
 
 
 

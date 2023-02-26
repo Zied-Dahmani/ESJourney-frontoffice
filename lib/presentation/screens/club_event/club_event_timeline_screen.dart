@@ -1,11 +1,9 @@
+import 'package:esjourney/presentation/widgets/club_event/animated_timeline_button.dart';
 import 'package:esjourney/presentation/widgets/club_event/calendar_and_line.dart';
 import 'package:esjourney/presentation/widgets/club_event/timeline_dot_and_card.dart';
 import 'package:esjourney/utils/strings.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-// TODO Clean the code
 
 class ClubEventTimelineScreen extends StatefulWidget {
   const ClubEventTimelineScreen({Key? key, this.event}) : super(key: key);
@@ -19,20 +17,6 @@ class ClubEventTimelineScreen extends StatefulWidget {
 
 class _ClubEventTimelineScreenState extends State<ClubEventTimelineScreen> {
   bool _animated = false, _displayCard = false, _animatedButton = false;
-
-  Future<void> initAnimation() async {
-    setState(() {
-      _animated = true;
-    });
-    await Future.delayed(const Duration(milliseconds: 1200));
-    setState(() {
-      _displayCard = true;
-    });
-    await Future.delayed(const Duration(milliseconds: 1200));
-    setState(() {
-      _animatedButton = true;
-    });
-  }
 
   @override
   void initState() {
@@ -68,38 +52,28 @@ class _ClubEventTimelineScreenState extends State<ClubEventTimelineScreen> {
                         ? AppSizes.khugeSpace + 80 * i
                         : constraints.maxHeight - AppSizes.khugeSpace - 10,
                     child: TimelineDotAndCard(
-                      delay: Duration(milliseconds: i * 200),
-                      left: i % 2 == 0,
-                      isSelected: i % 2 == 0,
-                      displayCard: _displayCard,
-                      text: widget.event.timeline[i-1]
-                    )),
+                        delay: Duration(milliseconds: i * 200),
+                        isLeft: i % 2 == 0,
+                        displayCard: _displayCard,
+                        text: widget.event.timeline[i - 1])),
               if (_animatedButton)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: AppSizes.kbigSpace),
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: TweenAnimationBuilder(
-                      tween: Tween(begin: 0.0, end: 1.0),
-                      duration: const Duration(milliseconds: 500),
-                      builder: (context, value, child) {
-                        return Transform.scale(scale: value, child: child);
-                      },
-                      child: FloatingActionButton(
-                        onPressed: () {
-                          // TODO FadeTransition
-                        },
-                        backgroundColor: Theme.of(context).colorScheme.primary,
-                        child: const Padding(
-                          padding: EdgeInsets.only(right: 2),
-                          child: Icon(FontAwesomeIcons.ticket),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                const AnimatedTimelineButton()
             ],
           );
         }));
+  }
+
+  Future<void> initAnimation() async {
+    setState(() {
+      _animated = true;
+    });
+    await Future.delayed(const Duration(milliseconds: 1200));
+    setState(() {
+      _displayCard = true;
+    });
+    await Future.delayed(const Duration(milliseconds: 1200));
+    setState(() {
+      _animatedButton = true;
+    });
   }
 }
