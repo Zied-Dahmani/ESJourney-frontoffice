@@ -45,7 +45,7 @@ class _ConversationScreenState extends State<ConversationScreen>
           milliseconds: 400,
         ),
       ),
-      uid: widget.receiver.id,
+      uid: widget.myId,
     );
 
     _messages.insert(0, newMessage);
@@ -115,6 +115,7 @@ class _ConversationScreenState extends State<ConversationScreen>
 
   @override
   Widget build(BuildContext context) {
+
     Widget userInput() {
       return Container(
         padding: const EdgeInsets.symmetric(
@@ -246,6 +247,7 @@ class _ConversationScreenState extends State<ConversationScreen>
         ],
       ),
     );
+
   }
 }
 
@@ -261,7 +263,8 @@ class ChatMessage extends StatelessWidget {
     required this.msg,
     required this.uid,
     required this.animationController,
-    required this.currentUserId, this.twoDAvatar,
+    required this.currentUserId,
+    this.twoDAvatar,
   }) : super(key: key);
 
   @override
@@ -272,19 +275,20 @@ class ChatMessage extends StatelessWidget {
         sizeFactor: CurvedAnimation(
             parent: animationController, curve: Curves.easeInOut),
         child: Padding(
-          padding: const EdgeInsets.only(top: 10, left: 4, right: 4),
+          padding: const EdgeInsets.only(top: 5, left: 4, right: 4, bottom: 5),
           child: Row(
             mainAxisAlignment: uid == currentUserId
                 ? MainAxisAlignment.end
                 : MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               if (uid != currentUserId) ...[
-                 CircleAvatar(
+                CircleAvatar(
                   radius: 14,
                   backgroundColor: Colors.white,
                   backgroundImage: Image.network(twoDAvatar!).image,
                 ),
-                const SizedBox(width: 20 / 2),
+                const SizedBox(width: 10),
               ],
               messageBox(context),
             ],
