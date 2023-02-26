@@ -214,7 +214,7 @@ class JackpotScreenState extends State<JackpotScreen>
                     const Spacer(),
                     Text(
                       type == "GAME END"
-                          ? "Bad Luck! You lost all of the coins.\nLet's play again"
+                          ? "Bad Luck! You lost all of the coins.\nTry again tomorrow"
                           : "Hurray! You win the spin.\nLet's play again",
                       textAlign: TextAlign.center,
                       style: const TextStyle(
@@ -230,6 +230,7 @@ class JackpotScreenState extends State<JackpotScreen>
                           setState(() {
                             gameserivce.reset();
                           });
+                          Navigator.pop(context);
                         } else {
                           Navigator.pop(context);
                         }
@@ -250,7 +251,7 @@ class JackpotScreenState extends State<JackpotScreen>
                         ),
                       ),
                       child: Text(
-                        type == "GAME END" ? "NEW GAME" : "CONTINUE",
+                        type == "GAME END" ? "GAME OVER" : "CONTINUE",
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 19),
                       ),
