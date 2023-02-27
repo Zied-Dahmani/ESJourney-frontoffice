@@ -60,6 +60,8 @@ dependencies:
   flutter_highlight: ^0.7.0
   rich_code_editor: ^1.0.5
   syncfusion_flutter_charts: ^20.4.51
+  qr_flutter: ^4.0.0
+  qr_code_scanner: ^1.0.1
 
 
 

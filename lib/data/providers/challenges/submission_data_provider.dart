@@ -9,7 +9,7 @@ class SubmitDataProvider {
 
   Future<Response> submit(String problemId , String token , int memory  ) async {
     return await dio.request(
-      kSubmission,
+      ksubmission,
       data: {'problemId': problemId,  'memory': memory},
       options: Options(
         method: 'POST',

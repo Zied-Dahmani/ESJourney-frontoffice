@@ -11,8 +11,6 @@ import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-// Import the language & theme
 import 'package:highlight/languages/dart.dart';
 import 'package:http/http.dart' as http;
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -84,18 +82,20 @@ class _IdeScreenState extends State<IdeScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: theme.colorScheme.background,
-      body:     Builder(builder: (context) {
-        final codingProblemState = context.watch<CodingProblemCubit>().state;
-        final  submissionState  = context.watch<SubmissionCubit>().state;
-        final  userState = context.watch<UserCubit>().state;
-        final user = userState is UserLogInSuccess ? userState.user : null;
+      body: Builder(
+        builder: (context) {
+          final codingProblemState = context.watch<CodingProblemCubit>().state;
+          final submissionState = context.watch<SubmissionCubit>().state;
+          final userState = context.watch<UserCubit>().state;
+          final user = userState is UserLogInSuccess ? userState.user : null;
 
           if (codingProblemState is CodingProblemLoadInProgress) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (codingProblemState is CodingProblemSuccess) {
-            output = codingProblemState.codingProblems.output.trim().toLowerCase();
+            output =
+                codingProblemState.codingProblems.output.trim().toLowerCase();
             return Column(
               children: [
                 SizedBox(
@@ -132,12 +132,13 @@ class _IdeScreenState extends State<IdeScreen> {
                                       backgroundColor: Colors.white,
                                       surfaceTintColor: Colors.white,
                                       content: Text(
-                                        codingProblemState.codingProblems.description,
+                                        codingProblemState
+                                            .codingProblems.description,
                                         style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 20,
                                             fontFamily: 'VisbyRoundCF',
-                                            fontWeight: FontWeight.w700),
+                                            fontWeight: FontWeight.w500),
                                       ),
                                     );
                                   });
@@ -151,20 +152,19 @@ class _IdeScreenState extends State<IdeScreen> {
                           ),
                           FloatingActionButton(
                             onPressed: () {
-                              print("script: $script");
                               sendApiRequest(script).then((value) {
-                                print("value: $value");
                                 setState(() {
                                   var memoryInt = int.parse(value[1]!);
                                   result = value[0]!;
                                   memory = memoryInt.toInt();
-                                  print("result: $result");
-                                  print("memory: $memory");
                                 });
                               }).then((value) {
                                 if (result.trim().toLowerCase() == output) {
-                                  print("here");
-                                  BlocProvider.of<SubmissionCubit>(context).submit(codingProblemState.codingProblems.id, user!.token!, memory);
+                                  BlocProvider.of<SubmissionCubit>(context)
+                                      .submit(
+                                          codingProblemState.codingProblems.id,
+                                          user!.token!,
+                                          memory);
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
@@ -183,13 +183,13 @@ class _IdeScreenState extends State<IdeScreen> {
                                               plotAreaBorderWidth: 0,
                                               borderWidth: 0,
                                               plotAreaBackgroundColor:
-                                              Colors.white,
+                                                  Colors.white,
                                               borderColor: Colors.transparent,
                                               primaryXAxis: CategoryAxis(
                                                   isVisible: false,
                                                   majorGridLines:
-                                                  const MajorGridLines(
-                                                      width: 0)),
+                                                      const MajorGridLines(
+                                                          width: 0)),
                                               primaryYAxis: NumericAxis(
                                                   isVisible: false,
                                                   minimum: 0,
@@ -199,14 +199,15 @@ class _IdeScreenState extends State<IdeScreen> {
                                               series: <
                                                   ChartSeries<_ChartData,
                                                       String>>[
-                                                ColumnSeries<_ChartData, String>(
+                                                ColumnSeries<_ChartData,
+                                                        String>(
                                                     dataSource: data,
                                                     xValueMapper:
                                                         (_ChartData data, _) =>
-                                                    data.x,
+                                                            data.x,
                                                     yValueMapper:
                                                         (_ChartData data, _) =>
-                                                    data.y,
+                                                            data.y,
                                                     name: '',
                                                     color: const Color.fromRGBO(
                                                         8, 142, 255, 1))
@@ -218,15 +219,15 @@ class _IdeScreenState extends State<IdeScreen> {
                                     },
                                   );
                                 }
-
                               });
-
 
                               // Your code here
                             },
-                            backgroundColor: Color(0xFFEB4A5A),
-                            child: submissionState is SubmissionLoadInProgress ? CircularProgressIndicator() : Icon(Icons.play_arrow),
-                            shape: CircleBorder(),
+                            backgroundColor: const Color(0xFFEB4A5A),
+                            shape: const CircleBorder(),
+                            child: submissionState is SubmissionLoadInProgress
+                                ? const CircularProgressIndicator()
+                                : const Icon(Icons.play_arrow),
                           ),
                         ],
                       )),
@@ -252,8 +253,8 @@ class _IdeScreenState extends State<IdeScreen> {
                   child: Padding(
                     padding: EdgeInsets.only(left: 10),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.2,
-                      // set the height as per your requirement
+                      height: MediaQuery.of(context).size.height *
+                          0.2, // set the height as per your requirement
                       child: SingleChildScrollView(
                         child: Text(
                           result = result.replaceAll(
@@ -289,10 +290,9 @@ class _IdeScreenState extends State<IdeScreen> {
   }
 }
 
-Future <List<String?>> sendApiRequest(String code) async {
+Future<List<String?>> sendApiRequest(String code) async {
   var url = 'https://api.jdoodle.com/v1/execute';
   var headers = {'Content-Type': 'application/json'};
-
   var program = {
     "script": code,
     "language": "c",

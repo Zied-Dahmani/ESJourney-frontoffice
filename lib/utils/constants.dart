@@ -18,5 +18,7 @@ const kgetQuiz = 'quiz/get';
 const kquizResult = 'quiz/result';
 const kgetLeaderBoard = 'leaderboard/get';
 const kgetCodingProblem = 'problem/get';
-const kSubmission = 'problem/submit';
+const ksubmission = 'problem/submit';
+const ksendEth = 'user/sendETH';
+const kerrorSendingEth = 'Transaction failed!';
 

@@ -8,6 +8,8 @@ import 'package:esjourney/logic/cubits/curriculum/course_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/router/app_router.dart';
+import 'package:esjourney/presentation/screens/challenges/ethQrCode/eth_qr_code_screen.dart';
+import 'package:esjourney/presentation/screens/challenges/ethQrCode/scan_qr_code.dart';
 import 'package:esjourney/presentation/screens/challenges/ide/ide_screen.dart';
 import 'package:esjourney/presentation/screens/challenges/leaderboard/leaderboard_screen.dart';
 import 'package:esjourney/presentation/screens/challenges/quiz/quiz.dart';
@@ -105,7 +107,9 @@ class MyApp extends StatelessWidget {
             buildWhen: (oldState, newState) => oldState is UserInitial && newState is! UserLoadInProgress,
             builder: (context, state) {
               if(state is UserLogInSuccess) {
-                return   IdeScreen();
+                return   QRViewExample ();
+
+                return EthQrCodeScreen();
               } else {
                 return SignInScreen();
               }

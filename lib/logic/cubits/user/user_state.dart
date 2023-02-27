@@ -33,6 +33,8 @@ class UserLogInSuccess extends UserState {
       'courses': '',
       'coins': user.coins,
       'score': user.score,
+       'walletAddress': user.walletAddress,
+      'privateKey': user.privateKey,
     };
   }
 
@@ -47,7 +49,12 @@ class UserLogInSuccess extends UserState {
         coins: map['coins'],
         token: map['token']!,
         score: Score.fromJson(map['score']),
-        courses: []));
+        courses: [],
+        walletAddress: map['walletAddress'],
+        privateKey: map['privateKey']
+
+
+    ));
   }
 
   String toJson() => json.encode(toMap());

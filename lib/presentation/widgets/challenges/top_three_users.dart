@@ -72,9 +72,12 @@ class TopThreeUsers extends StatelessWidget {
                             child: const Padding(
                               padding: EdgeInsets.all(4.0),
                               child: CircleAvatar(
+                                backgroundColor: Colors.transparent,
                                 radius: 50,
-                                backgroundImage: AssetImage(
-                                    'assets/images/challenges/cvpic.jpg'),
+                                backgroundImage: NetworkImage(
+
+                                    "https://api.readyplayer.me/v1/avatars/63ef772d12b893b896d44960.png"),
+
                               ),
                             ),
                           ),
@@ -149,9 +152,11 @@ class TopThreeUsers extends StatelessWidget {
                             child: const Padding(
                               padding: EdgeInsets.all(4.0),
                               child: CircleAvatar(
+                                backgroundColor: Colors.transparent,
                                 radius: 50,
-                                backgroundImage: AssetImage(
-                                    'assets/images/challenges/cvpic.jpg'),
+                                backgroundImage: NetworkImage(
+                                    "https://api.readyplayer.me/v1/avatars/63ef772d12b893b896d44960.png"),
+
                               ),
                             ),
                           ),
@@ -224,9 +229,11 @@ class TopThreeUsers extends StatelessWidget {
                             child: const Padding(
                               padding: EdgeInsets.all(4.0),
                               child: CircleAvatar(
+                                backgroundColor: Colors.transparent,
                                 radius: 50,
-                                backgroundImage: AssetImage(
-                                    'assets/images/challenges/cvpic.jpg'),
+                                backgroundImage: NetworkImage(
+                                    "https://api.readyplayer.me/v1/avatars/63ef772d12b893b896d44960.png"),
+
                               ),
                             ),
                           ),

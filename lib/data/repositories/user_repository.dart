@@ -10,4 +10,13 @@ class UserRepository implements IUserRepository {
     final result = await _userDataProvider.signIn(id,password);
     return result.statusCode == 200 ? User.fromJson(result.data) : null;
   }
+
+  @override
+  Future sendEth(
+      String senderAddress, String senderPrivateKey, double amount, String token) async {
+    final result = await _userDataProvider.sendEth(
+        senderAddress, senderPrivateKey,amount , token);
+    print("result: $result");
+    return result.statusCode == 200 ? User.fromJson(result.data) : null;
+  }
 }

@@ -46,9 +46,10 @@ class LeaderboardListView extends StatelessWidget {
                         SizedBox(
                           width: width * 0.03,),
                         const CircleAvatar(
+                          backgroundColor: Colors.transparent,
                           radius: 25,
-                          backgroundImage: AssetImage(
-                              'assets/images/challenges/cvpic.jpg'),
+                          backgroundImage: NetworkImage(
+                              "https://api.readyplayer.me/v1/avatars/63ef772d12b893b896d44960.png"),
 
                         ),
                         Expanded(
