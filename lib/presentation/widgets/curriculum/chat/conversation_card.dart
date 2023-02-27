@@ -13,12 +13,13 @@ class ConversationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return InkWell(
       onTap: press,
       child: Container(
         margin: const EdgeInsets.only(bottom: 5, right: 5, left: 5),
         padding:
-        const EdgeInsets.symmetric(horizontal: 20, vertical: 20 * 0.75),
+            const EdgeInsets.symmetric(horizontal: 20, vertical: 20 * 0.75),
         child: Row(
           children: [
             Stack(
@@ -70,10 +71,6 @@ class ConversationCard extends StatelessWidget {
                 ),
               ),
             ),
-            Opacity(
-              opacity: 0.64,
-              child: Text(chat.grade.toString()),
-            ),
           ],
         ),
       ),
@@ -103,4 +100,3 @@ List chatsData = [
     isActive: true,
   ),
 ];
-

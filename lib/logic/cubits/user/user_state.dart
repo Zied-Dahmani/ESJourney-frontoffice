@@ -34,7 +34,8 @@ class UserLogInSuccess extends UserState {
       'coins': user.coins,
       'threeDAvatar': user.threeDAvatar,
       'twoDAvatar': user.twoDAvatar,
-      'online': user.online
+      'online': user.online,
+      'lastSeen': user.lastSeen,
     };
   }
 
@@ -53,7 +54,8 @@ class UserLogInSuccess extends UserState {
           threeDAvatar: map['threeDAvatar'],
           twoDAvatar: map['twoDAvatar'],
           courses: [],
-          online: map['online']),
+          online: map['online'],
+          lastSeen: map['lastSeen']),
     );
   }
 

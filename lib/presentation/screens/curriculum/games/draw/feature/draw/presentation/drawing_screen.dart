@@ -476,6 +476,10 @@ class _DrawingCanvasState extends State<DrawingCanvas> {
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: TextField(
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                        ),
                         controller: textController,
                         decoration: const InputDecoration(
                           contentPadding: EdgeInsets.symmetric(

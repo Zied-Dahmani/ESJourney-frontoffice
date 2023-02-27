@@ -14,6 +14,7 @@ class User with _$User {
     required String password,
     required int grade,
     required int coins,
+    required String lastSeen,
     String? twoDAvatar,
     String? threeDAvatar,
     List<UserCourse>? courses,

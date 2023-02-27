@@ -139,7 +139,7 @@ class _RoomLayoutState extends State<RoomLayout> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: const [
                   Text(
-                    "There are no Avaiable Room, try to create one.",
+                    "There are no Available Room, try to create one.",
                   ),
                 ],
               ),

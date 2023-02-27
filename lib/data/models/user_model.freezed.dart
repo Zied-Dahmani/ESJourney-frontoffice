@@ -26,6 +26,7 @@ mixin _$User {
   String get password => throw _privateConstructorUsedError;
   int get grade => throw _privateConstructorUsedError;
   int get coins => throw _privateConstructorUsedError;
+  String get lastSeen => throw _privateConstructorUsedError;
   String? get twoDAvatar => throw _privateConstructorUsedError;
   String? get threeDAvatar => throw _privateConstructorUsedError;
   List<UserCourse>? get courses => throw _privateConstructorUsedError;
@@ -49,6 +50,7 @@ abstract class $UserCopyWith<$Res> {
       String password,
       int grade,
       int coins,
+      String lastSeen,
       String? twoDAvatar,
       String? threeDAvatar,
       List<UserCourse>? courses,
@@ -75,6 +77,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? password = null,
     Object? grade = null,
     Object? coins = null,
+    Object? lastSeen = null,
     Object? twoDAvatar = freezed,
     Object? threeDAvatar = freezed,
     Object? courses = freezed,
@@ -106,6 +109,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.coins
           : coins // ignore: cast_nullable_to_non_nullable
               as int,
+      lastSeen: null == lastSeen
+          ? _value.lastSeen
+          : lastSeen // ignore: cast_nullable_to_non_nullable
+              as String,
       twoDAvatar: freezed == twoDAvatar
           ? _value.twoDAvatar
           : twoDAvatar // ignore: cast_nullable_to_non_nullable
@@ -143,6 +150,7 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String password,
       int grade,
       int coins,
+      String lastSeen,
       String? twoDAvatar,
       String? threeDAvatar,
       List<UserCourse>? courses,
@@ -165,6 +173,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? password = null,
     Object? grade = null,
     Object? coins = null,
+    Object? lastSeen = null,
     Object? twoDAvatar = freezed,
     Object? threeDAvatar = freezed,
     Object? courses = freezed,
@@ -196,6 +205,10 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.coins
           : coins // ignore: cast_nullable_to_non_nullable
               as int,
+      lastSeen: null == lastSeen
+          ? _value.lastSeen
+          : lastSeen // ignore: cast_nullable_to_non_nullable
+              as String,
       twoDAvatar: freezed == twoDAvatar
           ? _value.twoDAvatar
           : twoDAvatar // ignore: cast_nullable_to_non_nullable
@@ -230,6 +243,7 @@ class _$_User implements _User {
       required this.password,
       required this.grade,
       required this.coins,
+      required this.lastSeen,
       this.twoDAvatar,
       this.threeDAvatar,
       final List<UserCourse>? courses,
@@ -252,6 +266,8 @@ class _$_User implements _User {
   @override
   final int coins;
   @override
+  final String lastSeen;
+  @override
   final String? twoDAvatar;
   @override
   final String? threeDAvatar;
@@ -272,7 +288,7 @@ class _$_User implements _User {
 
   @override
   String toString() {
-    return 'User(id: $id, email: $email, username: $username, password: $password, grade: $grade, coins: $coins, twoDAvatar: $twoDAvatar, threeDAvatar: $threeDAvatar, courses: $courses, online: $online, token: $token)';
+    return 'User(id: $id, email: $email, username: $username, password: $password, grade: $grade, coins: $coins, lastSeen: $lastSeen, twoDAvatar: $twoDAvatar, threeDAvatar: $threeDAvatar, courses: $courses, online: $online, token: $token)';
   }
 
   @override
@@ -288,6 +304,8 @@ class _$_User implements _User {
                 other.password == password) &&
             (identical(other.grade, grade) || other.grade == grade) &&
             (identical(other.coins, coins) || other.coins == coins) &&
+            (identical(other.lastSeen, lastSeen) ||
+                other.lastSeen == lastSeen) &&
             (identical(other.twoDAvatar, twoDAvatar) ||
                 other.twoDAvatar == twoDAvatar) &&
             (identical(other.threeDAvatar, threeDAvatar) ||
@@ -307,6 +325,7 @@ class _$_User implements _User {
       password,
       grade,
       coins,
+      lastSeen,
       twoDAvatar,
       threeDAvatar,
       const DeepCollectionEquality().hash(_courses),
@@ -335,6 +354,7 @@ abstract class _User implements User {
       required final String password,
       required final int grade,
       required final int coins,
+      required final String lastSeen,
       final String? twoDAvatar,
       final String? threeDAvatar,
       final List<UserCourse>? courses,
@@ -355,6 +375,8 @@ abstract class _User implements User {
   int get grade;
   @override
   int get coins;
+  @override
+  String get lastSeen;
   @override
   String? get twoDAvatar;
   @override

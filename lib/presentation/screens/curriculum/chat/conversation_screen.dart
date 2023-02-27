@@ -146,6 +146,7 @@ class _ConversationScreenState extends State<ConversationScreen>
 
   @override
   Widget build(BuildContext context) {
+
     Widget userInput() {
       return Container(
         padding: const EdgeInsets.symmetric(
@@ -229,6 +230,26 @@ class _ConversationScreenState extends State<ConversationScreen>
       );
     }
 
+    String millisecondsToString() {
+      final now = DateTime.now();
+      final lastSeenDate = DateTime.fromMillisecondsSinceEpoch(int.parse(widget.receiver.lastSeen));
+      final difference = now.difference(lastSeenDate);
+      final differenceInMinutes = difference.inMinutes;
+      final differenceInHours = difference.inHours;
+      final differenceInDays = difference.inDays;
+      if (widget.receiver.online) {
+        return 'Online';
+      } else if (differenceInMinutes < 60) {
+        return '$differenceInMinutes minutes ago';
+      } else if (differenceInHours < 24) {
+        return '$differenceInHours hours ago';
+      } else if (differenceInDays < 7) {
+        return '$differenceInDays days ago';
+      } else {
+        return 'A long time ago';
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFFEB4A5A),
@@ -259,7 +280,7 @@ class _ConversationScreenState extends State<ConversationScreen>
                 ),
                 if(!_isWriting)
                 Text(
-                  widget.receiver.online ? "Online" : "Offline",
+                  millisecondsToString(),
                   style: const TextStyle(fontSize: 12, color: Colors.white),
                 )
                 else
