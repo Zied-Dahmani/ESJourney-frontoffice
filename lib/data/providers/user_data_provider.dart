@@ -22,7 +22,7 @@ class UserDataProvider {
 
   Future<Response> sendEth(
       String senderAddress, String senderPrivateKey, double amount, String token) async {
-     var request = await dio.request(
+   return await dio.request(
       ksendEth,
       data: {
         'senderAddress': senderAddress,
@@ -40,7 +40,6 @@ class UserDataProvider {
         },
       ),
     );
-     print("request: $request");
-     return request;
+
   }
 }

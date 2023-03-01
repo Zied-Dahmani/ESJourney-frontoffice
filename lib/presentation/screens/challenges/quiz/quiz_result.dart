@@ -1,22 +1,29 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:esjourney/presentation/router/routes.dart';
-import 'package:esjourney/presentation/screens/challenges/quiz/quiz.dart';
 import 'package:flutter/material.dart';
 
-class QuizResultScreen extends StatelessWidget {
+class QuizResultScreen extends StatefulWidget {
   final int score;
 
   QuizResultScreen({required this.score});
 
+  @override
+  State<QuizResultScreen> createState() => _QuizResultScreenState();
+}
 
+class _QuizResultScreenState extends State<QuizResultScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    bool isCompleted = score >= 2;
-print("score is $score");
+    bool isCompleted = widget.score >= 2;
+    print("score is ${widget.score}");
+
+    double randomNumber = Random().nextInt(5000) + 5000;
+
 
     return Scaffold(
       body: Center(
@@ -84,16 +91,20 @@ print("score is $score");
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                        isCompleted
-                            ? "You have completed the quiz!"
-                            : "Looks like you didn't win this time.",
-                        style: TextStyle(
-                          fontFamily: 'VisbyRoundCF',
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                          color: theme.colorScheme.secondary,
-                        )),
+                    TweenAnimationBuilder(
+                      tween: Tween<double>(begin: randomNumber, end: 0.2),
+                      builder: (context, value, child) {
+                        final percent = value.toStringAsFixed(2);
+                        return Text(
+                          'You earned $percent coins ',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        );
+                      },
+                      duration: const Duration(milliseconds: 500),
+                    ),
                     Visibility(
                       visible: !isCompleted,
                       child: Text("Keep practicing to improve your skills!",
@@ -121,7 +132,7 @@ print("score is $score");
             SizedBox(
               height: height * 0.01,
             ),
-            Text("$score/10",
+            Text("${widget.score}/10",
                 style: TextStyle(
                   fontFamily: 'VisbyRoundCF',
                   fontSize: 20,

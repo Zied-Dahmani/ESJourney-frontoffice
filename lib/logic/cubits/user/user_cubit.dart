@@ -1,4 +1,5 @@
 import 'dart:developer' as developer;
+import 'package:esjourney/data/repositories/challenges/quiz_repository.dart';
 import 'package:esjourney/data/repositories/user_repository.dart';
 import 'package:esjourney/utils/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,6 +24,7 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
   }
 
   final _userRepository = UserRepository();
+  final _quizRepository = QuizRepository();
 
   Future<void> signIn(String? id, String password) async {
     try {
@@ -45,6 +47,19 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
           : emit(UserIsFailure(kerrorSendingEth));
     } catch (e) {
       developer.log(e.toString(), name: 'Catch send eth');
+      emit(UserIsFailure(kcheckInternetConnection));
+    }
+  }
+
+  Future<void> answerQuiz(double coins, String token) async {
+    try {
+      emit(UserLoadInProgress());
+      final result = await _quizRepository.answerQuiz(coins, token);
+      result != null
+          ? emit(UserLogInSuccess(result))
+          : emit(UserIsFailure(kerrorSendingEth));
+    } catch (e) {
+      developer.log(e.toString(), name: 'Catch answer quiz');
       emit(UserIsFailure(kcheckInternetConnection));
     }
   }

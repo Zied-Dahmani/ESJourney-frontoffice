@@ -6,7 +6,6 @@ import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/presentation/screens/challenges/quiz/question_card.dart';
-import 'package:esjourney/presentation/screens/challenges/quiz/quiz_result.dart';
 import 'package:esjourney/presentation/widgets/challenges/disco_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,6 +42,7 @@ double _isAnswerCorrect = 0.0;
 const _totalQuestions = 3;
 String _discoBtnText = "Next";
 int _userScore = 7;
+String _token = "";
 
 Quiz _currentQuestion = Quiz(
   answer: 1,
@@ -75,230 +75,234 @@ class _QuizScreenState extends State<QuizScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return BlocBuilder<UserCubit, UserState>(builder: (context, state) {
-      if (state is UserLogInSuccess) {
-        final user = state.user;
-        return BlocBuilder<QuizCubit, QuizState>(builder: (context, state) {
-          if (state is QuizSuccess) {
-            print("rebuilt");
-            allQuestions = state.quizzes.cast<Quiz>().toList();
-
-            if (_firstCall == true) {
-              apiQuiz = allQuestions;
-              apiQuiz.shuffle();
-              _firstCall = false;
-            }
-            for (int i = 0; i < apiQuiz.length; i++) {
-              correctOptionIndices.add(apiQuiz[i].answer);
-            }
-
-            _currentQuestion = apiQuiz[_questionIndex];
-            // fill easy questions list with easy questions
-
-            return Scaffold(
-              backgroundColor: Colors.white,
-              body: Column(
-                children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: theme.colorScheme.tertiary,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(30.0),
+    return Scaffold(
+      body: Builder(
+        builder: (context) {
+          final userState = context.watch<UserCubit>().state;
+          final quizState = context.watch<QuizCubit>().state;
+          if (userState is UserLogInSuccess) {
+            final user = userState.user;
+            _token = user.token!;
+            if (quizState is QuizSuccess) {
+              print("rebuilt");
+              allQuestions = quizState.quizzes.cast<Quiz>().toList();
+              if (_firstCall == true) {
+                apiQuiz = allQuestions;
+                apiQuiz.shuffle();
+                _firstCall = false;
+              }
+              for (int i = 0; i < apiQuiz.length; i++) {
+                correctOptionIndices.add(apiQuiz[i].answer);
+              }
+              _currentQuestion = apiQuiz[_questionIndex];
+              // fill easy questions list with easy questions
+              return Scaffold(
+                backgroundColor: Colors.white,
+                body: Column(
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.05,
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: theme.colorScheme.tertiary,
+                          width: 2.0,
+                        ),
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(left: 20),
+                            width: MediaQuery.of(context).size.width * 0.68,
+                            height: MediaQuery.of(context).size.height * 0.012,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: Colors.grey[300],
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: LinearProgressIndicator(
+                                backgroundColor: Colors.grey[300],
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                    theme.colorScheme.shadow),
+                                value:
+                                    _displayedQuestionIndex / _totalQuestions,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(right: 20),
+                            child: Text(
+                              "${_displayedQuestionIndex}/${_totalQuestions}",
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.015,
+                    ),
+                    Stack(
                       children: [
                         Container(
-                          margin: const EdgeInsets.only(left: 20),
-                          width: MediaQuery.of(context).size.width * 0.68,
-                          height: MediaQuery.of(context).size.height * 0.012,
+                          margin: const EdgeInsets.fromLTRB(20, 40, 20, 0),
+                          height: MediaQuery.of(context).size.height * 0.23,
+                          width: MediaQuery.of(context).size.height * 0.9,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Colors.grey[300],
+                            color: Colors.white,
+                            boxShadow: const [
+                              BoxShadow(
+                                color: // custom color hex code
+                                    Color(0xFFE7E7E7),
+                                offset: Offset(6.0, 8.0),
+                                blurRadius: 10.0,
+                                spreadRadius: 0, // changes position of shadow
+                              ),
+                            ],
+                            border: Border.all(
+                              color: theme.colorScheme.tertiary,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(30.0),
                           ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10.0),
-                            child: LinearProgressIndicator(
-                              backgroundColor: Colors.grey[300],
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                  theme.colorScheme.shadow),
-                              value: _displayedQuestionIndex / _totalQuestions,
+                          child: Container(
+                            margin: const EdgeInsets.fromLTRB(20, 45, 20, 0),
+                            child: Text(
+                              _currentQuestion.question,
+                              style: theme.textTheme.bodyMedium,
                             ),
                           ),
                         ),
-                        Container(
-                          margin: const EdgeInsets.only(right: 20),
-                          child: Text(
-                            "${_displayedQuestionIndex}/${_totalQuestions}",
-                            style: const TextStyle(fontWeight: FontWeight.bold),
+                        Visibility(
+                          visible: !_isQuizAnswered,
+                          child: Center(
+                            child: Container(
+                              margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                              child: CircularCountDownTimer(
+                                duration: questionDuration,
+                                initialDuration: 0,
+                                controller: _controller,
+                                width: 60,
+                                height: 60,
+                                ringColor: theme.colorScheme.tertiary,
+                                ringGradient: null,
+                                fillColor: theme.colorScheme.primary,
+                                fillGradient: null,
+                                textStyle: TextStyle(
+                                  fontSize: 15.0,
+                                  color: theme.colorScheme.shadow,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                backgroundColor: Colors.white,
+                                backgroundGradient: null,
+                                strokeWidth: 8.0,
+                                strokeCap: StrokeCap.round,
+                                textFormat: CountdownTextFormat.S,
+                                isReverse: false,
+                                isReverseAnimation: false,
+                                isTimerTextShown: true,
+                                autoStart: true,
+                                onStart: () {},
+                                onComplete: () async {
+                                  if (timerEnded) {
+                                    timerEnded = false;
+                                    return;
+                                  }
+                                  if (goToLeaderBoard == true) {
+                                    Navigator.of(context).pushNamed(
+                                      AppRoutes.quizResult,
+                                      arguments: _userScore,
+                                    );
+
+                                    return;
+                                  }
+                                  _selectedOptionIndex = -1;
+                                  saveAnswer();
+                                  await findNextQuestion();
+                                  // shuffle the quiz list and grab question with resulting difficulty
+
+                                  setNextQuestion();
+                                },
+                                onChange: (String timeStamp) {},
+                                timeFormatterFunction:
+                                    (defaultFormatterFunction, duration) {
+                                  if (duration.inSeconds == 0) {
+                                    return "1";
+                                  } else {
+                                    return Function.apply(
+                                        defaultFormatterFunction, [duration]);
+                                  }
+                                },
+                              ),
+                            ),
                           ),
                         ),
                       ],
                     ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.015,
-                  ),
-                  Stack(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(20, 40, 20, 0),
-                        height: MediaQuery.of(context).size.height * 0.23,
-                        width: MediaQuery.of(context).size.height * 0.9,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: const [
-                            BoxShadow(
-                              color: // custom color hex code
-                                  Color(0xFFE7E7E7),
-                              offset: Offset(6.0, 8.0),
-                              blurRadius: 10.0,
-                              spreadRadius: 0, // changes position of shadow
-                            ),
-                          ],
-                          border: Border.all(
-                            color: theme.colorScheme.tertiary,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        child: Container(
-                          margin: const EdgeInsets.fromLTRB(20, 45, 20, 0),
-                          child: Text(
-                            _currentQuestion.question,
-                            style: theme.textTheme.bodyMedium,
-                          ),
-                        ),
-                      ),
-                      Visibility(
-                        visible: !_isQuizAnswered,
-                        child: Center(
-                          child: Container(
-                            margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                            child: CircularCountDownTimer(
-                              duration: questionDuration,
-                              initialDuration: 0,
-                              controller: _controller,
-                              width: 60,
-                              height: 60,
-                              ringColor: theme.colorScheme.tertiary,
-                              ringGradient: null,
-                              fillColor: theme.colorScheme.primary,
-                              fillGradient: null,
-                              textStyle: TextStyle(
-                                fontSize: 15.0,
-                                color: theme.colorScheme.shadow,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              backgroundColor: Colors.white,
-                              backgroundGradient: null,
-                              strokeWidth: 8.0,
-                              strokeCap: StrokeCap.round,
-                              textFormat: CountdownTextFormat.S,
-                              isReverse: false,
-                              isReverseAnimation: false,
-                              isTimerTextShown: true,
-                              autoStart: true,
-                              onStart: () {},
-                              onComplete: () async {
-                                if (timerEnded) {
-                                  timerEnded = false;
-                                  return;
-                                }
-                                if (goToLeaderBoard== true ) {
-                                  Navigator.of(context).pushNamed(
-                                    AppRoutes.quizResult,
-                                    arguments: _userScore,
-                                  );
-
-                                  return;
-                                }
-                                _selectedOptionIndex = -1;
-                                saveAnswer();
-                                await findNextQuestion();
-                                // shuffle the quiz list and grab question with resulting difficulty
-
-                                setNextQuestion();
-                              },
-                              onChange: (String timeStamp) {},
-                              timeFormatterFunction:
-                                  (defaultFormatterFunction, duration) {
-                                if (duration.inSeconds == 0) {
-                                  return "1";
-                                } else {
-                                  return Function.apply(
-                                      defaultFormatterFunction, [duration]);
-                                }
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  QuestionCard(
-                    isQuizAnswered: _isQuizAnswered,
-                    quiz: _currentQuestion,
-                    correctOptionIndices: correctOptionIndices[_questionIndex],
-                    selectedOptionIndices: _isQuizAnswered
-                        ? [_userAnswers[_questionIndex]]
-                        : selectedOptionIndices,
-                    onOptionTap: (index) {
-                      setState(
-                        () {
-                          _isSelected = true;
-                          _selectedOptionIndex = index[0];
-                        },
-                      );
-                    },
-                  ),
-                  DiscoButton(
-                    isActive:
-
-                    _isSelected || _isQuizAnswered,
-                    onPressed: () async {
-                      // if quiz is answered, just display the questions
-                      if (goToLeaderBoard) {
-                        Navigator.of(context).pushReplacementNamed(
-                          AppRoutes.quizResult,
-                          arguments: _userScore,
+                    QuestionCard(
+                      isQuizAnswered: _isQuizAnswered,
+                      quiz: _currentQuestion,
+                      correctOptionIndices:
+                          correctOptionIndices[_questionIndex],
+                      selectedOptionIndices: _isQuizAnswered
+                          ? [_userAnswers[_questionIndex]]
+                          : selectedOptionIndices,
+                      onOptionTap: (index) {
+                        setState(
+                          () {
+                            _isSelected = true;
+                            _selectedOptionIndex = index[0];
+                          },
                         );
-                        return;
-                      }
-
-                      if (_isQuizAnswered) {
-                        shuffleThroughQuestions();
-                        return;
-                      }
-
-                      saveAnswer();
-                      await findNextQuestion();
-                      setNextQuestion();
-                    },
-                    height: MediaQuery.of(context).size.height * 0.065,
-                    width: MediaQuery.of(context).size.width * 0.335,
-                    child: Text(
-                      _discoBtnText,
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      },
                     ),
-                  ),
-                ],
-              ),
-            );
+                    DiscoButton(
+                      isActive: _isSelected || _isQuizAnswered,
+                      onPressed: () async {
+                        // if quiz is answered, just display the questions
+                        if (goToLeaderBoard) {
+                          Navigator.of(context).pushReplacementNamed(
+                            AppRoutes.quizResult,
+                            arguments: _userScore,
+                          );
+                          print("hereeeree");
+                          BlocProvider.of<UserCubit>(context).answerQuiz(0.01, _token);
+                          return;
+                        }
+
+                        if (_isQuizAnswered) {
+                          shuffleThroughQuestions();
+                          return;
+                        }
+
+                        saveAnswer();
+                        await findNextQuestion();
+                        setNextQuestion();
+                      },
+                      height: MediaQuery.of(context).size.height * 0.065,
+                      width: MediaQuery.of(context).size.width * 0.335,
+                      child: Text(
+                        _discoBtnText,
+                        style: TextStyle(fontSize: 20, color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }
+            return const Center(child: CircularProgressIndicator());
           }
           return const Center(child: CircularProgressIndicator());
-        });
-      }
-
-      return const Center(child: CircularProgressIndicator());
-    });
+        },
+      ),
+    );
   }
 
   void setNextQuestion() {
@@ -306,11 +310,6 @@ class _QuizScreenState extends State<QuizScreen> {
     if (_questionIndex == _totalQuestions - 2) {
       _discoBtnText = "Finish Quiz";
       goToLeaderBoard = true;
-
-
-
-
-
     } else if (_questionIndex == _totalQuestions - 1) {
       _isQuizAnswered = true;
       _discoBtnText = "Next Answer";

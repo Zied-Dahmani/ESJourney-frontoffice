@@ -1,4 +1,5 @@
 import 'package:esjourney/data/models/challenges/quiz/quiz_model.dart';
+import 'package:esjourney/data/models/user_model.dart';
 import 'package:esjourney/data/repositories/challenges/quiz_repository_interface.dart';
 
 
@@ -13,6 +14,12 @@ Future <dynamic> getQuiz(String language) async {
   return result.statusCode == 200
       ? result.data.map((quiz) => Quiz.fromJson(quiz)).toList()
       : null;
+}
+@override
+Future answerQuiz(double coins, String token) async {
+  final result = await _quizDataProvider.answerQuiz(  coins,  token);
+
+  return result.statusCode == 200 ? User.fromJson(result.data) : null;
 }
 
 

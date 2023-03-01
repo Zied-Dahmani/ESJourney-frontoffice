@@ -20,6 +20,24 @@ class QuizDataProvider {
         },
       ),
     );
+  }
 
+  Future<Response> answerQuiz(double coins, String token) async {
+    return await dio.request(
+      kanswerQuiz,
+      data: {
+        'coins': coins,
+      },
+      options: Options(
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt': token,
+        },
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
   }
 }

@@ -19,7 +19,8 @@ const kquizResult = 'quiz/result';
 const kgetLeaderBoard = 'leaderboard/get';
 const kgetCodingProblem = 'problem/get';
 const ksubmission = 'problem/submit';
-const ksendEth = 'user/sendETH';
+const ksendEth = 'crypto/sendETH';
 const kerrorSendingEth = 'Transaction failed!';
 const ktopSolutions = 'problem/top';
+const kanswerQuiz = 'quiz/answer';
 
