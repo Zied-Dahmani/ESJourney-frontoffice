@@ -6,9 +6,8 @@ import 'package:flutter/material.dart';
 
 class QuizResultScreen extends StatelessWidget {
   final int score;
-  final nbrOfQuestions;
 
-  QuizResultScreen({required this.score, this.nbrOfQuestions});
+  QuizResultScreen({required this.score});
 
 
   @override
@@ -18,7 +17,7 @@ class QuizResultScreen extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     bool isCompleted = score >= 2;
 print("score is $score");
-print("nyumber of questions is $nbrOfQuestions");
+
     return Scaffold(
       body: Center(
         child: Column(

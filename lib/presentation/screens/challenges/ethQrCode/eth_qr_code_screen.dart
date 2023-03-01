@@ -17,8 +17,6 @@ class EthQrCodeScreen extends StatelessWidget {
       body:Builder(
         builder: (context) {
       final userState = context.watch<UserCubit>().state;
-
-
       if (userState is UserLogInSuccess) {
         List<String> myList = [userState.user.walletAddress!,userState.user.privateKey!] ;
         return Center(

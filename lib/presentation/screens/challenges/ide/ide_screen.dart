@@ -2,12 +2,17 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:code_text_field/code_text_field.dart';
+import 'package:esjourney/data/models/challenges/codingProblem/topSolutions/chart_model.dart';
+import 'package:esjourney/data/models/challenges/codingProblem/topSolutions/top_solutions_model.dart';
 import 'package:esjourney/logic/cubits/challenges/coding_problem_cubit.dart';
 import 'package:esjourney/logic/cubits/challenges/coding_problem_state.dart';
 import 'package:esjourney/logic/cubits/challenges/submission_cubit.dart';
 import 'package:esjourney/logic/cubits/challenges/submission_state.dart';
+import 'package:esjourney/logic/cubits/challenges/top_solutions_cubit.dart';
+import 'package:esjourney/logic/cubits/challenges/top_solutions_state.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
+import 'package:esjourney/presentation/widgets/challenges/problems_chart.dart';
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +21,8 @@ import 'package:http/http.dart' as http;
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class IdeScreen extends StatefulWidget {
+  const IdeScreen({super.key});
+
   @override
   _IdeScreenState createState() => _IdeScreenState();
 }
@@ -53,17 +60,6 @@ class _IdeScreenState extends State<IdeScreen> {
             const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
       },
     );
-    data = [
-      _ChartData('9.5%', 12),
-      _ChartData('10.5%', 12),
-      _ChartData('11.5%', 12),
-      _ChartData('12.5%', 20),
-      _ChartData('13.5%', 12),
-      _ChartData('14.5%', 12),
-      _ChartData('15.5%', 12),
-      _ChartData('16.5%', 12),
-    ];
-    _tooltip = TooltipBehavior(enable: true);
   }
 
   @override
@@ -72,7 +68,7 @@ class _IdeScreenState extends State<IdeScreen> {
     super.dispose();
   }
 
-  late List<_ChartData> data;
+  late List<ChartData> data;
   late TooltipBehavior _tooltip;
 
   @override
@@ -84,10 +80,25 @@ class _IdeScreenState extends State<IdeScreen> {
       backgroundColor: theme.colorScheme.background,
       body: Builder(
         builder: (context) {
+          _tooltip = TooltipBehavior(enable: true);
           final codingProblemState = context.watch<CodingProblemCubit>().state;
           final submissionState = context.watch<SubmissionCubit>().state;
           final userState = context.watch<UserCubit>().state;
           final user = userState is UserLogInSuccess ? userState.user : null;
+          final topSolutionsState = context.watch<TopSolutionsCubit>().state;
+          if (topSolutionsState is TopSolutionsSuccess) {
+            final List<TopSolutions> topSolutions =
+                topSolutionsState.topSolutions.cast<TopSolutions>();
+
+            // populate the chart data with the top solutions
+            data = topSolutions
+                .map<ChartData>(
+                    (e) => ChartData(e.memory, double.parse(e.percentage)))
+                .toList();
+// sort the chart data in ascending order of memory
+            data.sort(
+                (ChartData a, ChartData b) => a.memory.compareTo(b.memory));
+          }
 
           if (codingProblemState is CodingProblemLoadInProgress) {
             return const Center(
@@ -138,7 +149,7 @@ class _IdeScreenState extends State<IdeScreen> {
                                             color: Colors.black,
                                             fontSize: 20,
                                             fontFamily: 'VisbyRoundCF',
-                                            fontWeight: FontWeight.w500),
+                                            fontWeight: FontWeight.w700),
                                       ),
                                     );
                                   });
@@ -154,12 +165,16 @@ class _IdeScreenState extends State<IdeScreen> {
                             onPressed: () {
                               sendApiRequest(script).then((value) {
                                 setState(() {
-                                  var memoryInt = int.parse(value[1]!);
+                                  // check if the result contqins memeory
+                                  if (value[1] != null) {
+                                    var memoryInt = int.parse(value[1]!);
+                                    memory = memoryInt.toInt();
+                                  }
                                   result = value[0]!;
-                                  memory = memoryInt.toInt();
                                 });
                               }).then((value) {
                                 if (result.trim().toLowerCase() == output) {
+                                  print("here");
                                   BlocProvider.of<SubmissionCubit>(context)
                                       .submit(
                                           codingProblemState.codingProblems.id,
@@ -179,40 +194,10 @@ class _IdeScreenState extends State<IdeScreen> {
                                             color: Colors.white,
                                             height: width * 0.7,
                                             width: width * 0.7,
-                                            child: SfCartesianChart(
-                                              plotAreaBorderWidth: 0,
-                                              borderWidth: 0,
-                                              plotAreaBackgroundColor:
-                                                  Colors.white,
-                                              borderColor: Colors.transparent,
-                                              primaryXAxis: CategoryAxis(
-                                                  isVisible: false,
-                                                  majorGridLines:
-                                                      const MajorGridLines(
-                                                          width: 0)),
-                                              primaryYAxis: NumericAxis(
-                                                  isVisible: false,
-                                                  minimum: 0,
-                                                  maximum: 50,
-                                                  interval: 50),
-                                              tooltipBehavior: _tooltip,
-                                              series: <
-                                                  ChartSeries<_ChartData,
-                                                      String>>[
-                                                ColumnSeries<_ChartData,
-                                                        String>(
-                                                    dataSource: data,
-                                                    xValueMapper:
-                                                        (_ChartData data, _) =>
-                                                            data.x,
-                                                    yValueMapper:
-                                                        (_ChartData data, _) =>
-                                                            data.y,
-                                                    name: '',
-                                                    color: const Color.fromRGBO(
-                                                        8, 142, 255, 1))
-                                              ],
-                                            ),
+                                            child: ProblemsChart(
+                                                tooltip: _tooltip,
+                                                width: width,
+                                                data: data),
                                           ),
                                         ),
                                       );
@@ -223,11 +208,11 @@ class _IdeScreenState extends State<IdeScreen> {
 
                               // Your code here
                             },
-                            backgroundColor: const Color(0xFFEB4A5A),
+                            backgroundColor: Color(0xFFEB4A5A),
                             shape: const CircleBorder(),
                             child: submissionState is SubmissionLoadInProgress
-                                ? const CircularProgressIndicator()
-                                : const Icon(Icons.play_arrow),
+                                ? CircularProgressIndicator()
+                                : Icon(Icons.play_arrow),
                           ),
                         ],
                       )),
@@ -293,6 +278,7 @@ class _IdeScreenState extends State<IdeScreen> {
 Future<List<String?>> sendApiRequest(String code) async {
   var url = 'https://api.jdoodle.com/v1/execute';
   var headers = {'Content-Type': 'application/json'};
+
   var program = {
     "script": code,
     "language": "c",
@@ -316,11 +302,4 @@ Future<List<String?>> sendApiRequest(String code) async {
     }
   }
   return [];
-}
-
-class _ChartData {
-  _ChartData(this.x, this.y);
-
-  final String x;
-  final double y;
 }

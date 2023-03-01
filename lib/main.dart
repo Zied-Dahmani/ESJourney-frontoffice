@@ -3,6 +3,7 @@ import 'package:esjourney/logic/cubits/challenges/coding_problem_cubit.dart';
 import 'package:esjourney/logic/cubits/challenges/leaderboard_cubit.dart';
 import 'package:esjourney/logic/cubits/challenges/quiz_cubit.dart';
 import 'package:esjourney/logic/cubits/challenges/submission_cubit.dart';
+import 'package:esjourney/logic/cubits/challenges/top_solutions_cubit.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
 import 'package:esjourney/logic/cubits/curriculum/course_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
@@ -93,6 +94,7 @@ class MyApp extends StatelessWidget {
           BlocProvider<LeaderboardCubit>(create: (context) => LeaderboardCubit(), lazy: true),
           BlocProvider<CodingProblemCubit>(create: (context) => CodingProblemCubit(), lazy: true),
           BlocProvider<SubmissionCubit>(create: (context) => SubmissionCubit(), lazy: true),
+          BlocProvider<TopSolutionsCubit>(create: (context) => TopSolutionsCubit(), lazy: true),
 
 
         ],
@@ -107,9 +109,9 @@ class MyApp extends StatelessWidget {
             buildWhen: (oldState, newState) => oldState is UserInitial && newState is! UserLoadInProgress,
             builder: (context, state) {
               if(state is UserLogInSuccess) {
-                return   QRViewExample ();
+                return   IdeScreen ();
 
-                return EthQrCodeScreen();
+
               } else {
                 return SignInScreen();
               }

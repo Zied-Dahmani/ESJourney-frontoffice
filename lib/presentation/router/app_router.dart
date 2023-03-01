@@ -51,13 +51,9 @@ class AppRouter {
           ),
         );
       case AppRoutes.quizResult:
-        final Map<String, dynamic> argsMap = args as Map<String, dynamic>;
-        final int score = argsMap['score'] as int;
-        final int numberOfQuestions = argsMap['numberOfQuestions'] as int;
         return MaterialPageRoute(
           builder: (_) => QuizResultScreen(
-            score: score,
-            nbrOfQuestions: numberOfQuestions,
+            score : args as int,
           ),
         );
 

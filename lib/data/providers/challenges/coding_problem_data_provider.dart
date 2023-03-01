@@ -18,4 +18,18 @@ class CodingProblemDataProvider {
       ),
     );
   }
+  Future<Response> getTopSolutions(String problemId) async {
+    return await dio.request(
+      ktopSolutions,
+      queryParameters: {
+        'problemId': problemId,
+      },
+      options: Options(
+        method: 'GET',
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+  }
 }

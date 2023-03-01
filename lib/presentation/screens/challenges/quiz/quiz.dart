@@ -21,7 +21,7 @@ class QuizScreen extends StatefulWidget {
 }
 
 var _predictionInput = List.filled(1, List.filled(2, 0.0));
-const int questionDuration = 10;
+const int questionDuration = 30;
 int _questionIndex = 0;
 int _displayedQuestionIndex = 1;
 String nextQuestionDifficulty = "";
@@ -42,7 +42,7 @@ List<Quiz> allQuestions = [];
 double _isAnswerCorrect = 0.0;
 const _totalQuestions = 3;
 String _discoBtnText = "Next";
-int _userScore = 0;
+int _userScore = 7;
 
 Quiz _currentQuestion = Quiz(
   answer: 1,
@@ -212,13 +212,10 @@ class _QuizScreenState extends State<QuizScreen> {
                                   timerEnded = false;
                                   return;
                                 }
-                                if (goToLeaderBoard) {
+                                if (goToLeaderBoard== true ) {
                                   Navigator.of(context).pushNamed(
                                     AppRoutes.quizResult,
-                                    arguments: {
-                                      'score': 5,
-                                      'numberOfQuestions': 10,
-                                    },
+                                    arguments: _userScore,
                                   );
 
                                   return;
@@ -263,9 +260,9 @@ class _QuizScreenState extends State<QuizScreen> {
                     },
                   ),
                   DiscoButton(
-                    isActive: true,
+                    isActive:
 
-                    //_isSelected || _isQuizAnswered,
+                    _isSelected || _isQuizAnswered,
                     onPressed: () async {
                       // if quiz is answered, just display the questions
                       if (goToLeaderBoard) {
@@ -309,6 +306,11 @@ class _QuizScreenState extends State<QuizScreen> {
     if (_questionIndex == _totalQuestions - 2) {
       _discoBtnText = "Finish Quiz";
       goToLeaderBoard = true;
+
+
+
+
+
     } else if (_questionIndex == _totalQuestions - 1) {
       _isQuizAnswered = true;
       _discoBtnText = "Next Answer";
@@ -336,12 +338,13 @@ class _QuizScreenState extends State<QuizScreen> {
 
   void shuffleThroughQuestions() {
     if (_questionIndex == _totalQuestions - 2) {
-      _discoBtnText = "Go to leaderboard";
+      _discoBtnText = "Leaderboard";
       _firstCall = true;
       // go to results page
 
 // destroy the quiz
     } else if (_questionIndex == _totalQuestions - 1) {
+      print("go to leaderboard");
       Navigator.of(context).pushNamed(
         AppRoutes.quizResult,
         arguments: _userScore,
