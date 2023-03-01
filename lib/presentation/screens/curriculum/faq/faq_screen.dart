@@ -6,38 +6,52 @@ class FAQScreen extends StatelessWidget {
   FAQScreen({Key? key}) : super(key: key);
   final _replyController = TextEditingController();
   final _questionController = TextEditingController();
+  final _searchController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        const Text('FAQ'),
         Container(
           margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
           child: Row(
             children: [
               Expanded(
                 child: SearchBarAnimation(
-                  textEditingController: TextEditingController(),
-                  isOriginalAnimation: true,
-                  enableKeyboardFocus: false,
-                  enableBoxBorder: false,
-                  trailingWidget: const Icon(
-                    Icons.search,
-                    size: 20,
-                    color: Colors.black,
+                  textEditingController: _searchController,
+                  isOriginalAnimation: false,
+                  hintText: "Search",
+                  trailingWidget: const Padding(
+                    padding: EdgeInsets.only(right: 4),
+                    child: Icon(
+                      Icons.search,
+                      color: Colors.black
+                    ),
                   ),
                   secondaryButtonWidget: const Icon(
                     Icons.close,
-                    size: 20,
-                    color: Colors.black,
+                    color: Colors.black
                   ),
                   buttonWidget: const Icon(
                     Icons.search,
-                    size: 20,
-                    color: Colors.black,
+                    color: Colors.black
                   ),
+                  buttonColour: Colors.transparent,
+                  buttonShadowColour: Colors.transparent,
+                  enableBoxBorder: true,
+                  enableBoxShadow: false,
+                  enableButtonBorder: false,
+                  enableButtonShadow: false,
+                  enableKeyboardFocus: true,
+                  isSearchBoxOnRightSide: false,
+                  searchBoxBorderColour: Colors.transparent,
+                  searchBoxColour: Colors.transparent,
+                  buttonBorderColour: Colors.transparent,
+                  buttonElevation: 0,
+                  durationInMilliSeconds: 500,
+
                 ),
               ),
               TextButton(
@@ -114,6 +128,9 @@ class FAQScreen extends StatelessWidget {
                       margin: const EdgeInsets.only(left: 10),
                       child: TextFormField(
                         maxLines: 1,
+                        style: const TextStyle(
+                          color: Colors.black,
+                        ),
                         controller: controller,
                         keyboardType: TextInputType.text,
                         validator: (value) {
@@ -228,7 +245,7 @@ class FAQScreen extends StatelessWidget {
                     preferredSize: Size.fromRadius(18),
                     child: CircleAvatar(
                       radius: 18,
-                      backgroundColor: Colors.grey,
+                      backgroundColor: Colors.transparent,
                       backgroundImage: AssetImage('assets/images/app_logo.png'),
                     ),
                   ),
@@ -236,7 +253,7 @@ class FAQScreen extends StatelessWidget {
                     preferredSize: Size.fromRadius(12),
                     child: CircleAvatar(
                       radius: 12,
-                      backgroundColor: Colors.grey,
+                      backgroundColor: Colors.transparent,
                       backgroundImage: AssetImage('assets/images/app_logo.png'),
                     ),
                   ),
@@ -285,7 +302,8 @@ class FAQScreen extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 10, bottom: 10,left: 10,right: 10),
+                margin: const EdgeInsets.only(
+                    top: 10, bottom: 10, left: 10, right: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -293,6 +311,9 @@ class FAQScreen extends StatelessWidget {
                       child: TextFormField(
                         maxLines: 1,
                         controller: controller,
+                        style: const TextStyle(
+                          color: Colors.black,
+                        ),
                         keyboardType: TextInputType.text,
                         validator: (value) {
                           if (value!.isEmpty) {
