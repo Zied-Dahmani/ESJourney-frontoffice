@@ -40,8 +40,6 @@ class _CourseScreenState extends State<CourseScreen> {
     super.dispose();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     final double height = ScreenSize.height(context);
@@ -92,14 +90,14 @@ class _CourseScreenState extends State<CourseScreen> {
                         imageBuilder: (context, imageProvider) {
                           return Container(
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: Colors.white60,
                               borderRadius: BorderRadius.circular(width * 0.1),
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 4,
-                                  blurRadius: 8,
-                                  offset: const Offset(2, 4),
+                                  spreadRadius: 2,
+                                  blurRadius: 10,
+                                  offset: const Offset(6, 6),
                                 ),
                               ],
                             ),

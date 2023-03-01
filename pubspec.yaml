@@ -64,6 +64,7 @@ dependencies:
   pull_to_refresh: ^2.0.0
   web_socket_channel: ^2.3.0
   socket_io_client: ^2.0.1
+  game_levels_scrolling_map: ^0.0.7
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
