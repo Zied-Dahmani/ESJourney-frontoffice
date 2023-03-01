@@ -15,3 +15,4 @@ const kgetCourses = 'course/get/user';
 const kaddAvatar = 'user/avatar';
 const kgetAllUsers = 'user/all';
 const kgetChat = 'messages/';
+const kgetChatByGrade = 'messages/grade';

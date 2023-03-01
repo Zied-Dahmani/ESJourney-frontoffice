@@ -43,4 +43,21 @@ class ChatDataProvider{
     );
     return req;
   }
+
+  Future<Response> getChatByGrade(String token) async {
+    dynamic req = await dio.request(
+      kgetChatByGrade,
+      options: Options(
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt': token,
+        },
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+    return req;
+  }
 }

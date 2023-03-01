@@ -7,8 +7,9 @@ part 'message_model.g.dart';
 @freezed
 class Message with _$Message {
   const factory Message({
+    int? grade,
     required String from,
-    required String to,
+    String? to,
     required String message,
     required DateTime createdAt,
     required DateTime updatedAt,

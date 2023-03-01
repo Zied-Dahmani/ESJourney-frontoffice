@@ -7,8 +7,9 @@ part of 'message_model.dart';
 // **************************************************************************
 
 _$_Message _$$_MessageFromJson(Map<String, dynamic> json) => _$_Message(
+      grade: json['grade'] as int?,
       from: json['from'] as String,
-      to: json['to'] as String,
+      to: json['to'] as String?,
       message: json['message'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
@@ -16,6 +17,7 @@ _$_Message _$$_MessageFromJson(Map<String, dynamic> json) => _$_Message(
 
 Map<String, dynamic> _$$_MessageToJson(_$_Message instance) =>
     <String, dynamic>{
+      'grade': instance.grade,
       'from': instance.from,
       'to': instance.to,
       'message': instance.message,

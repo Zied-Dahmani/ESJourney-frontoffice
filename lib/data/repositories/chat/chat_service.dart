@@ -7,8 +7,19 @@ class ChatService with ChangeNotifier {
 
   final ChatDataProvider _chatDataProvider = ChatDataProvider();
 
-  Future<dynamic> getMessages(String userID, String token) async {
+  Future<dynamic> getChat(String userID, String token) async {
     final result = await _chatDataProvider.getChat(token, userID);
+    if (result.statusCode == 200) {
+      messages = result.data.map((msg) => Message.fromJson(msg)).toList();
+      notifyListeners();
+      return messages;
+    } else {
+      return messages;
+    }
+  }
+
+  Future<dynamic> getChatByGrade(String token) async {
+    final result = await _chatDataProvider.getChatByGrade(token);
     if (result.statusCode == 200) {
       messages = result.data.map((msg) => Message.fromJson(msg)).toList();
       notifyListeners();

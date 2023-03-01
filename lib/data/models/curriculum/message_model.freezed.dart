@@ -20,8 +20,9 @@ Message _$MessageFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Message {
+  int? get grade => throw _privateConstructorUsedError;
   String get from => throw _privateConstructorUsedError;
-  String get to => throw _privateConstructorUsedError;
+  String? get to => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
@@ -37,8 +38,9 @@ abstract class $MessageCopyWith<$Res> {
       _$MessageCopyWithImpl<$Res, Message>;
   @useResult
   $Res call(
-      {String from,
-      String to,
+      {int? grade,
+      String from,
+      String? to,
       String message,
       DateTime createdAt,
       DateTime updatedAt});
@@ -57,21 +59,26 @@ class _$MessageCopyWithImpl<$Res, $Val extends Message>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? grade = freezed,
     Object? from = null,
-    Object? to = null,
+    Object? to = freezed,
     Object? message = null,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
     return _then(_value.copyWith(
+      grade: freezed == grade
+          ? _value.grade
+          : grade // ignore: cast_nullable_to_non_nullable
+              as int?,
       from: null == from
           ? _value.from
           : from // ignore: cast_nullable_to_non_nullable
               as String,
-      to: null == to
+      to: freezed == to
           ? _value.to
           : to // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -96,8 +103,9 @@ abstract class _$$_MessageCopyWith<$Res> implements $MessageCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String from,
-      String to,
+      {int? grade,
+      String from,
+      String? to,
       String message,
       DateTime createdAt,
       DateTime updatedAt});
@@ -113,21 +121,26 @@ class __$$_MessageCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? grade = freezed,
     Object? from = null,
-    Object? to = null,
+    Object? to = freezed,
     Object? message = null,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
     return _then(_$_Message(
+      grade: freezed == grade
+          ? _value.grade
+          : grade // ignore: cast_nullable_to_non_nullable
+              as int?,
       from: null == from
           ? _value.from
           : from // ignore: cast_nullable_to_non_nullable
               as String,
-      to: null == to
+      to: freezed == to
           ? _value.to
           : to // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -148,8 +161,9 @@ class __$$_MessageCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Message implements _Message {
   const _$_Message(
-      {required this.from,
-      required this.to,
+      {this.grade,
+      required this.from,
+      this.to,
       required this.message,
       required this.createdAt,
       required this.updatedAt});
@@ -158,9 +172,11 @@ class _$_Message implements _Message {
       _$$_MessageFromJson(json);
 
   @override
+  final int? grade;
+  @override
   final String from;
   @override
-  final String to;
+  final String? to;
   @override
   final String message;
   @override
@@ -170,7 +186,7 @@ class _$_Message implements _Message {
 
   @override
   String toString() {
-    return 'Message(from: $from, to: $to, message: $message, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Message(grade: $grade, from: $from, to: $to, message: $message, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -178,6 +194,7 @@ class _$_Message implements _Message {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Message &&
+            (identical(other.grade, grade) || other.grade == grade) &&
             (identical(other.from, from) || other.from == from) &&
             (identical(other.to, to) || other.to == to) &&
             (identical(other.message, message) || other.message == message) &&
@@ -190,7 +207,7 @@ class _$_Message implements _Message {
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, from, to, message, createdAt, updatedAt);
+      Object.hash(runtimeType, grade, from, to, message, createdAt, updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -208,8 +225,9 @@ class _$_Message implements _Message {
 
 abstract class _Message implements Message {
   const factory _Message(
-      {required final String from,
-      required final String to,
+      {final int? grade,
+      required final String from,
+      final String? to,
       required final String message,
       required final DateTime createdAt,
       required final DateTime updatedAt}) = _$_Message;
@@ -217,9 +235,11 @@ abstract class _Message implements Message {
   factory _Message.fromJson(Map<String, dynamic> json) = _$_Message.fromJson;
 
   @override
+  int? get grade;
+  @override
   String get from;
   @override
-  String get to;
+  String? get to;
   @override
   String get message;
   @override

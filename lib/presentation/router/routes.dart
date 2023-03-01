@@ -21,6 +21,7 @@ class AppRoutes {
   static const slideGame = '/slide';
   static const listDrawRoom = "/listDrawRoom";
   static const drawingRoom = "/drawingRoom";
+  static const gradeChatRoom = "/gradeChatRoom";
 
 // Souhail
 

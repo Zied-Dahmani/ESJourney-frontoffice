@@ -1,28 +1,27 @@
-import 'package:esjourney/data/models/user_model.dart';
 import 'package:esjourney/data/repositories/chat/chat_service.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ConversationScreen extends StatefulWidget {
-  const ConversationScreen({Key? key,
-    required this.receiver,
-    required this.myUsername,
-    required this.token})
+class ChatGradeRoomScreen extends StatefulWidget {
+  const ChatGradeRoomScreen(
+      {Key? key,
+      required this.grade,
+      required this.token,
+      required this.myUsername})
       : super(key: key);
-  final User receiver;
+  final int grade;
   final String myUsername;
   final String token;
 
   @override
-  State<ConversationScreen> createState() => _ConversationScreenState();
+  State<ChatGradeRoomScreen> createState() => _ChatGradeRoomScreenState();
 }
 
-class _ConversationScreenState extends State<ConversationScreen>
+class _ChatGradeRoomScreenState extends State<ChatGradeRoomScreen>
     with TickerProviderStateMixin {
   final _textController = TextEditingController();
   final _focusNode = FocusNode();
-  bool _isWriting = false;
   late SocketService socketService;
   late ChatService chatService;
   final List<ChatMessage> _messages = [];
@@ -35,7 +34,6 @@ class _ConversationScreenState extends State<ConversationScreen>
     _focusNode.requestFocus();
 
     final newMessage = ChatMessage(
-      twoDAvatar: widget.receiver.twoDAvatar!,
       currentUsername: widget.myUsername,
       msg: text,
       animationController: AnimationController(
@@ -45,27 +43,25 @@ class _ConversationScreenState extends State<ConversationScreen>
         ),
       ),
       username: widget.myUsername,
+      grade: widget.grade,
     );
 
-    _messages.insert(0, newMessage);
+    //todo: this pops up the message twice
+    //_messages.insert(0, newMessage);
     newMessage.animationController.forward();
 
-    setState(() {
-      _isWriting = false;
-    });
-
-    socketService.emit('private-message',
-        {'from': widget.myUsername, 'to': widget.receiver.username, 'message': text});
+    socketService.emit('group-message',
+        {'from': widget.myUsername, 'grade': widget.grade, 'message': text});
   }
 
   void _listenMessage(dynamic payload) {
     ChatMessage message = ChatMessage(
-      twoDAvatar: widget.receiver.twoDAvatar!,
       animationController: AnimationController(
           vsync: this, duration: const Duration(milliseconds: 300)),
       username: payload["from"],
       msg: payload["message"],
       currentUsername: widget.myUsername,
+      grade: widget.grade,
     );
 
     setState(() {
@@ -75,34 +71,13 @@ class _ConversationScreenState extends State<ConversationScreen>
     message.animationController.forward();
   }
 
-  void _listenIsTyping(dynamic payload) {
-    if (payload["isTyping"]) {
-      setState(() {
-        _isWriting = true;
-      });
-    } else {
-      setState(() {
-        _isWriting = false;
-      });
-    }
-  }
-
-  void sendTypingEvent(bool isTyping) {
-    socketService.emit('is-typing', {
-      'from': widget.myUsername,
-      'to': widget.receiver.username,
-      'isTyping': isTyping,
-    });
-  }
-
   @override
   void initState() {
     super.initState();
     socketService = Provider.of<SocketService>(context, listen: false);
     chatService = Provider.of<ChatService>(context, listen: false);
-    socketService.socket.on("private-message", _listenMessage);
-    socketService.socket.on("is-typing", _listenIsTyping);
-    _chargeHistory(widget.receiver.username, widget.token);
+    socketService.socket.on("group-message", _listenMessage);
+    _chargeHistory(widget.token);
   }
 
   @override
@@ -112,24 +87,21 @@ class _ConversationScreenState extends State<ConversationScreen>
       message.animationController.dispose();
     }
 
-    socketService.socket.off("private-message");
-    socketService.socket.off("is-typing");
+    socketService.socket.off("group-message");
   }
 
-  void _chargeHistory(String userID, String token) async {
-    List<dynamic> messages = await chatService.getChat(userID, token);
+  void _chargeHistory(String token) async {
+    List<dynamic> messages = await chatService.getChatByGrade(token);
 
-    final history = messages.map((m) =>
-        ChatMessage(
-          twoDAvatar: widget.receiver.twoDAvatar!,
+    final history = messages.map((m) => ChatMessage(
           currentUsername: widget.myUsername,
           animationController: AnimationController(
             vsync: this,
             duration: const Duration(milliseconds: 0),
-          )
-            ..forward(),
+          )..forward(),
           msg: m.message,
           username: m.from,
+          grade: widget.grade,
         ));
     setState(() {
       _messages.insertAll(0, history);
@@ -138,7 +110,6 @@ class _ConversationScreenState extends State<ConversationScreen>
 
   @override
   Widget build(BuildContext context) {
-
     Widget userInput() {
       return Container(
         padding: const EdgeInsets.symmetric(
@@ -146,9 +117,7 @@ class _ConversationScreenState extends State<ConversationScreen>
           vertical: 10,
         ),
         decoration: BoxDecoration(
-          color: Theme
-              .of(context)
-              .scaffoldBackgroundColor,
+          color: Theme.of(context).scaffoldBackgroundColor,
           boxShadow: [
             BoxShadow(
               offset: const Offset(0, 4),
@@ -179,14 +148,6 @@ class _ConversationScreenState extends State<ConversationScreen>
                             controller: _textController,
                             onSubmitted: (text) {
                               _handleSubmit(text);
-                              sendTypingEvent(false);
-                            },
-                            onChanged: (String msg) {
-                              if (msg.isEmpty) {
-                                sendTypingEvent(false);
-                              } else {
-                                sendTypingEvent(true);
-                              }
                             },
                             focusNode: _focusNode,
                             decoration: const InputDecoration(
@@ -204,7 +165,6 @@ class _ConversationScreenState extends State<ConversationScreen>
                         onPressed: () {
                           if (_textController.text.isNotEmpty) {
                             _handleSubmit(_textController.text.trim());
-                            sendTypingEvent(false);
                           } else {
                             null;
                           }
@@ -222,64 +182,27 @@ class _ConversationScreenState extends State<ConversationScreen>
       );
     }
 
-    String millisecondsToString() {
-      final now = DateTime.now();
-      final lastSeenDate = DateTime.fromMillisecondsSinceEpoch(int.parse(widget.receiver.lastSeen));
-      final difference = now.difference(lastSeenDate);
-      final differenceInMinutes = difference.inMinutes;
-      final differenceInHours = difference.inHours;
-      final differenceInDays = difference.inDays;
-      if (widget.receiver.online) {
-        return 'Online';
-      } else if (differenceInMinutes < 60) {
-        return '$differenceInMinutes minutes ago';
-      } else if (differenceInHours < 24) {
-        return '$differenceInHours hours ago';
-      } else if (differenceInDays < 7) {
-        return '$differenceInDays days ago';
-      } else {
-        return 'A long time ago';
-      }
-    }
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFFEB4A5A),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () =>
-          {
-            _isWriting = false,
-            sendTypingEvent(false),
-            Navigator.of(context).pop(),
-          },
+          onPressed: () => Navigator.of(context).pop(),
         ),
         title: Row(
           children: [
-            CircleAvatar(
+            const CircleAvatar(
               backgroundColor: Colors.white,
-              backgroundImage: Image
-                  .network(widget.receiver.twoDAvatar!)
-                  .image,
+              backgroundImage: AssetImage("assets/images/app_logo.png"),
             ),
             const SizedBox(width: 8),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              children: const [
                 Text(
-                  widget.receiver.username,
-                  style: const TextStyle(color: Colors.white, fontSize: 14),
+                  "first grade",
+                  style: TextStyle(color: Colors.white, fontSize: 14),
                 ),
-                if(!_isWriting)
-                Text(
-                  millisecondsToString(),
-                  style: const TextStyle(fontSize: 12, color: Colors.white),
-                )
-                else
-                  const Text(
-                    'typing...',
-                    style: TextStyle(fontSize: 12, color: Colors.white),
-                  )
               ],
             )
           ],
@@ -316,8 +239,8 @@ class ChatMessage extends StatelessWidget {
   final String msg;
   final String username;
   final String currentUsername;
+  final int grade;
   final AnimationController animationController;
-  final String? twoDAvatar;
 
   const ChatMessage({
     Key? key,
@@ -325,7 +248,7 @@ class ChatMessage extends StatelessWidget {
     required this.username,
     required this.animationController,
     required this.currentUsername,
-    this.twoDAvatar,
+    required this.grade,
   }) : super(key: key);
 
   @override
@@ -343,24 +266,6 @@ class ChatMessage extends StatelessWidget {
                 : MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              if (username != currentUsername) ...[
-                GestureDetector(
-                  onTap: (){
-                    showModalBottomSheet(context: context, builder: (context) {
-                      return Container(
-                      );
-                    });
-                  },
-                  child: CircleAvatar(
-                    radius: 14,
-                    backgroundColor: Colors.white,
-                    backgroundImage: Image
-                        .network(twoDAvatar!)
-                        .image,
-                  ),
-                ),
-                const SizedBox(width: 10),
-              ],
               messageBox(context),
             ],
           ),
@@ -371,30 +276,46 @@ class ChatMessage extends StatelessWidget {
 
   Widget messageBox(BuildContext ctx) {
     return Flexible(
-      child: Container(
-        constraints: BoxConstraints(
-          maxWidth: MediaQuery
-              .of(ctx)
-              .size
-              .width * 0.7,
-        ),
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 10,
-        ),
-        decoration: BoxDecoration(
-          color: const Color(0xFFF03738)
-              .withOpacity(username == currentUsername ? 1 : 0.1),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Text(
-          msg,
-          softWrap: true,
-          overflow: TextOverflow.fade,
-          style: TextStyle(
-            color: username == currentUsername ? Colors.white : Colors.black,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          if (username != currentUsername) ...[
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                username,
+                style: const TextStyle(
+                  color: Color(0xFFA0A5BD),
+                  fontSize: 12,
+                ),
+              ),
+            ),
+          ],
+          Container(
+            constraints: BoxConstraints(
+              maxWidth: MediaQuery.of(ctx).size.width * 0.7,
+            ),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 10,
+            ),
+            decoration: BoxDecoration(
+              color: const Color(0xFFF03738)
+                  .withOpacity(username == currentUsername ? 1 : 0.1),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Text(
+              msg,
+              softWrap: true,
+              overflow: TextOverflow.fade,
+              style: TextStyle(
+                color:
+                    username == currentUsername ? Colors.white : Colors.black,
+              ),
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

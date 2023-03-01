@@ -67,7 +67,16 @@ class MessagesScreenState extends State<MessagesScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ElevatedButton(onPressed: () {}, child: const Text("Text")),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(AppRoutes.gradeChatRoom,
+                          arguments: {
+                            'grade': currentUser.grade,
+                            'token': currentUser.token,
+                            'myUsername': currentUser.username,
+                          },);
+                      },
+                      child: const Text("Grade Conversation")),
                   ElevatedButton(onPressed: () {}, child: const Text("Text")),
                 ],
               ),
@@ -89,7 +98,7 @@ class MessagesScreenState extends State<MessagesScreen> {
                           AppRoutes.conversation,
                           arguments: {
                             'receiver': chatsData[index],
-                            'myId': currentUser.id,
+                            'myUsername': currentUser.username,
                             'token': currentUser.token,
                           },
                         ),

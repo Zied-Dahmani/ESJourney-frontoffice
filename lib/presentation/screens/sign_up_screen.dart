@@ -53,9 +53,7 @@ class SignUpScreen extends StatelessWidget {
             color: theme.colorScheme.background,
             child: Form(
               key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
+              child: ListView(
                 children: [
                   const SizedBox(height: AppSizes.khugeSpace),
                   Image.asset(
