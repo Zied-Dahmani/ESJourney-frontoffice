@@ -12,11 +12,11 @@ import 'package:esjourney/logic/cubits/challenges/top_solutions_cubit.dart';
 import 'package:esjourney/logic/cubits/challenges/top_solutions_state.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
+import 'package:esjourney/presentation/widgets/challenges/c_formatter.dart';
 import 'package:esjourney/presentation/widgets/challenges/problems_chart.dart';
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:highlight/languages/dart.dart';
 import 'package:http/http.dart' as http;
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -28,7 +28,6 @@ class IdeScreen extends StatefulWidget {
 }
 
 class _IdeScreenState extends State<IdeScreen> {
-  CodeController? _codeController;
   String script = "";
   String result = "";
   String output = "";
@@ -39,32 +38,11 @@ class _IdeScreenState extends State<IdeScreen> {
     super.initState();
     script = "#include <stdio.h>\n\nint main() {\n}";
     // Instantiate the CodeController
-    _codeController = CodeController(
-      text: script,
-      language: dart,
-      patternMap: {
-        r'"(?:[^"\\]|\\.)*"': const TextStyle(color: Colors.deepPurple),
-        r'\w+\s*\([^)]*\)': const TextStyle(color: Colors.green),
-        r'\b(?:void|char|int|float|double|if|else|while|for|do|switch|case|break|continue|return)\b':
-            const TextStyle(
-          color: Colors.red,
-          fontWeight: FontWeight.bold,
-        ),
-      },
-      stringMap: {
-        "printf":
-            const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
-        "scanf":
-            const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
-        "main":
-            const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
-      },
-    );
   }
 
   @override
   void dispose() {
-    _codeController?.dispose();
+    getCodeController(script).dispose();
     super.dispose();
   }
 
@@ -89,17 +67,13 @@ class _IdeScreenState extends State<IdeScreen> {
           if (topSolutionsState is TopSolutionsSuccess) {
             final List<TopSolutions> topSolutions =
                 topSolutionsState.topSolutions.cast<TopSolutions>();
-
-            // populate the chart data with the top solutions
             data = topSolutions
                 .map<ChartData>(
                     (e) => ChartData(e.memory, double.parse(e.percentage)))
                 .toList();
-// sort the chart data in ascending order of memory
             data.sort(
                 (ChartData a, ChartData b) => a.memory.compareTo(b.memory));
           }
-
           if (codingProblemState is CodingProblemLoadInProgress) {
             return const Center(
               child: CircularProgressIndicator(),
@@ -122,7 +96,7 @@ class _IdeScreenState extends State<IdeScreen> {
                           script = value;
                         }
                       },
-                      controller: _codeController!,
+                      controller: getCodeController(script),
                       textStyle: const TextStyle(fontFamily: 'SourceCode'),
                     ),
                   ),
@@ -165,7 +139,6 @@ class _IdeScreenState extends State<IdeScreen> {
                             onPressed: () {
                               sendApiRequest(script).then((value) {
                                 setState(() {
-                                  // check if the result contqins memeory
                                   if (value[1] != null) {
                                     var memoryInt = int.parse(value[1]!);
                                     memory = memoryInt.toInt();
@@ -205,13 +178,11 @@ class _IdeScreenState extends State<IdeScreen> {
                                   );
                                 }
                               });
-
-                              // Your code here
                             },
                             backgroundColor: Color(0xFFEB4A5A),
                             shape: const CircleBorder(),
                             child: submissionState is SubmissionLoadInProgress
-                                ? CircularProgressIndicator()
+                                ? const CircularProgressIndicator()
                                 : Icon(Icons.play_arrow),
                           ),
                         ],
@@ -238,8 +209,7 @@ class _IdeScreenState extends State<IdeScreen> {
                   child: Padding(
                     padding: EdgeInsets.only(left: 10),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height *
-                          0.2, // set the height as per your requirement
+                      height: MediaQuery.of(context).size.height * 0.2,
                       child: SingleChildScrollView(
                         child: Text(
                           result = result.replaceAll(
@@ -278,7 +248,6 @@ class _IdeScreenState extends State<IdeScreen> {
 Future<List<String?>> sendApiRequest(String code) async {
   var url = 'https://api.jdoodle.com/v1/execute';
   var headers = {'Content-Type': 'application/json'};
-
   var program = {
     "script": code,
     "language": "c",
@@ -290,7 +259,6 @@ Future<List<String?>> sendApiRequest(String code) async {
 
   var response = await http.post(Uri.parse(url),
       headers: headers, body: json.encode(program));
-
   if (response.statusCode == 200) {
     var responseBody = jsonDecode(response.body);
     if (responseBody.containsKey('output')) {
