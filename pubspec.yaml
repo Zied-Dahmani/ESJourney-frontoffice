@@ -63,6 +63,7 @@ dependencies:
   qr_flutter: ^4.0.0
   qr_code_scanner: ^1.0.1
   flutter_animate: ^4.1.0
+  audioplayers: ^3.0.1
 
 
 
@@ -102,6 +103,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

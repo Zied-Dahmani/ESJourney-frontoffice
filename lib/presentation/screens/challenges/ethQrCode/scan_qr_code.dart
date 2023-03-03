@@ -3,27 +3,38 @@ import 'dart:io';
 
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
+import 'package:esjourney/presentation/animations/face_id_animation_controller.dart';
+import 'package:esjourney/presentation/animations/face_id_painter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QRViewExample extends StatefulWidget {
-  const QRViewExample({Key? key}) : super(key: key);
-
+  const QRViewExample({
+    Key? key,
+    this.customPaintSize = 200.0,
+  }) : super(key: key);
+  final double customPaintSize;
   @override
   State<StatefulWidget> createState() => _QRViewExampleState();
 }
+
 String senderWalletAddress = "";
 String senderPrivateKey = "";
 String receiverToken = "";
 double  amount = 0.1;
-class _QRViewExampleState extends State<QRViewExample> {
+class _QRViewExampleState extends State<QRViewExample>     with SingleTickerProviderStateMixin {
   Barcode? result;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  late final FaceIDAnimationController _controller;
+  @override
+  void initState() {
+    super.initState();
 
-
+  }
   // In order to get hot reload to work we need to pause the camera if the platform
   // is android, or resume the camera if the platform is iOS.
   @override
@@ -170,8 +181,8 @@ class _QRViewExampleState extends State<QRViewExample> {
     });
 
     controller.scannedDataStream.first.then((scanData) {
-      print("scan complete");
-      setState(() {
+
+       setState(() {
         result = scanData;
         List<String> dataList = scanData.code!.split(",");
 
@@ -186,6 +197,9 @@ class _QRViewExampleState extends State<QRViewExample> {
         amount,
         receiverToken,
       );
+       AudioPlayer audioPlayer = AudioPlayer();
+       audioPlayer.setAsset('assets/sound/scan_complete.mp3');
+       audioPlayer.play();
 
     });
 
