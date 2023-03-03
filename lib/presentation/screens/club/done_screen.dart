@@ -1,5 +1,4 @@
 import 'package:esjourney/presentation/animations/club/face_id_animation_controller.dart';
-import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/presentation/widgets/club/face_id_painter.dart';
 import 'package:flutter/material.dart';
 

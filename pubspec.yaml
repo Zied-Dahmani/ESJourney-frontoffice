@@ -52,6 +52,9 @@ dependencies:
   location: ^4.4.0
   maps_launcher: ^2.2.0
   like_button: ^2.0.5
+  flutter_timer_countdown: ^1.0.5
+  top_modal_sheet: ^2.0.1
+
 
 
 

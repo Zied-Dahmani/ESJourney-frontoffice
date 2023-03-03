@@ -1,19 +1,17 @@
 import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/presentation/widgets/button.dart';
 import 'package:esjourney/presentation/widgets/club/animated_detail_header.dart';
+import 'package:esjourney/presentation/widgets/club/builder_persistent_delegate.dart';
 import 'package:esjourney/utils/constants.dart';
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:esjourney/utils/strings.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
 
-
-// TODO Clean and understand the code, logic, hero image, stories, test on smaller device, and test with long & short club description
-
 class ClubScreen extends StatefulWidget {
-  const ClubScreen({Key? key, this.club}) : super(key: key);
+  ClubScreen({Key? key, this.club}) : super(key: key);
 
-  final club;
+  var club;
 
   @override
   State<ClubScreen> createState() => _ClubScreenState();
@@ -64,7 +62,7 @@ class _ClubScreenState extends State<ClubScreen> {
                 Text(AppStrings.kdescription,
                     style: theme.textTheme.headlineMedium),
                 const SizedBox(height: AppSizes.ksmallSpace),
-                Text(widget.club.description,
+                Text(widget.club.fullDescription,
                     style: theme.textTheme.bodyMedium),
                 const SizedBox(height: AppSizes.kbigSpace),
                 Text(AppStrings.kstories,
@@ -72,6 +70,7 @@ class _ClubScreenState extends State<ClubScreen> {
               ],
             ),
           )),
+          // TODO Stories
           SliverToBoxAdapter(
             child: SizedBox(
               height: AppSizes.kbigImageSize,
@@ -83,10 +82,12 @@ class _ClubScreenState extends State<ClubScreen> {
                 itemCount: 3,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.only(right: AppSizes.ksmallSpace),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: AppSizes.ksmallSpace * .5),
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(AppSizes.kradius),
-                        child: Image.network('$kbaseUrl${widget.club.image}',
+                        child: Image.network(
+                            '$kbaseUrl${widget.club.images[index]}',
                             fit: BoxFit.cover)),
                   );
                 },
@@ -95,67 +96,19 @@ class _ClubScreenState extends State<ClubScreen> {
           ),
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSizes.khugeSpace,vertical: AppSizes.kbigSpace),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: AppSizes.khugeSpace,
+                  vertical: AppSizes.kbigSpace),
               child: ButtonWidget(
                   text: AppStrings.kapply,
                   function: () {
-                    Navigator.of(context).pushNamed(AppRoutes.applyToClubScreen);
+                    Navigator.of(context)
+                        .pushNamed(AppRoutes.applyToClubScreen);
                   }),
             ),
           )
         ],
       ),
     );
-
-  }
-}
-
-class BuilderPersistentDelegate extends SliverPersistentHeaderDelegate {
-  BuilderPersistentDelegate(
-      {required double minExtent,
-      required double maxExtent,
-      required this.builder})
-      : _minExtent = minExtent,
-        _maxExtent = maxExtent;
-
-  final double _minExtent, _maxExtent;
-  final Widget Function(double percent) builder;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return builder(shrinkOffset / _maxExtent);
-  }
-
-  @override
-  double get maxExtent => _maxExtent;
-
-  @override
-  double get minExtent => _minExtent;
-
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
-      false;
-}
-
-// TODO Put it in the animations folder
-class TranslateAnimation extends StatelessWidget {
-  final Widget child;
-
-  const TranslateAnimation({super.key, required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    return TweenAnimationBuilder(
-        tween: Tween(begin: 1.0, end: 0.0),
-        duration: const Duration(milliseconds: 600),
-        curve: Curves.easeInOutBack,
-        builder: (context, value, _child) {
-          return Transform.translate(
-            offset: Offset(0.0, 100.0 * value),
-            child: child,
-          );
-        },
-        child: child);
   }
 }

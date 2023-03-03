@@ -8,8 +8,11 @@ class Club with _$Club {
   const factory Club({
     required dynamic id,
     required String name,
-    required String image,
-    required String description
+    required List images,
+    required String shortDescription,
+    required String fullDescription,
+    required List likes,
+    required DateTime deadline,
   }) = _Club;
 
   factory Club.fromJson(Map<String, dynamic> json) => _$ClubFromJson(json);

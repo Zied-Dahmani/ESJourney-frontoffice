@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer' as developer;
 import 'package:esjourney/data/models/club_event_model.dart';
+import 'package:esjourney/data/models/club_event_type_enum.dart';
 import 'package:esjourney/data/repositories/club_event/club_event_repository.dart';
 import 'package:esjourney/logic/cubits/club_event/club_event_state.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
@@ -17,6 +18,8 @@ class ClubEventCubit extends Cubit<ClubEventState> {
   final ConnectivityCubit _connectivityCubit;
   StreamSubscription? _connectivityStreamSubscription;
 
+  late final _allClubEventsList;
+
   void init() {
     if (_connectivityCubit.state is ConnectivityConnectSuccess) {
       getAllClubEvents();
@@ -29,22 +32,25 @@ class ClubEventCubit extends Cubit<ClubEventState> {
   StreamSubscription<ConnectivityState> listen() {
     return _connectivityStreamSubscription =
         _connectivityCubit.stream.listen((connectivityState) {
-          if (connectivityState is ConnectivityConnectSuccess &&
-              state is! ClubEventLoadSuccess) {
-            getAllClubEvents();
-          } else if (connectivityState is ConnectivityDisconnectSuccess &&
-              state is ClubEventLoadInProgress) {
-            emit(ClubEventLoadFailure(kcheckInternetConnection));
-          }
-        });
+      if (connectivityState is ConnectivityConnectSuccess &&
+          state is! ClubEventLoadSuccess) {
+        getAllClubEvents();
+      } else if (connectivityState is ConnectivityDisconnectSuccess &&
+          state is ClubEventLoadInProgress) {
+        emit(ClubEventLoadFailure(kcheckInternetConnection));
+      }
+    });
   }
 
   Future<void> getAllClubEvents() async {
     try {
       final result = await _clubEventRepository.getAllClubEvents();
-      result != null
-          ? emit(ClubEventLoadSuccess(result.cast<ClubEvent>()))
-          : emit(ClubEventLoadFailure(kbadRequest));
+      if (result != null) {
+        _allClubEventsList = result.cast<ClubEvent>();
+        emit(ClubEventLoadSuccess(_allClubEventsList));
+      } else {
+        emit(ClubEventLoadFailure(kbadRequest));
+      }
     } catch (e) {
       developer.log(e.toString(), name: 'Catch getAllClubEvents');
       emit(ClubEventLoadFailure(kcheckInternetConnection));
@@ -52,6 +58,20 @@ class ClubEventCubit extends Cubit<ClubEventState> {
   }
 
   Future<void> launchGoogleMaps(double latitude, double longitude) async => MapsLauncher.launchCoordinates(latitude, longitude);
+
+  void filter(ClubEventType clubEventType) {
+    if (clubEventType == ClubEventType.all) {
+      emit(ClubEventLoadSuccess(_allClubEventsList));
+    } else {
+      var _list = <ClubEvent>[];
+      _allClubEventsList.forEach((ClubEvent clubEvent) {
+        if (clubEvent.type == clubEventType) {
+          _list.add(clubEvent);
+        }
+      });
+      emit(ClubEventLoadSuccess(_list));
+    }
+  }
 
   @override
   Future<void> close() {

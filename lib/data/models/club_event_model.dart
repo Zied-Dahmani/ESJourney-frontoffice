@@ -1,3 +1,4 @@
+import 'package:esjourney/data/models/club_event_type_enum.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
 part 'club_event_model.freezed.dart';
@@ -13,6 +14,7 @@ class ClubEvent with _$ClubEvent {
       required String description,
       required DateTime dateTime,
       required List<double> latLng,
+      required ClubEventType type,
       required List<String> timeline}) = _ClubEvent;
 
   factory ClubEvent.fromJson(Map<String, dynamic> json) =>

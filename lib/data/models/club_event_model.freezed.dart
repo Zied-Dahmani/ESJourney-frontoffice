@@ -26,6 +26,7 @@ mixin _$ClubEvent {
   String get description => throw _privateConstructorUsedError;
   DateTime get dateTime => throw _privateConstructorUsedError;
   List<double> get latLng => throw _privateConstructorUsedError;
+  ClubEventType get type => throw _privateConstructorUsedError;
   List<String> get timeline => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -46,6 +47,7 @@ abstract class $ClubEventCopyWith<$Res> {
       String description,
       DateTime dateTime,
       List<double> latLng,
+      ClubEventType type,
       List<String> timeline});
 }
 
@@ -68,6 +70,7 @@ class _$ClubEventCopyWithImpl<$Res, $Val extends ClubEvent>
     Object? description = null,
     Object? dateTime = null,
     Object? latLng = null,
+    Object? type = null,
     Object? timeline = null,
   }) {
     return _then(_value.copyWith(
@@ -95,6 +98,10 @@ class _$ClubEventCopyWithImpl<$Res, $Val extends ClubEvent>
           ? _value.latLng
           : latLng // ignore: cast_nullable_to_non_nullable
               as List<double>,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as ClubEventType,
       timeline: null == timeline
           ? _value.timeline
           : timeline // ignore: cast_nullable_to_non_nullable
@@ -117,6 +124,7 @@ abstract class _$$_ClubEventCopyWith<$Res> implements $ClubEventCopyWith<$Res> {
       String description,
       DateTime dateTime,
       List<double> latLng,
+      ClubEventType type,
       List<String> timeline});
 }
 
@@ -137,6 +145,7 @@ class __$$_ClubEventCopyWithImpl<$Res>
     Object? description = null,
     Object? dateTime = null,
     Object? latLng = null,
+    Object? type = null,
     Object? timeline = null,
   }) {
     return _then(_$_ClubEvent(
@@ -164,6 +173,10 @@ class __$$_ClubEventCopyWithImpl<$Res>
           ? _value._latLng
           : latLng // ignore: cast_nullable_to_non_nullable
               as List<double>,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as ClubEventType,
       timeline: null == timeline
           ? _value._timeline
           : timeline // ignore: cast_nullable_to_non_nullable
@@ -182,6 +195,7 @@ class _$_ClubEvent extends _ClubEvent {
       required this.description,
       required this.dateTime,
       required final List<double> latLng,
+      required this.type,
       required final List<String> timeline})
       : _latLng = latLng,
         _timeline = timeline,
@@ -208,6 +222,8 @@ class _$_ClubEvent extends _ClubEvent {
     return EqualUnmodifiableListView(_latLng);
   }
 
+  @override
+  final ClubEventType type;
   final List<String> _timeline;
   @override
   List<String> get timeline {
@@ -218,7 +234,7 @@ class _$_ClubEvent extends _ClubEvent {
 
   @override
   String toString() {
-    return 'ClubEvent(id: $id, name: $name, image: $image, description: $description, dateTime: $dateTime, latLng: $latLng, timeline: $timeline)';
+    return 'ClubEvent(id: $id, name: $name, image: $image, description: $description, dateTime: $dateTime, latLng: $latLng, type: $type, timeline: $timeline)';
   }
 
   @override
@@ -234,6 +250,7 @@ class _$_ClubEvent extends _ClubEvent {
             (identical(other.dateTime, dateTime) ||
                 other.dateTime == dateTime) &&
             const DeepCollectionEquality().equals(other._latLng, _latLng) &&
+            (identical(other.type, type) || other.type == type) &&
             const DeepCollectionEquality().equals(other._timeline, _timeline));
   }
 
@@ -247,6 +264,7 @@ class _$_ClubEvent extends _ClubEvent {
       description,
       dateTime,
       const DeepCollectionEquality().hash(_latLng),
+      type,
       const DeepCollectionEquality().hash(_timeline));
 
   @JsonKey(ignore: true)
@@ -271,6 +289,7 @@ abstract class _ClubEvent extends ClubEvent {
       required final String description,
       required final DateTime dateTime,
       required final List<double> latLng,
+      required final ClubEventType type,
       required final List<String> timeline}) = _$_ClubEvent;
   const _ClubEvent._() : super._();
 
@@ -289,6 +308,8 @@ abstract class _ClubEvent extends ClubEvent {
   DateTime get dateTime;
   @override
   List<double> get latLng;
+  @override
+  ClubEventType get type;
   @override
   List<String> get timeline;
   @override

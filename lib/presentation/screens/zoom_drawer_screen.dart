@@ -32,7 +32,7 @@ class _ZoomDrawerScreenState extends State<ZoomDrawerScreen> {
         borderRadius: AppSizes.kradius,
         showShadow: true,
         angle: 0.0,
-        slideWidth: 200,
+        slideWidth: 220,
         menuBackgroundColor: theme.colorScheme.primary,
       ),
     );
@@ -45,8 +45,10 @@ class _ZoomDrawerScreenState extends State<ZoomDrawerScreen> {
       case 1:
         return Container(color: Colors.yellow);
       case 2:
-        return ClubEventsMapScreen();
+        return const ClubEventsMapScreen();
       case 3:
+        return const MainScreen();
+      case 4:
         return const MainScreen();
       default:
         return const MainScreen();

@@ -22,6 +22,7 @@ class UserLogInSuccess extends UserState {
 
   Map<String, dynamic> toMap() {
     return {
+      'id':user.id,
       'email': user.email,
       'username': user.username,
       'password': user.password,
@@ -33,6 +34,7 @@ class UserLogInSuccess extends UserState {
     if (map == null) return null;
 
     return UserLogInSuccess(User(
+        id: map['id'],
         email: map['email'],
         username: map['username'],
         password: map['password'],

@@ -79,7 +79,7 @@ class MyApp extends StatelessWidget {
               create: (context) => ConnectivityCubit(), lazy: false),
           BlocProvider<UserCubit>(create: (context) => UserCubit(), lazy: true),
           BlocProvider<ClubCubit>(
-              create: (context) => ClubCubit(BlocProvider.of<ConnectivityCubit>(context)),
+              create: (context) => ClubCubit(BlocProvider.of<ConnectivityCubit>(context),BlocProvider.of<UserCubit>(context)),
               lazy: true),
           BlocProvider<LocationCubit>(create: (context) => LocationCubit(), lazy: true),
           BlocProvider<ClubEventCubit>(create: (context) => ClubEventCubit(BlocProvider.of<ConnectivityCubit>(context)), lazy: true),

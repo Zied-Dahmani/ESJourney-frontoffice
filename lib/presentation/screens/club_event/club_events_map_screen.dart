@@ -3,6 +3,7 @@ import 'package:esjourney/logic/cubits/club_event/club_event_state.dart';
 import 'package:esjourney/logic/cubits/location/location_cubit.dart';
 import 'package:esjourney/presentation/widgets/club_event/event_details_card.dart';
 import 'package:esjourney/presentation/widgets/club_event/event_marker.dart';
+import 'package:esjourney/presentation/widgets/club_event/filter_top_modal_sheet.dart';
 import 'package:esjourney/presentation/widgets/club_event/my_location_marker.dart';
 import 'package:esjourney/presentation/widgets/drawer_icon.dart';
 import 'package:esjourney/utils/constants.dart';
@@ -13,7 +14,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:top_modal_sheet/top_modal_sheet.dart';
 
 class ClubEventsMapScreen extends StatefulWidget {
   const ClubEventsMapScreen({Key? key}) : super(key: key);
@@ -49,8 +52,7 @@ class _ClubEventsMapScreenState extends State<ClubEventsMapScreen>
       final locationState = context.watch<LocationCubit>().state;
       final clubEventState = context.watch<ClubEventCubit>().state;
 
-      if (locationState is LocationTurnOnSuccess &&
-          clubEventState is ClubEventLoadSuccess) {
+      if (locationState is LocationTurnOnSuccess && clubEventState is ClubEventLoadSuccess) {
         final clubEvents = _clubEventMarkers(clubEventState.clubEvents);
         return Stack(
           children: [
@@ -78,28 +80,37 @@ class _ClubEventsMapScreenState extends State<ClubEventsMapScreen>
                         })
                   ],
                 ),
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  bottom: AppSizes.ksmallSpace,
-                  height: ScreenSize.height(context) * .35,
-                  child: PageView.builder(
-                      controller: _pageController,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: clubEvents.length,
-                      itemBuilder: (context, index) {
-                        return EventDetailsCard(
-                            clubEvent: clubEventState.clubEvents[index],
-                            clubEventCubit:
-                                BlocProvider.of<ClubEventCubit>(context));
-                      }),
-                ),
-                const Positioned(
-                    left: AppSizes.ksmallSpace,
-                    top: AppSizes.khugeSpace,
-                    child: DrawerIcon())
               ],
             ),
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: AppSizes.ksmallSpace,
+              height: ScreenSize.height(context) * .35,
+              child: PageView.builder(
+                  controller: _pageController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: clubEvents.length,
+                  itemBuilder: (context, index) {
+                    return EventDetailsCard(
+                        clubEvent: clubEventState.clubEvents[index],
+                        clubEventCubit:
+                        BlocProvider.of<ClubEventCubit>(context));
+                  }),
+            ),
+            const Positioned(
+                left: AppSizes.ksmallSpace,
+                top: AppSizes.khugeSpace,
+                child: DrawerIcon()),
+            Positioned(
+                right: AppSizes.ksmallSpace,
+                top: AppSizes.khugeSpace,
+                child: IconButton(
+                  onPressed: () async {
+                    await showTopModalSheet(context, FilterTopModalSheet());
+                  },
+                  icon: const Icon(FontAwesomeIcons.filter),
+                )),
           ],
         );
       } else if (locationState is LocationTurnOffSuccess || (clubEventState is ClubEventLoadFailure && clubEventState.error == kcheckInternetConnection)) {
@@ -112,7 +123,9 @@ class _ClubEventsMapScreenState extends State<ClubEventsMapScreen>
                   SizedBox(
                       height: AppSizes.khugeImageSize,
                       width: AppSizes.khugeImageSize,
-                      child: SvgPicture.asset(clubEventState is ClubEventLoadFailure && clubEventState.error == kcheckInternetConnection
+                      child: SvgPicture.asset(clubEventState
+                                  is ClubEventLoadFailure &&
+                              clubEventState.error == kcheckInternetConnection
                           ? 'assets/images/no_internet.svg'
                           : 'assets/images/turn_on_location.svg')),
                   const SizedBox(height: AppSizes.kbigSpace),
@@ -122,17 +135,21 @@ class _ClubEventsMapScreenState extends State<ClubEventsMapScreen>
                         onTap: () => BlocProvider.of<LocationCubit>(context)
                             .currentLocation(false),
                         child: Text(
-                            clubEventState is ClubEventLoadFailure && clubEventState.error == kcheckInternetConnection
+                            clubEventState is ClubEventLoadFailure &&
+                                    clubEventState.error ==
+                                        kcheckInternetConnection
                                 ? kcheckInternetConnection
                                 : AppStrings.kturnOnLocation,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
                                 .copyWith(
-                                    color:
-                                    clubEventState is ClubEventLoadFailure && clubEventState.error == kcheckInternetConnection
-                                            ? theme.colorScheme.secondary
-                                            : theme.colorScheme.primary))),
+                                    color: clubEventState
+                                                is ClubEventLoadFailure &&
+                                            clubEventState.error ==
+                                                kcheckInternetConnection
+                                        ? theme.colorScheme.secondary
+                                        : theme.colorScheme.primary))),
                   )
                 ],
               ),

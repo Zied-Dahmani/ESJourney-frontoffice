@@ -16,11 +16,13 @@ class AppStrings {
   static const khome = 'Home';
   static const kevents = 'Events';
   static const kclubEvents = 'Club Events';
+  static const kapplications = 'Applications';
   static const ksettings = 'Settings';
 
 
   // Zied
   static const knoClubs = 'No clubs';
+  static const kapplyWithin = 'Apply within';
   static const kdescription = 'Description';
   static const kstories = 'Stories';
   static const kapply = 'Apply';
@@ -40,6 +42,7 @@ class AppStrings {
   static const ktypeValidLink = 'Type a valid link!';
 
   static const kturnOnLocation = 'Turn on location!';
+  static const keventType = 'Event Type';
   static const ktimeline = 'Timeline';
 
   // Louay

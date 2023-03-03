@@ -32,8 +32,7 @@ class FaceIDPainter extends CustomPainter {
     final moveX = moveR1 + moveL1 + moveR2;
     final moveY = moveU1 + moveD1 + moveU2;
 
-    final canBlink =
-        animation.controller.value >= .6 && animation.controller.value <= .65;
+    final canBlink = animation.controller.value >= .6 && animation.controller.value <= .65;
     final canShowCheck1 = animation.controller.value >= .9;
     final canShowCheck2 = animation.controller.value >= .95;
     final check1X = animation.check1X.value;

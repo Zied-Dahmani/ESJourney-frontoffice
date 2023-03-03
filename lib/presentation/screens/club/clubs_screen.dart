@@ -20,7 +20,7 @@ class ClubsScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: Container(
-            padding: const EdgeInsets.symmetric(vertical: AppSizes.khugeSpace),
+            padding: const EdgeInsets.symmetric(vertical: AppSizes.kbigSpace),
             child:
                 BlocConsumer<ClubCubit, ClubState>(listener: (context, state) {
               if (state is ClubLoadFailure) {
