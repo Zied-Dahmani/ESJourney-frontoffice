@@ -103,7 +103,7 @@ class _QuizResultScreenState extends State<QuizResultScreen> {
                           ),
                         );
                       },
-                      duration: const Duration(milliseconds: 500),
+                      duration: const Duration(milliseconds: 1500),
                     ),
                     Visibility(
                       visible: !isCompleted,

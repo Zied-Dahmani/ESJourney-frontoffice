@@ -7,6 +7,7 @@ import 'package:esjourney/presentation/widgets/challenges/top_three_users.dart';
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:esjourney/utils/strings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -50,8 +51,6 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
           builder: (context, state) {
         if (state is LeaderboardLoadInProgress) {
         } else if (state is LeaderboardSuccess) {
-// final counterValue = context.select((LeaderboardCubit leaderboardCubit) => state.period);
-
           return Column(
             children: [
               Stack(
@@ -79,6 +78,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                       SizedBox(
                         height: width * 0.03,
                       ),
+
                       LeaderboardHistory(
                           onThisWeekPressed: () {
                             BlocProvider.of<LeaderboardCubit>(context)
@@ -97,6 +97,25 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                             "Month",
                             "All time"
                           ]),
+
+                      SvgPicture.asset(
+                        'assets/icons/challenges/crown.svg',
+                        width: width * 0.12,
+                        height: width * 0.12,
+                      )
+                          .animate(
+                        delay: 1000.ms,
+                        // this delay only happens once at the very start
+                        onPlay: (controller) => controller.repeat(), // loop
+                      )
+                          .shimmer(
+                        delay: 1000.ms,
+                        stops:
+                            // from top left to bottom right
+                            [0.0, 0.5, 1.0], // stops
+                      ),
+                      // this delay happens at the start of each loop
+
                       TopThreeUsers(
                         firstUsername: state.period == 0
                             ? state.weeklyUsers[0].username

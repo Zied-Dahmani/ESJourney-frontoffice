@@ -38,11 +38,7 @@ class TopThreeUsers extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: width * 0.05),
       child: Column(
         children: [
-          SvgPicture.asset(
-            'assets/icons/challenges/crown.svg',
-            width: width * 0.12,
-            height: width * 0.12,
-          ),
+
           SizedBox(
             height: width * 0.5,
             child: Row(
