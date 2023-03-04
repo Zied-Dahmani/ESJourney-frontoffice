@@ -22,6 +22,7 @@ class AppRoutes {
   static const listDrawRoom = "/listDrawRoom";
   static const drawingRoom = "/drawingRoom";
   static const gradeChatRoom = "/gradeChatRoom";
+  static const mapLevels = "/mapLevels";
 
 // Souhail
 

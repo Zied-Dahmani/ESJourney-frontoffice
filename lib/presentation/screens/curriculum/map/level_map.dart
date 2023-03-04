@@ -15,24 +15,26 @@ class _MapLevelScreenState extends State<MapLevelScreen> {
   Widget build(BuildContext context) {
     const imageCount = 1;
     const imageHeight = 2436.0 * imageCount;
-    return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      return GameLevelsScrollingMap.scrollable(
-        backgroundImageWidget: Column(
-          children: List.generate(
-            imageCount,
-            (index) => Image.asset(
-              "assets/images/curriculum/map/map_vertical_infinity.png",
+    return Scaffold(
+      body: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+        return GameLevelsScrollingMap.scrollable(
+          backgroundImageWidget: Column(
+            children: List.generate(
+              imageCount,
+              (index) => Image.asset(
+                "assets/images/curriculum/map/map_vertical_infinity.png",
+              ),
             ),
           ),
-        ),
-        imageUrl: "assets/images/curriculum/map/map_vertical_infinity.png",
-        svgUrl: "assets/images/curriculum/map/map_vertical.svg",
-        direction: Axis.vertical,
-        reverseScrolling: false,
-        imageHeight: imageHeight,
-        width: constraints.maxWidth,
-      );
-    });
+          imageUrl: "assets/images/curriculum/map/map_vertical_infinity.png",
+          svgUrl: "assets/images/curriculum/map/map_vertical.svg",
+          direction: Axis.vertical,
+          reverseScrolling: false,
+          imageHeight: imageHeight,
+          width: constraints.maxWidth,
+        );
+      }),
+    );
   }
 }

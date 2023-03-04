@@ -2,20 +2,16 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:esjourney/logic/cubits/curriculum/course_cubit.dart';
-import 'package:esjourney/logic/cubits/curriculum/course_state.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/draw/core/bloc/user_cubit/drawer_cubit.dart';
-import 'package:esjourney/presentation/screens/curriculum/games/slide/tools/board_controller.dart';
-import 'package:esjourney/presentation/widgets/curriculum/course_widget.dart';
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:tab_container/tab_container.dart';
 
 class CourseScreen extends StatefulWidget {
@@ -42,16 +38,120 @@ class _CourseScreenState extends State<CourseScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final double height = ScreenSize.height(context);
     final double width = ScreenSize.width(context);
     final getCourses = BlocProvider.of<CourseCubit>(context);
 
-    return BlocBuilder<UserCubit, UserState> (
+    List<Game> allGames = [
+      Game(
+        colors: [
+          const Color(0xff0F2027),
+          const Color(0xff203A43),
+          const Color(0xff2C5364),
+        ],
+        title: "Hangman",
+        imagePath: "assets/images/curriculum/hangman.png",
+        onTap: () {
+          Navigator.of(context).pushNamed(AppRoutes.hangmanGame);
+        },
+      ),
+      Game(
+        colors: [
+          const Color(0xffb92b27),
+          const Color(0xff1565C0),
+        ],
+        title: "Wordly",
+        imagePath: "assets/images/curriculum/wordle.png",
+        onTap: () {
+          Navigator.of(context).pushNamed(AppRoutes.wordlyGame);
+        },
+      ),
+      Game(
+        colors: [
+          const Color(0xff373B44),
+          const Color(0xff4286f4),
+        ],
+        title: "Memory",
+        imagePath: "assets/images/curriculum/memory.png",
+        onTap: () {
+          Navigator.of(context).pushNamed(AppRoutes.memoryGame);
+        },
+      ),
+      /*Game(
+        colors: [
+          const Color(0xff12c2e9),
+          const Color(0xffc471ed),
+          const Color(0xfff64f59),
+        ],
+        title: "Slide",
+        imagePath: "assets/images/curriculum/slide.png",
+        onTap: () {
+          double swidth = MediaQuery.of(context).size.width * 0.8;
+          if (width >= 425) {
+            swidth = MediaQuery.of(context).size.width * 0.4;
+          }
+          if (width >= 1000) {
+            swidth = MediaQuery.of(context).size.width * 0.28;
+          }
+
+          Provider.of<BoardController>(context, listen: false)
+              .init(width: swidth);
+          Navigator.of(context).pushNamed(AppRoutes.slideGame);
+        },
+      ),
+      Game(
+        colors: [
+          const Color(0xff8360c3),
+          const Color(0xff2ebf91),
+        ],
+        title: "Jackpot",
+        imagePath: "assets/images/curriculum/jackpot.png",
+        onTap: () async {
+          bool canNavigate = await canNavigateToScreen();
+          if (canNavigate) {
+            Navigator.of(context).pushNamed(AppRoutes.jackpotGame);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text(
+                  "You can only play this game once a day",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            );
+          }
+        },
+      ),*/
+      Game(
+        colors: [
+          const Color(0xff74ebd5),
+          const Color(0xffACB6E5),
+        ],
+        title: "LogicBot",
+        imagePath: "assets/images/curriculum/logicbot.png",
+        onTap: () {},
+      ),
+      Game(
+        colors: [
+          const Color(0xffBE93C5),
+          const Color(0xff7BC6CC),
+        ],
+        title: "Draw",
+        imagePath: "assets/images/curriculum/draw.png",
+        onTap: () {
+          //Navigator.of(context).pushNamed(AppRoutes.homeDraw);
+          Navigator.pushNamed(context, AppRoutes.listDrawRoom);
+        },
+      ),
+    ];
+
+    return BlocBuilder<UserCubit, UserState>(
       builder: (context, state) {
         if (state is UserLogInSuccess) {
           final user = state.user;
           context.read<DrawerCubit>().setUsername(user.username);
-          getCourses.getAllCourses(user.token!);
+          //getCourses.getAllCourses(user.token!);
           return Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
@@ -217,20 +317,78 @@ class _CourseScreenState extends State<CourseScreen> {
                   ],
                 ),
               ),
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.only(top: 16, right: 20, left: 20),
-                  child: TabContainer(
-                    color: Colors.white,
-                    controller: _controller,
-                    radius: 20,
-                    tabEdge: TabEdge.top,
-                    tabCurve: Curves.easeIn,
-                    tabs: _getTabs1(),
-                    children: _getChildren1(height, width),
+              Container(
+                margin: const EdgeInsets.only(top: 16, right: 20, left: 20),
+                child: Row(
+                  children: const <Widget>[
+                    Text(
+                      "Games",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              CarouselSlider(
+                items: [
+                  for (final game in allGames)
+                    GameCardWidget(
+                      game: game,
+                    ),
+                ],
+                options: CarouselOptions(
+                  animateToClosest: true,
+                  autoPlay: false,
+                  disableCenter: true,
+                  enableInfiniteScroll: false,
+                  enlargeCenterPage: true,
+                  scrollPhysics: const BouncingScrollPhysics(),
+                  initialPage: 0,
+                  enlargeStrategy: CenterPageEnlargeStrategy.zoom,
+                  padEnds: false,
+                  pageSnapping: true,
+                  scrollDirection: Axis.horizontal,
+                  viewportFraction: 0.8,
+                ),
+              ),
+              const Spacer(),
+              Container(
+                width: double.infinity,
+                margin: const EdgeInsets.only(
+                  top: 16,
+                  right: 20,
+                  left: 20,
+                  bottom: 16,
+                ),
+                padding: const EdgeInsets.only(
+                  top: 16,
+                  right: 20,
+                  left: 20,
+                  bottom: 16,
+                ),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFEB4A5A),
+                    padding: const EdgeInsets.all(16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(22),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(AppRoutes.mapLevels);
+                  },
+                  child: const Text(
+                    "Start Journey",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                    ),
                   ),
                 ),
               ),
+              const Spacer()
             ],
           );
         } else {
@@ -263,153 +421,88 @@ class _CourseScreenState extends State<CourseScreen> {
     File(path).writeAsStringSync(jsonEncode(data));
     return true;
   }
+}
 
-  List<String> _getTabs1() {
-    return <String>[
-      "Courses",
-      "Games",
-    ];
-  }
+class GameCardWidget extends StatelessWidget {
+  const GameCardWidget({
+    super.key,
+    required this.game,
+  });
 
-  List<Widget> _getChildren1(double height, double width) {
-    List<Game> allGames = [
-      Game(
-        title: "Hangman",
-        imagePath: "assets/images/curriculum/hangman.png",
-        onTap: () {
-          Navigator.of(context).pushNamed(AppRoutes.hangmanGame);
-        },
-      ),
-      Game(
-        title: "Wordly",
-        imagePath: "assets/images/curriculum/wordle.png",
-        onTap: () {
-          Navigator.of(context).pushNamed(AppRoutes.wordlyGame);
-        },
-      ),
-      Game(
-        title: "Memory",
-        imagePath: "assets/images/curriculum/memory.png",
-        onTap: () {
-          Navigator.of(context).pushNamed(AppRoutes.memoryGame);
-        },
-      ),
-      Game(
-        title: "Slide",
-        imagePath: "assets/images/curriculum/slide.png",
-        onTap: () {
-          double swidth = MediaQuery.of(context).size.width * 0.8;
-          if (width >= 425) {
-            swidth = MediaQuery.of(context).size.width * 0.4;
-          }
-          if (width >= 1000) {
-            swidth = MediaQuery.of(context).size.width * 0.28;
-          }
+  final Game game;
 
-          Provider.of<BoardController>(context, listen: false)
-              .init(width: swidth);
-          Navigator.of(context).pushNamed(AppRoutes.slideGame);
-        },
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(top: 16, right: 8, left: 8),
+      decoration: BoxDecoration(
+        //gradient background
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: game.colors,
+        ),
+        borderRadius: BorderRadius.circular(20),
       ),
-      Game(
-        title: "Jackpot",
-        imagePath: "assets/images/curriculum/jackpot.png",
-        onTap: () async {
-          bool canNavigate = await canNavigateToScreen();
-          if (canNavigate) {
-            Navigator.of(context).pushNamed(AppRoutes.jackpotGame);
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text(
-                  "You can only play this game once a day",
-                  style: TextStyle(
-                    color: Colors.white,
+      child: Container(
+        margin: const EdgeInsets.only(left: 10, right: 10),
+        child: Row(
+          children: [
+            Flexible(
+              child: Image.asset(game.imagePath),
+            ),
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(left: 10),
+                    child: Text(
+                      game.title,
+                      style: const TextStyle(
+                          color: Colors.white, letterSpacing: 3),
+                      maxLines: 1,
+                      overflow: TextOverflow.fade,
+                      softWrap: false,
+                    ),
                   ),
-                ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 20, right: 20),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: ElevatedButton(
+                        onPressed: game.onTap,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: const [
+                            Text("Play"),
+                            Icon(Icons.play_arrow),
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               ),
-            );
-          }
-        },
+            ),
+          ],
+        ),
       ),
-      Game(
-        title: "LogicBot",
-        imagePath: "assets/images/curriculum/logicbot.png",
-        onTap: () {},
-      ),
-      Game(
-        title: "Draw",
-        imagePath: "assets/images/curriculum/draw.png",
-        onTap: () {
-          //Navigator.of(context).pushNamed(AppRoutes.homeDraw);
-          Navigator.pushNamed(context, AppRoutes.listDrawRoom);
-        },
-      ),
-    ];
-
-    return <Widget>[
-      BlocBuilder<CourseCubit, CourseState>(
-        builder: (context, state) {
-          if (state is CourseLoadInProgress) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is CourseSuccess) {
-            final courses = state.courses;
-            return CustomScrollView(
-              slivers: <Widget>[
-                SliverDynamicHeightGridView(
-                  itemCount: courses.length,
-                  crossAxisCount: 2,
-                  builder: (ctx, index) {
-                    final course = courses[index];
-                    return CourseItem(
-                      height: height,
-                      width: width,
-                      imagePath: "assets/images/curriculum/hangman.png",
-                      courseTitle: course.title,
-                      onTap: () {
-                        Navigator.of(context).pushNamed(
-                          AppRoutes.courseDetails,
-                          arguments: course,
-                        );
-                      },
-                    );
-                  },
-                ),
-              ],
-            );
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
-      ),
-      CustomScrollView(
-        slivers: <Widget>[
-          SliverDynamicHeightGridView(
-            itemCount: allGames.length,
-            crossAxisCount: 2,
-            builder: (ctx, index) {
-              final game = allGames[index];
-              return CourseItem(
-                height: height,
-                width: width,
-                imagePath: game.imagePath,
-                courseTitle: game.title,
-                onTap: game.onTap,
-              );
-            },
-          ),
-        ],
-      ),
-    ];
+    );
   }
 }
 
 class Game {
   final String title;
   final String imagePath;
+  final List<Color> colors;
   final void Function() onTap;
 
   Game({
+    required this.colors,
     required this.title,
     required this.imagePath,
     required this.onTap,

@@ -110,7 +110,7 @@ class _MainScreenState extends State<MainScreen> {
           Container(),
           Container()
         ],
-        actionBarView: const MapLevelScreen(),
+        actionBarView: const CourseScreen(),
         extendBody: false,
       ),
     );
