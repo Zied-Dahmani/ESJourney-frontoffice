@@ -1,7 +1,6 @@
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:esjourney/utils/scroll_level.dart';
 import 'package:flutter/material.dart';
-import 'package:game_levels_scrolling_map/game_levels_scrolling_map.dart';
-import 'package:game_levels_scrolling_map/model/point_model.dart';
 
 class MapLevelScreen extends StatefulWidget {
   const MapLevelScreen({Key? key}) : super(key: key);
@@ -13,39 +12,42 @@ class MapLevelScreen extends StatefulWidget {
 class _MapLevelScreenState extends State<MapLevelScreen> {
   @override
   Widget build(BuildContext context) {
-    const imageCount = 1;
+    const imageCount = 4;
     const imageHeight = 2436.0 * imageCount;
     return Scaffold(
       body: Stack(
         children: [
           LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-            return GameLevelsScrollingMap.scrollable(
-              backgroundImageWidget: Column(
-                children: List.generate(
-                  imageCount,
-                  (index) => Image.asset(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              return GameLevelsScrollingMap.scrollable(
+                imageUrl:
                     "assets/images/curriculum/map/map_vertical_infinity.png",
+                direction: Axis.vertical,
+                reverseScrolling: true,
+                svgUrl:
+                    "assets/images/curriculum/map/map_vertical.svg",
+                points: List.generate(
+                  1,
+                  (index) => PointModel(
+                    70,
+                    const GameCourseItem(),
+                    isCurrent: index == 0,
                   ),
                 ),
-              ),
-              imageUrl:
-                  "assets/images/curriculum/map/map_vertical_infinity.png",
-              svgUrl: "assets/images/curriculum/map/map_vertical.svg",
-              points: List.generate(
-                10,
-                (index) => PointModel(
-                  70,
-                  const KGameLevelMapItem(),
-                  isCurrent: index == 0,
+                width: constraints.maxWidth,
+                imageHeight: imageHeight,
+                backgroundImageWidget: Column(
+                  children: List.generate(
+                    imageCount,
+                    (index) => Image.asset(
+                        "assets/images/curriculum/map/map_vertical_infinity.png"),
+                  ),
                 ),
-              ),
-              direction: Axis.vertical,
-              reverseScrolling: false,
-              imageHeight: imageHeight,
-              width: constraints.maxWidth,
-            );
-          }),
+                imageCount: imageCount,
+                pointsPerImage: 5,
+              );
+            },
+          ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
@@ -69,6 +71,118 @@ class _MapLevelScreenState extends State<MapLevelScreen> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class GameCourseItem extends StatelessWidget {
+  const GameCourseItem({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final quizItem = SizedBox(
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.center,
+            child: Opacity(
+              opacity: 1,
+              child: Image.asset(
+                  "assets/images/curriculum/CourseMap/course_ball.png"),
+            ),
+          ),
+          const Align(
+            alignment: Alignment.center,
+            child: Text(
+              "C",
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    return InkWell(
+      child: AvatarGlow(
+        glowColor: Colors.orangeAccent,
+        endRadius: 40.0,
+        child: quizItem,
+      ),
+      onTap: () {},
+    );
+  }
+}
+
+class GameQuizItem extends StatelessWidget {
+  const GameQuizItem({Key? key, required this.onTap}) : super(key: key);
+
+  final void Function()? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final quizItem = SizedBox(
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.center,
+            child: Opacity(
+              opacity: 1,
+              child: Image.asset(
+                  "assets/images/curriculum/CourseMap/question_ball.png"),
+            ),
+          ),
+          const Align(
+            alignment: Alignment.center,
+            child: Text(
+              "?",
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    return InkWell(
+      onTap: onTap,
+      child: AvatarGlow(
+        glowColor: Colors.lightBlue,
+        endRadius: 40.0,
+        child: quizItem,
+      ),
+    );
+  }
+}
+
+class GameStartEndItem extends StatelessWidget {
+  const GameStartEndItem(
+      {Key? key, required this.imagePath, required this.glowColor})
+      : super(key: key);
+  final String imagePath;
+  final Color glowColor;
+
+  @override
+  Widget build(BuildContext context) {
+    final startItem = SizedBox(
+      child: Align(
+        alignment: Alignment.center,
+        child: Opacity(
+          opacity: 1,
+          child: Image.asset(
+            imagePath,
+          ),
+        ),
+      ),
+    );
+
+    return InkWell(
+      child: AvatarGlow(
+        glowColor: glowColor,
+        endRadius: 40.0,
+        child: startItem,
+      ),
+      onTap: () {},
     );
   }
 }

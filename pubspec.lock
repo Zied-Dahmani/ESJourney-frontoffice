@@ -488,14 +488,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.0"
-  game_levels_scrolling_map:
-    dependency: "direct main"
-    description:
-      name: game_levels_scrolling_map
-      sha256: "1509c0b5ad4a6e87dd121d182485a753ce8e19dab737ae82e7e57b807970c19f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.7"
   get_it:
     dependency: "direct main"
     description:
