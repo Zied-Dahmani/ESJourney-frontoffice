@@ -66,6 +66,7 @@ dependencies:
   socket_io_client: ^2.0.1
   game_levels_scrolling_map: ^0.0.7
   carousel_slider: ^4.2.1
+  avatar_glow: ^2.0.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

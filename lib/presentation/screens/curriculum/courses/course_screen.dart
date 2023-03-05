@@ -40,6 +40,7 @@ class _CourseScreenState extends State<CourseScreen> {
   Widget build(BuildContext context) {
     final double width = ScreenSize.width(context);
     final getCourses = BlocProvider.of<CourseCubit>(context);
+    precacheImage(const AssetImage("assets/images/curriculum/map/map_vertical_infinity.png"), context);
 
     List<Game> allGames = [
       Game(
