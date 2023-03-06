@@ -1,7 +1,9 @@
+import 'package:esjourney/presentation/screens/Internship/profileScreen.dart';
 import 'package:flutter/material.dart';
+import 'profileScreen.dart';
 
 class InternshipHomePage extends StatelessWidget {
-  const InternshipHomePage({super.key});
+  const InternshipHomePage({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,69 +17,23 @@ class InternshipHomePage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.4,
-                  height: MediaQuery.of(context).size.width * 0.4,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        offset: Offset(10.0, 10.0),
-                        blurRadius: 10.0,
-                      ),
-                    ],
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                      10.0,
-                    ),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        icon: Icon(
-                          Icons.person,
-                          size: 80.0,
-                          color: Color(0xFFEB4A5A),
-                        ),
-                        onPressed: () {},
-                      ),
-                      SizedBox(height: 10.0),
-                      Text("Add My Info"),
-                    ],
-                  ),
+                _buildContainer(
+                  context: context,
+                  icon: Icons.person,
+                  color: Color(0xFFEB4A5A),
+                  text: "Add My Info",
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ProfileScreen()),
+                    );
+                  },
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.4,
-                  height: MediaQuery.of(context).size.width * 0.4,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        offset: Offset(10.0, 10.0),
-                        blurRadius: 10.0,
-                      ),
-                    ],
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                      10.0,
-                    ),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        icon: Icon(
-                          Icons.add_a_photo,
-                          size: 80.0,
-                          color: Color(0xFFEB4A5A),
-                        ),
-                        onPressed: () {},
-                      ),
-                      SizedBox(height: 10.0),
-                      Text("Add Photo"),
-                    ],
-                  ),
+                _buildContainer(
+                  context: context,
+                  icon: Icons.add_a_photo,
+                  color: Color(0xFFEB4A5A),
+                  text: "Add Photo", onTap: () {  },
                 ),
               ],
             ),
@@ -87,74 +43,66 @@ class InternshipHomePage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.4,
-                  height: MediaQuery.of(context).size.width * 0.4,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        offset: Offset(10.0, 10.0),
-                        blurRadius: 10.0,
-                      ),
-                    ],
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                      10.0,
-                    ),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        icon: Icon(
-                          Icons.add_a_photo,
-                          size: 80.0,
-                          color: Color(0xFFEB4A5A),
-                        ),
-                        onPressed: () {},
-                      ),
-                      SizedBox(height: 10.0),
-                      Text("Add Photo"),
-                    ],
-                  ),
+                _buildContainer(
+                  context: context,
+                  icon: Icons.add_a_photo,
+                  color: Color(0xFFEB4A5A),
+                  text: "Add Photo", onTap: () {  },
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.4,
-                  height: MediaQuery.of(context).size.width * 0.4,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        offset: Offset(10.0, 10.0),
-                        blurRadius: 10.0,
-                      ),
-                    ],
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                      10.0,
-                    ),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        icon: Icon(
-                          Icons.add_a_photo,
-                          size: 80.0,
-                          color: Color(0xFFEB4A5A),
-                        ),
-                        onPressed: () {},
-                      ),
-                      SizedBox(height: 10.0),
-                      Text("Add Photo"),
-                    ],
-                  ),
+                _buildContainer(
+                  context: context,
+                  icon: Icons.add_a_photo,
+                  color: Color(0xFFEB4A5A),
+                  text: "Add Photo", onTap: () {  },
                 ),
               ],
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildContainer({
+    required BuildContext context,
+    required IconData icon,
+    required Color color,
+    required String text,
+    required VoidCallback onTap,
+  }) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.4,
+      height: MediaQuery.of(context).size.width * 0.4,
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26,
+            offset: Offset(10.0, 10.0),
+            blurRadius: 10.0,
+          ),
+        ],
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(
+          10.0,
+        ),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          GestureDetector(
+            onTap: onTap,
+            child: IconButton(
+              icon: Icon(
+                icon,
+                size: 80.0,
+                color: color,
+              ),
+              onPressed: () {},
+            ),
+          ),
+          SizedBox(height: 10.0),
+          Text(text),
+        ],
       ),
     );
   }

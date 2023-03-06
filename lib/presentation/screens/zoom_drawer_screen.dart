@@ -1,11 +1,11 @@
-import 'package:esjourney/presentation/screens/Internship/profile_screen.dart';
+import 'package:esjourney/presentation/screens/Internship/profileScreen.dart';
 import 'package:esjourney/presentation/screens/drawer_screen.dart';
 import 'package:esjourney/presentation/screens/main_screen.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'Internship/InternshipHomePage.dart';
-import 'Internship/profile_screen.dart';
+import 'Internship/profileScreen.dart';
 import 'Internship/JobOpp.dart';
 import 'Internship/InternshipOpp.dart';
 
@@ -49,7 +49,7 @@ class _ZoomDrawerScreenState extends State<ZoomDrawerScreen> {
         return const MainScreen();
       case 1:
         //redirect to internship page here
-        return  const ProfileScreen();
+        return   JobOpp();
       case 2:
         return const MainScreen();
       case 3:

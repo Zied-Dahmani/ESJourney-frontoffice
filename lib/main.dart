@@ -4,6 +4,8 @@ import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/presentation/router/app_router.dart';
 import 'package:esjourney/presentation/screens/Internship/InternshipHomePage.dart';
+import 'package:esjourney/presentation/screens/Internship/postToLinkedin.dart';
+import 'package:esjourney/presentation/screens/Internship/profileScreen.dart';
 import 'package:esjourney/utils/strings.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/foundation.dart';
@@ -84,7 +86,7 @@ class MyApp extends StatelessWidget {
           themeMode: ThemeMode.light,
           onGenerateRoute: _appRouter.onGenerateRoute,
           routes: {
-            '/internshipHomePage': (context) => InternshipHomePage(),
+            '/internshipHomePage': (context) => PostToLinkedinScreen(),
           },
           /*home: BlocBuilder<UserCubit, UserState>(builder: (context, state) {
             if (state is UserLogInSuccess) {
