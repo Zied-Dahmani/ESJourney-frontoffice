@@ -1,7 +1,7 @@
 import 'package:curved_nav_bar/curved_bar/curved_action_bar.dart';
 import 'package:curved_nav_bar/fab_bar/fab_bottom_app_bar_item.dart';
 import 'package:curved_nav_bar/flutter_curved_bottom_nav_bar.dart';
-import 'package:esjourney/presentation/screens/Internship/Internship_home_page.dart';
+import 'package:esjourney/presentation/screens/club/clubs_screen.dart';
 import 'package:esjourney/presentation/widgets/drawer_icon.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +51,7 @@ class _MainScreenState extends State<MainScreen> {
                 color: theme.colorScheme.surface,
               ),
             ),
-            text: ''),
+        text: ''),
         navBarBackgroundColor: theme.colorScheme.surface,
         //activeColor: Colors.yellow,
         //inActiveColor: theme.colorScheme.onBackground,
@@ -64,19 +64,16 @@ class _MainScreenState extends State<MainScreen> {
               inActiveIcon: const Icon(
                 FontAwesomeIcons.house,
               ),
-              text: ''),
+          text: ''),
           FABBottomAppBarItem(
-              activeIcon: GestureDetector(
-                child: Icon(
-                  FontAwesomeIcons.briefcase,
-                  color: theme.colorScheme.primary,
-                ),
+              activeIcon: Icon(
+                FontAwesomeIcons.briefcase,
+                color: theme.colorScheme.primary,
               ),
               inActiveIcon: const Icon(
                 FontAwesomeIcons.briefcase,
               ),
-              text: ''
-          ),
+          text: ''),
           FABBottomAppBarItem(
               activeIcon: Icon(
                 FontAwesomeIcons.graduationCap,
@@ -85,7 +82,7 @@ class _MainScreenState extends State<MainScreen> {
               inActiveIcon: const Icon(
                 FontAwesomeIcons.graduationCap,
               ),
-              text: ''),
+          text: ''),
           FABBottomAppBarItem(
               activeIcon: Icon(
                 FontAwesomeIcons.peopleGroup,
@@ -94,15 +91,16 @@ class _MainScreenState extends State<MainScreen> {
               inActiveIcon: const Icon(
                 FontAwesomeIcons.peopleGroup,
               ),
-              text: ''),
+          text: ''),
         ],
         bodyItems: [
           Container(
             color: theme.colorScheme.background,
           ),
-          const InternshipHomePage(),
           Container(),
-          Container()
+          Container(),
+          Container(),
+          //const ClubsScreen()
         ],
         actionBarView: Container(),
       ),

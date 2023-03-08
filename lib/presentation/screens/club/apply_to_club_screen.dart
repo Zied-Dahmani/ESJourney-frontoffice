@@ -14,7 +14,7 @@ class _ApplyToClubScreenState extends State<ApplyToClubScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  const Text(AppStrings.kapply),
+        title: const Text(AppStrings.kapply),
       ),
       // TODO Stepper
       body: Container()

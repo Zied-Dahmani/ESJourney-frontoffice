@@ -20,7 +20,7 @@ class AppRouter {
           builder: (_) => const ZoomDrawerScreen(),
         );
 
-    // Zied
+      // Zied
       case AppRoutes.clubScreen:
         return MaterialPageRoute(
           builder: (_) => ClubScreen(club: args),
