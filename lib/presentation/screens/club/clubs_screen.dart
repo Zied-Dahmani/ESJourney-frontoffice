@@ -2,6 +2,7 @@ import 'package:esjourney/logic/cubits/club/club_cubit.dart';
 import 'package:esjourney/logic/cubits/club/club_state.dart';
 import 'package:esjourney/presentation/widgets/club/clubs_list.dart';
 import 'package:esjourney/presentation/widgets/club/loading_clubs_list.dart';
+import 'package:esjourney/presentation/widgets/empty_list.dart';
 import 'package:esjourney/utils/strings.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
@@ -35,18 +36,7 @@ class ClubsScreen extends StatelessWidget {
               return state is ClubLoadSuccess && state.clubs.isNotEmpty
                   ? ClubsList(clubs: state.clubs)
                   : state is ClubLoadSuccess
-                      ? Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                                height: AppSizes.khugeImageSize,
-                                width: AppSizes.khugeImageSize,
-                                child: SvgPicture.asset('assets/images/sad.svg')),
-                            const SizedBox(height: AppSizes.kbigSpace),
-                            Text(AppStrings.knoClubs, style: Theme.of(context).textTheme.bodyMedium!)
-                          ],
-                        )
+                  ? const EmptyList(text:AppStrings.knoClubs)
                       : state is ClubLoadInProgress || state is ClubLoadFailure
                           ? const LoadingClubsList()
                           : const SizedBox();

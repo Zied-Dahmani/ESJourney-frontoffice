@@ -1,22 +1,17 @@
 import 'dart:async';
 import 'dart:developer' as developer;
 import 'package:esjourney/data/models/club_model.dart';
-import 'package:esjourney/data/repositories/club/club_repository.dart';
 import 'package:esjourney/logic/cubits/club/club_state.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
-import 'package:esjourney/logic/cubits/user/user_cubit.dart';
-import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/utils/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ClubCubit extends Cubit<ClubState> {
-  ClubCubit(this._connectivityCubit,this._userCubit) : super(ClubLoadInProgress()) {
+  ClubCubit(this._connectivityCubit,this._userCubit, this._clubRepository) : super(ClubLoadInProgress()) {
     init();
   }
 
-  final _clubRepository = ClubRepository();
-  final ConnectivityCubit _connectivityCubit;
-  final UserCubit _userCubit;
+  final _connectivityCubit,_clubRepository,_userCubit;
   StreamSubscription? _connectivityStreamSubscription;
 
 

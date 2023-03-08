@@ -1,3 +1,5 @@
+import 'package:esjourney/data/models/application_model.dart';
+import 'package:esjourney/data/models/club_event_model.dart';
 import 'package:esjourney/data/models/club_model.dart';
 import 'package:esjourney/data/providers/club_data_provider.dart';
 import 'package:esjourney/data/repositories/club/club_repository_interface.dart';
@@ -12,4 +14,22 @@ class ClubRepository implements IClubRepository {
         ? result.data.map((club) => Club.fromJson(club)).toList()
         : null;
   }
+
+  @override
+  Future<dynamic> getAllClubEvents() async {
+    final result = await _clubDataProvider.getAllClubEvents();
+    return result.statusCode == 200
+        ? result.data.map((clubEvent) => ClubEvent.fromJson(clubEvent)).toList()
+        : null;
+  }
+
+  @override
+  Future getAllApplications() async {
+    final result = await _clubDataProvider.getAllApplications();
+    return result.statusCode == 200
+        ? result.data.map((application) => Application.fromJson(application)).toList()
+        : null;
+  }
+
+
 }

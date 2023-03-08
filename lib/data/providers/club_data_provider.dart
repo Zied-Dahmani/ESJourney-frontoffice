@@ -18,4 +18,28 @@ class ClubDataProvider {
       ),
     );
   }
+
+  Future<Response> getAllClubEvents() async {
+    return await dio.request(
+      kgetAllClubEvents,
+      options: Options(
+        method: 'GET',
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+  }
+
+  Future<Response> getAllApplications() async {
+    return await dio.request(
+      kgetAllApplications,
+      options: Options(
+        method: 'GET',
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+  }
 }

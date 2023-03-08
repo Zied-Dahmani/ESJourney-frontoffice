@@ -7,6 +7,8 @@ import 'package:esjourney/utils/screen_size.dart';
 import 'package:esjourney/utils/strings.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class ClubScreen extends StatefulWidget {
   ClubScreen({Key? key, this.club}) : super(key: key);
@@ -102,8 +104,16 @@ class _ClubScreenState extends State<ClubScreen> {
               child: ButtonWidget(
                   text: AppStrings.kapply,
                   function: () {
-                    Navigator.of(context)
-                        .pushNamed(AppRoutes.applyToClubScreen);
+                    if (widget.club.deadline.compareTo(DateTime.now()) > 0) {
+                      Navigator.of(context).pushNamed(AppRoutes.applyToClubScreen);
+                    } else {
+                      showTopSnackBar(
+                        Overlay.of(context)!,
+                        const CustomSnackBar.error(
+                          message: AppStrings.kdeadlineHasGonePast,
+                        ),
+                      );
+                    }
                   }),
             ),
           )

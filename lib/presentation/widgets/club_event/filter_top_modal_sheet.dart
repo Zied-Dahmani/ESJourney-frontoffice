@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FilterTopModalSheet extends StatefulWidget {
-  FilterTopModalSheet({Key? key}) : super(key: key);
+  const FilterTopModalSheet({Key? key, this.context}) : super(key: key);
+
+  final context;
 
   @override
   State<FilterTopModalSheet> createState() => _FilterTopModalSheetState();
@@ -17,10 +19,10 @@ class _FilterTopModalSheetState extends State<FilterTopModalSheet> {
   int _currentIndex = 0;
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+  Widget build(BuildContext _) {
+    final theme = Theme.of(_);
     return Container(
-      height: ScreenSize.height(context) / 4.5,
+      height: ScreenSize.height(_) / 4.5,
       color: theme.colorScheme.background,
       child: SafeArea(
         child: Column(
@@ -45,7 +47,7 @@ class _FilterTopModalSheetState extends State<FilterTopModalSheet> {
                                 setState(() {
                                   _currentIndex = index;
                                 });
-                                BlocProvider.of<ClubEventCubit>(context).filter(ClubEventType.values[index]);
+                                BlocProvider.of<ClubEventCubit>(widget.context).filter(ClubEventType.values[index]);
                               },
                               child: Container(
                                 margin: const EdgeInsets.only(right: AppSizes.ksmallSpace),

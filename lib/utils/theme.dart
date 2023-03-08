@@ -108,6 +108,8 @@ class AppSizes {
   static const ktimeLineIcon = 30.0;
   static const ktimelineDotSize = 15.0;
 
+  static const kcardHeight = 150.0;
+
 
 
 

@@ -3,6 +3,7 @@ const ksignUp = 'user/signUp';
 const ksignIn = 'user/signIn';
 const kgetAllClubs = 'club/getAll';
 const kgetAllClubEvents = 'clubEvent/getAll';
+const kgetAllApplications = 'application/getAll';
 
 
 const kcheckInternetConnection = 'Check your internet connection!';

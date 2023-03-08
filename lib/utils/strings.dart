@@ -26,6 +26,7 @@ class AppStrings {
   static const kdescription = 'Description';
   static const kstories = 'Stories';
   static const kapply = 'Apply';
+  static const kdeadlineHasGonePast = 'The deadline has gone past';
   static const kcontinue = 'Continue';
   static const kapplyToClubTitle1 = 'Personal information';
   static const kapplyToClubTitle2 = 'Why us?';
@@ -44,6 +45,8 @@ class AppStrings {
   static const kturnOnLocation = 'Turn on location!';
   static const keventType = 'Event Type';
   static const ktimeline = 'Timeline';
+
+  static const knoApplications = 'No applications';
 
   // Louay
 

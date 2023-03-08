@@ -100,14 +100,14 @@ class _ClubEventsMapScreenState extends State<ClubEventsMapScreen>
             ),
             const Positioned(
                 left: AppSizes.ksmallSpace,
-                top: AppSizes.khugeSpace,
+                top: AppSizes.khugeSpace * 1.3,
                 child: DrawerIcon()),
             Positioned(
                 right: AppSizes.ksmallSpace,
-                top: AppSizes.khugeSpace,
+                top: AppSizes.khugeSpace * 1.3,
                 child: IconButton(
                   onPressed: () async {
-                    await showTopModalSheet(context, FilterTopModalSheet());
+                    await showTopModalSheet(context, FilterTopModalSheet(context:context));
                   },
                   icon: const Icon(FontAwesomeIcons.filter),
                 )),

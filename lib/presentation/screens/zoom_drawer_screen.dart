@@ -1,3 +1,4 @@
+import 'package:esjourney/presentation/screens/application/applications_screen.dart';
 import 'package:esjourney/presentation/screens/club_event/club_events_map_screen.dart';
 import 'package:esjourney/presentation/screens/drawer_screen.dart';
 import 'package:esjourney/presentation/screens/main_screen.dart';
@@ -47,7 +48,7 @@ class _ZoomDrawerScreenState extends State<ZoomDrawerScreen> {
       case 2:
         return const ClubEventsMapScreen();
       case 3:
-        return const MainScreen();
+        return const ApplicationsScreen();
       case 4:
         return const MainScreen();
       default:

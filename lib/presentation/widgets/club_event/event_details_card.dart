@@ -2,6 +2,8 @@ import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/utils/constants.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class EventDetailsCard extends StatelessWidget {
@@ -46,6 +48,13 @@ class EventDetailsCard extends StatelessWidget {
                       borderRadius: const BorderRadius.all(Radius.circular(AppSizes.kradius)),
                       image: DecorationImage(image: NetworkImage('$kbaseUrl${clubEvent.image}'), fit: BoxFit.fitHeight),
                     ),
+                  ).animate(
+                    delay: 1000.ms,
+                    onPlay: (controller) => controller.repeat(), // loop
+                  ).shimmer(
+                    delay: 1500.ms,
+                    duration: 1000.ms,
+                    stops: [0.0, 0.5, 1.0],
                   ),
                   const SizedBox(width: AppSizes.ksmallSpace),
                   Expanded(
