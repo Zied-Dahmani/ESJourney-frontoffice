@@ -72,7 +72,9 @@ ThemeData lightTheme = ThemeData(
     snackBarTheme: const SnackBarThemeData(
       backgroundColor: Color(0xFFEB4A5A),
       contentTextStyle: TextStyle(fontSize: 16.0, color: Colors.white),
-    ));
+    ),
+
+);
 
 class AppSizes {
   static const khugeSpace = 28.0;
@@ -85,6 +87,6 @@ class AppSizes {
   static const kbuttonHeight = 56.0;
   static const kimageSize = 180.0;
   static const kiconSize = 24.0;
-  static const kiconBackgroundSize = 60.0;
+  static const kiconBackgroundSize = 54.0;
   static const kiconBackgroundRadius = 99.0;
 }
