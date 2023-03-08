@@ -1,3 +1,4 @@
+import 'package:esjourney/presentation/screens/Internship/profileScreen.dart';
 import 'package:flutter/material.dart';
 
 class InternshipHomePage extends StatelessWidget {
@@ -20,7 +21,7 @@ class InternshipHomePage extends StatelessWidget {
                   height: MediaQuery.of(context).size.width * 0.4,
                   decoration: BoxDecoration(
                     boxShadow: [
-                      BoxShadow(
+                      const BoxShadow(
                         color: Colors.black26,
                         offset: Offset(10.0, 10.0),
                         blurRadius: 10.0,
@@ -35,15 +36,22 @@ class InternshipHomePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.person,
                           size: 80.0,
                           color: Color(0xFFEB4A5A),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ProfileScreen(),
+                            ),
+                          );
+                        },
                       ),
-                      SizedBox(height: 10.0),
-                      Text("Add My Info"),
+                      const SizedBox(height: 10.0),
+                      const Text("Add My Info"),
                     ],
                   ),
                 ),
@@ -52,7 +60,7 @@ class InternshipHomePage extends StatelessWidget {
                   height: MediaQuery.of(context).size.width * 0.4,
                   decoration: BoxDecoration(
                     boxShadow: [
-                      BoxShadow(
+                      const BoxShadow(
                         color: Colors.black26,
                         offset: Offset(10.0, 10.0),
                         blurRadius: 10.0,
@@ -67,21 +75,21 @@ class InternshipHomePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.add_a_photo,
                           size: 80.0,
                           color: Color(0xFFEB4A5A),
                         ),
                         onPressed: () {},
                       ),
-                      SizedBox(height: 10.0),
-                      Text("Add Photo"),
+                      const SizedBox(height: 10.0),
+                      const Text("Add Photo"),
                     ],
                   ),
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
             Row(
@@ -92,7 +100,7 @@ class InternshipHomePage extends StatelessWidget {
                   height: MediaQuery.of(context).size.width * 0.4,
                   decoration: BoxDecoration(
                     boxShadow: [
-                      BoxShadow(
+                      const BoxShadow(
                         color: Colors.black26,
                         offset: Offset(10.0, 10.0),
                         blurRadius: 10.0,
@@ -107,15 +115,15 @@ class InternshipHomePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.add_a_photo,
                           size: 80.0,
                           color: Color(0xFFEB4A5A),
                         ),
                         onPressed: () {},
                       ),
-                      SizedBox(height: 10.0),
-                      Text("Add Photo"),
+                      const SizedBox(height: 10.0),
+                      const Text("Add Photo"),
                     ],
                   ),
                 ),
@@ -124,7 +132,7 @@ class InternshipHomePage extends StatelessWidget {
                   height: MediaQuery.of(context).size.width * 0.4,
                   decoration: BoxDecoration(
                     boxShadow: [
-                      BoxShadow(
+                      const BoxShadow(
                         color: Colors.black26,
                         offset: Offset(10.0, 10.0),
                         blurRadius: 10.0,
@@ -139,15 +147,15 @@ class InternshipHomePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.add_a_photo,
                           size: 80.0,
                           color: Color(0xFFEB4A5A),
                         ),
                         onPressed: () {},
                       ),
-                      SizedBox(height: 10.0),
-                      Text("Add Photo"),
+                      const SizedBox(height: 10.0),
+                      const Text("Add Photo"),
                     ],
                   ),
                 ),

@@ -19,6 +19,7 @@ class AppStrings {
 
 
   // Zied
+  static const kapply = 'Apply';
 
   // Louay
 
