@@ -5,27 +5,28 @@ import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/animations/face_id_animation_controller.dart';
 import 'package:esjourney/presentation/animations/face_id_painter.dart';
+import 'package:esjourney/presentation/router/routes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-class QRViewExample extends StatefulWidget {
-  const QRViewExample({
+class ScanQrCodeScreen extends StatefulWidget {
+  const ScanQrCodeScreen({
     Key? key,
     this.customPaintSize = 200.0,
   }) : super(key: key);
   final double customPaintSize;
   @override
-  State<StatefulWidget> createState() => _QRViewExampleState();
+  State<StatefulWidget> createState() => _ScanQrCodeScreenState();
 }
 
 String senderWalletAddress = "";
 String senderPrivateKey = "";
 String receiverToken = "";
 double  amount = 0.1;
-class _QRViewExampleState extends State<QRViewExample>     with SingleTickerProviderStateMixin {
+class _ScanQrCodeScreenState extends State<ScanQrCodeScreen>     with SingleTickerProviderStateMixin {
   Barcode? result;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
@@ -147,7 +148,7 @@ class _QRViewExampleState extends State<QRViewExample>     with SingleTickerProv
               ],
             );
           } else {
-            return CircularProgressIndicator();
+            return Text("");
           }
         },
       ),
@@ -164,6 +165,7 @@ class _QRViewExampleState extends State<QRViewExample>     with SingleTickerProv
     // we need to listen for Flutter SizeChanged notification and update controller
     return QRView(
       key: qrKey,
+
       onQRViewCreated: _onQRViewCreated,
       overlay: QrScannerOverlayShape(
           borderColor: Colors.red,
@@ -188,6 +190,7 @@ class _QRViewExampleState extends State<QRViewExample>     with SingleTickerProv
 
         senderWalletAddress = dataList[0];
         senderPrivateKey = dataList[1];
+        amount = double.parse(dataList[2]);
       });
 
 
@@ -196,18 +199,19 @@ class _QRViewExampleState extends State<QRViewExample>     with SingleTickerProv
         senderPrivateKey,
         amount,
         receiverToken,
+      ).then((value) =>
+     // navigate to done screen
+      Navigator.of(context).pushNamed(AppRoutes.doneScreen)
       );
+
+      // play sound
        AudioPlayer audioPlayer = AudioPlayer();
        audioPlayer.setAsset('assets/sound/scan_complete.mp3');
-       audioPlayer.play();
+        audioPlayer.play();
 
     });
 
-    /*controller.scannedDataStream.first.then((scanData) {
-      print("scan data ${scanData.code}");
-      print("scan complete last");
 
-    });*/
   }
 
   void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {

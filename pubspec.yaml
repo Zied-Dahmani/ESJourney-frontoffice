@@ -64,6 +64,8 @@ dependencies:
   qr_code_scanner: ^1.0.1
   flutter_animate: ^4.1.0
   audioplayers: ^3.0.1
+  geolocator: ^9.0.2
+  ar_flutter_plugin: ^0.7.3
 
 
 

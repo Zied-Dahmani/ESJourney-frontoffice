@@ -18,6 +18,7 @@ class AppRoutes {
   static const quizResult = '/quizResult';
   static const leaderboardScreen = '/leaderboard';
   static const ethQrCodeScreen = '/ethQrCode';
+  static const doneScreen = '/scanComplete';
 
 // Seif
 

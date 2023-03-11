@@ -67,7 +67,7 @@ void main() async {
         : await getTemporaryDirectory(),
   );
   BlocOverrides.runZoned(
-        () {
+    () {
       runApp(MyApp());
     },
     blocObserver: AppBlocObserver(),
@@ -92,13 +92,16 @@ class MyApp extends StatelessWidget {
               create: (context) => ConnectivityCubit(), lazy: false),
           BlocProvider<UserCubit>(create: (context) => UserCubit(), lazy: true),
           BlocProvider<QuizCubit>(create: (context) => QuizCubit(), lazy: true),
-          BlocProvider<CourseCubit>(create: (context) => CourseCubit(), lazy: true),
-          BlocProvider<LeaderboardCubit>(create: (context) => LeaderboardCubit(), lazy: true),
-          BlocProvider<CodingProblemCubit>(create: (context) => CodingProblemCubit(), lazy: true),
-          BlocProvider<SubmissionCubit>(create: (context) => SubmissionCubit(), lazy: true),
-          BlocProvider<TopSolutionsCubit>(create: (context) => TopSolutionsCubit(), lazy: true),
-
-
+          BlocProvider<CourseCubit>(
+              create: (context) => CourseCubit(), lazy: true),
+          BlocProvider<LeaderboardCubit>(
+              create: (context) => LeaderboardCubit(), lazy: true),
+          BlocProvider<CodingProblemCubit>(
+              create: (context) => CodingProblemCubit(), lazy: true),
+          BlocProvider<SubmissionCubit>(
+              create: (context) => SubmissionCubit(), lazy: true),
+          BlocProvider<TopSolutionsCubit>(
+              create: (context) => TopSolutionsCubit(), lazy: true),
         ],
         child: MaterialApp(
           title: 'ESJourney',
@@ -108,13 +111,15 @@ class MyApp extends StatelessWidget {
           themeMode: ThemeMode.light,
           onGenerateRoute: _appRouter.onGenerateRoute,
           home: BlocBuilder<UserCubit, UserState>(
-            buildWhen: (oldState, newState) => oldState is UserInitial && newState is! UserLoadInProgress,
+            buildWhen: (oldState, newState) =>
+                oldState is UserInitial && newState is! UserLoadInProgress,
             builder: (context, state) {
-              if(state is UserLogInSuccess) {
-                return TestScreen ()  ;
+              if (state is UserLogInSuccess) {
+                return TestScreen();
 
-                  //TestScreen();
-                
+                // EthQrCodeScreen();
+
+                ScanQrCodeScreen();
               } else {
                 return SignInScreen();
               }
