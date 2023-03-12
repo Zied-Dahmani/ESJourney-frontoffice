@@ -272,7 +272,6 @@ class _QuizScreenState extends State<QuizScreen> {
                             AppRoutes.quizResult,
                             arguments: _userScore,
                           );
-                          print("hereeeree");
                           BlocProvider.of<UserCubit>(context).answerQuiz(0.01, _token);
                           return;
                         }

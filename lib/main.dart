@@ -15,6 +15,8 @@ import 'package:esjourney/presentation/screens/challenges/ide/ide_screen.dart';
 import 'package:esjourney/presentation/screens/challenges/leaderboard/leaderboard_screen.dart';
 import 'package:esjourney/presentation/screens/challenges/quiz/quiz.dart';
 import 'package:esjourney/presentation/screens/challenges/quiz/quiz_result.dart';
+import 'package:esjourney/presentation/screens/profile/edit_profile/edit_profile_screen.dart';
+import 'package:esjourney/presentation/screens/profile/profile_screen.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
 import 'package:esjourney/presentation/screens/test_screen.dart';
 import 'package:esjourney/utils/strings.dart';
@@ -115,7 +117,7 @@ class MyApp extends StatelessWidget {
                 oldState is UserInitial && newState is! UserLoadInProgress,
             builder: (context, state) {
               if (state is UserLogInSuccess) {
-                return TestScreen();
+                return EditProfileScreen();
 
                 // EthQrCodeScreen();
 
