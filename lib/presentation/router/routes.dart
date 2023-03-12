@@ -10,7 +10,6 @@ class AppRoutes {
   // Louay
   static const courses = '/courses';
   static const courseDetails = '/courseDetails';
-  static const levelMap = '/levelMap';
   static const jackpotGame = '/jackpot';
   static const wordlyGame = '/wordly';
   static const memoryGame = '/memory';

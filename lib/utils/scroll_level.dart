@@ -38,30 +38,32 @@ class LoadingProgress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-      },
+      onTap: () {},
       child: Container(
-          color: Colors.black38,
-          width: double.infinity,
-          height: 150,
-          child: Center(
-              child: Card(
-                  elevation: 10,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(20.0),
-                    child: SizedBox(
-                      height: 70,
-                      width: 70,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 6,
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                            Colors.lightBlueAccent),
-                      ),
-                    ),
-                  ),),),),
+        color: Colors.black38,
+        width: double.infinity,
+        height: 150,
+        child: Center(
+          child: Card(
+            elevation: 10,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            child: const Padding(
+              padding: EdgeInsets.all(20.0),
+              child: SizedBox(
+                height: 70,
+                width: 70,
+                child: CircularProgressIndicator(
+                  strokeWidth: 6,
+                  valueColor:
+                      AlwaysStoppedAnimation<Color>(Colors.lightBlueAccent),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -179,7 +181,6 @@ class _GameLevelsScrollingMapState extends State<GameLevelsScrollingMap> {
   void initDeviceDimensions() {
     Q.deviceWidth = MediaQuery.of(context).size.width;
     Q.deviceHeight = MediaQuery.of(context).size.height;
-
   }
 
   void initDefaults() {
@@ -200,7 +201,6 @@ class _GameLevelsScrollingMapState extends State<GameLevelsScrollingMap> {
     if (widget.width == double.infinity) {
       widget.width = Q.deviceWidth;
     }
-
   }
 
   final _scrollController = ScrollController();
@@ -284,7 +284,6 @@ class _GameLevelsScrollingMapState extends State<GameLevelsScrollingMap> {
     imageWidth = widget.imageWidth ?? image!.width.toDouble();
     imageHeight = widget.imageHeight ?? image!.height.toDouble();
 
-
     aspectRatio = imageWidth / imageHeight;
 
     if (widget.isScrollable) {
@@ -300,7 +299,6 @@ class _GameLevelsScrollingMapState extends State<GameLevelsScrollingMap> {
       maxHeight = widget.height!;
       aspectRatio = widget.width! / widget.height!;
     }
-
 
     widgets.add(backgroundImage());
     drawPoints();

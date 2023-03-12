@@ -5,7 +5,6 @@ import 'package:esjourney/presentation/screens/curriculum/chat/conversation_scre
 import 'package:esjourney/presentation/screens/curriculum/chat/grade_chat_room_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/messages_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/courses/course_detail_screen.dart';
-import 'package:esjourney/presentation/screens/curriculum/courses/level_map_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/draw/feature/draw/presentation/drawing_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/draw/feature/room/presentation/room_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/hangman/screens/hangman_screen.dart';
@@ -93,37 +92,35 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const HangmanScreen());
 
       case AppRoutes.messages:
-        return MaterialPageRoute(builder: (_) =>  const MessagesScreen());
+        return MaterialPageRoute(builder: (_) => const MessagesScreen());
 
       case AppRoutes.mapLevels:
-        return MaterialPageRoute(builder: (_) =>  const MapLevelScreen());
+        return MaterialPageRoute(
+            builder: (_) => MapLevelScreen(myCourses: args as List<dynamic>));
 
       case AppRoutes.gradeChatRoom:
         final Map<String, dynamic> argsMap = args as Map<String, dynamic>;
         final int grade = argsMap['grade'] as int;
         final String token = argsMap['token'] as String;
         final String myUsername = argsMap['myUsername'] as String;
-        return MaterialPageRoute(builder: (_) =>  ChatGradeRoomScreen(
-          grade: grade,
-          token: token,
-          myUsername: myUsername,
-        ));
+        return MaterialPageRoute(
+          builder: (_) => ChatGradeRoomScreen(
+            grade: grade,
+            token: token,
+            myUsername: myUsername,
+          ),
+        );
 
       case AppRoutes.conversation:
         final Map<String, dynamic> argsMap = args as Map<String, dynamic>;
         final User receiver = argsMap['receiver'] as User;
         final String myUsername = argsMap['myUsername'] as String;
         final String token = argsMap['token'] as String;
-        return MaterialPageRoute(builder: (_) =>  ConversationScreen(
-          receiver: receiver,
-          myUsername: myUsername,
-          token: token,
-        ));
-
-      case AppRoutes.levelMap:
         return MaterialPageRoute(
-          builder: (_) => LevelMapScreen(
-            grade: args as int,
+          builder: (_) => ConversationScreen(
+            receiver: receiver,
+            myUsername: myUsername,
+            token: token,
           ),
         );
 

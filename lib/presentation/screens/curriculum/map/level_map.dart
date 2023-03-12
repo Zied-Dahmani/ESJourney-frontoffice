@@ -1,19 +1,22 @@
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/utils/scroll_level.dart';
 import 'package:flutter/material.dart';
 
 class MapLevelScreen extends StatefulWidget {
-  const MapLevelScreen({Key? key}) : super(key: key);
+  const MapLevelScreen({Key? key, required this.myCourses}) : super(key: key);
+  final List<dynamic> myCourses;
 
   @override
   State<MapLevelScreen> createState() => _MapLevelScreenState();
 }
 
 class _MapLevelScreenState extends State<MapLevelScreen> {
+
   @override
   Widget build(BuildContext context) {
-    const imageCount = 4;
-    const imageHeight = 2436.0 * imageCount;
+    final imageCount = widget.myCourses.length;
+    final imageHeight = 2436.0 * imageCount;
     return Scaffold(
       body: Stack(
         children: [
@@ -24,16 +27,24 @@ class _MapLevelScreenState extends State<MapLevelScreen> {
                     "assets/images/curriculum/map/map_vertical_infinity.png",
                 direction: Axis.vertical,
                 reverseScrolling: true,
-                svgUrl:
-                    "assets/images/curriculum/map/map_vertical.svg",
-                points: List.generate(
-                  1,
-                  (index) => PointModel(
-                    70,
-                    const GameCourseItem(),
-                    isCurrent: index == 0,
-                  ),
-                ),
+                svgUrl: "assets/images/curriculum/map/map_vertical.svg",
+                points: [
+                  for (var course in widget.myCourses) ...[
+                    PointModel(70, GameCourseItem(courseTitle: course.title)),
+                    PointModel(
+                      70,
+                      GameLevelMapItem(
+                        isCompleted: false,
+                        myRate: 0,
+                        onTap: () {
+                          Navigator.of(context)
+                              .pushNamed(AppRoutes.hangmanGame);
+                        },
+                      ),
+                    ),
+                    PointModel(70, GameQuizItem(onTap: () {})),
+                  ]
+                ],
                 width: constraints.maxWidth,
                 imageHeight: imageHeight,
                 backgroundImageWidget: Column(
@@ -44,30 +55,9 @@ class _MapLevelScreenState extends State<MapLevelScreen> {
                   ),
                 ),
                 imageCount: imageCount,
-                pointsPerImage: 5,
+                pointsPerImage: 6,
               );
             },
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              margin: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: const Color(0xFFEB4A5A),
-              ),
-              child: const Text(
-                "Course Title",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
           ),
         ],
       ),
@@ -75,40 +65,77 @@ class _MapLevelScreenState extends State<MapLevelScreen> {
   }
 }
 
-class GameCourseItem extends StatelessWidget {
-  const GameCourseItem({Key? key}) : super(key: key);
+class GameLevelMapItem extends StatelessWidget {
+  const GameLevelMapItem({super.key, required this.onTap,required this.isCompleted ,required this.myRate});
+
+  final bool isCompleted ;
+  final int myRate ;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    final quizItem = SizedBox(
-      child: Stack(
-        children: [
-          Align(
-            alignment: Alignment.center,
-            child: Opacity(
-              opacity: 1,
-              child: Image.asset(
-                  "assets/images/curriculum/CourseMap/course_ball.png"),
+    const lockedImage = "assets/images/curriculum/CourseMap/eggLocked.png";
+    const unlockedImage = "assets/images/curriculum/CourseMap/eggUnlocked.png";
+    final levelItem = SizedBox(
+      height: 70,
+      width: 70,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Opacity(
+                opacity: 1,
+                child: Image.asset(
+                  "assets/images/curriculum/CourseMap/nest.png",
+                  fit: BoxFit.fitWidth,
+                  width: 70,
+                ),
+              ),
             ),
-          ),
-          const Align(
-            alignment: Alignment.center,
-            child: Text(
-              "C",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            Align(
+              alignment: Alignment.center,
+              child: Opacity(
+                opacity: 1,
+                child: Image.asset(
+                  isCompleted ? unlockedImage : lockedImage,
+                  width: 60,
+                  height: 60,
+                ),
+              ),
             ),
-          ),
-        ],
+            Align(
+              alignment: Alignment.topCenter,
+              child: FittedBox(
+                child: Row(
+                  children: [
+                    ...List.generate(
+                      myRate,
+                          (index) => const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                    ),
+                    ...List.generate(
+                      3 - myRate,
+                          (index) => const Icon(
+                        Icons.star_border,
+                        color: Colors.amber,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
 
     return InkWell(
       child: AvatarGlow(
-        glowColor: Colors.orangeAccent,
-        endRadius: 40.0,
-        child: quizItem,
-      ),
+          glowColor: Colors.yellowAccent, endRadius: 40.0, child: levelItem),
       onTap: () {},
     );
   }
@@ -155,91 +182,29 @@ class GameQuizItem extends StatelessWidget {
   }
 }
 
-class GameStartEndItem extends StatelessWidget {
-  const GameStartEndItem(
-      {Key? key, required this.imagePath, required this.glowColor})
-      : super(key: key);
-  final String imagePath;
-  final Color glowColor;
+class GameCourseItem extends StatelessWidget {
+  const GameCourseItem({Key? key, required this.courseTitle}) : super(key: key);
+  final String courseTitle;
 
   @override
   Widget build(BuildContext context) {
-    final startItem = SizedBox(
-      child: Align(
-        alignment: Alignment.center,
-        child: Opacity(
-          opacity: 1,
-          child: Image.asset(
-            imagePath,
-          ),
-        ),
-      ),
-    );
-
-    return InkWell(
-      child: AvatarGlow(
-        glowColor: glowColor,
-        endRadius: 40.0,
-        child: startItem,
-      ),
-      onTap: () {},
-    );
-  }
-}
-
-class KGameLevelMapItem extends StatelessWidget {
-  const KGameLevelMapItem({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final levelItem = SizedBox(
-      height: 70,
-      width: 70,
+    final quizItem = SizedBox(
       child: Stack(
         children: [
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Opacity(
-              opacity: 1,
-              child: Image.asset(
-                "assets/images/curriculum/CourseMap/nest.png",
-                fit: BoxFit.fitWidth,
-                width: 70,
-              ),
-            ),
-          ),
           Align(
             alignment: Alignment.center,
             child: Opacity(
               opacity: 1,
               child: Image.asset(
-                "assets/images/curriculum/CourseMap/heroegg_without_space.png",
-                width: 45,
-                height: 45,
-              ),
+                  "assets/images/curriculum/CourseMap/course_ball.png"),
             ),
           ),
           Align(
-            alignment: Alignment.topCenter,
-            child: FittedBox(
-              child: Row(
-                children: [
-                  ...List.generate(
-                    3,
-                    (index) => const Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                    ),
-                  ),
-                  ...List.generate(
-                    3 - 3,
-                    (index) => const Icon(
-                      Icons.star_border,
-                      color: Colors.amber,
-                    ),
-                  ),
-                ],
-              ),
+            alignment: Alignment.center,
+            child: Text(
+              courseTitle,
+              style: const TextStyle(
+                  color: Colors.white, fontWeight: FontWeight.bold),
             ),
           ),
         ],
@@ -248,7 +213,10 @@ class KGameLevelMapItem extends StatelessWidget {
 
     return InkWell(
       child: AvatarGlow(
-          glowColor: Colors.yellowAccent, endRadius: 40.0, child: levelItem),
+        glowColor: Colors.orangeAccent,
+        endRadius: 40.0,
+        child: quizItem,
+      ),
       onTap: () {},
     );
   }

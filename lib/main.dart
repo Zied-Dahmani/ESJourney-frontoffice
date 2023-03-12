@@ -1,5 +1,4 @@
 import 'package:esjourney/data/repositories/chat/chat_service.dart';
-import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/logic/app_bloc_observer.dart';
 import 'package:esjourney/logic/cubits/chat/user/users_cubit.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
@@ -7,6 +6,7 @@ import 'package:esjourney/logic/cubits/curriculum/course_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/router/app_router.dart';
+import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/draw/core/bloc/user_cubit/drawer_cubit.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
 import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
@@ -83,43 +83,44 @@ class MyApp extends StatelessWidget {
     ]);
 
     return MultiBlocProvider(
-        providers: [
-          //start game providers
-          ChangeNotifierProvider(create: (_) => Controller()),
-          ChangeNotifierProvider(create: (context) => BoardController()),
-          ChangeNotifierProvider(create: (context) => Navigation()),
-          BlocProvider(create: (context) => DrawerCubit()),
-          //end game providers
-          //chat provider
-          ChangeNotifierProvider(create: (context) => SocketService()),
-          ChangeNotifierProvider(create: (context) => ChatService()),
-          BlocProvider<UsersDataCubit>(
-              create: (context) => UsersDataCubit(), lazy: true),
-          //end chat provider
-          BlocProvider<ConnectivityCubit>(
-              create: (context) => ConnectivityCubit(), lazy: false),
-          BlocProvider<UserCubit>(create: (context) => UserCubit(), lazy: true),
-          BlocProvider<CourseCubit>(
-              create: (context) => CourseCubit(), lazy: true),
-        ],
-        child: MaterialApp(
-          title: 'ESJourney',
-          debugShowCheckedModeBanner: false,
-          showPerformanceOverlay: false,
-          theme: lightTheme,
-          themeMode: ThemeMode.light,
-          onGenerateRoute: _appRouter.onGenerateRoute,
-          home: BlocBuilder<UserCubit, UserState>(
-            buildWhen: (oldState, newState) =>
-                oldState is UserInitial && newState is! UserLoadInProgress,
-            builder: (context, state) {
-              if (state is UserLogInSuccess) {
-                return const ZoomDrawerScreen();
-              } else {
-                return SignInScreen();
-              }
-            },
-          ),
-        ));
+      providers: [
+        //start game providers
+        ChangeNotifierProvider(create: (_) => Controller()),
+        ChangeNotifierProvider(create: (context) => BoardController()),
+        ChangeNotifierProvider(create: (context) => Navigation()),
+        BlocProvider(create: (context) => DrawerCubit()),
+        //end game providers
+        //chat provider
+        ChangeNotifierProvider(create: (context) => SocketService()),
+        ChangeNotifierProvider(create: (context) => ChatService()),
+        BlocProvider<UsersDataCubit>(
+            create: (context) => UsersDataCubit(), lazy: true),
+        //end chat provider
+        BlocProvider<ConnectivityCubit>(
+            create: (context) => ConnectivityCubit(), lazy: false),
+        BlocProvider<UserCubit>(create: (context) => UserCubit(), lazy: true),
+        BlocProvider<CourseCubit>(
+            create: (context) => CourseCubit(), lazy: true),
+      ],
+      child: MaterialApp(
+        title: 'ESJourney',
+        debugShowCheckedModeBanner: false,
+        showPerformanceOverlay: false,
+        theme: lightTheme,
+        themeMode: ThemeMode.light,
+        onGenerateRoute: _appRouter.onGenerateRoute,
+        home: BlocBuilder<UserCubit, UserState>(
+          buildWhen: (oldState, newState) =>
+              oldState is UserInitial && newState is! UserLoadInProgress,
+          builder: (context, state) {
+            if (state is UserLogInSuccess) {
+              return const ZoomDrawerScreen();
+            } else {
+              return SignInScreen();
+            }
+          },
+        ),
+      ),
+    );
   }
 }
