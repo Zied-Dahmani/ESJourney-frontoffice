@@ -4,6 +4,8 @@ import 'package:esjourney/presentation/screens/curriculum/course_detail_screen.d
 import 'package:esjourney/presentation/screens/curriculum/course_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/jackpot/jackpot_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/level_map_screen.dart';
+import 'package:esjourney/presentation/screens/profile/edit_profile/edit_profile_screen.dart';
+import 'package:esjourney/presentation/screens/profile/profile_screen.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
 import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
 import 'package:flutter/material.dart';
@@ -65,6 +67,20 @@ class AppRouter {
 
           ),
         );
+      case AppRoutes.profileScreen:
+        return MaterialPageRoute(
+          builder: (_) =>  const ProfileScreen(
+
+
+          ),
+        );
+      case AppRoutes.editProfileScreen:
+        return MaterialPageRoute(
+          builder: (_) =>  const EditProfileScreen(
+
+          ),
+        );
+
       case AppRoutes.doneScreen:
         return MaterialPageRoute(
           builder: (_) => const DoneScreen(),

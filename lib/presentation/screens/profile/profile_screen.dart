@@ -1,6 +1,7 @@
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'edit_profile/edit_profile_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -14,7 +15,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final double width = ScreenSize.width(context);
-
     return Scaffold(
       backgroundColor: theme.colorScheme.primary,
       appBar: AppBar(
@@ -35,6 +35,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               color: Colors.white,
             ),
             onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const EditProfileScreen()),
+              );
+
               // Write the code to navigate to the settings screen
             },
           ),
@@ -56,7 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       Center(
                         child: Text(
-                          "SouhailKrs",
+                          "userx",
                           style: theme.textTheme.headlineMedium,
                         ),
                       ),
@@ -120,41 +124,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       Container(
                           margin: const EdgeInsets.only(
-                              left: 20.0, right: 20.0, top: 0.0,bottom: 10.0),
+                              left: 20.0, right: 20.0, top: 0.0, bottom: 10.0),
                           child: const Text("Badges (2)",
                               style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 20,
+                                fontSize: 17,
                                 fontWeight: FontWeight.w700,
                                 fontFamily: 'VisbyRoundCF',
                               ))),
-
                       Container(
-                        margin: const EdgeInsets.only(left: 10.0 ),
+                        margin: const EdgeInsets.only(left: 10.0),
                         child: Row(
-
-
                           children: [
-
                             SvgPicture.asset(
                               'assets/icons/challenges/first_badge.svg',
-                              height: width * 0.20,
+                              height: width * 0.15,
                             ),
                             SvgPicture.asset(
                               'assets/icons/challenges/trophy.svg',
-                              height: width * 0.20,
+                              height: width * 0.15,
                             ),
                             SvgPicture.asset(
                               'assets/icons/challenges/second_badge.svg',
-                              height: width * 0.20,
+                              height: width * 0.15,
                             ),
-
                           ],
-
                         ),
                       )
-
-
                     ],
                   ),
                 ),
@@ -167,7 +163,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       children: const [
                         CircleAvatar(
                           backgroundImage:
-                              AssetImage('assets/images/challenges/cvpic.jpg'),
+                          AssetImage('assets/images/challenges/avatar.png'),
                           radius: 50,
                           backgroundColor: Colors.white,
                         ),
@@ -254,7 +250,7 @@ class CustomContainer extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
         color: backgroundColor,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topRight: Radius.circular(20.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(20.0),

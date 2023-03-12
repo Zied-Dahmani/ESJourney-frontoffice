@@ -117,7 +117,7 @@ class MyApp extends StatelessWidget {
                 oldState is UserInitial && newState is! UserLoadInProgress,
             builder: (context, state) {
               if (state is UserLogInSuccess) {
-                return EditProfileScreen();
+                return ProfileScreen();
 
                 // EthQrCodeScreen();
 
