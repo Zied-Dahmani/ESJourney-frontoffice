@@ -25,6 +25,8 @@ mixin _$User {
   String get email => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
   String get token => throw _privateConstructorUsedError;
+  String get fullName => throw _privateConstructorUsedError;
+  String get image => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,7 +43,9 @@ abstract class $UserCopyWith<$Res> {
       String username,
       String email,
       String password,
-      String token});
+      String token,
+      String fullName,
+      String image});
 }
 
 /// @nodoc
@@ -62,6 +66,8 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? email = null,
     Object? password = null,
     Object? token = null,
+    Object? fullName = null,
+    Object? image = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -84,6 +90,14 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
+      fullName: null == fullName
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
+              as String,
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -99,7 +113,9 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String username,
       String email,
       String password,
-      String token});
+      String token,
+      String fullName,
+      String image});
 }
 
 /// @nodoc
@@ -116,6 +132,8 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? email = null,
     Object? password = null,
     Object? token = null,
+    Object? fullName = null,
+    Object? image = null,
   }) {
     return _then(_$_User(
       id: freezed == id
@@ -138,6 +156,14 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
+      fullName: null == fullName
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
+              as String,
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -150,7 +176,9 @@ class _$_User implements _User {
       required this.username,
       required this.email,
       required this.password,
-      required this.token});
+      required this.token,
+      required this.fullName,
+      required this.image});
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
@@ -164,10 +192,14 @@ class _$_User implements _User {
   final String password;
   @override
   final String token;
+  @override
+  final String fullName;
+  @override
+  final String image;
 
   @override
   String toString() {
-    return 'User(id: $id, username: $username, email: $email, password: $password, token: $token)';
+    return 'User(id: $id, username: $username, email: $email, password: $password, token: $token, fullName: $fullName, image: $image)';
   }
 
   @override
@@ -181,7 +213,10 @@ class _$_User implements _User {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.password, password) ||
                 other.password == password) &&
-            (identical(other.token, token) || other.token == token));
+            (identical(other.token, token) || other.token == token) &&
+            (identical(other.fullName, fullName) ||
+                other.fullName == fullName) &&
+            (identical(other.image, image) || other.image == image));
   }
 
   @JsonKey(ignore: true)
@@ -192,7 +227,9 @@ class _$_User implements _User {
       username,
       email,
       password,
-      token);
+      token,
+      fullName,
+      image);
 
   @JsonKey(ignore: true)
   @override
@@ -214,7 +251,9 @@ abstract class _User implements User {
       required final String username,
       required final String email,
       required final String password,
-      required final String token}) = _$_User;
+      required final String token,
+      required final String fullName,
+      required final String image}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -228,6 +267,10 @@ abstract class _User implements User {
   String get password;
   @override
   String get token;
+  @override
+  String get fullName;
+  @override
+  String get image;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;

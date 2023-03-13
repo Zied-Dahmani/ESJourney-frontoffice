@@ -28,6 +28,9 @@ mixin _$ClubEvent {
   List<double> get latLng => throw _privateConstructorUsedError;
   ClubEventType get type => throw _privateConstructorUsedError;
   List<String> get timeline => throw _privateConstructorUsedError;
+  List<String> get ticketTypeNames => throw _privateConstructorUsedError;
+  List<String> get ticketTypeImages => throw _privateConstructorUsedError;
+  List<Ticket> get tickets => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -48,7 +51,10 @@ abstract class $ClubEventCopyWith<$Res> {
       DateTime dateTime,
       List<double> latLng,
       ClubEventType type,
-      List<String> timeline});
+      List<String> timeline,
+      List<String> ticketTypeNames,
+      List<String> ticketTypeImages,
+      List<Ticket> tickets});
 }
 
 /// @nodoc
@@ -72,6 +78,9 @@ class _$ClubEventCopyWithImpl<$Res, $Val extends ClubEvent>
     Object? latLng = null,
     Object? type = null,
     Object? timeline = null,
+    Object? ticketTypeNames = null,
+    Object? ticketTypeImages = null,
+    Object? tickets = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -106,6 +115,18 @@ class _$ClubEventCopyWithImpl<$Res, $Val extends ClubEvent>
           ? _value.timeline
           : timeline // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      ticketTypeNames: null == ticketTypeNames
+          ? _value.ticketTypeNames
+          : ticketTypeNames // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      ticketTypeImages: null == ticketTypeImages
+          ? _value.ticketTypeImages
+          : ticketTypeImages // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      tickets: null == tickets
+          ? _value.tickets
+          : tickets // ignore: cast_nullable_to_non_nullable
+              as List<Ticket>,
     ) as $Val);
   }
 }
@@ -125,7 +146,10 @@ abstract class _$$_ClubEventCopyWith<$Res> implements $ClubEventCopyWith<$Res> {
       DateTime dateTime,
       List<double> latLng,
       ClubEventType type,
-      List<String> timeline});
+      List<String> timeline,
+      List<String> ticketTypeNames,
+      List<String> ticketTypeImages,
+      List<Ticket> tickets});
 }
 
 /// @nodoc
@@ -147,6 +171,9 @@ class __$$_ClubEventCopyWithImpl<$Res>
     Object? latLng = null,
     Object? type = null,
     Object? timeline = null,
+    Object? ticketTypeNames = null,
+    Object? ticketTypeImages = null,
+    Object? tickets = null,
   }) {
     return _then(_$_ClubEvent(
       id: freezed == id
@@ -181,6 +208,18 @@ class __$$_ClubEventCopyWithImpl<$Res>
           ? _value._timeline
           : timeline // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      ticketTypeNames: null == ticketTypeNames
+          ? _value._ticketTypeNames
+          : ticketTypeNames // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      ticketTypeImages: null == ticketTypeImages
+          ? _value._ticketTypeImages
+          : ticketTypeImages // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      tickets: null == tickets
+          ? _value._tickets
+          : tickets // ignore: cast_nullable_to_non_nullable
+              as List<Ticket>,
     ));
   }
 }
@@ -196,9 +235,15 @@ class _$_ClubEvent extends _ClubEvent {
       required this.dateTime,
       required final List<double> latLng,
       required this.type,
-      required final List<String> timeline})
+      required final List<String> timeline,
+      required final List<String> ticketTypeNames,
+      required final List<String> ticketTypeImages,
+      required final List<Ticket> tickets})
       : _latLng = latLng,
         _timeline = timeline,
+        _ticketTypeNames = ticketTypeNames,
+        _ticketTypeImages = ticketTypeImages,
+        _tickets = tickets,
         super._();
 
   factory _$_ClubEvent.fromJson(Map<String, dynamic> json) =>
@@ -232,9 +277,34 @@ class _$_ClubEvent extends _ClubEvent {
     return EqualUnmodifiableListView(_timeline);
   }
 
+  final List<String> _ticketTypeNames;
+  @override
+  List<String> get ticketTypeNames {
+    if (_ticketTypeNames is EqualUnmodifiableListView) return _ticketTypeNames;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_ticketTypeNames);
+  }
+
+  final List<String> _ticketTypeImages;
+  @override
+  List<String> get ticketTypeImages {
+    if (_ticketTypeImages is EqualUnmodifiableListView)
+      return _ticketTypeImages;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_ticketTypeImages);
+  }
+
+  final List<Ticket> _tickets;
+  @override
+  List<Ticket> get tickets {
+    if (_tickets is EqualUnmodifiableListView) return _tickets;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_tickets);
+  }
+
   @override
   String toString() {
-    return 'ClubEvent(id: $id, name: $name, image: $image, description: $description, dateTime: $dateTime, latLng: $latLng, type: $type, timeline: $timeline)';
+    return 'ClubEvent(id: $id, name: $name, image: $image, description: $description, dateTime: $dateTime, latLng: $latLng, type: $type, timeline: $timeline, ticketTypeNames: $ticketTypeNames, ticketTypeImages: $ticketTypeImages, tickets: $tickets)';
   }
 
   @override
@@ -251,7 +321,12 @@ class _$_ClubEvent extends _ClubEvent {
                 other.dateTime == dateTime) &&
             const DeepCollectionEquality().equals(other._latLng, _latLng) &&
             (identical(other.type, type) || other.type == type) &&
-            const DeepCollectionEquality().equals(other._timeline, _timeline));
+            const DeepCollectionEquality().equals(other._timeline, _timeline) &&
+            const DeepCollectionEquality()
+                .equals(other._ticketTypeNames, _ticketTypeNames) &&
+            const DeepCollectionEquality()
+                .equals(other._ticketTypeImages, _ticketTypeImages) &&
+            const DeepCollectionEquality().equals(other._tickets, _tickets));
   }
 
   @JsonKey(ignore: true)
@@ -265,7 +340,10 @@ class _$_ClubEvent extends _ClubEvent {
       dateTime,
       const DeepCollectionEquality().hash(_latLng),
       type,
-      const DeepCollectionEquality().hash(_timeline));
+      const DeepCollectionEquality().hash(_timeline),
+      const DeepCollectionEquality().hash(_ticketTypeNames),
+      const DeepCollectionEquality().hash(_ticketTypeImages),
+      const DeepCollectionEquality().hash(_tickets));
 
   @JsonKey(ignore: true)
   @override
@@ -290,7 +368,10 @@ abstract class _ClubEvent extends ClubEvent {
       required final DateTime dateTime,
       required final List<double> latLng,
       required final ClubEventType type,
-      required final List<String> timeline}) = _$_ClubEvent;
+      required final List<String> timeline,
+      required final List<String> ticketTypeNames,
+      required final List<String> ticketTypeImages,
+      required final List<Ticket> tickets}) = _$_ClubEvent;
   const _ClubEvent._() : super._();
 
   factory _ClubEvent.fromJson(Map<String, dynamic> json) =
@@ -312,6 +393,12 @@ abstract class _ClubEvent extends ClubEvent {
   ClubEventType get type;
   @override
   List<String> get timeline;
+  @override
+  List<String> get ticketTypeNames;
+  @override
+  List<String> get ticketTypeImages;
+  @override
+  List<Ticket> get tickets;
   @override
   @JsonKey(ignore: true)
   _$$_ClubEventCopyWith<_$_ClubEvent> get copyWith =>

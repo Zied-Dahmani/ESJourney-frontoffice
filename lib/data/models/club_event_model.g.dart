@@ -18,6 +18,15 @@ _$_ClubEvent _$$_ClubEventFromJson(Map<String, dynamic> json) => _$_ClubEvent(
       type: $enumDecode(_$ClubEventTypeEnumMap, json['type']),
       timeline:
           (json['timeline'] as List<dynamic>).map((e) => e as String).toList(),
+      ticketTypeNames: (json['ticketTypeNames'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
+      ticketTypeImages: (json['ticketTypeImages'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
+      tickets: (json['tickets'] as List<dynamic>)
+          .map((e) => Ticket.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$_ClubEventToJson(_$_ClubEvent instance) =>
@@ -30,6 +39,9 @@ Map<String, dynamic> _$$_ClubEventToJson(_$_ClubEvent instance) =>
       'latLng': instance.latLng,
       'type': _$ClubEventTypeEnumMap[instance.type]!,
       'timeline': instance.timeline,
+      'ticketTypeNames': instance.ticketTypeNames,
+      'ticketTypeImages': instance.ticketTypeImages,
+      'tickets': instance.tickets,
     };
 
 const _$ClubEventTypeEnumMap = {

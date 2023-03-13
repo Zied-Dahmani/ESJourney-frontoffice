@@ -45,6 +45,19 @@ class AppStrings {
   static const kturnOnLocation = 'Turn on location!';
   static const keventType = 'Event Type';
   static const ktimeline = 'Timeline';
+  static const ktickets = 'Tickets';
+  static const klegend = 'Legend';
+  static const kremainingTickets = ' Remaining tickets';
+  static const kyourCard = 'Your Card';
+  static const kpay = 'Pay';
+  static const kotherPaymentMethod = 'Other Payment Method';
+  static const kesjCoins = 'ESJ Coins';
+  static const kweb3 = 'Web3';
+  static const kevent = 'Event';
+  static const kticket = 'Ticket';
+  static const kowner = 'Owner';
+  static const kdate = 'Date';
+  static const kseat = 'Seat';
 
   static const knoApplications = 'No applications';
 

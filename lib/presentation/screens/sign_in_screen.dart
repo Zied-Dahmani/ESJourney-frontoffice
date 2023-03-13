@@ -10,20 +10,22 @@ import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+
 class SignInScreen extends StatelessWidget {
-  SignInScreen({Key? key}) : super(key: key);
+  SignInScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
   final _idController = TextEditingController();
   final _passwordController = TextEditingController();
   BuildContext? dialogContext;
 
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
       body: BlocListener<UserCubit, UserState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is UserLoadInProgress) {
             showDialog(
                 context: context,
@@ -82,23 +84,43 @@ class SignInScreen extends StatelessWidget {
                     const SizedBox(height: AppSizes.kbigSpace),
                     BlocBuilder<ConnectivityCubit, ConnectivityState>(
                       builder: (context, state) {
-                        return Center(
-                          child: ButtonWidget(
-                              text: AppStrings.klogin,
-                              function: () {
-                                if (_formKey.currentState!.validate()) {
-                                  if (state is ConnectivityConnectSuccess) {
-                                    BlocProvider.of<UserCubit>(context).signIn(
-                                        _idController.text,
-                                        _passwordController.text);
-                                  } else {
-                                    showSnackBar(
-                                        context, kcheckInternetConnection);
+                       // if (_showButton) {
+                          return Center(
+                            child: ButtonWidget(
+                                text: AppStrings.klogin,
+                                function: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    if (state is ConnectivityConnectSuccess) {
+                                      BlocProvider.of<UserCubit>(context)
+                                          .signIn(
+                                          _idController.text,
+                                          _passwordController.text);
+                                    } else {
+                                      showSnackBar(
+                                          context, kcheckInternetConnection);
+                                    }
                                   }
-                                }
-                              }),
-                        );
-                      },
+                                }),
+                          );
+                        //}
+                        /*else {
+                          return Center(
+                            child: SizedBox(
+                              height: AppSizes.ksmallImageSize,
+                              width: AppSizes.ksmallImageSize,
+                              child: RiveAnimation.asset(
+                                  'assets/images/loading.riv',
+                                  onInit: (artboard) {
+                                    StateMachineController controller = getRiveController(
+                                        artboard);
+                                    _check = controller.findSMI("Check") as SMITrigger;
+                                    _error = controller.findSMI("Error") as SMITrigger;
+                                    _reset = controller.findSMI("Reset") as SMITrigger;
+                                  }),
+                            ),
+                          );
+                        }*/
+                      }
                     ),
                   ],
                 ),
@@ -116,4 +138,5 @@ class SignInScreen extends StatelessWidget {
       duration: const Duration(milliseconds: 2000),
     ));
   }
+
 }

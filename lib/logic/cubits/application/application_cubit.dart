@@ -14,7 +14,7 @@ class ApplicationCubit extends Cubit<ApplicationState> {
 
   final _connectivityCubit, _clubRepository;
   StreamSubscription? _connectivityStreamSubscription;
-  late final _allApplicationsList;
+  List<Application> _allApplicationsList=[];
 
   void init() {
     if (_connectivityCubit.state is ConnectivityConnectSuccess) {
@@ -53,18 +53,36 @@ class ApplicationCubit extends Cubit<ApplicationState> {
     }
   }
 
-  void filter(String clubName) {
-    if (clubName == "All") {
+  String _clubName = 'All';
+
+  void filter(clubName,isStart) {
+    _clubName = clubName ?? _clubName;
+
+    if (_clubName == 'All' && isStart ) {
       emit(ApplicationLoadSuccess(_allApplicationsList));
     } else {
       var list = <Application>[];
       _allApplicationsList.forEach((Application application) {
-        if (application.club.name == clubName) {
+        if (application.club.name == _clubName || _clubName == 'All'  && isStart ) {
+          list.add(application);
+        }
+        else if(application.club.name == _clubName || _clubName == 'All'  && application.dateTime.compareTo(DateTime.now()) > 0)
+          {
+            list.add(application);
+          }
+      });
+      emit(ApplicationLoadSuccess(list));
+    }
+  }
+
+  void filterWithDateTime() {
+    var list = <Application>[];
+      _allApplicationsList.forEach((Application application) {
+        if ( ( application.club.name == _clubName || _clubName == 'All' ) && application.dateTime.compareTo(DateTime.now()) > 0) {
           list.add(application);
         }
       });
       emit(ApplicationLoadSuccess(list));
-    }
   }
 
   @override

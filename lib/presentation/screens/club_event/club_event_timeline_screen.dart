@@ -6,9 +6,9 @@ import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
 
 class ClubEventTimelineScreen extends StatefulWidget {
-  const ClubEventTimelineScreen({Key? key, this.event}) : super(key: key);
+  const ClubEventTimelineScreen({Key? key, this.clubEvent}) : super(key: key);
 
-  final event;
+  final clubEvent;
 
   @override
   State<ClubEventTimelineScreen> createState() =>
@@ -43,7 +43,7 @@ class _ClubEventTimelineScreenState extends State<ClubEventTimelineScreen> {
                       : constraints.maxHeight - AppSizes.khugeSpace - 22,
                   bottom: AppSizes.kbigSpace,
                   child: const CalendarAndLine()),
-              for (int i = 1; i <= widget.event.timeline.length; i++)
+              for (int i = 1; i <= widget.clubEvent.timeline.length; i++)
                 AnimatedPositioned(
                     duration: Duration(milliseconds: 600 + i * 200),
                     left: i % 2 == 0 ? null : centerDot,
@@ -55,9 +55,9 @@ class _ClubEventTimelineScreenState extends State<ClubEventTimelineScreen> {
                         delay: Duration(milliseconds: i * 200),
                         isLeft: i % 2 == 0,
                         displayCard: _displayCard,
-                        text: widget.event.timeline[i - 1])),
+                        text: widget.clubEvent.timeline[i - 1])),
               if (_animatedButton)
-                const AnimatedTimelineButton()
+                AnimatedTimelineButton(clubEvent: widget.clubEvent)
             ],
           );
         }));

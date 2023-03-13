@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer' as developer;
 import 'package:esjourney/data/models/club_event_model.dart';
 import 'package:esjourney/data/models/club_event_type_enum.dart';
+import 'package:esjourney/data/models/ticket_model.dart';
 import 'package:esjourney/logic/cubits/club_event/club_event_state.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
 import 'package:esjourney/utils/constants.dart';
@@ -17,6 +18,8 @@ class ClubEventCubit extends Cubit<ClubEventState> {
   StreamSubscription? _connectivityStreamSubscription;
 
   late final _allClubEventsList;
+  Ticket? _ticket;
+  get ticket => _ticket;
 
   void init() {
     if (_connectivityCubit.state is ConnectivityConnectSuccess) {
@@ -69,6 +72,19 @@ class ClubEventCubit extends Cubit<ClubEventState> {
       });
       emit(ClubEventLoadSuccess(list));
     }
+  }
+
+
+  double remainingTickets(ClubEvent clubEvent, String type)
+  {
+    double count = 0.0;
+    clubEvent.tickets.forEach((ticket) {
+      if(ticket.type == type && !ticket.booked) {
+        _ticket ??= ticket;
+        count ++;
+      }
+    });
+    return count;
   }
 
   @override

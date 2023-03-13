@@ -1,3 +1,4 @@
+import 'package:animate_icons/animate_icons.dart';
 import 'package:esjourney/logic/cubits/application/application_cubit.dart';
 import 'package:esjourney/logic/cubits/application/application_state.dart';
 import 'package:esjourney/presentation/widgets/application/applications_list.dart';
@@ -21,8 +22,8 @@ class ApplicationsScreen extends StatefulWidget {
 }
 
 class _ApplicationsScreenState extends State<ApplicationsScreen> {
-
   final ScrollController _scrollController = ScrollController();
+  late AnimateIconController _controller;
   double _topContainer = 0.0;
 
   void onListener() {
@@ -36,6 +37,7 @@ class _ApplicationsScreenState extends State<ApplicationsScreen> {
   void initState() {
     super.initState();
     _scrollController.addListener(onListener);
+    _controller = AnimateIconController();
   }
 
   @override
@@ -60,8 +62,9 @@ class _ApplicationsScreenState extends State<ApplicationsScreen> {
                     duration: const Duration(milliseconds: 200),
                     width: ScreenSize.width(context),
                     alignment: Alignment.topCenter,
-                    height: (1 - _topContainer * 2).clamp(0.0, 1.0) * (ScreenSize.height(context) / 4),
-                    child: const FilterHeader()),
+                    height: (1 - _topContainer * 2).clamp(0.0, 1.0) *
+                        (ScreenSize.height(context) / 4),
+                    child: FilterHeader(controller: _controller)),
               ),
             ],
           ),
@@ -80,11 +83,16 @@ class _ApplicationsScreenState extends State<ApplicationsScreen> {
               }
             },
             builder: (context, state) {
-              return state is ApplicationLoadSuccess && state.applications.isNotEmpty
-                  ? ApplicationsList(applications: state.applications, scrollController: _scrollController, topContainer: _topContainer)
+              return state is ApplicationLoadSuccess &&
+                      state.applications.isNotEmpty
+                  ? ApplicationsList(
+                      applications: state.applications,
+                      scrollController: _scrollController,
+                      topContainer: _topContainer)
                   : state is ApplicationLoadSuccess
                       ? const EmptyList(text: AppStrings.knoApplications)
-                      : state is ApplicationLoadInProgress || state is ApplicationLoadFailure
+                      : state is ApplicationLoadInProgress ||
+                              state is ApplicationLoadFailure
                           ? const LoadingApplicationsList()
                           : const SizedBox();
             },
@@ -100,6 +108,27 @@ class _ApplicationsScreenState extends State<ApplicationsScreen> {
             child: Text(
               AppStrings.kapplications,
               style: theme.textTheme.headlineMedium,
+            )),
+        Positioned(
+            right: AppSizes.ksmallSpace,
+            top: AppSizes.khugeSpace * 1.3,
+            child: AnimateIcons(
+              startIcon: Icons.calendar_month,
+              endIcon: Icons.remove_circle,
+              size: AppSizes.kiconSize * 1.1,
+              controller: _controller,
+              onStartIconPress: () {
+                BlocProvider.of<ApplicationCubit>(context).filterWithDateTime();
+                return true;
+              },
+              onEndIconPress: () {
+                BlocProvider.of<ApplicationCubit>(context).filter(null,true);
+                return true;
+              },
+              duration: const Duration(milliseconds: 800),
+              startIconColor: theme.colorScheme.primary,
+              endIconColor: theme.colorScheme.outline,
+              clockwise: false,
             )),
       ],
     );

@@ -5,7 +5,7 @@ class ClubDataProvider {
   final dio = Dio()
     ..options.baseUrl = kbaseUrl
     ..options.connectTimeout = 5000
-    ..options.receiveTimeout = 3000;
+    ..options.receiveTimeout = 5000;
 
   Future<Response> getAllClubs() async {
     return await dio.request(

@@ -10,6 +10,8 @@ class User with _$User {
     required String email,
     required String password,
     required String token,
+    required String fullName,
+    required String image,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

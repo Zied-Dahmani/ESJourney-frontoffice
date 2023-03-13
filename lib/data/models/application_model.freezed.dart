@@ -24,6 +24,7 @@ mixin _$Application {
   dynamic get userId => throw _privateConstructorUsedError;
   ApplicationState get state => throw _privateConstructorUsedError;
   Club get club => throw _privateConstructorUsedError;
+  DateTime get dateTime => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +38,12 @@ abstract class $ApplicationCopyWith<$Res> {
           Application value, $Res Function(Application) then) =
       _$ApplicationCopyWithImpl<$Res, Application>;
   @useResult
-  $Res call({dynamic id, dynamic userId, ApplicationState state, Club club});
+  $Res call(
+      {dynamic id,
+      dynamic userId,
+      ApplicationState state,
+      Club club,
+      DateTime dateTime});
 
   $ClubCopyWith<$Res> get club;
 }
@@ -59,6 +65,7 @@ class _$ApplicationCopyWithImpl<$Res, $Val extends Application>
     Object? userId = freezed,
     Object? state = null,
     Object? club = null,
+    Object? dateTime = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -77,6 +84,10 @@ class _$ApplicationCopyWithImpl<$Res, $Val extends Application>
           ? _value.club
           : club // ignore: cast_nullable_to_non_nullable
               as Club,
+      dateTime: null == dateTime
+          ? _value.dateTime
+          : dateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 
@@ -97,7 +108,12 @@ abstract class _$$_ApplicationCopyWith<$Res>
       __$$_ApplicationCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({dynamic id, dynamic userId, ApplicationState state, Club club});
+  $Res call(
+      {dynamic id,
+      dynamic userId,
+      ApplicationState state,
+      Club club,
+      DateTime dateTime});
 
   @override
   $ClubCopyWith<$Res> get club;
@@ -118,6 +134,7 @@ class __$$_ApplicationCopyWithImpl<$Res>
     Object? userId = freezed,
     Object? state = null,
     Object? club = null,
+    Object? dateTime = null,
   }) {
     return _then(_$_Application(
       id: freezed == id
@@ -136,6 +153,10 @@ class __$$_ApplicationCopyWithImpl<$Res>
           ? _value.club
           : club // ignore: cast_nullable_to_non_nullable
               as Club,
+      dateTime: null == dateTime
+          ? _value.dateTime
+          : dateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -147,7 +168,8 @@ class _$_Application extends _Application {
       {required this.id,
       required this.userId,
       required this.state,
-      required this.club})
+      required this.club,
+      required this.dateTime})
       : super._();
 
   factory _$_Application.fromJson(Map<String, dynamic> json) =>
@@ -161,10 +183,12 @@ class _$_Application extends _Application {
   final ApplicationState state;
   @override
   final Club club;
+  @override
+  final DateTime dateTime;
 
   @override
   String toString() {
-    return 'Application(id: $id, userId: $userId, state: $state, club: $club)';
+    return 'Application(id: $id, userId: $userId, state: $state, club: $club, dateTime: $dateTime)';
   }
 
   @override
@@ -175,7 +199,9 @@ class _$_Application extends _Application {
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.userId, userId) &&
             (identical(other.state, state) || other.state == state) &&
-            (identical(other.club, club) || other.club == club));
+            (identical(other.club, club) || other.club == club) &&
+            (identical(other.dateTime, dateTime) ||
+                other.dateTime == dateTime));
   }
 
   @JsonKey(ignore: true)
@@ -185,7 +211,8 @@ class _$_Application extends _Application {
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(userId),
       state,
-      club);
+      club,
+      dateTime);
 
   @JsonKey(ignore: true)
   @override
@@ -206,7 +233,8 @@ abstract class _Application extends Application {
       {required final dynamic id,
       required final dynamic userId,
       required final ApplicationState state,
-      required final Club club}) = _$_Application;
+      required final Club club,
+      required final DateTime dateTime}) = _$_Application;
   const _Application._() : super._();
 
   factory _Application.fromJson(Map<String, dynamic> json) =
@@ -220,6 +248,8 @@ abstract class _Application extends Application {
   ApplicationState get state;
   @override
   Club get club;
+  @override
+  DateTime get dateTime;
   @override
   @JsonKey(ignore: true)
   _$$_ApplicationCopyWith<_$_Application> get copyWith =>

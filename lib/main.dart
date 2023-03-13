@@ -75,9 +75,17 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
 
-    return MultiRepositoryProvider(
+    return RepositoryProvider(
+      lazy: false,
+      create: (context) => ClubRepository(),
+      child: MultiBlocProvider(
         providers: [
-          RepositoryProvider(create: (context) => ClubRepository()),
+          BlocProvider<ConnectivityCubit>(create: (context) => ConnectivityCubit(), lazy: false),
+          BlocProvider<UserCubit>(create: (context) => UserCubit(), lazy: true),
+          BlocProvider<ClubCubit>(create: (context) => ClubCubit(BlocProvider.of<ConnectivityCubit>(context), BlocProvider.of<UserCubit>(context), context.read<ClubRepository>()), lazy: true),
+          BlocProvider<LocationCubit>(create: (context) => LocationCubit(), lazy: true),
+          BlocProvider<ClubEventCubit>(create: (context) => ClubEventCubit(BlocProvider.of<ConnectivityCubit>(context), context.read<ClubRepository>()), lazy: true),
+          BlocProvider<ApplicationCubit>(create: (context) => ApplicationCubit(BlocProvider.of<ConnectivityCubit>(context), context.read<ClubRepository>()), lazy: true),
         ],
         child: MaterialApp(
           title: 'ESJourney',
@@ -86,26 +94,18 @@ class MyApp extends StatelessWidget {
           theme: lightTheme,
           themeMode: ThemeMode.light,
           onGenerateRoute: _appRouter.onGenerateRoute,
-          home: MultiBlocProvider(
-            providers: [
-              BlocProvider<ConnectivityCubit>(create: (context) => ConnectivityCubit(), lazy: false),
-              BlocProvider<UserCubit>(create: (context) => UserCubit(), lazy: true),
-              BlocProvider<ClubCubit>(create: (context) => ClubCubit(BlocProvider.of<ConnectivityCubit>(context),BlocProvider.of<UserCubit>(context),RepositoryProvider.of<ClubRepository>(context)), lazy: true),
-              BlocProvider<LocationCubit>(create: (context) => LocationCubit(), lazy: true),
-              BlocProvider<ClubEventCubit>(create: (context) => ClubEventCubit(BlocProvider.of<ConnectivityCubit>(context),RepositoryProvider.of<ClubRepository>(context)), lazy: true),
-              BlocProvider<ApplicationCubit>(create: (context) => ApplicationCubit(BlocProvider.of<ConnectivityCubit>(context),RepositoryProvider.of<ClubRepository>(context)), lazy: true),
-            ],
-            child: BlocBuilder<UserCubit, UserState>(
-              buildWhen: (oldState, newState) => oldState is UserInitial && newState is! UserLoadInProgress,
-              builder: (context, state) {
-                if (state is UserLogInSuccess) {
-                  return const ZoomDrawerScreen();
-                } else {
-                  return SignInScreen();
-                }
-              },
-            ),
+          home: BlocBuilder<UserCubit, UserState>(
+            buildWhen: (oldState, newState) => oldState is UserInitial && newState is! UserLoadInProgress,
+            builder: (context, state) {
+              if (state is UserLogInSuccess) {
+                return const ZoomDrawerScreen();
+              } else {
+                return SignInScreen();
+              }
+            },
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

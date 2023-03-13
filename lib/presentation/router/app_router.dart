@@ -1,6 +1,7 @@
 import 'package:esjourney/presentation/screens/club/apply_to_club_screen.dart';
 import 'package:esjourney/presentation/screens/club/club_screen.dart';
 import 'package:esjourney/presentation/screens/club/done_screen.dart';
+import 'package:esjourney/presentation/screens/club_event/club_event_tickets_screen.dart';
 import 'package:esjourney/presentation/screens/club_event/club_event_timeline_screen.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
 import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
@@ -40,7 +41,12 @@ class AppRouter {
 
       case AppRoutes.clubEventTimelineScreen:
         return MaterialPageRoute(
-          builder: (_) => ClubEventTimelineScreen(event: args),
+          builder: (_) => ClubEventTimelineScreen(clubEvent: args),
+        );
+
+      case AppRoutes.clubEventTicketsScreen:
+        return MaterialPageRoute(
+          builder: (_) => ClubEventTicketsScreen(clubEvent: args),
         );
 
       default:

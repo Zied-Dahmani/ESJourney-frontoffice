@@ -24,33 +24,43 @@ class LoadingClubsList extends StatelessWidget {
                 height: ScreenSize.height(context) / 2,
                 decoration: BoxDecoration(
                   color: theme.colorScheme.tertiary,
-                  borderRadius: const BorderRadius.all(Radius.circular(AppSizes.kradius)),
+                  borderRadius:
+                      const BorderRadius.all(Radius.circular(AppSizes.kradius)),
                 ),
               ),
               Container(
                 margin: const EdgeInsets.only(bottom: AppSizes.kbigSpace),
                 width: AppSizes.kshimmerTextWidth,
                 height: AppSizes.kshimmerTextHeight,
-                color: theme.colorScheme.tertiary,
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.tertiary,
+                  borderRadius:
+                      const BorderRadius.all(Radius.circular(AppSizes.kradius)),
+                ),
               ),
-              Container(
-                margin: const EdgeInsets.only(bottom: AppSizes.ksmallSpace - 6),
-                width: double.infinity,
-                height: AppSizes.kshimmerTextHeight,
-                color: theme.colorScheme.tertiary,
-              ),
-              Container(
-                margin: const EdgeInsets.only(bottom: AppSizes.ksmallSpace - 6),
-                width: double.infinity,
-                height: AppSizes.kshimmerTextHeight,
-                color: theme.colorScheme.tertiary,
-              ),
+              ...List.generate(
+                  2,
+                  (index) => Container(
+                        margin: const EdgeInsets.only(
+                            bottom: AppSizes.ksmallSpace - 6),
+                        width: double.infinity,
+                        height: AppSizes.kshimmerTextHeight,
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.tertiary,
+                          borderRadius: const BorderRadius.all(
+                              Radius.circular(AppSizes.kradius)),
+                        ),
+                      )),
               Align(
                 alignment: Alignment.centerLeft,
                 child: Container(
                   width: AppSizes.kshimmerTextWidth,
                   height: AppSizes.kshimmerTextHeight,
-                  color: theme.colorScheme.tertiary,
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.tertiary,
+                    borderRadius: const BorderRadius.all(
+                        Radius.circular(AppSizes.kradius)),
+                  ),
                 ),
               )
             ],

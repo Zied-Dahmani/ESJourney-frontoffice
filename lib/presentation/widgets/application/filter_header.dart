@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FilterHeader extends StatefulWidget {
-  const FilterHeader({super.key});
+  const FilterHeader({super.key, required this.controller});
+
+  final controller;
 
   @override
   State<FilterHeader> createState() => _FilterHeaderState();
@@ -24,7 +26,7 @@ class _FilterHeaderState extends State<FilterHeader> {
 
   @override
   void deactivate() {
-    BlocProvider.of<ApplicationCubit>(context).filter("All");
+    BlocProvider.of<ApplicationCubit>(context).filter("All",true);
     super.deactivate();
   }
 
@@ -43,7 +45,7 @@ class _FilterHeaderState extends State<FilterHeader> {
                         onTap: () {
                           setState(() {
                             _currentIndex = index;
-                            BlocProvider.of<ApplicationCubit>(context).filter(_clubs[index]);
+                            BlocProvider.of<ApplicationCubit>(context).filter(_clubs[index],widget.controller.isStart());
                           });
                         },
                         child: Container(

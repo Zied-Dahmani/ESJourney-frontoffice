@@ -30,11 +30,11 @@ class LocationCubit extends Cubit<LocationState> {
     if (!serviceEnabled) {
       serviceEnabled = await location.requestService();
       if (!serviceEnabled) {
-       return emit(LocationTurnOffSuccess());
+        return emit(LocationTurnOffSuccess());
       }
     }
 
     final myLocation = await location.getLocation();
-    emit(LocationTurnOnSuccess(latLng: LatLng(myLocation.latitude!,myLocation.longitude!)));
+    emit(LocationTurnOnSuccess(latLng: LatLng(myLocation.latitude!, myLocation.longitude!)));
   }
 }

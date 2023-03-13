@@ -31,7 +31,7 @@ class LoadingApplicationsList extends StatelessWidget {
                       Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: List.generate(
-                              2,
+                              3,
                               (index) => Container(
                                     margin: const EdgeInsets.symmetric(vertical: AppSizes.ksmallSpace),
                                     height: AppSizes.kshimmerTextHeight,

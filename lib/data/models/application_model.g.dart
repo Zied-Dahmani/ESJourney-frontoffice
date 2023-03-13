@@ -12,6 +12,7 @@ _$_Application _$$_ApplicationFromJson(Map<String, dynamic> json) =>
       userId: json['userId'],
       state: $enumDecode(_$ApplicationStateEnumMap, json['state']),
       club: Club.fromJson(json['club'] as Map<String, dynamic>),
+      dateTime: DateTime.parse(json['dateTime'] as String),
     );
 
 Map<String, dynamic> _$$_ApplicationToJson(_$_Application instance) =>
@@ -20,6 +21,7 @@ Map<String, dynamic> _$$_ApplicationToJson(_$_Application instance) =>
       'userId': instance.userId,
       'state': _$ApplicationStateEnumMap[instance.state]!,
       'club': instance.club,
+      'dateTime': instance.dateTime.toIso8601String(),
     };
 
 const _$ApplicationStateEnumMap = {

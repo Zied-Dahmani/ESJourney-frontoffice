@@ -33,6 +33,7 @@ class ApplicationCard extends StatelessWidget {
                 children: [
                   Text(_application.club.name, style: theme.textTheme.headlineMedium),
                   Text(_application.state.name!, style: theme.textTheme.bodyMedium),
+                  Text(_application.convertDate(), style: theme.textTheme.bodySmall!.copyWith(color: theme.colorScheme.onTertiary)),
                 ],
               ),
               Container(
