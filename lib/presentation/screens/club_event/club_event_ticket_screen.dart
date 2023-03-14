@@ -41,6 +41,8 @@ class _ClubEventTicketScreenState extends State<ClubEventTicketScreen> {
   void initState() {
     super.initState();
     _pageController.addListener(_pageListener);
+    remainingTickets = BlocProvider.of<ClubEventCubit>(context).remainingTickets(widget.clubEvent, widget.clubEvent.ticketTypeNames[widget.ticketTypeIndex]);
+    _opacity = remainingTickets == 0 ? 0 : 1;
   }
 
   @override
@@ -51,10 +53,6 @@ class _ClubEventTicketScreenState extends State<ClubEventTicketScreen> {
 
   @override
   Widget build(BuildContext context) {
-    remainingTickets = BlocProvider.of<ClubEventCubit>(context)
-        .remainingTickets(widget.clubEvent,
-            widget.clubEvent.ticketTypeNames[widget.ticketTypeIndex]);
-    _opacity = remainingTickets == 0 ? 0 : 1;
     size = MediaQuery.of(context).size;
     final theme = Theme.of(context);
     return WillPopScope(
