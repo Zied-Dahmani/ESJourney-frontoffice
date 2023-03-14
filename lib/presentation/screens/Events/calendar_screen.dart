@@ -27,19 +27,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
   bool isLoading = false;
   BuildContext? dialogContext;
 
-  @override
-  @override
-  void initState() {
-    super.initState();
-    final userState = context.read<UserCubit>().state;
-    if (userState is UserLogInSuccess) {
-      final token = userState.user.token;
-      context.read<UserCubit>().refreshUserData(token);
-
-    } else {
-      Navigator.pushNamed(context, '/');
+    @override
+    void initState() {
+      super.initState();
+     _onRefresh();
     }
-  }
 
   Future<void> _onRefresh() async {
     final userState = context.read<UserCubit>().state;

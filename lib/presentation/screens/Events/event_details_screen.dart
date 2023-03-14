@@ -35,31 +35,7 @@ class _EventDetailsState extends State<EventDetails> {
     });
   }
 
-  /*void _fetchEvent() async {
-    final eventState = context.read<EventCubit>().state;
-    final userEvents = (eventState as EventSuccess).events;
-      final events = eventState.events;
-      final userState = context.read<UserCubit>().state;
-      if (userState is UserLogInSuccess) {
-        final isRegistered = userEvents
-            .where((element) => element.id == widget.eventId)
-            .isNotEmpty;
-        print('isRegistered $isRegistered');
-        print('userEvents $userEvents');
-        print(userState.user.events);
-        print('widget.eventId ${widget.eventId}');
-        print('events hereeee $events');
-        setState(() {
-          event = events.firstWhere((element) => element.id == widget.eventId);
-          if (isRegistered) {
-            updateButtonText('Unregister', Colors.red);
-          } else {
-            updateButtonText('Register', Colors.green);
-          }
-        });
 
-    }
-  }*/
   void _fetchEvent() {
     final userState = context.read<UserCubit>().state;
 
@@ -109,7 +85,7 @@ class _EventDetailsState extends State<EventDetails> {
     if (userState is UserLogInSuccess) {
       if (_buttonText == 'Register') {
         final requirementsDescription = widget.event.requirementsDescription;
-        if (requirementsDescription != null && requirementsDescription.isNotEmpty) {
+        if (requirementsDescription.isNotEmpty) {
           await showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -330,23 +306,27 @@ class _EventDetailsState extends State<EventDetails> {
                                       SizedBox(width: screenWidth * 0.1),
                                       Expanded(
                                         child: Wrap(
-                                          crossAxisAlignment:
-                                              WrapCrossAlignment.center,
+                                          crossAxisAlignment: WrapCrossAlignment.center,
                                           children: [
                                             const Icon(
                                               Icons.location_on_outlined,
                                               color: Colors.black,
                                             ),
-                                            Text(
-                                              event.location ?? '',
-                                              style: textTheme.titleSmall
-                                                  ?.copyWith(
-                                                color: Colors.black,
+                                            Tooltip(
+                                              message: event.location ?? '',
+                                              child: Text(
+                                                event.location ?? '',
+                                                style: textTheme.titleSmall?.copyWith(
+                                                  color: Colors.black,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
                                               ),
                                             ),
                                           ],
                                         ),
                                       ),
+
                                     ],
                                   ),
                                 ],

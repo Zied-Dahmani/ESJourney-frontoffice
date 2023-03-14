@@ -29,22 +29,15 @@ class EventCubit extends Cubit<EventState> {
       emit(EventIsFailure(kcheckInternetConnection));
     }
   }
+//getall events
   Future<void> getAllEvents() async {
     try {
       emit(EventLoadInProgress());
       final result = await _eventRepository.getAllEvents();
-      print('result $result');
-      if(result != null){
-        print('here success');
-          emit(EventSuccess(result));
-
-      }else{
-        print('here problem');
-           emit(EventIsFailure("error while getting data"));
-
-      }
+      result != null
+          ? emit(EventSuccess(result))
+          : emit(EventIsFailure("error while getting data"));
     } catch (e) {
-      print('here problem');
       developer.log(e.toString(), name: 'error event');
       emit(EventIsFailure(kcheckInternetConnection));
     }

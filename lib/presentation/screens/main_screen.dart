@@ -1,6 +1,7 @@
 import 'package:curved_nav_bar/curved_bar/curved_action_bar.dart';
 import 'package:curved_nav_bar/fab_bar/fab_bottom_app_bar_item.dart';
 import 'package:curved_nav_bar/flutter_curved_bottom_nav_bar.dart';
+import 'package:esjourney/presentation/screens/Events/event_list_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/course_screen.dart';
 import 'package:esjourney/presentation/widgets/drawer_icon.dart';
 import 'package:esjourney/utils/theme.dart';
@@ -98,8 +99,8 @@ class _MainScreenState extends State<MainScreen> {
             color: theme.colorScheme.background,
           ),
           Container(),
+          const EventListScreen(),
           Container(),
-          Container()
         ],
         actionBarView: const CourseScreen(),
       ),

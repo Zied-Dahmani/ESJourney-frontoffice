@@ -6,6 +6,8 @@ import 'package:esjourney/logic/cubits/events/event_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/router/app_router.dart';
+import 'package:esjourney/presentation/screens/Events/calendar_screen.dart';
+import 'package:esjourney/presentation/screens/Events/event_list_screen.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
 import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
 import 'package:esjourney/utils/strings.dart';
@@ -95,7 +97,7 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
             buildWhen: (oldState, newState) => oldState is UserInitial && newState is! UserLoadInProgress,
             builder: (context, state) {
               if(state is UserLogInSuccess) {
-                return const ZoomDrawerScreen();
+                return  ZoomDrawerScreen();//EventListScreen();
               } else {
                 return SignInScreen();
               }

@@ -20,6 +20,7 @@ class AppRoutes {
 // Seif
 
   static const eventDetails = '/eventDetails';
+  static const eventList = '/eventList';
 
 
 
