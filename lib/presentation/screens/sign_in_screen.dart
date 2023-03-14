@@ -12,13 +12,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
+
 class SignInScreen extends StatelessWidget {
-  SignInScreen({Key? key}) : super(key: key);
+  SignInScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
   final _idController = TextEditingController();
   final _passwordController = TextEditingController();
   BuildContext? dialogContext;
+
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class SignInScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: BlocListener<UserCubit, UserState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is UserLoadInProgress) {
             showDialog(
                 context: context,
@@ -135,10 +137,11 @@ class SignInScreen extends StatelessWidget {
     );
   }
 
-  void showScaffold(BuildContext context, String text) {
+  void showSnackBar(BuildContext context, String text) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(text),
       duration: const Duration(milliseconds: 2000),
     ));
   }
+
 }

@@ -105,7 +105,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
           Container(),
           Container(),
-          Container()
+          const ClubsScreen()
         ],
         actionBarView: const CourseScreen(),
         extendBody: false,

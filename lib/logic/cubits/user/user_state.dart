@@ -25,6 +25,7 @@ class UserLogInSuccess extends UserState {
   Map<String, dynamic> toMap() {
     return {
       '_id': user.id,
+      'id':user.id,
       'email': user.email,
       'username': user.username,
       'password': user.password,
@@ -35,12 +36,14 @@ class UserLogInSuccess extends UserState {
       'threeDAvatar': user.threeDAvatar,
       'twoDAvatar': user.twoDAvatar,
       'online': user.online,
+      'fullName': user.fullName,
       'lastSeen': user.lastSeen,
     };
   }
 
   static UserLogInSuccess? fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
+
 
     return UserLogInSuccess(
       User(
@@ -55,6 +58,8 @@ class UserLogInSuccess extends UserState {
           twoDAvatar: map['twoDAvatar'],
           courses: [],
           online: map['online'],
+          id: map['id'],
+          fullName: map['fullName'],
           lastSeen: map['lastSeen']),
     );
   }

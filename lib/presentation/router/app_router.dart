@@ -13,6 +13,11 @@ import 'package:esjourney/presentation/screens/curriculum/games/memory/screen/me
 import 'package:esjourney/presentation/screens/curriculum/games/slide/pages/slide_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/worldy/screens/wordly_game.dart';
 import 'package:esjourney/presentation/screens/curriculum/map/level_map.dart';
+import 'package:esjourney/presentation/screens/club/apply_to_club_screen.dart';
+import 'package:esjourney/presentation/screens/club/club_screen.dart';
+import 'package:esjourney/presentation/screens/club/done_screen.dart';
+import 'package:esjourney/presentation/screens/club_event/club_event_tickets_screen.dart';
+import 'package:esjourney/presentation/screens/club_event/club_event_timeline_screen.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
 import 'package:esjourney/presentation/screens/sign_up_screen.dart';
 import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
@@ -122,6 +127,32 @@ class AppRouter {
             myUsername: myUsername,
             token: token,
           ),
+        );
+
+        // Zied
+      case AppRoutes.clubScreen:
+        return MaterialPageRoute(
+          builder: (_) => ClubScreen(club: args),
+        );
+
+      case AppRoutes.applyToClubScreen:
+        return MaterialPageRoute(
+          builder: (_) => const ApplyToClubScreen(),
+        );
+
+      case AppRoutes.doneScreen:
+        return MaterialPageRoute(
+          builder: (_) => const DoneScreen(),
+        );
+
+      case AppRoutes.clubEventTimelineScreen:
+        return MaterialPageRoute(
+          builder: (_) => ClubEventTimelineScreen(clubEvent: args),
+        );
+
+      case AppRoutes.clubEventTicketsScreen:
+        return MaterialPageRoute(
+          builder: (_) => ClubEventTicketsScreen(clubEvent: args),
         );
 
       default:
