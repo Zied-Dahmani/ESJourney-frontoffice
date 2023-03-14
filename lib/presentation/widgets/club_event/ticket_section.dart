@@ -113,7 +113,7 @@ class TicketSection extends StatelessWidget {
                     child: CircleAvatar(
                       radius: AppSizes.kradius * 1.3,
                       foregroundImage: NetworkImage(
-                        '$kbaseUrl${state.user.image}'
+                        '$kbaseUrl${state.user.twoDAvatar!}'
                       ),
                     ),
                   ),

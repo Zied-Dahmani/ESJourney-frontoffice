@@ -58,8 +58,8 @@ class SignUpScreen extends StatelessWidget {
                   const SizedBox(height: AppSizes.khugeSpace),
                   Image.asset(
                     'assets/images/app_logo.png',
-                    height: AppSizes.kimageSize,
-                    width: AppSizes.kimageSize,
+                    height: AppSizes.khugeImageSize,
+                    width: AppSizes.khugeImageSize,
                   ),
                   Text(
                     AppStrings.ksignUpPrompt,

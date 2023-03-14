@@ -42,7 +42,7 @@ class SignInScreen extends StatelessWidget {
             Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
           } else if (state is UserIsFailure) {
             Navigator.pop(dialogContext!);
-            showScaffold(context, state.error);
+            showSnackBar(context, state.error);
           }
         },
         child: GestureDetector(
@@ -60,8 +60,8 @@ class SignInScreen extends StatelessWidget {
                   const SizedBox(height: AppSizes.khugeSpace),
                   Image.asset(
                     'assets/images/app_logo.png',
-                    height: AppSizes.kimageSize,
-                    width: AppSizes.kimageSize,
+                    height: AppSizes.khugeImageSize,
+                    width: AppSizes.khugeImageSize,
                   ),
                   Text(
                     AppStrings.ksignInPrompt,
@@ -95,7 +95,7 @@ class SignInScreen extends StatelessWidget {
                                       _idController.text,
                                       _passwordController.text);
                                 } else {
-                                  showScaffold(
+                                  showSnackBar(
                                       context, kcheckInternetConnection);
                                 }
                               }

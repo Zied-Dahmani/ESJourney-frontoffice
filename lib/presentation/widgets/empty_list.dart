@@ -11,7 +11,6 @@ class EmptyList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(
             height: AppSizes.khugeImageSize,

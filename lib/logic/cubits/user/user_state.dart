@@ -58,7 +58,6 @@ class UserLogInSuccess extends UserState {
           twoDAvatar: map['twoDAvatar'],
           courses: [],
           online: map['online'],
-          id: map['id'],
           fullName: map['fullName'],
           lastSeen: map['lastSeen']),
     );

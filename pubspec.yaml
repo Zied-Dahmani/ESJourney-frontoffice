@@ -51,7 +51,6 @@ dependencies:
   animated_text_kit: ^4.2.1
   flutter_feather_icons: any
   image: ^3.1.1
-  file_picker: ^4.4.0
   animated_background: ^2.0.0
   google_fonts: any
   rive: ^0.8.1

@@ -36,7 +36,7 @@ class ClubsScreen extends StatelessWidget {
               return state is ClubLoadSuccess && state.clubs.isNotEmpty
                   ? ClubsList(clubs: state.clubs)
                   : state is ClubLoadSuccess
-                  ? const EmptyList(text:AppStrings.knoClubs)
+                  ? const Center(child: EmptyList(text:AppStrings.knoClubs))
                       : state is ClubLoadInProgress || state is ClubLoadFailure
                           ? const LoadingClubsList()
                           : const SizedBox();

@@ -2,6 +2,7 @@ import 'package:curved_nav_bar/curved_bar/curved_action_bar.dart';
 import 'package:curved_nav_bar/fab_bar/fab_bottom_app_bar_item.dart';
 import 'package:curved_nav_bar/flutter_curved_bottom_nav_bar.dart';
 import 'package:esjourney/presentation/router/routes.dart';
+import 'package:esjourney/presentation/screens/club/clubs_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/courses/course_screen.dart';
 import 'package:esjourney/presentation/widgets/drawer_icon.dart';
 import 'package:esjourney/utils/theme.dart';
