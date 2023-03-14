@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-
+import 'package:http/http.dart' as http;
 import 'package:code_text_field/code_text_field.dart';
 import 'package:esjourney/data/models/challenges/codingProblem/topSolutions/chart_model.dart';
 import 'package:esjourney/data/models/challenges/codingProblem/topSolutions/top_solutions_model.dart';
@@ -17,7 +17,7 @@ import 'package:esjourney/presentation/widgets/challenges/problems_chart.dart';
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart' as http;
+
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class IdeScreen extends StatefulWidget {
@@ -147,7 +147,6 @@ class _IdeScreenState extends State<IdeScreen> {
                                 });
                               }).then((value) {
                                 if (result.trim().toLowerCase() == output) {
-                                  print("here");
                                   BlocProvider.of<SubmissionCubit>(context)
                                       .submit(
                                           codingProblemState.codingProblems.id,

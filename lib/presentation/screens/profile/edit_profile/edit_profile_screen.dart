@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../utils/screen_size.dart';
+import '../../../widgets/challenges/user_info.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
@@ -7,6 +8,8 @@ class EditProfileScreen extends StatefulWidget {
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
+
+bool switched = false;
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
@@ -65,10 +68,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         color: theme.colorScheme.outline,
                       ),
                       child: IconButton(
-                        icon: const Icon(Icons.edit_outlined,color: Colors.white),
+                        icon: const Icon(Icons.edit_outlined,
+                            color: Colors.white),
                         iconSize: width * 0.048,
-                        onPressed: ()  {
-
+                        onPressed: () {
                           // Do something with the picked image file
                         },
                       )),
@@ -105,41 +108,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ],
             ),
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class UserInfo extends StatelessWidget {
-  const UserInfo({
-    super.key,
-    required this.infoTitle,
-    required this.infoValue,
-  });
-
-  final String infoTitle;
-
-  final String infoValue;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin:
-          const EdgeInsets.only(left: 15, right: 15, top: 15.0, bottom: 5.0),
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Text(
-          infoTitle,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            fontFamily: 'VisbyRoundCF',
-          ),
-        ),
-        Row(
-          children: [
-            Text(
-              infoValue,
+          Container(
+            margin: const EdgeInsets.only(left: 20, top: 20),
+            child: Text(
+              "Content & Display",
               style: TextStyle(
                 color: Colors.grey[600],
                 fontSize: 14,
@@ -147,14 +119,62 @@ class UserInfo extends StatelessWidget {
                 fontFamily: 'VisbyRoundCF',
               ),
             ),
-            Icon(
-              Icons.arrow_forward_ios_outlined,
-              size: 15,
-              color: Colors.grey[600],
+          ),
+          Container(
+            margin: const EdgeInsets.only(left: 10, top: 5, right: 10),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(5),
             ),
-          ],
-        )
-      ]),
+            child: Container(
+                margin: const EdgeInsets.only(
+                    left: 15, right: 5, top: 7.0, bottom: 7.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Push notifications",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'VisbyRoundCF',
+                      ),
+                    ),
+                    GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () {
+                        setState(() {
+                          switched = !switched;
+                        });
+                      },
+                      child: Transform.scale(
+                        scale: 0.7,
+                        child: Theme(
+                          data: ThemeData(
+                            primarySwatch: Colors.blue,
+                            unselectedWidgetColor: Colors.deepPurple,
+                          ),
+                          child: Switch(
+                            value: switched,
+                            activeColor: theme.colorScheme.primary,
+                            inactiveTrackColor: Colors.grey[300],
+                            //final Color? effectiveInactiveTrackOutlineColor = switchConfig.trackOutlineColor?.resolve(inactiveStates);
+
+                            onChanged: (bool newValue) {
+                              setState(() {
+                                switched = newValue;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                )),
+          ),
+        ],
+      ),
     );
   }
 }

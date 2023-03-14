@@ -19,6 +19,7 @@ import 'package:esjourney/presentation/screens/profile/edit_profile/edit_profile
 import 'package:esjourney/presentation/screens/profile/profile_screen.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
 import 'package:esjourney/presentation/screens/test_screen.dart';
+import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
 import 'package:esjourney/utils/strings.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/foundation.dart';
@@ -117,7 +118,7 @@ class MyApp extends StatelessWidget {
                 oldState is UserInitial && newState is! UserLoadInProgress,
             builder: (context, state) {
               if (state is UserLogInSuccess) {
-                return ProfileScreen();
+                return TestScreen();
 
                 // EthQrCodeScreen();
 
