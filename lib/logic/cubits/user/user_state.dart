@@ -22,10 +22,13 @@ class UserLogInSuccess extends UserState {
 
   Map<String, dynamic> toMap() {
     return {
+      'id':user.id,
       'email': user.email,
       'username': user.username,
       'password': user.password,
-      'token': user.token
+      'token': user.token,
+      'fullName': user.fullName,
+      'image': user.image,
     };
   }
 
@@ -33,10 +36,13 @@ class UserLogInSuccess extends UserState {
     if (map == null) return null;
 
     return UserLogInSuccess(User(
+        id: map['id'],
         email: map['email'],
         username: map['username'],
         password: map['password'],
-        token: map['token']));
+        token: map['token'],
+        fullName: map['fullName'],
+        image: map['image']));
   }
 
   String toJson() => json.encode(toMap());

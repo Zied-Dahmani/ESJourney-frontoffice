@@ -10,7 +10,7 @@ import 'dart:ui' as ui;
 class ClubsList extends StatefulWidget {
   const ClubsList({Key? key, required this.clubs}) : super(key: key);
 
-  final List<Club> clubs;
+  final clubs;
 
   @override
   State<ClubsList> createState() => _ClubsListState();
@@ -97,7 +97,7 @@ class _ClubsListState extends State<ClubsList> {
                       });
                     },
                     child: Hero(
-                      tag: item.image,
+                      tag: item.images[0],
                       child: AnimatedContainer(
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.easeInOut,
@@ -117,7 +117,7 @@ class _ClubsListState extends State<ClubsList> {
                             ),
                           ],
                           image: DecorationImage(
-                            image: NetworkImage('$kbaseUrl${item.image}'),
+                            image: NetworkImage('$kbaseUrl${item.images[0]}'),
                             fit: BoxFit.fitHeight,
                           ),
                         ),
@@ -160,9 +160,9 @@ class _ClubsListState extends State<ClubsList> {
                           return Visibility(
                             visible: value,
                             child: Text(
-                              item.description,
-                              style: theme.textTheme.bodySmall!
-                                  .copyWith(color: theme.colorScheme.secondary),
+                              item.shortDescription,
+                              overflow: ScreenSize.height(context) < 600 ? TextOverflow.ellipsis : null,
+                              style: theme.textTheme.bodySmall,
                             ),
                           );
                         },

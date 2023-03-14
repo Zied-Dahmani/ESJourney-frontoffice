@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 ThemeData lightTheme = ThemeData(
     useMaterial3: true,
+    unselectedWidgetColor: const Color(0xFFEB4A5A),
     colorScheme: const ColorScheme(
         brightness: Brightness.dark,
         primary: Color(0xFFEB4A5A),
@@ -9,12 +10,16 @@ ThemeData lightTheme = ThemeData(
         secondary: Color(0xFF3C3C3E),
         onSecondary: Colors.white,
         tertiary: Color(0xFFCFCFCF),
+        onTertiary: Colors.grey,
         background: Color(0xFFFAFAFA),
         onBackground: Colors.black,
         error: Color(0xFFEB4A5A),
         onError: Colors.white,
         surface: Colors.white,
-        onSurface: Colors.black),
+        onSurface: Colors.black,
+        outline: Color(0xFF3EB8D4),
+        onPrimaryContainer: Colors.black26
+    ),
     fontFamily: 'VisbyRoundCF',
     textTheme: const TextTheme(
       headlineLarge: TextStyle(
@@ -25,9 +30,9 @@ ThemeData lightTheme = ThemeData(
           fontSize: 20.0,
           fontWeight: FontWeight.bold,
           color: Color(0xFF3C3C3E)),
-      bodyLarge: TextStyle(fontSize: 18.0, color: Color(0xFFEFEFEF)),
+      bodyLarge: TextStyle(fontSize: 18.0, color: Color(0xFF3C3C3E)),
       bodyMedium: TextStyle(fontSize: 16.0, color: Color(0xFF3C3C3E)),
-      bodySmall: TextStyle(fontSize: 14.0, color: Color(0xFFEFEFEF)),
+      bodySmall: TextStyle(fontSize: 14.0, color: Color(0xFF3C3C3E)),
     ),
     scaffoldBackgroundColor: const Color(0xFFF8F8F8),
     appBarTheme: const AppBarTheme(
@@ -73,7 +78,9 @@ ThemeData lightTheme = ThemeData(
       backgroundColor: Color(0xFFEB4A5A),
       contentTextStyle: TextStyle(fontSize: 16.0, color: Colors.white),
     ),
-
+    radioTheme: RadioThemeData(
+      fillColor: MaterialStateColor.resolveWith((states) => const Color(0xFFEB4A5A)),
+    ),
 );
 
 class AppSizes {
@@ -85,8 +92,25 @@ class AppSizes {
 
   static const kradius = 20.0;
   static const kbuttonHeight = 56.0;
-  static const kimageSize = 180.0;
+  static const ksmallImageSize = 70.0;
+  static const kbigImageSize = 180.0;
+  static const khugeImageSize = 240.0;
   static const kiconSize = 24.0;
   static const kiconBackgroundSize = 54.0;
   static const kiconBackgroundRadius = 99.0;
+
+  static const kshimmerTextHeight = 8.0;
+  static const kshimmerTextWidth = 100.0;
+
+  static const kmarkerSizeExpanded = 55.0;
+  static const kmarkerSizeShrinked = 38.0;
+
+  static const ktimeLineIcon = 30.0;
+  static const ktimelineDotSize = 15.0;
+
+  static const kcardHeight = 150.0;
+
+
+
+
 }

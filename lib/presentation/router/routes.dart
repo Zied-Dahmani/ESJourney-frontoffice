@@ -4,7 +4,10 @@ class AppRoutes {
 
   // Zied
   static const clubScreen = 'club_screen';
-  static const applyToClubScreen = 'apply_to_clubscreen';
+  static const applyToClubScreen = 'apply_to_club_screen';
+  static const doneScreen = 'done_screen';
+  static const clubEventTimelineScreen = 'club_event_timeline_screen';
+  static const clubEventTicketsScreen = 'club_event_tickets_screen';
 
     // Louay
 

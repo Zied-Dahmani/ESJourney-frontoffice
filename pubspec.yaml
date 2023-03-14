@@ -34,18 +34,41 @@ dependencies:
   flutter_bloc: ^8.1.1
   hydrated_bloc: ^9.1.0
   path_provider: ^2.0.11
-  connectivity_plus: ^3.0.2
+  connectivity_plus: ^2.0.1
   dio: ^4.0.6
   font_awesome_flutter: ^10.3.0
   intl: ^0.17.0
   flutter_zoom_drawer: ^3.0.3
   curved_nav_bar: ^0.0.2
-  #youssef
+
+#Zied
+  im_stepper: ^1.0.1+1
+  dropdown_button2: ^1.9.2
+  file_picker: ^5.2.5
+  shimmer: ^2.0.0
+  top_snackbar_flutter: ^3.0.0+1
+  regexed_validator: ^2.0.0+1
+  flutter_map: ^3.1.0
+  flutter_svg: ^1.1.6
+  location: ^4.4.0
+  maps_launcher: ^2.2.0
+  like_button: ^2.0.5
+  flutter_timer_countdown: ^1.0.5
+  top_modal_sheet: ^2.0.1
+  flutter_animate: ^4.1.0
+  ticket_widget: ^0.0.1
+  countup: ^0.1.4
+  awesome_card: ^1.1.7
+  animate_icons: ^2.0.0
+
+
+ #Youssef
   http: ^0.13.5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+
 
 dev_dependencies:
   flutter_test:

@@ -1,20 +1,19 @@
 import 'dart:async';
 import 'dart:developer' as developer;
 import 'package:esjourney/data/models/club_model.dart';
-import 'package:esjourney/data/repositories/club_repository.dart';
 import 'package:esjourney/logic/cubits/club/club_state.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
 import 'package:esjourney/utils/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ClubCubit extends Cubit<ClubState> {
-  ClubCubit(this._connectivityCubit) : super(ClubLoadInProgress()) {
+  ClubCubit(this._connectivityCubit,this._userCubit, this._clubRepository) : super(ClubLoadInProgress()) {
     init();
   }
 
-  final _clubRepository = ClubRepository();
-  final ConnectivityCubit _connectivityCubit;
+  final _connectivityCubit,_clubRepository,_userCubit;
   StreamSubscription? _connectivityStreamSubscription;
+
 
   void init() {
     if (_connectivityCubit.state is ConnectivityConnectSuccess) {
@@ -49,6 +48,34 @@ class ClubCubit extends Cubit<ClubState> {
       emit(ClubLoadFailure(kcheckInternetConnection));
     }
   }
+
+
+  /*var isFirstTime = true;
+
+  bool isLiked(isLiked,club) {
+    final state = _userCubit.state;
+    if(state is UserLogInSuccess)
+      {
+        if(isFirstTime) {
+          isFirstTime = false;
+          return club.likes.contains(state.user.id);
+        }
+        else{
+          if(isLiked)
+          {
+            club.likes.remove(state.user.id);
+            return false;
+          }
+          else
+          {
+            club.likes.add(state.user.id);
+            return true;
+          }
+        }
+      }
+    return false;
+  }
+*/
 
   @override
   Future<void> close() {
