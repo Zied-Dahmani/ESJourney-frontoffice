@@ -1,3 +1,4 @@
+import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
@@ -9,6 +10,7 @@ import 'package:esjourney/utils/strings.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 
 class SignInScreen extends StatelessWidget {
@@ -24,6 +26,7 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: BlocListener<UserCubit, UserState>(
         listener: (context, state) async {
           if (state is UserLoadInProgress) {
@@ -33,97 +36,99 @@ class SignInScreen extends StatelessWidget {
                   dialogContext = context;
                   return const Center(child: CircularProgressIndicator());
                 });
-          } else {
+          } else if (state is UserLogInSuccess) {
+            //Navigator.pop(dialogContext!);
+            Provider.of<SocketService>(context, listen: false).connect(state.user.token!);
+            Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
+          } else if (state is UserIsFailure) {
             Navigator.pop(dialogContext!);
-            if (state is UserLogInSuccess) {
-              Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.zoomDrawerScreen, (Route<dynamic> route) => false);
-            } else if (state is UserIsFailure) {
-              showSnackBar(context, state.error);
-            }
+            showScaffold(context, state.error);
           }
         },
-        child: SingleChildScrollView(
-          child: GestureDetector(
-            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: AppSizes.kbigSpace,
-                  vertical: AppSizes.khugeSpace),
-              color: theme.colorScheme.background,
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: AppSizes.khugeSpace),
-                    Image.asset(
-                      'assets/images/app_logo.png',
-                      height: AppSizes.khugeImageSize,
-                      width: AppSizes.khugeImageSize,
+        child: GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+                horizontal: AppSizes.kbigSpace, vertical: AppSizes.khugeSpace),
+            color: theme.colorScheme.background,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(height: AppSizes.khugeSpace),
+                  Image.asset(
+                    'assets/images/app_logo.png',
+                    height: AppSizes.kimageSize,
+                    width: AppSizes.kimageSize,
+                  ),
+                  Text(
+                    AppStrings.ksignInPrompt,
+                    style: theme.textTheme.headlineLarge,
+                  ),
+                  const SizedBox(height: AppSizes.khugeSpace),
+                  TextFormFieldWidget(
+                      _idController, AppStrings.kusername, TextInputType.name),
+                  const SizedBox(height: AppSizes.kbigSpace),
+                  TextFormFieldWidget(_passwordController, AppStrings.kpassword,
+                      TextInputType.visiblePassword),
+                  const SizedBox(height: AppSizes.kbigSpace),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: GestureDetector(
+                      child: Text(AppStrings.kforgotPassword,
+                          style: theme.textTheme.bodyMedium!
+                              .copyWith(color: theme.colorScheme.primary)),
                     ),
-                    Text(
-                      AppStrings.ksignInPrompt,
-                      style: theme.textTheme.headlineLarge,
-                    ),
-                    const SizedBox(height: AppSizes.khugeSpace),
-                    TextFormFieldWidget(_idController, AppStrings.kusername,
-                        TextInputType.name),
-                    const SizedBox(height: AppSizes.kbigSpace),
-                    TextFormFieldWidget(_passwordController,
-                        AppStrings.kpassword, TextInputType.visiblePassword),
-                    const SizedBox(height: AppSizes.kbigSpace),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: GestureDetector(
-                        child: Text(AppStrings.kforgotPassword,
-                            style: theme.textTheme.bodyMedium!
-                                .copyWith(color: theme.colorScheme.primary)),
+                  ),
+                  const SizedBox(height: AppSizes.kbigSpace),
+                  BlocBuilder<ConnectivityCubit, ConnectivityState>(
+                    builder: (context, state) {
+                      return Center(
+                        child: ButtonWidget(
+                            text: AppStrings.klogin,
+                            function: () {
+                              if (_formKey.currentState!.validate()) {
+                                if (state is ConnectivityConnectSuccess) {
+                                  BlocProvider.of<UserCubit>(context).signIn(
+                                      _idController.text,
+                                      _passwordController.text);
+                                } else {
+                                  showScaffold(
+                                      context, kcheckInternetConnection);
+                                }
+                              }
+                            }),
+                      );
+                    },
+                  ),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            AppStrings.kdontHaveAccount,
+                            style: theme.textTheme.bodyMedium,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context)
+                                  .pushNamed(AppRoutes.signUpScreen);
+                            },
+                            child: Text(
+                              AppStrings.ksignUp,
+                              style: theme.textTheme.bodyMedium!
+                                  .copyWith(color: theme.colorScheme.primary),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    const SizedBox(height: AppSizes.kbigSpace),
-                    BlocBuilder<ConnectivityCubit, ConnectivityState>(
-                      builder: (context, state) {
-                       // if (_showButton) {
-                          return Center(
-                            child: ButtonWidget(
-                                text: AppStrings.klogin,
-                                function: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    if (state is ConnectivityConnectSuccess) {
-                                      BlocProvider.of<UserCubit>(context)
-                                          .signIn(
-                                          _idController.text,
-                                          _passwordController.text);
-                                    } else {
-                                      showSnackBar(
-                                          context, kcheckInternetConnection);
-                                    }
-                                  }
-                                }),
-                          );
-                        //}
-                        /*else {
-                          return Center(
-                            child: SizedBox(
-                              height: AppSizes.ksmallImageSize,
-                              width: AppSizes.ksmallImageSize,
-                              child: RiveAnimation.asset(
-                                  'assets/images/loading.riv',
-                                  onInit: (artboard) {
-                                    StateMachineController controller = getRiveController(
-                                        artboard);
-                                    _check = controller.findSMI("Check") as SMITrigger;
-                                    _error = controller.findSMI("Error") as SMITrigger;
-                                    _reset = controller.findSMI("Reset") as SMITrigger;
-                                  }),
-                            ),
-                          );
-                        }*/
-                      }
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

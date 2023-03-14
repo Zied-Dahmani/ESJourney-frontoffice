@@ -19,4 +19,33 @@ class UserDataProvider {
       ),
     );
   }
+
+  Future<Response> signUp(String? id,String email, String password) async {
+    return await dio.request(
+      ksignUp,
+      data: {'username': id, 'email':email, 'password': password},
+      options: Options(
+        method: 'POST',
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+  }
+
+  Future<Response> addAvatars(String token,String twoDAvatar, String threeDAvatar) async {
+    return await dio.request(
+      kaddAvatar,
+      data: { 'twoDAvatar':twoDAvatar, 'threeDAvatar': threeDAvatar},
+      options: Options(
+        method: 'POST',
+        headers: {
+          'jwt': token,
+        },
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+  }
 }

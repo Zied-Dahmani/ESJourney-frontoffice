@@ -1,6 +1,7 @@
 import 'dart:convert';
-import 'package:esjourney/data/models/user_model.dart';
+
 import 'package:equatable/equatable.dart';
+import 'package:esjourney/data/models/user_model.dart';
 
 abstract class UserState extends Equatable {}
 
@@ -16,36 +17,55 @@ class UserLoadInProgress extends UserState {
 
 class UserLogInSuccess extends UserState {
   final User user;
+
   UserLogInSuccess(this.user);
 
   List<Object> get props => [user];
 
   Map<String, dynamic> toMap() {
     return {
+      '_id': user.id,
       'id':user.id,
       'email': user.email,
       'username': user.username,
       'password': user.password,
-      'token': user.token,
+      'grade': user.grade,
+      'token': user.token!,
+      'courses': '',
+      'coins': user.coins,
+      'threeDAvatar': user.threeDAvatar,
+      'twoDAvatar': user.twoDAvatar,
+      'online': user.online,
       'fullName': user.fullName,
-      'image': user.image,
+      'lastSeen': user.lastSeen,
     };
   }
 
   static UserLogInSuccess? fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 
-    return UserLogInSuccess(User(
-        id: map['id'],
-        email: map['email'],
-        username: map['username'],
-        password: map['password'],
-        token: map['token'],
-        fullName: map['fullName'],
-        image: map['image']));
+
+    return UserLogInSuccess(
+      User(
+          id: map['_id'],
+          email: map['email'],
+          username: map['username'],
+          password: map['password'],
+          grade: map['grade'],
+          coins: map['coins'],
+          token: map['token'],
+          threeDAvatar: map['threeDAvatar'],
+          twoDAvatar: map['twoDAvatar'],
+          courses: [],
+          online: map['online'],
+          id: map['id'],
+          fullName: map['fullName'],
+          lastSeen: map['lastSeen']),
+    );
   }
 
   String toJson() => json.encode(toMap());
+
   static UserLogInSuccess? fromJson(String source) =>
       fromMap(json.decode(source));
 }
@@ -57,6 +77,7 @@ class UserLogOutSuccess extends UserState {
 
 class UserIsFailure extends UserState {
   final String error;
+
   UserIsFailure(this.error);
 
   @override

@@ -1,7 +1,8 @@
 import 'package:curved_nav_bar/curved_bar/curved_action_bar.dart';
 import 'package:curved_nav_bar/fab_bar/fab_bottom_app_bar_item.dart';
 import 'package:curved_nav_bar/flutter_curved_bottom_nav_bar.dart';
-import 'package:esjourney/presentation/screens/club/clubs_screen.dart';
+import 'package:esjourney/presentation/router/routes.dart';
+import 'package:esjourney/presentation/screens/curriculum/courses/course_screen.dart';
 import 'package:esjourney/presentation/widgets/drawer_icon.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
@@ -21,11 +22,16 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: const DrawerIcon(),
-        actions: const [
-          Icon(FontAwesomeIcons.solidMessage),
-          SizedBox(width: AppSizes.ksmallSpace),
-          Icon(FontAwesomeIcons.solidBell),
-          SizedBox(width: AppSizes.ksmallSpace)
+        actions: [
+          IconButton(
+            icon:  const Icon(FontAwesomeIcons.message),
+            onPressed: () {
+              Navigator.of(context).pushNamed(AppRoutes.messages);
+            },
+          ),
+          const SizedBox(width: AppSizes.ksmallSpace),
+          const Icon(FontAwesomeIcons.bell),
+          const SizedBox(width: AppSizes.ksmallSpace)
         ],
       ),
       body: CurvedNavBar(
@@ -51,7 +57,7 @@ class _MainScreenState extends State<MainScreen> {
                 color: theme.colorScheme.surface,
               ),
             ),
-        text: ''),
+            text: ''),
         navBarBackgroundColor: theme.colorScheme.surface,
         //activeColor: Colors.yellow,
         //inActiveColor: theme.colorScheme.onBackground,
@@ -64,7 +70,7 @@ class _MainScreenState extends State<MainScreen> {
               inActiveIcon: const Icon(
                 FontAwesomeIcons.house,
               ),
-          text: ''),
+              text: ''),
           FABBottomAppBarItem(
               activeIcon: Icon(
                 FontAwesomeIcons.briefcase,
@@ -73,7 +79,7 @@ class _MainScreenState extends State<MainScreen> {
               inActiveIcon: const Icon(
                 FontAwesomeIcons.briefcase,
               ),
-          text: ''),
+              text: ''),
           FABBottomAppBarItem(
               activeIcon: Icon(
                 FontAwesomeIcons.graduationCap,
@@ -82,7 +88,7 @@ class _MainScreenState extends State<MainScreen> {
               inActiveIcon: const Icon(
                 FontAwesomeIcons.graduationCap,
               ),
-          text: ''),
+              text: ''),
           FABBottomAppBarItem(
               activeIcon: Icon(
                 FontAwesomeIcons.peopleGroup,
@@ -91,7 +97,7 @@ class _MainScreenState extends State<MainScreen> {
               inActiveIcon: const Icon(
                 FontAwesomeIcons.peopleGroup,
               ),
-          text: ''),
+              text: ''),
         ],
         bodyItems: [
           Container(
@@ -101,7 +107,8 @@ class _MainScreenState extends State<MainScreen> {
           Container(),
           const ClubsScreen()
         ],
-        actionBarView: Container(),
+        actionBarView: const CourseScreen(),
+        extendBody: false,
       ),
     );
   }
