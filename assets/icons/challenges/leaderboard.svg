@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="375" height="388" viewBox="0 0 375 388">
+  <defs>
+    <linearGradient id="linear-gradient" y1="0.011" x2="0" y2="1.013" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#eb4a5a"/>
+      <stop offset="1" stop-color="#faf7f6"/>
+    </linearGradient>
+    <clipPath id="clip-Leaderboard_1">
+      <rect width="375" height="388"/>
+    </clipPath>
+  </defs>
+  <g id="Leaderboard_1" data-name="Leaderboard – 1" clip-path="url(#clip-Leaderboard_1)">
+    <rect width="375" height="388" fill="#fafafa"/>
+    <rect id="Rectangle_Copy_5" data-name="Rectangle Copy 5" width="375" height="380" fill="url(#linear-gradient)"/>
+    <g id="Group_6" data-name="Group 6" transform="translate(13 -61)" opacity="0.1" style="isolation: isolate">
+      <circle id="Oval" cx="88.5" cy="88.5" r="88.5" transform="translate(274)" fill="#fff"/>
+      <circle id="Oval_Copy_9" data-name="Oval Copy 9" cx="29" cy="29" r="29" transform="translate(285 189)" fill="#fff"/>
+      <circle id="Oval_Copy_4" data-name="Oval Copy 4" cx="29" cy="29" r="29" transform="translate(57 70)" fill="#fff"/>
+      <circle id="Oval_Copy_8" data-name="Oval Copy 8" cx="15" cy="15" r="15" transform="translate(225 86)" fill="#fff"/>
+      <circle id="Oval_Copy_5" data-name="Oval Copy 5" cx="15" cy="15" r="15" transform="translate(236 228)" fill="#fff"/>
+      <circle id="Oval_Copy_7" data-name="Oval Copy 7" cx="12" cy="12" r="12" transform="translate(62 235)" fill="#fff"/>
+      <circle id="Oval_Copy_6" data-name="Oval Copy 6" cx="19" cy="19" r="19" transform="translate(0 239)" fill="#fff"/>
+    </g>
+    <path id="Rectangle" d="M16,0H92a16,16,0,0,1,16,16V152a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V16A16,16,0,0,1,16,0Z" transform="translate(134 228)" fill="#fff" opacity="0.18"/>
+    <path id="Rectangle_Copy_3" data-name="Rectangle Copy 3" d="M16,0H76A16,16,0,0,1,92,16V132a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V16A16,16,0,0,1,16,0Z" transform="translate(242 248)" fill="#fff" opacity="0.1"/>
+    <path id="Rectangle_Copy_4" data-name="Rectangle Copy 4" d="M16,0H76A16,16,0,0,1,92,16V132a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V16A16,16,0,0,1,16,0Z" transform="translate(42 248)" fill="#fff" opacity="0.1"/>
+    <ellipse id="Ellipse_1221" data-name="Ellipse 1221" cx="280.5" cy="100" rx="280.5" ry="100" transform="translate(-97 354)" fill="#fafafa"/>
+  </g>
+</svg>

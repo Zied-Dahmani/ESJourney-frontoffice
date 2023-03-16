@@ -1,4 +1,5 @@
 import 'package:esjourney/data/models/curriculum/user_course_model.dart';
+import 'package:esjourney/data/models/events/event_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_model.freezed.dart';
@@ -13,6 +14,7 @@ class User with _$User {
     required String email,
     required String password,
     required int grade,
+    List<Event>? events,
     required int coins,
     required String lastSeen,
     String? twoDAvatar,

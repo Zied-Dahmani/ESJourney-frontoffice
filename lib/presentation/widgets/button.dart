@@ -10,16 +10,18 @@ class ButtonWidget extends StatelessWidget {
       this.icon,
       this.backgroundColor,
       this.textColor,
+      this.height,
+      this.width,
       this.function})
       : super(key: key);
-  final text, image, icon, backgroundColor, textColor, function;
+  final text, image, icon, backgroundColor, textColor, function, height, width;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final width = MediaQuery.of(context).size.width;
     return SizedBox(
-      height: AppSizes.kbuttonHeight,
+      height: height,
       width: width - 70,
       child: ElevatedButton(
           style: ButtonStyle(

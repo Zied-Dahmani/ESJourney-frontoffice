@@ -22,4 +22,10 @@ class UserRepository implements IUserRepository {
     final result = await _userDataProvider.addAvatars(token,twoDAvatar, threeDAvatar);
     return result.statusCode == 200 ? User.fromJson(result.data) : null;
   }
+
+  @override
+  Future<dynamic> getUserData(String token) async {
+    final result = await _userDataProvider.getUserData(token);
+    return result.statusCode == 200 ? User.fromJson(result.data) : null;
+  }
 }

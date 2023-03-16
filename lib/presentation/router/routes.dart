@@ -31,6 +31,8 @@ class AppRoutes {
 // Souhail
 
 // Seif
+  static const eventDetails = '/eventDetails';
+  static const eventList = '/eventList';
 
 // Youssef
 }

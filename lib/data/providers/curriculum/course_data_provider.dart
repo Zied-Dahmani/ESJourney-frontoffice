@@ -5,7 +5,7 @@ class CourseDataProvider{
   final dio = Dio()
     ..options.baseUrl = kbaseUrl
     ..options.connectTimeout = 5000
-    ..options.receiveTimeout = 5000;
+    ..options.receiveTimeout = 3000;
 
   Future<Response> getAllCourses(String token) async {
     dynamic req = await dio.request(
@@ -22,29 +22,5 @@ class CourseDataProvider{
       ),
     );
     return req;
-  }
-
-  Future<Response> getAllClubEvents() async {
-    return await dio.request(
-      kgetAllClubEvents,
-      options: Options(
-        method: 'GET',
-        validateStatus: (status) {
-          return status! < 500;
-        },
-      ),
-    );
-  }
-
-  Future<Response> getAllApplications() async {
-    return await dio.request(
-      kgetAllApplications,
-      options: Options(
-        method: 'GET',
-        validateStatus: (status) {
-          return status! < 500;
-        },
-      ),
-    );
   }
 }

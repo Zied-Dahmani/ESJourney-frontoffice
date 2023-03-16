@@ -1,5 +1,14 @@
 import 'package:esjourney/data/repositories/chat/chat_service.dart';
 import 'package:esjourney/logic/app_bloc_observer.dart';
+import 'package:esjourney/logic/cubits/challenges/quiz_cubit.dart';
+import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
+import 'package:esjourney/logic/cubits/curriculum/course_cubit.dart';
+import 'package:esjourney/logic/cubits/events/event_cubit.dart';
+import 'package:esjourney/logic/cubits/user/user_cubit.dart';
+import 'package:esjourney/logic/cubits/user/user_state.dart';
+import 'package:esjourney/presentation/router/app_router.dart';
+import 'package:esjourney/presentation/screens/Events/calendar_screen.dart';
+import 'package:esjourney/presentation/screens/Events/event_list_screen.dart';
 import 'package:esjourney/logic/cubits/chat/user/users_cubit.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
 import 'package:esjourney/logic/cubits/curriculum/course_cubit.dart';
@@ -77,10 +86,46 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  final AppRouter _appRouter = AppRouter();
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
 
-  MyApp({Key? key}) : super(key: key);
+  @override
+  State<MyApp> createState() => _AppState();
+}
+
+class _AppState extends State<MyApp> with WidgetsBindingObserver {
+  late UserCubit _userCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    _userCubit = UserCubit();
+    WidgetsBinding.instance.addObserver(this);
+    if (_userCubit.state is UserLogInSuccess) {
+      final token = (_userCubit.state as UserLogInSuccess).user.token;
+      _userCubit.refreshUserData(token);
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _userCubit.close();
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    if (state == AppLifecycleState.resumed ||
+        state == AppLifecycleState.inactive) {
+      final token = _userCubit.state is UserLogInSuccess
+          ? (_userCubit.state as UserLogInSuccess).user.token
+          : null;
+      if (token != null) {
+        await _userCubit.refreshUserData(token);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,6 +152,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<UsersDataCubit>(
             create: (context) => UsersDataCubit(), lazy: true),
             /* end louay*/
+
+            BlocProvider<EventCubit>(create: (context) => EventCubit()),
           BlocProvider<ConnectivityCubit>(create: (context) => ConnectivityCubit(), lazy: false),
           BlocProvider<UserCubit>(create: (context) => UserCubit(), lazy: true),
           BlocProvider<ClubCubit>(create: (context) => ClubCubit(BlocProvider.of<ConnectivityCubit>(context), BlocProvider.of<UserCubit>(context), context.read<ClubRepository>()), lazy: true),
