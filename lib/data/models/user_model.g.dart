@@ -7,27 +7,35 @@ part of 'user_model.dart';
 // **************************************************************************
 
 _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
-      email: json['email'] as String,
+      id: json['_id'],
       username: json['username'] as String,
+      email: json['email'] as String,
       password: json['password'] as String,
       grade: json['grade'] as int,
-      token: json['token'] as String,
       coins: json['coins'] as int,
+      lastSeen: json['lastSeen'] as String,
+      twoDAvatar: json['twoDAvatar'] as String?,
+      threeDAvatar: json['threeDAvatar'] as String?,
       courses: (json['courses'] as List<dynamic>?)
           ?.map((e) => UserCourse.fromJson(e as Map<String, dynamic>))
           .toList(),
-      events: (json['events'] as List<dynamic>?)
-          ?.map((e) => Event.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      online: json['online'] as bool,
+      token: json['token'] as String?,
+      fullName: json['fullName'] as String,
     );
 
 Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
-      'email': instance.email,
+      '_id': instance.id,
       'username': instance.username,
+      'email': instance.email,
       'password': instance.password,
       'grade': instance.grade,
-      'token': instance.token,
       'coins': instance.coins,
+      'lastSeen': instance.lastSeen,
+      'twoDAvatar': instance.twoDAvatar,
+      'threeDAvatar': instance.threeDAvatar,
       'courses': instance.courses,
-      'events': instance.events,
+      'online': instance.online,
+      'token': instance.token,
+      'fullName': instance.fullName,
     };

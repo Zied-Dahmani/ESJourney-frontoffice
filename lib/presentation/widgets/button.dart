@@ -26,10 +26,10 @@ class ButtonWidget extends StatelessWidget {
       child: ElevatedButton(
           style: ButtonStyle(
               overlayColor: MaterialStateProperty.all(backgroundColor != null
-                  ? theme.colorScheme.secondary.withOpacity(0.4)
-                  : theme.colorScheme.onSecondary.withOpacity(0.2)),
+                  ? theme.colorScheme.onPrimary.withOpacity(0.4)
+                  : theme.colorScheme.onPrimary.withOpacity(0.2)),
               backgroundColor: MaterialStateProperty.all(
-                  backgroundColor ?? theme.colorScheme.secondary)),
+                  backgroundColor ?? theme.colorScheme.primary)),
           onPressed: () => function(),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -45,12 +45,7 @@ class ButtonWidget extends StatelessWidget {
               ],
               Text(
                 text,
-                style: TextStyle(
-                  color: theme.colorScheme.onPrimary,
-                  fontSize: 17,
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'VisbyRoundCF',
-                ),
+                style: theme.textTheme.bodyMedium!.copyWith(color: theme.colorScheme.onPrimary)
               )
             ],
           )),

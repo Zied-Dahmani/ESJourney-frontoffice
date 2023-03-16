@@ -10,11 +10,11 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 class UserCubit extends Cubit<UserState> with HydratedMixin {
   UserCubit() : super(UserInitial()) {
-    hydrate();
+    //
   }
 
   @override
-  UserState? fromJson(Map<String, dynamic> json) {
+  UserLogInSuccess? fromJson(Map<String, dynamic> json) {
     return UserLogInSuccess.fromMap(json);
   }
 
@@ -27,7 +27,7 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
 
   final _userRepository = UserRepository();
 
-  Future<void> refreshUserData(String token) async {
+   Future<void> refreshUserData(String token) async {
     try {
       final result = await _userRepository.getUserData(token);
       if (result != null) {
@@ -49,6 +49,32 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
       }
     } catch (e) {
       developer.log(e.toString(), name: 'error user');
+      emit(UserIsFailure(kcheckInternetConnection));
+    }
+  }
+
+  Future<void> signUp(String? id,String email, String password) async {
+    try {
+      emit(UserLoadInProgress());
+      final result = await _userRepository.signUp(id,email, password);
+      result != null
+          ? emit(UserLogInSuccess(result))
+          : emit(UserIsFailure("error in sign up"));
+    } catch (e) {
+      developer.log(e.toString(), name: 'Catch sign up');
+      emit(UserIsFailure(kcheckInternetConnection));
+    }
+  }
+
+  Future<void> addAvatars(String token,String twoDAvatar, String threeDAvatar) async {
+    try {
+      emit(UserLoadInProgress());
+      final result = await _userRepository.addAvatars(token,twoDAvatar, threeDAvatar);
+      result != null
+          ? emit(UserLogInSuccess(result))
+          : emit(UserIsFailure("error in sign up"));
+    } catch (e) {
+      developer.log(e.toString(), name: 'Catch sign up');
       emit(UserIsFailure(kcheckInternetConnection));
     }
   }

@@ -45,10 +45,14 @@ class CourseItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Image.asset(
-              imagePath,
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: CircleAvatar(
+                backgroundColor: Colors.transparent,
+                radius: 0.15 * width,
+                backgroundImage: AssetImage(imagePath),
+              ),
             ),
           ),
           Container(
@@ -65,10 +69,13 @@ class CourseItem extends StatelessWidget {
                     fontSize: 14.0,
                   ),
                 ),
-                IconButton(
-                  onPressed: onTap,
-                  icon: const Icon(Icons.keyboard_arrow_right),
-                )
+                const Spacer(),
+                Expanded(
+                  child: IconButton(
+                    onPressed: onTap,
+                    icon: const Icon(Icons.keyboard_arrow_right),
+                  ),
+                ),
               ],
             ),
           ),

@@ -3,6 +3,9 @@ import 'package:curved_nav_bar/fab_bar/fab_bottom_app_bar_item.dart';
 import 'package:curved_nav_bar/flutter_curved_bottom_nav_bar.dart';
 import 'package:esjourney/presentation/screens/Events/event_list_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/course_screen.dart';
+import 'package:esjourney/presentation/router/routes.dart';
+import 'package:esjourney/presentation/screens/club/clubs_screen.dart';
+import 'package:esjourney/presentation/screens/curriculum/courses/course_screen.dart';
 import 'package:esjourney/presentation/widgets/drawer_icon.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
@@ -22,11 +25,16 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: const DrawerIcon(),
-        actions: const [
-          Icon(FontAwesomeIcons.solidMessage),
-          SizedBox(width: AppSizes.ksmallSpace),
-          Icon(FontAwesomeIcons.solidBell),
-          SizedBox(width: AppSizes.ksmallSpace)
+        actions: [
+          IconButton(
+            icon:  const Icon(FontAwesomeIcons.message),
+            onPressed: () {
+              Navigator.of(context).pushNamed(AppRoutes.messages);
+            },
+          ),
+          const SizedBox(width: AppSizes.ksmallSpace),
+          const Icon(FontAwesomeIcons.bell),
+          const SizedBox(width: AppSizes.ksmallSpace)
         ],
       ),
       body: CurvedNavBar(
@@ -100,9 +108,10 @@ class _MainScreenState extends State<MainScreen> {
           ),
           Container(),
           const EventListScreen(),
-          Container(),
+          const ClubsScreen()
         ],
         actionBarView: const CourseScreen(),
+        extendBody: false,
       ),
     );
   }

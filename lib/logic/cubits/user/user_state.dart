@@ -24,28 +24,45 @@ class UserLogInSuccess extends UserState {
 
   Map<String, dynamic> toMap() {
     return {
+      '_id': user.id,
+      'id':user.id,
       'email': user.email,
       'username': user.username,
       'password': user.password,
       'grade': user.grade,
-      'token': user.token,
+      'token': user.token!,
       'courses': '',
-      'coins': user.coins,
       'events': '',
+      'coins': user.coins,
+      'threeDAvatar': user.threeDAvatar,
+      'twoDAvatar': user.twoDAvatar,
+      'online': user.online,
+      'fullName': user.fullName,
+      'lastSeen': user.lastSeen,
     };
   }
 
   static UserLogInSuccess? fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 
-    return UserLogInSuccess(User(
-        email: map['email'],
-        username: map['username'],
-        password: map['password'],
-        grade: map['grade'],
-        coins: map['coins'],
-        token: map['token'],
-        courses: [], events: []));
+
+    return UserLogInSuccess(
+      User(
+          id: map['_id'],
+          email: map['email'],
+          username: map['username'],
+          password: map['password'],
+          grade: map['grade'],
+          coins: map['coins'],
+          token: map['token'],
+          threeDAvatar: map['threeDAvatar'],
+          twoDAvatar: map['twoDAvatar'],
+          courses: [],
+          events: [],
+          online: map['online'],
+          fullName: map['fullName'],
+          lastSeen: map['lastSeen']),
+    );
   }
 
   String toJson() => json.encode(toMap());

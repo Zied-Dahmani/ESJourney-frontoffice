@@ -17,7 +17,7 @@ class CourseCubit extends Cubit<CourseState> {
       final result = await _courseRepository.getAllCourses(token);
       result != null
           ? emit(CourseSuccess(result))
-          : emit(CourseIsFailure("error while getting data"));
+          : emit(CourseIsFailure(result.toString()));
     } catch (e) {
       developer.log(e.toString(), name: 'error course');
       emit(CourseIsFailure(kcheckInternetConnection));
