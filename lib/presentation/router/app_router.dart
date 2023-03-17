@@ -1,21 +1,14 @@
-import 'package:esjourney/data/models/curriculum/course_model.dart';
 import 'package:esjourney/data/models/events/event_model.dart';
-import 'package:esjourney/presentation/screens/curriculum/course_detail_screen.dart';
-import 'package:esjourney/presentation/screens/curriculum/games/jackpot/jackpot_screen.dart';
-import 'package:esjourney/presentation/screens/curriculum/level_map_screen.dart';
-import 'package:esjourney/presentation/screens/sign_in_screen.dart';
-import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
-import 'package:flutter/material.dart';
-import '../screens/Events/event_details_screen.dart';
-import '../screens/challenges/leaderboard/leaderboard_screen.dart';
-import '../screens/challenges/quiz/quiz.dart';
-import '../screens/challenges/quiz/quiz_result.dart';
 import 'package:esjourney/data/models/user_model.dart';
+import 'package:esjourney/presentation/screens/club/apply_to_club_screen.dart';
+import 'package:esjourney/presentation/screens/club/club_screen.dart';
+import 'package:esjourney/presentation/screens/club/done_screen.dart';
+import 'package:esjourney/presentation/screens/club_event/club_event_tickets_screen.dart';
+import 'package:esjourney/presentation/screens/club_event/club_event_timeline_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/avatar/avatar_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/conversation_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/grade_chat_room_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/messages_screen.dart';
-import 'package:esjourney/presentation/screens/curriculum/courses/course_detail_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/draw/feature/draw/presentation/drawing_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/draw/feature/room/presentation/room_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/hangman/screens/hangman_screen.dart';
@@ -24,16 +17,12 @@ import 'package:esjourney/presentation/screens/curriculum/games/memory/screen/me
 import 'package:esjourney/presentation/screens/curriculum/games/slide/pages/slide_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/worldy/screens/wordly_game.dart';
 import 'package:esjourney/presentation/screens/curriculum/map/level_map.dart';
-import 'package:esjourney/presentation/screens/club/apply_to_club_screen.dart';
-import 'package:esjourney/presentation/screens/club/club_screen.dart';
-import 'package:esjourney/presentation/screens/club/done_screen.dart';
-import 'package:esjourney/presentation/screens/club_event/club_event_tickets_screen.dart';
-import 'package:esjourney/presentation/screens/club_event/club_event_timeline_screen.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
 import 'package:esjourney/presentation/screens/sign_up_screen.dart';
 import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../screens/Events/event_details_screen.dart';
 import 'routes.dart';
 
 class AppRouter {
@@ -49,49 +38,13 @@ class AppRouter {
           builder: (_) => const ZoomDrawerScreen(),
         );
 
-      case AppRoutes.courseDetails:
-        return MaterialPageRoute(
-          builder: (_) => CourseDetailScreen(
-            course: args as Course,
-          ),
-        );
-
       case AppRoutes.jackpotGame:
         return MaterialPageRoute(builder: (_) => const JackpotScreen());
 
-      case AppRoutes.levelMap:
-        return MaterialPageRoute(
-          builder: (_) => LevelMapScreen(
-            grade: args as int,
-          ),
-        );
-        case AppRoutes.quizScreen:
-        return MaterialPageRoute(
-          builder: (_) =>  QuizScreen(
-            //  language: args as String,
-
-          ),
-        );
-        case AppRoutes.quizResult:
-        return MaterialPageRoute(
-          builder: (_) =>  QuizResultScreen(
-            score : args as int,
-
-          ),
-        );
-
-
       case AppRoutes.eventDetails:
         return MaterialPageRoute(
-          builder: (_) =>  EventDetails(
-            event : args as Event,
-          ),
-        );
-          case AppRoutes.leaderboardScreen:
-        return MaterialPageRoute(
-          builder: (_) =>  const LeaderboardScreen(
-
-
+          builder: (_) => EventDetails(
+            event: args as Event,
           ),
         );
 
@@ -131,21 +84,6 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => SignUpScreen(),
         );
-
-      case AppRoutes.zoomDrawerScreen:
-        return MaterialPageRoute(
-          builder: (_) => const ZoomDrawerScreen(),
-        );
-
-      case AppRoutes.courseDetails:
-        return MaterialPageRoute(
-          builder: (_) => CourseDetailScreen(
-            course: args as Course,
-          ),
-        );
-
-      case AppRoutes.jackpotGame:
-        return MaterialPageRoute(builder: (_) => const JackpotScreen());
 
       case AppRoutes.wordlyGame:
         return MaterialPageRoute(builder: (_) => const WordlyPage());
@@ -189,7 +127,7 @@ class AppRouter {
           ),
         );
 
-        // Zied
+      // Zied
       case AppRoutes.clubScreen:
         return MaterialPageRoute(
           builder: (_) => ClubScreen(club: args),

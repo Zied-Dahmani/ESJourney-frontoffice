@@ -31,11 +31,12 @@ class UserDataProvider {
           'jwt': token,
         },
         validateStatus: (status) {
-          print(status);
+          return status! < 500;
         }
-      )
-    )
-  };
+      ),
+    );
+    return req;
+  }
 
   Future<Response> signUp(String? id,String email, String password) async {
     return await dio.request(
@@ -48,7 +49,6 @@ class UserDataProvider {
         },
       ),
     );
-    return req;
   }
 
   Future<Response> addAvatars(String token,String twoDAvatar, String threeDAvatar) async {

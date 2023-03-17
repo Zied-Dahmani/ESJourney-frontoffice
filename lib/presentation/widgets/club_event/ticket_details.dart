@@ -71,7 +71,7 @@ class TicketDetails extends StatelessWidget {
                   BlocBuilder<UserCubit, UserState>(
                     builder: (context, state) {
                       return state is UserLogInSuccess ?
-                      titleSubTitleColumn(AppStrings.kowner, state.user.fullName,context)
+                      titleSubTitleColumn(AppStrings.kowner, state.user.fullName!,context)
                       : const SizedBox();
                     },
                   ),

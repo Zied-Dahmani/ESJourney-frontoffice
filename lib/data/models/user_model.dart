@@ -15,14 +15,14 @@ class User with _$User {
     required String password,
     required int grade,
     List<Event>? events,
-    required int coins,
+    required double coins,
     required String lastSeen,
     String? twoDAvatar,
     String? threeDAvatar,
     List<UserCourse>? courses,
     required bool online,
     String? token,
-    required String fullName,
+    String? fullName,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

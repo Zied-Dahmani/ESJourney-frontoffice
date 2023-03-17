@@ -25,14 +25,15 @@ mixin _$User {
   String get email => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
   int get grade => throw _privateConstructorUsedError;
-  int get coins => throw _privateConstructorUsedError;
+  List<Event>? get events => throw _privateConstructorUsedError;
+  double get coins => throw _privateConstructorUsedError;
   String get lastSeen => throw _privateConstructorUsedError;
   String? get twoDAvatar => throw _privateConstructorUsedError;
   String? get threeDAvatar => throw _privateConstructorUsedError;
   List<UserCourse>? get courses => throw _privateConstructorUsedError;
   bool get online => throw _privateConstructorUsedError;
   String? get token => throw _privateConstructorUsedError;
-  String get fullName => throw _privateConstructorUsedError;
+  String? get fullName => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -50,14 +51,15 @@ abstract class $UserCopyWith<$Res> {
       String email,
       String password,
       int grade,
-      int coins,
+      List<Event>? events,
+      double coins,
       String lastSeen,
       String? twoDAvatar,
       String? threeDAvatar,
       List<UserCourse>? courses,
       bool online,
       String? token,
-      String fullName});
+      String? fullName});
 }
 
 /// @nodoc
@@ -78,6 +80,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? email = null,
     Object? password = null,
     Object? grade = null,
+    Object? events = freezed,
     Object? coins = null,
     Object? lastSeen = null,
     Object? twoDAvatar = freezed,
@@ -85,7 +88,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? courses = freezed,
     Object? online = null,
     Object? token = freezed,
-    Object? fullName = null,
+    Object? fullName = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -108,10 +111,14 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.grade
           : grade // ignore: cast_nullable_to_non_nullable
               as int,
+      events: freezed == events
+          ? _value.events
+          : events // ignore: cast_nullable_to_non_nullable
+              as List<Event>?,
       coins: null == coins
           ? _value.coins
           : coins // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       lastSeen: null == lastSeen
           ? _value.lastSeen
           : lastSeen // ignore: cast_nullable_to_non_nullable
@@ -136,10 +143,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
-      fullName: null == fullName
+      fullName: freezed == fullName
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -156,14 +163,15 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String email,
       String password,
       int grade,
-      int coins,
+      List<Event>? events,
+      double coins,
       String lastSeen,
       String? twoDAvatar,
       String? threeDAvatar,
       List<UserCourse>? courses,
       bool online,
       String? token,
-      String fullName});
+      String? fullName});
 }
 
 /// @nodoc
@@ -180,6 +188,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? email = null,
     Object? password = null,
     Object? grade = null,
+    Object? events = freezed,
     Object? coins = null,
     Object? lastSeen = null,
     Object? twoDAvatar = freezed,
@@ -187,7 +196,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? courses = freezed,
     Object? online = null,
     Object? token = freezed,
-    Object? fullName = null,
+    Object? fullName = freezed,
   }) {
     return _then(_$_User(
       id: freezed == id
@@ -210,10 +219,14 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.grade
           : grade // ignore: cast_nullable_to_non_nullable
               as int,
+      events: freezed == events
+          ? _value._events
+          : events // ignore: cast_nullable_to_non_nullable
+              as List<Event>?,
       coins: null == coins
           ? _value.coins
           : coins // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       lastSeen: null == lastSeen
           ? _value.lastSeen
           : lastSeen // ignore: cast_nullable_to_non_nullable
@@ -238,10 +251,10 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
-      fullName: null == fullName
+      fullName: freezed == fullName
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -255,6 +268,7 @@ class _$_User implements _User {
       required this.email,
       required this.password,
       required this.grade,
+      final List<Event>? events,
       required this.coins,
       required this.lastSeen,
       this.twoDAvatar,
@@ -262,8 +276,9 @@ class _$_User implements _User {
       final List<UserCourse>? courses,
       required this.online,
       this.token,
-      required this.fullName})
-      : _courses = courses;
+      this.fullName})
+      : _events = events,
+        _courses = courses;
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
@@ -277,8 +292,18 @@ class _$_User implements _User {
   final String password;
   @override
   final int grade;
+  final List<Event>? _events;
   @override
-  final int coins;
+  List<Event>? get events {
+    final value = _events;
+    if (value == null) return null;
+    if (_events is EqualUnmodifiableListView) return _events;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final double coins;
   @override
   final String lastSeen;
   @override
@@ -300,11 +325,11 @@ class _$_User implements _User {
   @override
   final String? token;
   @override
-  final String fullName;
+  final String? fullName;
 
   @override
   String toString() {
-    return 'User(id: $id, username: $username, email: $email, password: $password, grade: $grade, coins: $coins, lastSeen: $lastSeen, twoDAvatar: $twoDAvatar, threeDAvatar: $threeDAvatar, courses: $courses, online: $online, token: $token, fullName: $fullName)';
+    return 'User(id: $id, username: $username, email: $email, password: $password, grade: $grade, events: $events, coins: $coins, lastSeen: $lastSeen, twoDAvatar: $twoDAvatar, threeDAvatar: $threeDAvatar, courses: $courses, online: $online, token: $token, fullName: $fullName)';
   }
 
   @override
@@ -319,6 +344,7 @@ class _$_User implements _User {
             (identical(other.password, password) ||
                 other.password == password) &&
             (identical(other.grade, grade) || other.grade == grade) &&
+            const DeepCollectionEquality().equals(other._events, _events) &&
             (identical(other.coins, coins) || other.coins == coins) &&
             (identical(other.lastSeen, lastSeen) ||
                 other.lastSeen == lastSeen) &&
@@ -342,6 +368,7 @@ class _$_User implements _User {
       email,
       password,
       grade,
+      const DeepCollectionEquality().hash(_events),
       coins,
       lastSeen,
       twoDAvatar,
@@ -372,14 +399,15 @@ abstract class _User implements User {
       required final String email,
       required final String password,
       required final int grade,
-      required final int coins,
+      final List<Event>? events,
+      required final double coins,
       required final String lastSeen,
       final String? twoDAvatar,
       final String? threeDAvatar,
       final List<UserCourse>? courses,
       required final bool online,
       final String? token,
-      required final String fullName}) = _$_User;
+      final String? fullName}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -394,7 +422,9 @@ abstract class _User implements User {
   @override
   int get grade;
   @override
-  int get coins;
+  List<Event>? get events;
+  @override
+  double get coins;
   @override
   String get lastSeen;
   @override
@@ -408,7 +438,7 @@ abstract class _User implements User {
   @override
   String? get token;
   @override
-  String get fullName;
+  String? get fullName;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;
