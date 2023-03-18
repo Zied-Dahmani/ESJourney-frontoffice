@@ -1,2 +1,0 @@
-# ESJourney-frontoffice
- PIM
