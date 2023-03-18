@@ -29,7 +29,12 @@ class AppRoutes {
   static const mapLevels = "/mapLevels";
 
 // Souhail
-
+  static const quizScreen = '/quiz';
+  static const quizResult = '/quizResult';
+  static const leaderboardScreen = '/leaderboard';
+  static const ethQrCodeScreen = '/ethQrCode';
+  static const profileScreen = '/profile';
+  static const editProfileScreen = '/editProfile';
 // Seif
   static const eventDetails = '/eventDetails';
   static const eventList = '/eventList';

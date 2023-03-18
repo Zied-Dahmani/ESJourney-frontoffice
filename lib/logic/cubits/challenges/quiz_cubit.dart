@@ -8,7 +8,9 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import '../../../data/repositories/challenges/quiz_repository.dart';
 
 class QuizCubit extends Cubit<QuizState> {
-  QuizCubit() : super(QuizInitial());
+  QuizCubit() : super(QuizInitial()) {
+    getQuiz("c");
+  }
 
   final _quizRepository = QuizRepository();
 

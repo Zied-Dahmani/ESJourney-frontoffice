@@ -23,6 +23,8 @@ class User with _$User {
     required bool online,
     String? token,
     String? fullName,
+    String? walletAddress,
+    String? privateKey,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

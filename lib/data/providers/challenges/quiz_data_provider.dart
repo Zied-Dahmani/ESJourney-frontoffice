@@ -8,7 +8,7 @@ class QuizDataProvider {
     ..options.receiveTimeout = 3000;
 
   Future<Response> getQuiz(String language) async {
-  return await dio.request(
+    return await dio.request(
       kgetQuiz,
       queryParameters: {
         'language': language,
@@ -20,6 +20,24 @@ class QuizDataProvider {
         },
       ),
     );
+  }
 
+  Future<Response> answerQuiz(double coins, String token) async {
+    return await dio.request(
+      kanswerQuiz,
+      data: {
+        'coins': coins,
+      },
+      options: Options(
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt': token,
+        },
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
   }
 }

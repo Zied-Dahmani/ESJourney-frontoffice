@@ -23,6 +23,11 @@ import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/Events/event_details_screen.dart';
+import '../screens/Internship/profileScreen.dart';
+import '../screens/challenges/leaderboard/leaderboard_screen.dart';
+import '../screens/challenges/quiz/quiz.dart';
+import '../screens/challenges/quiz/quiz_result.dart';
+import '../screens/profile/edit_profile/edit_profile_screen.dart';
 import 'routes.dart';
 
 class AppRouter {
@@ -151,6 +156,42 @@ class AppRouter {
       case AppRoutes.clubEventTicketsScreen:
         return MaterialPageRoute(
           builder: (_) => ClubEventTicketsScreen(clubEvent: args),
+        );
+// souhail
+      case AppRoutes.quizScreen:
+        return MaterialPageRoute(
+          builder: (_) =>  QuizScreen(
+            //  language: args as String,
+            restart: args as bool,
+
+          ),
+        );
+      case AppRoutes.quizResult:
+        return MaterialPageRoute(
+          builder: (_) => QuizResultScreen(
+            score : args as int,
+          ),
+        );
+
+      case AppRoutes.leaderboardScreen:
+        return MaterialPageRoute(
+          builder: (_) =>  const LeaderboardScreen(
+
+
+          ),
+        );
+      case AppRoutes.profileScreen:
+        return MaterialPageRoute(
+          builder: (_) =>  const ApplicationFormScreen(
+
+
+          ),
+        );
+      case AppRoutes.editProfileScreen:
+        return MaterialPageRoute(
+          builder: (_) =>  const EditProfileScreen(
+
+          ),
         );
 
       default:

@@ -1,14 +1,14 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+class ApplicationFormScreen extends StatefulWidget {
+  const ApplicationFormScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  State<ApplicationFormScreen> createState() => _ApplicationFormScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
   bool isPartTime = false;
   String? filename;
   @override

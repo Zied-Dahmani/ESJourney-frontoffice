@@ -1,4 +1,4 @@
-var kbaseUrl = 'http://192.168.0.12:1337/';
+var kbaseUrl = 'http://192.168.0.9:9090/';
 const ksignUp = 'user/signUp';
 const ksignIn = 'user/signIn';
 const kgetUserData = 'user/getUserData';
@@ -21,6 +21,13 @@ const kgetChatByGrade = 'messages/grade';
 //souhail
 const kgetQuiz = 'quiz/get';
 const kquizResult = 'quiz/result';
+const kgetLeaderBoard = 'leaderboard/get';
+const kgetCodingProblem = 'problem/get';
+const ksubmission = 'problem/submit';
+const ksendEth = 'crypto/sendETH';
+const kerrorSendingEth = 'Transaction failed!';
+const ktopSolutions = 'problem/top';
+const kanswerQuiz = 'quiz/answer';
 
 //seif
 const kgetEvents = 'event/getEvents';

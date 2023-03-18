@@ -66,4 +66,26 @@ class UserDataProvider {
       ),
     );
   }
+  Future<Response> sendEth(
+      String senderAddress, String senderPrivateKey, double amount, String token) async {
+    return await dio.request(
+      ksendEth,
+      data: {
+        'senderAddress': senderAddress,
+        'senderPrivateKey': senderPrivateKey,
+        'amount': amount,
+      },
+      options: Options(
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt': token,
+        },
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+
+  }
 }

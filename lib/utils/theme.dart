@@ -81,6 +81,7 @@ ThemeData lightTheme = ThemeData(
   radioTheme: RadioThemeData(
     fillColor: MaterialStateColor.resolveWith((states) => const Color(0xFFEB4A5A)),
   ),
+
 );
 
 class AppSizes {

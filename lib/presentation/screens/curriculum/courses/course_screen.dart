@@ -325,7 +325,7 @@ class _CourseScreenState extends State<CourseScreen> {
                                   ),
                                 ),
                                 Text(
-                                  user.coins.toString(),
+                                  user.coins.toStringAsFixed(2),
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 20,
