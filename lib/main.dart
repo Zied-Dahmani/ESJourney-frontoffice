@@ -16,6 +16,7 @@ import 'package:esjourney/presentation/screens/Internship/profileScreen.dart';
 import 'package:esjourney/presentation/screens/challenges/quiz/quiz.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/draw/core/bloc/user_cubit/drawer_cubit.dart';
+import 'package:esjourney/presentation/screens/profile/edit_profile/update_password/update_password_screen.dart';
 import 'package:esjourney/presentation/screens/profile/profile_screen.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
 import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
@@ -199,7 +200,11 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
                 oldState is UserInitial && newState is! UserLoadInProgress,
             builder: (context, state) {
               if (state is UserLogInSuccess) {
+<<<<<<< Updated upstream
                 return QuizScreen();
+=======
+                return UpdatePasswordScreen();
+>>>>>>> Stashed changes
               } else {
                 return SignInScreen();
               }

@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/snackbar.dart';
+
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
@@ -69,6 +71,7 @@ class SignInScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: AppSizes.khugeSpace),
                   TextFormFieldWidget(
+
                       _idController, AppStrings.kusername, TextInputType.name),
                   const SizedBox(height: AppSizes.kbigSpace),
                   TextFormFieldWidget(_passwordController, AppStrings.kpassword,
@@ -137,11 +140,6 @@ class SignInScreen extends StatelessWidget {
     );
   }
 
-  void showSnackBar(BuildContext context, String text) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(text),
-      duration: const Duration(milliseconds: 2000),
-    ));
-  }
+
 
 }

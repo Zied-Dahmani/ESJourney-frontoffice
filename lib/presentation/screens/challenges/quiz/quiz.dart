@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 
-
 class QuizScreen extends StatefulWidget {
   QuizScreen({Key? key, this.restart = false}) : super(key: key);
   bool restart;
@@ -42,10 +41,10 @@ List<Quiz> allQuestions = [];
 double _isAnswerCorrect = 0.0;
 const _totalQuestions = 3;
 String _discoBtnText = "Next";
-int _userScore = 7;
+int _userScore = 0;
 String _token = "";
 
-Quiz _currentQuestion = Quiz(
+Quiz _currentQuestion = const Quiz(
   answer: 1,
   difficulty: "",
   hasCode: false,
@@ -273,7 +272,8 @@ class _QuizScreenState extends State<QuizScreen> {
                             AppRoutes.quizResult,
                             arguments: _userScore,
                           );
-                          BlocProvider.of<UserCubit>(context).answerQuiz(0.01, _token);
+                          BlocProvider.of<UserCubit>(context)
+                              .answerQuiz(0.01, _token);
                           return;
                         }
 
@@ -290,7 +290,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       width: MediaQuery.of(context).size.width * 0.335,
                       child: Text(
                         _discoBtnText,
-                        style: TextStyle(fontSize: 20, color: Colors.white),
+                        style: const TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
                   ],

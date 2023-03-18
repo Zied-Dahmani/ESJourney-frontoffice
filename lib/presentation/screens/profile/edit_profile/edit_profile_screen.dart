@@ -98,13 +98,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               borderRadius: BorderRadius.circular(5),
             ),
             child: Column(
-              children: const [
+              children:  [
                 UserInfo(
                   infoTitle: "Username",
                   infoValue: "userx",
+                  onTap: () {
+
+
+                
+                  },
                 ),
-                UserInfo(infoTitle: "Email", infoValue: ""),
-                UserInfo(infoTitle: "Password", infoValue: "")
+                const UserInfo(infoTitle: "Email", infoValue: ""),
+                const UserInfo(infoTitle: "Password", infoValue: "")
               ],
             ),
           ),
