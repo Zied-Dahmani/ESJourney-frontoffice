@@ -104,4 +104,26 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
       emit(UserIsFailure(kcheckInternetConnection));
     }
   }
+
+  Future<void> updatePassword( String currentPassword, String newPassword,String token) async {
+    try {
+      emit(UserLoadInProgress());
+      final result = await _userRepository.updatePassword( currentPassword, newPassword,token);
+      if (result is String) {
+        // If result is a string, it means there was an error message returned from the API
+        emit(UserIsFailure(result));
+      }
+      else if( result is User)  {
+        // If result is a UserModel, it means the password was updated successfully
+        emit(UserLogInSuccess(result));
+      }
+
+
+
+
+    } catch (e) {
+      developer.log(e.toString(), name: 'Catch update password');
+      emit(UserIsFailure(kcheckInternetConnection));
+    }
+  }
 }

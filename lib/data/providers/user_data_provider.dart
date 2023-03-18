@@ -88,4 +88,26 @@ class UserDataProvider {
     );
 
   }
+
+  Future<Response> updatePassword(
+      String currentPassword, String newPassword, String token) async {
+    return await dio.request(
+      kupdatePassword,
+      data: {
+        'currentPassword': currentPassword,
+        'newPassword': newPassword,
+      },
+      options: Options(
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt': token,
+        },
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+
+  }
 }

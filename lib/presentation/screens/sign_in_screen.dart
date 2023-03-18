@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/snack_bar.dart';
+
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
@@ -137,11 +139,6 @@ class SignInScreen extends StatelessWidget {
     );
   }
 
-  void showSnackBar(BuildContext context, String text) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(text),
-      duration: const Duration(milliseconds: 2000),
-    ));
-  }
+
 
 }

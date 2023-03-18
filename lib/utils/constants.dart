@@ -1,8 +1,8 @@
 var kbaseUrl = 'http://192.168.0.9:9090/';
-const ksignUp = 'user/signUp';
-const ksignIn = 'user/signIn';
-const kgetUserData = 'user/getUserData';
-const krefreshToken = 'user/refreshToken';
+
+
+
+
 
 const kcheckInternetConnection = 'Check your internet connection!';
 const kidPasswordIncorrect = 'Id or password Incorrect!';
@@ -46,3 +46,10 @@ const mapToken = 'pk.eyJ1IjoiemllZC1kYWhtYW5pIiwiYSI6ImNsZWJnd3RjMjA1c3kzb210OWQ
 const mapStyle = 'mapbox.mapbox-streets-v8';
 const mapUrlTemplate = 'https://api.mapbox.com/styles/v1/zied-dahmani/cled45t8y001801muszxjo9ti/tiles/256/{z}/{x}/{y}@2x?access_token={accessToken}';
 
+// User
+const ksignUp = 'user/signUp';
+const ksignIn = 'user/signIn';
+const kgetUserData = 'user/getUserData';
+const krefreshToken = 'user/refreshToken';
+const kupdatePassword ='user/updatePassword';
+const kerrorUpdatePassword = 'Error in updating password!';

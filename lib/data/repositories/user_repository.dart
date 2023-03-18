@@ -35,4 +35,16 @@ class UserRepository implements IUserRepository {
         senderAddress, senderPrivateKey,amount , token);
     return result.statusCode == 200 ? User.fromJson(result.data) : null;
   }
+
+  @override
+  Future<dynamic> updatePassword(String currentPassword, String newPassword, String token) async {
+    final result = await _userDataProvider.updatePassword(currentPassword, newPassword, token);
+    if (result.statusCode == 201) {
+      return result;
+    } else if  (result.statusCode == 400 && result.data.containsKey("message")) {
+      return result.data["message"];
+    }
+  }
+
+
 }

@@ -159,7 +159,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             value: switched,
                             activeColor: theme.colorScheme.primary,
                             inactiveTrackColor: Colors.grey[300],
-                            //final Color? effectiveInactiveTrackOutlineColor = switchConfig.trackOutlineColor?.resolve(inactiveStates);
+
 
                             onChanged: (bool newValue) {
                               setState(() {
