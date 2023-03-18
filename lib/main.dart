@@ -200,11 +200,11 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
                 oldState is UserInitial && newState is! UserLoadInProgress,
             builder: (context, state) {
               if (state is UserLogInSuccess) {
-<<<<<<< Updated upstream
+
                 return QuizScreen();
-=======
+
                 return UpdatePasswordScreen();
->>>>>>> Stashed changes
+
               } else {
                 return SignInScreen();
               }
