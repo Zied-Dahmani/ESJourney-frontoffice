@@ -1,6 +1,7 @@
 import 'package:esjourney/data/models/user_model.dart';
 import 'package:esjourney/data/providers/user_data_provider.dart';
 import 'package:esjourney/data/repositories/user_repository_interface.dart';
+import 'package:esjourney/utils/strings.dart';
 
 class UserRepository implements IUserRepository {
   final UserDataProvider _userDataProvider = UserDataProvider();
@@ -18,8 +19,10 @@ class UserRepository implements IUserRepository {
   }
 
   @override
-  Future addAvatars(String token, String twoDAvatar, String threeDAvatar) async {
-    final result = await _userDataProvider.addAvatars(token,twoDAvatar, threeDAvatar);
+  Future addAvatars(
+      String token, String twoDAvatar, String threeDAvatar) async {
+    final result =
+        await _userDataProvider.addAvatars(token, twoDAvatar, threeDAvatar);
     return result.statusCode == 200 ? User.fromJson(result.data) : null;
   }
 
@@ -28,23 +31,24 @@ class UserRepository implements IUserRepository {
     final result = await _userDataProvider.getUserData(token);
     return result.statusCode == 200 ? User.fromJson(result.data) : null;
   }
+
   @override
-  Future sendEth(
-      String senderAddress, String senderPrivateKey, double amount, String token) async {
+  Future sendEth(String senderAddress, String senderPrivateKey, double amount,
+      String token) async {
     final result = await _userDataProvider.sendEth(
-        senderAddress, senderPrivateKey,amount , token);
+        senderAddress, senderPrivateKey, amount, token);
     return result.statusCode == 200 ? User.fromJson(result.data) : null;
   }
 
   @override
-  Future<dynamic> updatePassword(String currentPassword, String newPassword, String token) async {
-    final result = await _userDataProvider.updatePassword(currentPassword, newPassword, token);
+  Future<dynamic> updatePassword(
+      String currentPassword, String newPassword, String token) async {
+    final result = await _userDataProvider.updatePassword(
+        currentPassword, newPassword, token);
     if (result.statusCode == 201) {
-      return result;
-    } else if  (result.statusCode == 400 && result.data.containsKey("message")) {
-      return result.data["message"];
+      return User.fromJson(result.data);
+    } else if (result.statusCode == 400) {
+      return AppStrings.kIncorrectPassword;
     }
   }
-
-
 }

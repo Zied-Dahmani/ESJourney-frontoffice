@@ -76,4 +76,7 @@ class AppStrings {
   // Youssef
 
 
+// user
+static const kIncorrectPassword = 'Incorrect password';
+
 }

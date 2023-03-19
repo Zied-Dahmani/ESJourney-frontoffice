@@ -79,7 +79,6 @@ String token = "";
                         isUpdateButtonEnabled();
                       });
 
-                      print("qqqq " + isUpdateButtonEnabled().toString());
                     },
                     controller: _currentPasswordController,
                     decoration: const InputDecoration(
