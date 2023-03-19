@@ -53,3 +53,5 @@ const kgetUserData = 'user/getUserData';
 const krefreshToken = 'user/refreshToken';
 const kupdatePassword ='user/updatePassword';
 const kerrorUpdatePassword = 'Error in updating password!';
+
+const kupdateUsername = 'user/updateUsername';

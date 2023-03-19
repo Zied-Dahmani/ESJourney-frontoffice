@@ -18,7 +18,7 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
   late final TextEditingController _currentPasswordController;
   late final TextEditingController _newPasswordController;
   late final TextEditingController _confirmNewPasswordController;
-String token = "";
+  String token = "";
   bool _isUpdateButtonEnabled = false;
 
   @override
@@ -68,7 +68,7 @@ String token = "";
           } else if (userState is UserLogInSuccess) {
             token = userState.user.token!;
 
-           return Padding(
+            return Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -78,7 +78,6 @@ String token = "";
                       setState(() {
                         isUpdateButtonEnabled();
                       });
-
                     },
                     controller: _currentPasswordController,
                     decoration: const InputDecoration(
@@ -93,7 +92,6 @@ String token = "";
                       setState(() {
                         isUpdateButtonEnabled();
                       });
-
                     },
                     controller: _newPasswordController,
                     decoration: const InputDecoration(
@@ -104,12 +102,10 @@ String token = "";
                   ),
                   SizedBox(height: width * 0.05),
                   TextField(
-
                     onChanged: (text) {
                       setState(() {
                         isUpdateButtonEnabled();
                       });
-
                     },
                     controller: _confirmNewPasswordController,
                     decoration: const InputDecoration(
@@ -117,7 +113,6 @@ String token = "";
                       hintStyle: TextStyle(color: Colors.grey),
                     ),
                     obscureText: true,
-
                   ),
                   SizedBox(height: width * 0.05),
                   ButtonWidget(
@@ -128,15 +123,13 @@ String token = "";
                 ],
               ),
             );
-          }  else if (userState is UserIsFailure) {
-            return  Center(
+          } else if (userState is UserIsFailure) {
+            return Center(
               child: Text(userState.error.toString()),
             );
           }
-return Container();
-        }
-
-        ,
+          return Container();
+        },
       ),
     );
   }
@@ -159,8 +152,8 @@ return Container();
       userCubit.updatePassword(currentPassword, newPassword, token);
 
       // Listen for changes in the user state
-      final passwordUpdateStream = userCubit.stream.where((state) =>
-      state is UserLogInSuccess || state is UserIsFailure);
+      final passwordUpdateStream = userCubit.stream.where(
+          (state) => state is UserLogInSuccess || state is UserIsFailure);
 
       // Show a progress indicator while waiting for the state to change
       showSnackBar(context, 'Updating password...');
@@ -173,6 +166,8 @@ return Container();
         if (state is UserLogInSuccess) {
           // Password updated successfully
           showSnackBar(context, 'Password updated successfully');
+
+          Navigator.pop(context);
         } else if (state is UserIsFailure) {
           // Password update failed
           showSnackBar(context, state.error.toString());
@@ -181,11 +176,12 @@ return Container();
     }
   }
 
-
   bool isUpdateButtonEnabled() {
     final currentPassword = _currentPasswordController.text;
     final newPassword = _newPasswordController.text;
     final confirmNewPassword = _confirmNewPasswordController.text;
-    return currentPassword.isNotEmpty && newPassword.isNotEmpty && confirmNewPassword.isNotEmpty;
+    return currentPassword.isNotEmpty &&
+        newPassword.isNotEmpty &&
+        confirmNewPassword.isNotEmpty;
   }
 }

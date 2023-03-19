@@ -25,7 +25,7 @@ class UserLogInSuccess extends UserState {
   Map<String, dynamic> toMap() {
     return {
       '_id': user.id,
-      'id':user.id,
+      'id': user.id,
       'email': user.email,
       'username': user.username,
       'password': user.password,
@@ -39,30 +39,32 @@ class UserLogInSuccess extends UserState {
       'online': user.online,
       'fullName': user.fullName,
       'lastSeen': user.lastSeen,
+      'walletAddress': user.walletAddress,
+      'privateKey': user.privateKey,
     };
   }
 
   static UserLogInSuccess? fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 
-
-    return UserLogInSuccess(
-      User(
-          id: map['_id'],
-          email: map['email'],
-          username: map['username'],
-          password: map['password'],
-          grade: map['grade'],
-          coins: map['coins'],
-          token: map['token'],
-          threeDAvatar: map['threeDAvatar'],
-          twoDAvatar: map['twoDAvatar'],
-          courses: [],
-          events: [],
-          online: map['online'],
-          fullName: map['fullName'],
-          lastSeen: map['lastSeen']),
-    );
+    return UserLogInSuccess(User(
+      id: map['_id'],
+      email: map['email'],
+      username: map['username'],
+      password: map['password'],
+      grade: map['grade'],
+      coins: map['coins'],
+      token: map['token'],
+      threeDAvatar: map['threeDAvatar'],
+      twoDAvatar: map['twoDAvatar'],
+      courses: [],
+      events: [],
+      online: map['online'],
+      fullName: map['fullName'],
+      lastSeen: map['lastSeen'],
+      walletAddress: map['walletAddress'],
+      privateKey: map['privateKey'],
+    ));
   }
 
   String toJson() => json.encode(toMap());

@@ -5,4 +5,5 @@ abstract class IUserRepository {
   Future<dynamic> addAvatars(String token,String twoDAvatar, String threeDAvatar);
   Future<dynamic> sendEth(String senderAddress, String senderPrivateKey, double amount, String token);
    Future<dynamic> updatePassword( String currentPassword, String newPassword,String token);
+  Future<dynamic> updateUsername(String newUsername, String token);
 }

@@ -51,4 +51,16 @@ class UserRepository implements IUserRepository {
       return AppStrings.kIncorrectPassword;
     }
   }
+
+  @override
+  Future<dynamic> updateUsername(
+      String newUsername,String token) async {
+    final result = await _userDataProvider.updateUsername(
+        newUsername, token);
+    if (result.statusCode == 201) {
+      return User.fromJson(result.data);
+    } else if (result.statusCode == 401) {
+      return AppStrings.KusernameAlreadyExist;
+    }
+  }
 }
