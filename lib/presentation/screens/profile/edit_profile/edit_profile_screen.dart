@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../../../../utils/screen_size.dart';
+import '../../../router/routes.dart';
 import '../../../widgets/challenges/user_info.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -98,13 +100,32 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               borderRadius: BorderRadius.circular(5),
             ),
             child: Column(
-              children: const [
+              children: [
                 UserInfo(
                   infoTitle: "Username",
                   infoValue: "userx",
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(AppRoutes.updateUsername
+                        // Write the code to navigate to the edit profile screen
+                        );
+                  },
                 ),
-                UserInfo(infoTitle: "Email", infoValue: ""),
-                UserInfo(infoTitle: "Password", infoValue: "")
+                UserInfo(
+                    infoTitle: "Email",
+                    infoValue: "",
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(AppRoutes.updateUsername
+                          // Write the code to navigate to the edit profile screen
+                          );
+                    }),
+                UserInfo(
+                    infoTitle: "Password",
+                    infoValue: "",
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(AppRoutes.updatePasswordScreen
+                          // Write the code to navigate to the edit profile screen
+                          );
+                    })
               ],
             ),
           ),
@@ -159,8 +180,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             value: switched,
                             activeColor: theme.colorScheme.primary,
                             inactiveTrackColor: Colors.grey[300],
-
-
                             onChanged: (bool newValue) {
                               setState(() {
                                 switched = newValue;

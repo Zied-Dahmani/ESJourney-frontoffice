@@ -1,3 +1,4 @@
+import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -35,9 +36,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const EditProfileScreen()),
-              );
+              Navigator.of(context).pushNamed(AppRoutes.editProfileScreen
+                  // Write the code to navigate to the edit profile screen
+                  );
+
 
               // Write the code to navigate to the settings screen
             },

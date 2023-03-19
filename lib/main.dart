@@ -16,6 +16,7 @@ import 'package:esjourney/presentation/screens/Internship/profileScreen.dart';
 import 'package:esjourney/presentation/screens/challenges/quiz/quiz.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/draw/core/bloc/user_cubit/drawer_cubit.dart';
+import 'package:esjourney/presentation/screens/profile/edit_profile/edit_profile_screen.dart';
 import 'package:esjourney/presentation/screens/profile/edit_profile/update_password/update_password_screen.dart';
 import 'package:esjourney/presentation/screens/profile/edit_profile/update_username/update_username.dart';
 import 'package:esjourney/presentation/screens/profile/profile_screen.dart';
@@ -202,7 +203,7 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
             builder: (context, state) {
               if (state is UserLogInSuccess) {
 
-                return UpdateUsernameScreen();
+                return EditProfileScreen();
 
 
               } else {

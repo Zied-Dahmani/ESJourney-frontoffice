@@ -28,8 +28,6 @@ class _UpdateUsernameScreenState extends State<UpdateUsernameScreen> {
     super.initState();
     _currentUsernameController = TextEditingController();
     _isButtonEnabled.value = false;
-
-    // Add listeners to the text controllers to update the button's enabled status
   }
 
   @override
@@ -39,14 +37,12 @@ class _UpdateUsernameScreenState extends State<UpdateUsernameScreen> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final double width = ScreenSize.width(context);
     print("rebuilt");
     return Scaffold(
-
       appBar: AppBar(
         title: const Text('Update Username'),
         centerTitle: true,
@@ -84,13 +80,15 @@ class _UpdateUsernameScreenState extends State<UpdateUsernameScreen> {
                       newUsername = text;
                     },
                     controller: _currentUsernameController,
+                    maxLengthEnforcement: MaxLengthEnforcement.none,
                     maxLength: 30,
                     inputFormatters: [
                       FilteringTextInputFormatter.allow(
                           RegExp(r'[a-zA-Z\d._]')),
                     ],
                     decoration: InputDecoration(
-                      hintText: user!.username,
+                      hintText: user.username,
+                      counterText: "",
                       hintStyle: const TextStyle(color: Colors.grey),
                     ),
                   ),
@@ -98,7 +96,7 @@ class _UpdateUsernameScreenState extends State<UpdateUsernameScreen> {
                   ValueListenableBuilder<bool>(
                     valueListenable: _isButtonEnabled,
                     builder: (context, isButtonEnabled, child) {
-                      print("here ") ;
+                      print("here ");
                       return ButtonWidget(
                         isDisabled: !isButtonEnabled,
                         text: 'Update Username',
@@ -121,7 +119,6 @@ class _UpdateUsernameScreenState extends State<UpdateUsernameScreen> {
   }
 
   void _updateUsername() {
-
     final currentPassword = _currentUsernameController.text;
 
     final userCubit = context.read<UserCubit>();
@@ -134,7 +131,7 @@ class _UpdateUsernameScreenState extends State<UpdateUsernameScreen> {
         .where((state) => state is UserLogInSuccess || state is UserIsFailure);
 
     // Show a progress indicator while waiting for the state to change
-    showSnackBar(context, 'Updating password...');
+
 
     // Wait for the state to change
     usernameUpdateStream.first.then((state) {
@@ -143,7 +140,7 @@ class _UpdateUsernameScreenState extends State<UpdateUsernameScreen> {
 
       if (state is UserLogInSuccess) {
         // Password updated successfully
-        showSnackBar(context, 'Password updated successfully');
+        showSnackBar(context, 'Username updated successfully');
 
         Navigator.pop(context);
       } else if (state is UserIsFailure) {
