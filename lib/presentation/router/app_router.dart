@@ -157,41 +157,33 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => ClubEventTicketsScreen(clubEvent: args),
         );
+
 // souhail
       case AppRoutes.quizScreen:
         return MaterialPageRoute(
-          builder: (_) =>  QuizScreen(
+          builder: (_) => QuizScreen(
             //  language: args as String,
             restart: args as bool,
-
           ),
         );
       case AppRoutes.quizResult:
         return MaterialPageRoute(
           builder: (_) => QuizResultScreen(
-            score : args as int,
+            score: args as int,
           ),
         );
 
       case AppRoutes.leaderboardScreen:
         return MaterialPageRoute(
-          builder: (_) =>  const LeaderboardScreen(
-
-
-          ),
+          builder: (_) => const LeaderboardScreen(),
         );
       case AppRoutes.profileScreen:
         return MaterialPageRoute(
-          builder: (_) =>  const ApplicationFormScreen(
-
-
-          ),
+          builder: (_) => const ApplicationFormScreen(),
         );
       case AppRoutes.editProfileScreen:
         return MaterialPageRoute(
-          builder: (_) =>  const EditProfileScreen(
-
-          ),
+          builder: (_) => const EditProfileScreen(),
         );
 
       default:

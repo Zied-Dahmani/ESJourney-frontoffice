@@ -153,7 +153,8 @@ class _ClubEventsMapScreenState extends State<ClubEventsMapScreen>
                   )
                 ],
               ),
-            ));
+            )
+            );
       } else {
         return Scaffold(
             appBar: AppBar(leading: const DrawerIcon()),

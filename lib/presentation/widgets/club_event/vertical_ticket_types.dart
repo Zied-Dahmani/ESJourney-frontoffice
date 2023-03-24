@@ -1,3 +1,4 @@
+import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/presentation/screens/club_event/club_event_ticket_screen.dart';
 import 'package:esjourney/presentation/widgets/club_event/ticket_type.dart';
 import 'package:esjourney/utils/constants.dart';
@@ -113,7 +114,6 @@ class _VerticalTicketTypesState extends State<VerticalTicketTypes> with TickerPr
       _selectedCardIndex = index;
     });
     const duration = Duration(milliseconds: 750);
-    _movementAnimationController.forward();
     await Navigator.of(context).push(PageRouteBuilder(
         transitionDuration: duration,
         reverseTransitionDuration: duration,

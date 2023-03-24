@@ -108,6 +108,7 @@ class TicketSection extends StatelessWidget {
               height: AppSizes.kiconSize * 2,
               child: Stack(
                 children: [
+                  if (state.user.twoDAvatar!= null)
                    Align(
                     alignment: Alignment.centerLeft,
                     child: CircleAvatar(
