@@ -10,7 +10,7 @@ class ButtonWidget extends StatelessWidget {
     this.icon,
     this.backgroundColor,
     this.textColor,
-    this.height,
+    this.height = AppSizes.kbuttonHeight - 5,
     this.width,
     this.function,
     this.isDisabled = false,

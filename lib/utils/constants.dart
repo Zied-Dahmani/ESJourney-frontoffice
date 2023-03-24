@@ -1,4 +1,4 @@
-var kbaseUrl = 'http://192.168.0.9:9090/';
+const kbaseUrl = 'http://192.168.1.3:9090/';
 const ksignUp = 'user/signUp';
 const ksignIn = 'user/signIn';
 const kgetUserData = 'user/getUserData';

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:equatable/equatable.dart';
 import 'package:esjourney/data/models/user_model.dart';
 

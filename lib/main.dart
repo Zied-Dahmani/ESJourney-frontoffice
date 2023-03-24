@@ -201,9 +201,8 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
             builder: (context, state) {
               if (state is UserLogInSuccess) {
 
-                return QuizScreen();
+                return ZoomDrawerScreen();
 
-                return UpdatePasswordScreen();
 
               } else {
                 return SignInScreen();

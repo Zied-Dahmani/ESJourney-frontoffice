@@ -94,7 +94,6 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
 
     } else {
       // Password update logic
-      // TODO: implement password update logic
     }
   }
 }

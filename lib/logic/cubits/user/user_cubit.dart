@@ -1,13 +1,10 @@
 import 'dart:developer' as developer;
-import 'package:esjourney/data/models/events/event_model.dart';
-import 'package:esjourney/data/models/user_model.dart';
 import 'package:esjourney/data/repositories/user_repository.dart';
 import 'package:esjourney/utils/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import '../../../data/repositories/challenges/quiz_repository.dart';
 import 'user_state.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 class UserCubit extends Cubit<UserState> with HydratedMixin {
   UserCubit() : super(UserInitial()) {
