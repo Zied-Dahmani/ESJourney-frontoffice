@@ -1,5 +1,5 @@
 
-import 'package:esjourney/data/models/application_model.dart';
+import 'package:esjourney/data/models/club/application/application_model.dart';
 
 abstract class ApplicationState {}
 

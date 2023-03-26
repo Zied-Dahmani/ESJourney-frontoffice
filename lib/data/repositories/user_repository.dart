@@ -35,4 +35,9 @@ class UserRepository implements IUserRepository {
         senderAddress, senderPrivateKey,amount , token);
     return result.statusCode == 200 ? User.fromJson(result.data) : null;
   }
+
+  @override
+  Future<void> updateDeviceToken(String token, String deviceToken) async {
+    await _userDataProvider.updateDeviceToken(token,deviceToken);
+  }
 }

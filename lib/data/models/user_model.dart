@@ -1,7 +1,6 @@
 import 'package:esjourney/data/models/curriculum/user_course_model.dart';
 import 'package:esjourney/data/models/events/event_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 part 'user_model.freezed.dart';
 
 part 'user_model.g.dart';
@@ -25,6 +24,7 @@ class User with _$User {
     String? fullName,
     String? walletAddress,
     String? privateKey,
+    String? deviceToken,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

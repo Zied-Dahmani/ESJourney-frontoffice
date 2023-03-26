@@ -25,23 +25,22 @@ class UserDataProvider {
     dynamic req = await dio.request(
       kgetUserData,
       options: Options(
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'jwt': token,
-        },
-        validateStatus: (status) {
-          return status! < 500;
-        }
-      ),
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'jwt': token,
+          },
+          validateStatus: (status) {
+            return status! < 500;
+          }),
     );
     return req;
   }
 
-  Future<Response> signUp(String? id,String email, String password) async {
+  Future<Response> signUp(String? id, String email, String password) async {
     return await dio.request(
       ksignUp,
-      data: {'username': id, 'email':email, 'password': password},
+      data: {'username': id, 'email': email, 'password': password},
       options: Options(
         method: 'POST',
         validateStatus: (status) {
@@ -51,10 +50,11 @@ class UserDataProvider {
     );
   }
 
-  Future<Response> addAvatars(String token,String twoDAvatar, String threeDAvatar) async {
+  Future<Response> addAvatars(
+      String token, String twoDAvatar, String threeDAvatar) async {
     return await dio.request(
       kaddAvatar,
-      data: { 'twoDAvatar':twoDAvatar, 'threeDAvatar': threeDAvatar},
+      data: {'twoDAvatar': twoDAvatar, 'threeDAvatar': threeDAvatar},
       options: Options(
         method: 'POST',
         headers: {
@@ -66,8 +66,9 @@ class UserDataProvider {
       ),
     );
   }
-  Future<Response> sendEth(
-      String senderAddress, String senderPrivateKey, double amount, String token) async {
+
+  Future<Response> sendEth(String senderAddress, String senderPrivateKey,
+      double amount, String token) async {
     return await dio.request(
       ksendEth,
       data: {
@@ -86,6 +87,25 @@ class UserDataProvider {
         },
       ),
     );
-
   }
+
+  Future<Response> updateDeviceToken(String token, String deviceToken) async {
+    return await dio.request(
+      kupdateDeviceToken,
+      data: {
+        'deviceToken':deviceToken
+      },
+      options: Options(
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt': token,
+        },
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+  }
+
 }

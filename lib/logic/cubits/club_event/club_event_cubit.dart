@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:developer' as developer;
-import 'package:esjourney/data/models/club_event_model.dart';
-import 'package:esjourney/data/models/club_event_type_enum.dart';
-import 'package:esjourney/data/models/ticket_model.dart';
+import 'package:esjourney/data/models/club/event/club_event_model.dart';
+import 'package:esjourney/data/models/club/event/club_event_type_enum.dart';
+import 'package:esjourney/data/models/club/event/ticket_model.dart';
 import 'package:esjourney/logic/cubits/club_event/club_event_state.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
 import 'package:esjourney/utils/constants.dart';

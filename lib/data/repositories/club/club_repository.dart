@@ -1,6 +1,6 @@
-import 'package:esjourney/data/models/application_model.dart';
-import 'package:esjourney/data/models/club_event_model.dart';
-import 'package:esjourney/data/models/club_model.dart';
+import 'package:esjourney/data/models/club/application/application_model.dart';
+import 'package:esjourney/data/models/club/event/club_event_model.dart';
+import 'package:esjourney/data/models/club/club/club_model.dart';
 import 'package:esjourney/data/providers/club_data_provider.dart';
 import 'package:esjourney/data/repositories/club/club_repository_interface.dart';
 

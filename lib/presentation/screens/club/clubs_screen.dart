@@ -1,5 +1,6 @@
 import 'package:esjourney/logic/cubits/club/club_cubit.dart';
 import 'package:esjourney/logic/cubits/club/club_state.dart';
+import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/presentation/widgets/club/clubs_list.dart';
 import 'package:esjourney/presentation/widgets/club/loading_clubs_list.dart';
 import 'package:esjourney/presentation/widgets/empty_list.dart';

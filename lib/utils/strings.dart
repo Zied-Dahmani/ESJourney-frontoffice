@@ -67,6 +67,8 @@ class AppStrings {
 
   static const knoApplications = 'No applications';
 
+  static const kok = 'Ok';
+
   // Louay
 
   // Souhail

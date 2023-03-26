@@ -27,6 +27,7 @@ _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
       fullName: json['fullName'] as String?,
       walletAddress: json['walletAddress'] as String?,
       privateKey: json['privateKey'] as String?,
+      deviceToken: json['deviceToken'] as String?,
     );
 
 Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
@@ -46,4 +47,5 @@ Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
       'fullName': instance.fullName,
       'walletAddress': instance.walletAddress,
       'privateKey': instance.privateKey,
+      'deviceToken': instance.deviceToken,
     };

@@ -1,6 +1,8 @@
 import 'dart:developer' as developer;
 import 'package:esjourney/data/repositories/user_repository.dart';
 import 'package:esjourney/utils/constants.dart';
+import 'package:esjourney/utils/fcm.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import '../../../data/repositories/challenges/quiz_repository.dart';
@@ -26,7 +28,7 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
   final _userRepository = UserRepository();
   final _quizRepository = QuizRepository();
 
-   Future<void> refreshUserData(String token) async {
+  Future<void> refreshUserData(String token) async {
     try {
       final result = await _userRepository.getUserData(token);
       if (result != null) {
@@ -52,10 +54,10 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
     }
   }
 
-  Future<void> signUp(String? id,String email, String password) async {
+  Future<void> signUp(String? id, String email, String password) async {
     try {
       emit(UserLoadInProgress());
-      final result = await _userRepository.signUp(id,email, password);
+      final result = await _userRepository.signUp(id, email, password);
       result != null
           ? emit(UserLogInSuccess(result))
           : emit(UserIsFailure("error in sign up"));
@@ -65,10 +67,12 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
     }
   }
 
-  Future<void> addAvatars(String token,String twoDAvatar, String threeDAvatar) async {
+  Future<void> addAvatars(
+      String token, String twoDAvatar, String threeDAvatar) async {
     try {
       emit(UserLoadInProgress());
-      final result = await _userRepository.addAvatars(token,twoDAvatar, threeDAvatar);
+      final result =
+          await _userRepository.addAvatars(token, twoDAvatar, threeDAvatar);
       result != null
           ? emit(UserLogInSuccess(result))
           : emit(UserIsFailure("error in sign up"));
@@ -77,10 +81,13 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
       emit(UserIsFailure(kcheckInternetConnection));
     }
   }
-  Future<void> sendEth(String? walletAddress, String privateKey,double amount, String token) async {
+
+  Future<void> sendEth(String? walletAddress, String privateKey, double amount,
+      String token) async {
     try {
       emit(UserLoadInProgress());
-      final result = await _userRepository.sendEth( walletAddress!, privateKey,  amount,token);
+      final result = await _userRepository.sendEth(
+          walletAddress!, privateKey, amount, token);
       result != null
           ? emit(UserLogInSuccess(result))
           : emit(UserIsFailure(kerrorSendingEth));
@@ -89,6 +96,7 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
       emit(UserIsFailure(kcheckInternetConnection));
     }
   }
+
   Future<void> answerQuiz(double coins, String token) async {
     try {
       emit(UserLoadInProgress());
@@ -100,5 +108,20 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
       developer.log(e.toString(), name: 'Catch answer quiz');
       emit(UserIsFailure(kcheckInternetConnection));
     }
+  }
+
+  updateDeviceToken(String token)
+  {
+    FirebaseMessaging.instance.getToken().then((deviceToken) async {
+      await _userRepository.updateDeviceToken(token, deviceToken!);
+    });
+  }
+
+  Future<void> sendNotif(title, body, deviceToken) async {
+    final response = await Messaging.sendTo(
+      title: title,
+      body: body,
+      fcmToken: deviceToken,
+    );
   }
 }

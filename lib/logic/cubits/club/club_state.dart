@@ -1,4 +1,4 @@
-import 'package:esjourney/data/models/club_model.dart';
+import 'package:esjourney/data/models/club/club/club_model.dart';
 
 abstract class ClubState {}
 

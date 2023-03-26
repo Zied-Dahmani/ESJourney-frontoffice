@@ -1,4 +1,4 @@
-import 'package:esjourney/data/models/ticket_model.dart';
+import 'package:esjourney/data/models/club/event/ticket_model.dart';
 import 'package:esjourney/logic/cubits/club_event/club_event_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';

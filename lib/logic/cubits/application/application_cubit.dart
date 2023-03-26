@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:developer' as developer;
-import 'package:esjourney/data/models/application_model.dart';
+import 'package:esjourney/data/models/club/application/application_model.dart';
 import 'package:esjourney/logic/cubits/application/application_state.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
 import 'package:esjourney/utils/constants.dart';

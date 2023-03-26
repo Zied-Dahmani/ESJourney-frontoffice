@@ -12,16 +12,13 @@ import 'package:esjourney/logic/cubits/location/location_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/router/app_router.dart';
-import 'package:esjourney/presentation/screens/Internship/profileScreen.dart';
-import 'package:esjourney/presentation/screens/challenges/quiz/quiz.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/draw/core/bloc/user_cubit/drawer_cubit.dart';
-import 'package:esjourney/presentation/screens/profile/edit_profile/update_password/update_password_screen.dart';
-import 'package:esjourney/presentation/screens/profile/profile_screen.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
 import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
 import 'package:esjourney/utils/strings.dart';
 import 'package:esjourney/utils/theme.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -29,7 +26,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-
 import 'logic/cubits/challenges/coding_problem_cubit.dart';
 import 'logic/cubits/challenges/leaderboard_cubit.dart';
 import 'logic/cubits/challenges/quiz_cubit.dart';
@@ -42,6 +38,7 @@ import 'presentation/screens/curriculum/games/worldy/provider/controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await MainModule.init();
 
   ErrorWidget.builder = (FlutterErrorDetails details) {
@@ -99,12 +96,12 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    _userCubit = UserCubit();
+    /*_userCubit = UserCubit();
     WidgetsBinding.instance.addObserver(this);
     if (_userCubit.state is UserLogInSuccess) {
       final token = (_userCubit.state as UserLogInSuccess).user.token;
       _userCubit.refreshUserData(token!);
-    }
+    }*/
   }
 
   @override
@@ -116,7 +113,7 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
-    if (state == AppLifecycleState.resumed ||
+    /*if (state == AppLifecycleState.resumed ||
         state == AppLifecycleState.inactive) {
       final token = _userCubit.state is UserLogInSuccess
           ? (_userCubit.state as UserLogInSuccess).user.token
@@ -124,8 +121,9 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
       if (token != null) {
         await _userCubit.refreshUserData(token);
       }
-    }
+    }*/
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -200,10 +198,7 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
                 oldState is UserInitial && newState is! UserLoadInProgress,
             builder: (context, state) {
               if (state is UserLogInSuccess) {
-
-                return ZoomDrawerScreen();
-
-
+                return const ZoomDrawerScreen();
               } else {
                 return SignInScreen();
               }

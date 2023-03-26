@@ -8,12 +8,12 @@ import 'package:esjourney/presentation/widgets/text_form_field.dart';
 import 'package:esjourney/utils/constants.dart';
 import 'package:esjourney/utils/strings.dart';
 import 'package:esjourney/utils/theme.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/snackbar.dart';
-
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
@@ -22,7 +22,6 @@ class SignInScreen extends StatelessWidget {
   final _idController = TextEditingController();
   final _passwordController = TextEditingController();
   BuildContext? dialogContext;
-
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +39,8 @@ class SignInScreen extends StatelessWidget {
                 });
           } else if (state is UserLogInSuccess) {
             //Navigator.pop(dialogContext!);
-            Provider.of<SocketService>(context, listen: false).connect(state.user.token!);
+            Provider.of<SocketService>(context, listen: false)
+                .connect(state.user.token!);
             Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
           } else if (state is UserIsFailure) {
             Navigator.pop(dialogContext!);
@@ -71,7 +71,6 @@ class SignInScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: AppSizes.khugeSpace),
                   TextFormFieldWidget(
-
                       _idController, AppStrings.kusername, TextInputType.name),
                   const SizedBox(height: AppSizes.kbigSpace),
                   TextFormFieldWidget(_passwordController, AppStrings.kpassword,
@@ -94,7 +93,7 @@ class SignInScreen extends StatelessWidget {
                             function: () {
                               if (_formKey.currentState!.validate()) {
                                 if (state is ConnectivityConnectSuccess) {
-                                  BlocProvider.of<UserCubit>(context).signIn(
+                                 BlocProvider.of<UserCubit>(context).signIn(
                                       _idController.text,
                                       _passwordController.text);
                                 } else {
@@ -139,7 +138,4 @@ class SignInScreen extends StatelessWidget {
       ),
     );
   }
-
-
-
 }

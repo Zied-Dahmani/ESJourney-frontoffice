@@ -1,4 +1,4 @@
-import 'package:esjourney/data/models/club_model.dart';
+import 'package:esjourney/data/models/club/club/club_model.dart';
 import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/utils/constants.dart';
 import 'package:esjourney/utils/screen_size.dart';

@@ -84,6 +84,8 @@ dependencies:
   countup: ^0.1.4
   awesome_card: ^1.1.7
   animate_icons: ^2.0.0
+  firebase_core: ^2.8.0
+  firebase_messaging: ^14.3.0
   # Souhail
   circular_countdown_timer: ^0.2.3
   tflite_flutter: ^0.7.0
@@ -149,6 +151,7 @@ flutter:
     - assets/images/coins.gif
     - assets/images/barcode.png
     - assets/images/google_maps.png
+    - assets/sound/scan_complete.mp3
     - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see

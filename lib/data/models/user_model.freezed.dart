@@ -36,6 +36,7 @@ mixin _$User {
   String? get fullName => throw _privateConstructorUsedError;
   String? get walletAddress => throw _privateConstructorUsedError;
   String? get privateKey => throw _privateConstructorUsedError;
+  String? get deviceToken => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -63,7 +64,8 @@ abstract class $UserCopyWith<$Res> {
       String? token,
       String? fullName,
       String? walletAddress,
-      String? privateKey});
+      String? privateKey,
+      String? deviceToken});
 }
 
 /// @nodoc
@@ -95,6 +97,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? fullName = freezed,
     Object? walletAddress = freezed,
     Object? privateKey = freezed,
+    Object? deviceToken = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -161,6 +164,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.privateKey
           : privateKey // ignore: cast_nullable_to_non_nullable
               as String?,
+      deviceToken: freezed == deviceToken
+          ? _value.deviceToken
+          : deviceToken // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -187,7 +194,8 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String? token,
       String? fullName,
       String? walletAddress,
-      String? privateKey});
+      String? privateKey,
+      String? deviceToken});
 }
 
 /// @nodoc
@@ -215,6 +223,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? fullName = freezed,
     Object? walletAddress = freezed,
     Object? privateKey = freezed,
+    Object? deviceToken = freezed,
   }) {
     return _then(_$_User(
       id: freezed == id
@@ -281,6 +290,10 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.privateKey
           : privateKey // ignore: cast_nullable_to_non_nullable
               as String?,
+      deviceToken: freezed == deviceToken
+          ? _value.deviceToken
+          : deviceToken // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -304,7 +317,8 @@ class _$_User implements _User {
       this.token,
       this.fullName,
       this.walletAddress,
-      this.privateKey})
+      this.privateKey,
+      this.deviceToken})
       : _events = events,
         _courses = courses;
 
@@ -358,10 +372,12 @@ class _$_User implements _User {
   final String? walletAddress;
   @override
   final String? privateKey;
+  @override
+  final String? deviceToken;
 
   @override
   String toString() {
-    return 'User(id: $id, username: $username, email: $email, password: $password, grade: $grade, events: $events, coins: $coins, lastSeen: $lastSeen, twoDAvatar: $twoDAvatar, threeDAvatar: $threeDAvatar, courses: $courses, online: $online, token: $token, fullName: $fullName, walletAddress: $walletAddress, privateKey: $privateKey)';
+    return 'User(id: $id, username: $username, email: $email, password: $password, grade: $grade, events: $events, coins: $coins, lastSeen: $lastSeen, twoDAvatar: $twoDAvatar, threeDAvatar: $threeDAvatar, courses: $courses, online: $online, token: $token, fullName: $fullName, walletAddress: $walletAddress, privateKey: $privateKey, deviceToken: $deviceToken)';
   }
 
   @override
@@ -392,7 +408,9 @@ class _$_User implements _User {
             (identical(other.walletAddress, walletAddress) ||
                 other.walletAddress == walletAddress) &&
             (identical(other.privateKey, privateKey) ||
-                other.privateKey == privateKey));
+                other.privateKey == privateKey) &&
+            (identical(other.deviceToken, deviceToken) ||
+                other.deviceToken == deviceToken));
   }
 
   @JsonKey(ignore: true)
@@ -414,7 +432,8 @@ class _$_User implements _User {
       token,
       fullName,
       walletAddress,
-      privateKey);
+      privateKey,
+      deviceToken);
 
   @JsonKey(ignore: true)
   @override
@@ -447,7 +466,8 @@ abstract class _User implements User {
       final String? token,
       final String? fullName,
       final String? walletAddress,
-      final String? privateKey}) = _$_User;
+      final String? privateKey,
+      final String? deviceToken}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -483,6 +503,8 @@ abstract class _User implements User {
   String? get walletAddress;
   @override
   String? get privateKey;
+  @override
+  String? get deviceToken;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;
