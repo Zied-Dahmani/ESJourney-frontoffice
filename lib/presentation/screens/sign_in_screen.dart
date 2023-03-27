@@ -1,3 +1,5 @@
+import 'package:esjourney/logic/cubits/club/club_cubit.dart';
+import 'package:esjourney/presentation/screens/club/club_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
@@ -8,7 +10,6 @@ import 'package:esjourney/presentation/widgets/text_form_field.dart';
 import 'package:esjourney/utils/constants.dart';
 import 'package:esjourney/utils/strings.dart';
 import 'package:esjourney/utils/theme.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -38,10 +39,14 @@ class SignInScreen extends StatelessWidget {
                   return const Center(child: CircularProgressIndicator());
                 });
           } else if (state is UserLogInSuccess) {
-            //Navigator.pop(dialogContext!);
-            Provider.of<SocketService>(context, listen: false)
-                .connect(state.user.token!);
-            Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
+            Navigator.pop(dialogContext!);
+            Provider.of<SocketService>(context, listen: false).connect(state.user.token!);
+            if (BlocProvider.of<ClubCubit>(context).getClub() != null) {
+              Navigator.of(context).pushNamed(AppRoutes.clubScreen,arguments: BlocProvider.of<ClubCubit>(context).getClub());
+            }
+            else {
+              Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
+            }
           } else if (state is UserIsFailure) {
             Navigator.pop(dialogContext!);
             showSnackBar(context, state.error);

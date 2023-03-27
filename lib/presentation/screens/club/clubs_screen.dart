@@ -19,6 +19,7 @@ class ClubsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<ClubCubit>(context).init();
     return SafeArea(
       child: Scaffold(
         body: Container(

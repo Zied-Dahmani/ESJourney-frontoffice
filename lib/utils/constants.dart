@@ -39,6 +39,7 @@ final DateTime kLastDay = DateTime(2030, 12, 31);
 
 //zied
 const kgetAllClubs = 'club/getAll';
+const kgetClub = 'club/get';
 const kgetAllClubEvents = 'clubEvent/getAll';
 const kgetAllApplications = 'application/getAll';
 

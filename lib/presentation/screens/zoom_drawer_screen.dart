@@ -1,3 +1,5 @@
+import 'package:esjourney/logic/cubits/club/club_cubit.dart';
+import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
@@ -13,7 +15,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'Events/calendar_screen.dart';
 import 'package:provider/provider.dart';
-import 'dart:developer' as developer;
 
 class ZoomDrawerScreen extends StatefulWidget {
   const ZoomDrawerScreen({Key? key}) : super(key: key);
@@ -23,9 +24,9 @@ class ZoomDrawerScreen extends StatefulWidget {
 }
 
 class _ZoomDrawerScreenState extends State<ZoomDrawerScreen> {
-  int currentIndex = 0;
   bool _isFirstTime = true;
   bool isDialogShowing = false;
+  var currentIndex = 0;
 
   listenFCM(context) {
     final theme = Theme.of(context);
@@ -68,36 +69,35 @@ class _ZoomDrawerScreenState extends State<ZoomDrawerScreen> {
     //start set user as connected
     final socketService = Provider.of<SocketService>(context, listen: false);
     //end set user as connected
-
-    return BlocBuilder<UserCubit, UserState>(
-      builder: (context, state) {
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: BlocBuilder<UserCubit, UserState>(builder: (context, state) {
         if (state is UserLogInSuccess) {
           if (_isFirstTime) {
             _isFirstTime = false;
-            BlocProvider.of<UserCubit>(context).updateDeviceToken(state.user.token!);
+            BlocProvider.of<UserCubit>(context)
+                .updateDeviceToken(state.user.token!);
           }
           socketService.connect(state.user.token!);
-          return WillPopScope(
-            onWillPop: () async => false,
-            child: ZoomDrawer(
-              menuScreen: DrawerScreen(
-                setIndex: (index) {
-                  setState(() {
-                    currentIndex = index;
-                  });
-                },
-              ),
-              mainScreen: currentScreen(),
-              borderRadius: AppSizes.kradius,
-              showShadow: true,
-              angle: 0.0,
-              slideWidth: 220,
-              menuBackgroundColor: theme.colorScheme.primary,
+          return ZoomDrawer(
+            menuScreen: DrawerScreen(
+              setIndex: (index) {
+                setState(() {
+                  currentIndex = index;
+                });
+              },
             ),
+            mainScreen: currentScreen(),
+            borderRadius: AppSizes.kradius,
+            showShadow: true,
+            angle: 0.0,
+            slideWidth: 220,
+            menuBackgroundColor: theme.colorScheme.primary,
           );
+        } else {
+          return const SizedBox();
         }
-        return const SizedBox();
-      },
+      }),
     );
   }
 

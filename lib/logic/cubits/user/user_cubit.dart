@@ -1,7 +1,7 @@
 import 'dart:developer' as developer;
 import 'package:esjourney/data/repositories/user_repository.dart';
 import 'package:esjourney/utils/constants.dart';
-import 'package:esjourney/utils/fcm.dart';
+import 'package:esjourney/utils/firebase_cloud_messaging.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -118,7 +118,7 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
   }
 
   Future<void> sendNotif(title, body, deviceToken) async {
-    final response = await Messaging.sendTo(
+    final response = await FirebaseCloudMessaging.sendTo(
       title: title,
       body: body,
       fcmToken: deviceToken,

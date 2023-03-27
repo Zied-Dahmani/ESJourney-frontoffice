@@ -31,5 +31,4 @@ class ClubRepository implements IClubRepository {
         : null;
   }
 
-
 }

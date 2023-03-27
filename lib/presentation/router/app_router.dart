@@ -40,7 +40,7 @@ class AppRouter {
 
       case AppRoutes.zoomDrawerScreen:
         return MaterialPageRoute(
-          builder: (_) => const ZoomDrawerScreen(),
+          builder: (_) => ZoomDrawerScreen(),
         );
 
       case AppRoutes.jackpotGame:

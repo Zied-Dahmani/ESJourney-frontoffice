@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:esjourney/presentation/animations/club/translate_animation.dart';
+import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/presentation/widgets/club/club_images_page_view.dart';
 import 'package:esjourney/presentation/widgets/club/like_and_share_container.dart';
 import 'package:esjourney/presentation/widgets/club/timer_countdown_container.dart';
@@ -37,6 +38,9 @@ class AnimatedDetailHeader extends StatelessWidget {
               top: MediaQuery.of(context).padding.top,
               left: -60 * (1 - bottomPercent),
               child: BackButton(
+                onPressed: (){
+                  Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
+                },
                 color: theme.colorScheme.onPrimary,
               ),
             ),

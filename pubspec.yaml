@@ -86,6 +86,9 @@ dependencies:
   animate_icons: ^2.0.0
   firebase_core: ^2.8.0
   firebase_messaging: ^14.3.0
+  firebase_dynamic_links: ^5.0.17
+  flutter_share: ^2.0.0
+  memoize: ^3.0.0
   # Souhail
   circular_countdown_timer: ^0.2.3
   tflite_flutter: ^0.7.0
