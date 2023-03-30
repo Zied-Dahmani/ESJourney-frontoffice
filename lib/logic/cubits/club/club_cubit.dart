@@ -9,7 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_share/flutter_share.dart';
 
 class ClubCubit extends Cubit<ClubState> {
-  ClubCubit(this._connectivityCubit, this._userCubit, this._clubRepository) : super(ClubLoadInProgress()) {
+  ClubCubit(this._connectivityCubit, this._userCubit, this._clubRepository)
+      : super(ClubLoadInProgress()) {
     initDynamicLink();
   }
 
@@ -18,18 +19,19 @@ class ClubCubit extends Cubit<ClubState> {
 
   bool isFirstTime = true;
   late List<Club> _clubs;
-  late String _clubId;
+  late String clubId;
 
   initDynamicLink() async {
-    _clubId = await DynamicLink().init();
-    if (_clubId != '') {
-      init();
-      isFirstTime = false;
-    }
+      clubId = await DynamicLink().init();
+      if (clubId != '') {
+        init();
+      }
+
   }
 
   void init() {
     if (isFirstTime) {
+      isFirstTime = false;
       if (_connectivityCubit.state is ConnectivityConnectSuccess) {
         getAllClubs();
       } else {
@@ -66,7 +68,7 @@ class ClubCubit extends Cubit<ClubState> {
 
   Club? getClub() {
     try {
-      return _clubs.where((club) => club.id == _clubId).first;
+      return _clubs.where((club) => club.id == clubId).first;
     } catch (e) {
       developer.log(e.toString(), name: 'Catch getClub');
       return null;

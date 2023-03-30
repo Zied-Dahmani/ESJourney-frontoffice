@@ -208,7 +208,7 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
                     if (clubState is ClubLoadSuccess && BlocProvider.of<ClubCubit>(context).getClub() != null) {
                       return ClubScreen(club: BlocProvider.of<ClubCubit>(context).getClub());
                     } else {
-                      return ZoomDrawerScreen();
+                      return const ZoomDrawerScreen();
                     }
                   });
                 } else {

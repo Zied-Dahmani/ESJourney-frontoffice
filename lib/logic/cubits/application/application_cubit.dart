@@ -8,21 +8,44 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ApplicationCubit extends Cubit<ApplicationState> {
   ApplicationCubit(this._connectivityCubit, this._clubRepository)
-      : super(ApplicationLoadInProgress()) {
-    init();
-  }
+      : super(ApplicationLoadInProgress());
 
   final _connectivityCubit, _clubRepository;
   StreamSubscription? _connectivityStreamSubscription;
-  List<Application> _allApplicationsList=[];
+  List<Application> _allApplicationsList = [];
+  bool _isFirstTime = true;
+
+  Future<bool> apply(
+      String token,
+      String clubId,
+      String? filePath,
+      String fileName,
+      String phoneNumber,
+      String birthDate,
+      String studyLevel,
+      String speciality,
+      List answers,
+      String linkedInLink) async {
+    try {
+      return await _clubRepository.apply(token, clubId, filePath, fileName,
+          phoneNumber, birthDate, studyLevel, speciality, answers, linkedInLink);
+    } catch (e) {
+      developer.log(e.toString(), name: 'Catch apply');
+      return false;
+    }
+  }
 
   void init() {
-    if (_connectivityCubit.state is ConnectivityConnectSuccess) {
-      getAllApplications();
-    } else {
-      emit(ApplicationLoadFailure(kcheckInternetConnection));
+    if(_isFirstTime)
+    {
+      _isFirstTime = false;
+      if (_connectivityCubit.state is ConnectivityConnectSuccess) {
+        getAllApplications();
+      } else {
+        emit(ApplicationLoadFailure(kcheckInternetConnection));
+      }
+      listen();
     }
-    listen();
   }
 
   StreamSubscription<ConnectivityState> listen() {
@@ -55,21 +78,22 @@ class ApplicationCubit extends Cubit<ApplicationState> {
 
   String _clubName = 'All';
 
-  void filter(clubName,isStart) {
+  void filter(clubName, isStart) {
     _clubName = clubName ?? _clubName;
 
-    if (_clubName == 'All' && isStart ) {
+    if (_clubName == 'All' && isStart) {
       emit(ApplicationLoadSuccess(_allApplicationsList));
     } else {
       var list = <Application>[];
       _allApplicationsList.forEach((Application application) {
-        if (application.club.name == _clubName || _clubName == 'All'  && isStart ) {
+        if (application.club.name == _clubName ||
+            _clubName == 'All' && isStart) {
+          list.add(application);
+        } else if (application.club.name == _clubName ||
+            _clubName == 'All' &&
+                application.dateTime.compareTo(DateTime.now()) > 0) {
           list.add(application);
         }
-        else if(application.club.name == _clubName || _clubName == 'All'  && application.dateTime.compareTo(DateTime.now()) > 0)
-          {
-            list.add(application);
-          }
       });
       emit(ApplicationLoadSuccess(list));
     }
@@ -77,12 +101,13 @@ class ApplicationCubit extends Cubit<ApplicationState> {
 
   void filterWithDateTime() {
     var list = <Application>[];
-      _allApplicationsList.forEach((Application application) {
-        if ( ( application.club.name == _clubName || _clubName == 'All' ) && application.dateTime.compareTo(DateTime.now()) > 0) {
-          list.add(application);
-        }
-      });
-      emit(ApplicationLoadSuccess(list));
+    _allApplicationsList.forEach((Application application) {
+      if ((application.club.name == _clubName || _clubName == 'All') &&
+          application.dateTime.compareTo(DateTime.now()) > 0) {
+        list.add(application);
+      }
+    });
+    emit(ApplicationLoadSuccess(list));
   }
 
   @override

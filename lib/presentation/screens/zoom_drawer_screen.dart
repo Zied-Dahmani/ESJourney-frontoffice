@@ -75,8 +75,7 @@ class _ZoomDrawerScreenState extends State<ZoomDrawerScreen> {
         if (state is UserLogInSuccess) {
           if (_isFirstTime) {
             _isFirstTime = false;
-            BlocProvider.of<UserCubit>(context)
-                .updateDeviceToken(state.user.token!);
+            BlocProvider.of<UserCubit>(context).updateDeviceToken(state.user.token!);
           }
           socketService.connect(state.user.token!);
           return ZoomDrawer(

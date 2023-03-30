@@ -1,5 +1,5 @@
+import 'package:esjourney/logic/cubits/club/club_cubit.dart';
 import 'package:esjourney/presentation/router/routes.dart';
-import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
 import 'package:esjourney/presentation/widgets/button.dart';
 import 'package:esjourney/presentation/widgets/club/animated_detail_header.dart';
 import 'package:esjourney/presentation/widgets/club/builder_persistent_delegate.dart';
@@ -8,6 +8,7 @@ import 'package:esjourney/utils/screen_size.dart';
 import 'package:esjourney/utils/strings.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
@@ -40,7 +41,11 @@ class _ClubScreenState extends State<ClubScreen> {
     final theme = Theme.of(context);
     return WillPopScope(
       onWillPop: () async {
-        Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
+        if (BlocProvider.of<ClubCubit>(context).clubId != '') {
+          Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
+        } else {
+          Navigator.pop(context);
+        }
         return true;
       },
       child: Scaffold(
@@ -63,7 +68,8 @@ class _ClubScreenState extends State<ClubScreen> {
             SliverToBoxAdapter(
                 child: Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: AppSizes.kbigSpace, vertical: AppSizes.ksmallSpace),
+                  horizontal: AppSizes.kbigSpace,
+                  vertical: AppSizes.ksmallSpace),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -83,8 +89,8 @@ class _ClubScreenState extends State<ClubScreen> {
               child: SizedBox(
                 height: AppSizes.kbigImageSize,
                 child: ListView.builder(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: AppSizes.kbigSpace),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: AppSizes.kbigSpace),
                   scrollDirection: Axis.horizontal,
                   itemExtent: 150,
                   itemCount: 3,
@@ -111,7 +117,9 @@ class _ClubScreenState extends State<ClubScreen> {
                     text: AppStrings.kapply,
                     function: () {
                       if (widget.club.deadline.compareTo(DateTime.now()) > 0) {
-                        Navigator.of(context).pushNamed(AppRoutes.applyToClubScreen);
+                        Navigator.of(context).pushNamed(
+                            AppRoutes.applyToClubScreen,
+                            arguments: widget.club.id);
                       } else {
                         showTopSnackBar(
                           Overlay.of(context)!,

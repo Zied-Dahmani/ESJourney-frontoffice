@@ -42,6 +42,7 @@ const kgetAllClubs = 'club/getAll';
 const kgetClub = 'club/get';
 const kgetAllClubEvents = 'clubEvent/getAll';
 const kgetAllApplications = 'application/getAll';
+const kapply = 'application/apply';
 
 //map consts
 const mapToken = 'pk.eyJ1IjoiemllZC1kYWhtYW5pIiwiYSI6ImNsZWJnd3RjMjA1c3kzb210OWQ0YW1pb2kifQ.KNa3PMeruCB7HdCN9zDfQQ';

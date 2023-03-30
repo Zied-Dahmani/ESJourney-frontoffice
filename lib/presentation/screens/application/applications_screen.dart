@@ -36,6 +36,7 @@ class _ApplicationsScreenState extends State<ApplicationsScreen> {
   @override
   void initState() {
     super.initState();
+    BlocProvider.of<ApplicationCubit>(context).init();
     _scrollController.addListener(onListener);
     _controller = AnimateIconController();
   }

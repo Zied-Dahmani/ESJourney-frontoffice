@@ -13,7 +13,14 @@ class Application with _$Application {
     required dynamic userId,
     required ApplicationState state,
     required Club club,
-    required DateTime dateTime
+    required DateTime dateTime,
+    required String resume,
+    required String phoneNumber,
+    required String birthDate,
+    required String studyLevel,
+    required String speciality,
+    required List answers,
+    required String linkedInLink
   }) = _Application;
 
   factory Application.fromJson(Map<String, dynamic> json) => _$ApplicationFromJson(json);

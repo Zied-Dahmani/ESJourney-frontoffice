@@ -140,7 +140,7 @@ class AppRouter {
 
       case AppRoutes.applyToClubScreen:
         return MaterialPageRoute(
-          builder: (_) => const ApplyToClubScreen(),
+          builder: (_) => ApplyToClubScreen(clubId: args),
         );
 
       case AppRoutes.doneScreen:
