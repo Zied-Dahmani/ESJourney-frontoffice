@@ -79,12 +79,12 @@ class _ClubScreenState extends State<ClubScreen> {
                   Text(widget.club.fullDescription,
                       style: theme.textTheme.bodyMedium),
                   const SizedBox(height: AppSizes.kbigSpace),
-                  Text(AppStrings.kstories,
-                      style: theme.textTheme.headlineMedium),
+                  if(widget.club.shorts.length!=0)
+                    Text(AppStrings.kshorts, style: theme.textTheme.headlineMedium),
                 ],
               ),
             )),
-            // TODO Stories
+            if(widget.club.shorts.length!=0)
             SliverToBoxAdapter(
               child: SizedBox(
                 height: AppSizes.kbigImageSize,
@@ -93,16 +93,28 @@ class _ClubScreenState extends State<ClubScreen> {
                       horizontal: AppSizes.kbigSpace),
                   scrollDirection: Axis.horizontal,
                   itemExtent: 150,
-                  itemCount: 3,
+                  itemCount: widget.club.shorts.length.clamp(0,widget.club.images.length),
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: AppSizes.ksmallSpace * .5),
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(AppSizes.kradius),
-                          child: Image.network(
-                              '$kbaseUrl${widget.club.images[index]}',
-                              fit: BoxFit.cover)),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(
+                            AppRoutes.shortsScreen,
+                            arguments: {
+                              'index': index,
+                              'shorts': widget.club.shorts,
+                            },
+                          );
+                        },
+                        child: ClipRRect(
+                            borderRadius:
+                                BorderRadius.circular(AppSizes.kradius),
+                            child: Image.network(
+                                '$kbaseUrl${widget.club.images[index]}',
+                                fit: BoxFit.cover)),
+                      ),
                     );
                   },
                 ),

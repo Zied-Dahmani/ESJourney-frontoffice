@@ -30,7 +30,7 @@ class AppStrings {
   static const knoClubs = 'No clubs';
   static const kapplyWithin = 'Apply within';
   static const kdescription = 'Description';
-  static const kstories = 'Stories';
+  static const kshorts = 'Shorts';
   static const kapply = 'Apply';
   static const kdeadlineHasGonePast = 'The deadline has gone past';
   static const kcontinue = 'Continue';

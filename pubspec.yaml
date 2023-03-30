@@ -89,6 +89,9 @@ dependencies:
   firebase_dynamic_links: ^5.0.17
   flutter_share: ^2.0.0
   memoize: ^3.0.0
+  video_player: ^2.6.0
+  chewie: ^1.4.0
+  flutter_swiper_plus: ^2.0.4
   # Souhail
   circular_countdown_timer: ^0.2.3
   tflite_flutter: ^0.7.0

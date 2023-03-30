@@ -34,7 +34,6 @@ import 'logic/cubits/challenges/leaderboard_cubit.dart';
 import 'logic/cubits/challenges/quiz_cubit.dart';
 import 'logic/cubits/challenges/submission_cubit.dart';
 import 'logic/cubits/challenges/top_solutions_cubit.dart';
-import 'presentation/router/routes.dart';
 import 'presentation/screens/curriculum/games/draw/main_module.dart';
 import 'presentation/screens/curriculum/games/slide/tools/board_controller.dart';
 import 'presentation/screens/curriculum/games/slide/tools/navigation.dart';

@@ -3,6 +3,7 @@ import 'package:esjourney/data/models/user_model.dart';
 import 'package:esjourney/presentation/screens/club/apply_to_club_screen.dart';
 import 'package:esjourney/presentation/screens/club/club_screen.dart';
 import 'package:esjourney/presentation/screens/club/done_screen.dart';
+import 'package:esjourney/presentation/screens/club/shorts_screen.dart';
 import 'package:esjourney/presentation/screens/club_event/club_event_tickets_screen.dart';
 import 'package:esjourney/presentation/screens/club_event/club_event_timeline_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/avatar/avatar_screen.dart';
@@ -156,6 +157,17 @@ class AppRouter {
       case AppRoutes.clubEventTicketsScreen:
         return MaterialPageRoute(
           builder: (_) => ClubEventTicketsScreen(clubEvent: args),
+        );
+
+      case AppRoutes.shortsScreen:
+        final Map<String, dynamic> argsMap = args as Map<String, dynamic>;
+        final int index = argsMap['index'] as int;
+        final List<String> shorts = argsMap['shorts'] as List<String>;
+        return MaterialPageRoute(
+          builder: (_) => ShortsScreen(
+            shorts: shorts,
+            startIndex: index,
+          ),
         );
 
 // souhail
