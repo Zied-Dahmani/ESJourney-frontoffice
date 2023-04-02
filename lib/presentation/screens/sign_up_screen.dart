@@ -80,8 +80,8 @@ class SignUpScreen extends StatelessWidget {
                   TextFormFieldWidget(_passwordController,
                       AppStrings.kpassword, TextInputType.visiblePassword),
                   const SizedBox(height: AppSizes.kbigSpace),
-                  BlocBuilder<ConnectivityCubit, ConnectivityState>(
-                    builder: (context, state) {
+                    BlocBuilder<ConnectivityCubit, ConnectivityState>(
+                      builder: (context, state) {
                       return Center(
                         child: ButtonWidget(
                             text: AppStrings.ksignUp,

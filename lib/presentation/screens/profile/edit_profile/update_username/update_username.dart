@@ -68,7 +68,6 @@ class _UpdateUsernameScreenState extends State<UpdateUsernameScreen> {
             token = userState.user.token!;
             currentUsername = userState.user.username;
             _currentUsernameController.text = user!.username;
-
             return Padding(
               padding: const EdgeInsets.all(16),
               child: Column(

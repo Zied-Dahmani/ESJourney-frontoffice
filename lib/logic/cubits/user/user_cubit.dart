@@ -135,7 +135,7 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
       final result = await _userRepository.updateUsername(
           newUsername, token);
       if (result is String) {
-        // If result is a string, it means there was an error message returned from the API
+        // If result is a string, it means there was an error message retured from the API
         emit(UserIsFailure(result));
       } else  {
         // If result is a UserModel, it means the username was updated successfully

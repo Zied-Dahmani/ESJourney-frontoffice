@@ -197,7 +197,7 @@ class AppRouter {
         );
       case AppRoutes.updatePasswordScreen:
         return MaterialPageRoute(
-          builder: (_) =>  const UpdatePasswordScreen(
+          builder: (_) =>  const UpdatePasswordBaseScreen(
 
           ),
         );

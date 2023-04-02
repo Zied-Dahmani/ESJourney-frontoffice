@@ -12,16 +12,12 @@ import 'package:esjourney/logic/cubits/location/location_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/router/app_router.dart';
-import 'package:esjourney/presentation/screens/Internship/profileScreen.dart';
-import 'package:esjourney/presentation/screens/challenges/quiz/quiz.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/draw/core/bloc/user_cubit/drawer_cubit.dart';
+import 'package:esjourney/presentation/screens/main_screen.dart';
 import 'package:esjourney/presentation/screens/profile/edit_profile/edit_profile_screen.dart';
-import 'package:esjourney/presentation/screens/profile/edit_profile/update_password/update_password_screen.dart';
-import 'package:esjourney/presentation/screens/profile/edit_profile/update_username/update_username.dart';
 import 'package:esjourney/presentation/screens/profile/profile_screen.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
-import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
 import 'package:esjourney/utils/strings.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/foundation.dart';
@@ -178,6 +174,8 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
                   BlocProvider.of<ConnectivityCubit>(context),
                   context.read<ClubRepository>()),
               lazy: true),
+
+          // souhail blocs
           BlocProvider<QuizCubit>(create: (context) => QuizCubit(), lazy: true),
           BlocProvider<CourseCubit>(
               create: (context) => CourseCubit(), lazy: true),
@@ -202,10 +200,7 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
                 oldState is UserInitial && newState is! UserLoadInProgress,
             builder: (context, state) {
               if (state is UserLogInSuccess) {
-
-                return EditProfileScreen();
-
-
+                return const ProfileScreen();
               } else {
                 return SignInScreen();
               }
