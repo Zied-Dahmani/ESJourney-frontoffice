@@ -25,7 +25,7 @@ class User with _$User {
     String? twoDAvatar,
     String? threeDAvatar,
     List<UserCourse>? courses,
-    required bool online,
+     required bool online,
     String? token,
     String? fullName,
     String? walletAddress,

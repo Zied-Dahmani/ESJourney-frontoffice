@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 
-
 class QuizScreen extends StatefulWidget {
   QuizScreen({Key? key, this.restart = false}) : super(key: key);
   bool restart;
@@ -45,7 +44,7 @@ String _discoBtnText = "Next";
 int _userScore = 7;
 String _token = "";
 
-Quiz _currentQuestion = Quiz(
+Quiz _currentQuestion = const Quiz(
   answer: 1,
   difficulty: "",
   hasCode: false,
@@ -58,6 +57,7 @@ List<Quiz> _answeredQuestions = [];
 class _QuizScreenState extends State<QuizScreen> {
   @override
   void initState() {
+    BlocProvider.of<QuizCubit>(context).getQuiz("c");
     super.initState();
     if (widget.restart) {
       _isQuizAnswered = false;
@@ -139,7 +139,7 @@ class _QuizScreenState extends State<QuizScreen> {
                           Container(
                             margin: const EdgeInsets.only(right: 20),
                             child: Text(
-                              "${_displayedQuestionIndex}/${_totalQuestions}",
+                              "$_displayedQuestionIndex/$_totalQuestions",
                               style:
                                   const TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -273,7 +273,14 @@ class _QuizScreenState extends State<QuizScreen> {
                             AppRoutes.quizResult,
                             arguments: _userScore,
                           );
-                          BlocProvider.of<UserCubit>(context).answerQuiz(0.01, _token);
+
+                          final userCubit = BlocProvider.of<UserCubit>(context);
+                          if (_userScore > 0.01) {
+                            userCubit.addAchievement(_token, "firstQuiz");
+                          }
+                          print("token is $_token");
+                        //  userCubit.answerQuiz(0.01, _token);
+
                           return;
                         }
 

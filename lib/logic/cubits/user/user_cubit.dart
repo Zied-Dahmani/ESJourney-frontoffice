@@ -5,6 +5,7 @@ import 'package:esjourney/data/repositories/user_repository.dart';
 import 'package:esjourney/utils/constants.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
+import '../../../data/repositories/challenges/achievement/achievement_repository.dart';
 import '../../../data/repositories/challenges/quiz_repository.dart';
 import 'user_state.dart';
 
@@ -27,6 +28,7 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
 
   final _userRepository = UserRepository();
   final _quizRepository = QuizRepository();
+  final _achievementRepository = AchievementRepository();
 
   Future<void> refreshUserData(String token) async {
     try {
@@ -143,6 +145,24 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
       }
     } catch (e) {
       developer.log(e.toString(), name: 'Catch update username');
+      emit(UserIsFailure(kcheckInternetConnection));
+    }
+  }
+  Future<void> addAchievement(
+      String token, String name) async {
+    try {
+      emit(UserLoadInProgress());
+      final result = await _achievementRepository.addAchievement(
+          token, name);
+      if (result is String) {
+        // If result is a string, it means there was an error message returned from the API
+        emit(UserIsFailure(result));
+      } else  {
+        // If result is a UserModel, it means the achievement was added successfully
+        emit(UserLogInSuccess(result));
+      }
+    } catch (e) {
+      developer.log(e.toString(), name: 'Catch add achievement');
       emit(UserIsFailure(kcheckInternetConnection));
     }
   }

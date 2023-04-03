@@ -12,6 +12,8 @@ import 'package:esjourney/logic/cubits/location/location_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/router/app_router.dart';
+import 'package:esjourney/presentation/screens/challenges/quiz/quiz.dart';
+import 'package:esjourney/presentation/screens/challenges/quiz/quiz_result.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/draw/core/bloc/user_cubit/drawer_cubit.dart';
 import 'package:esjourney/presentation/screens/main_screen.dart';
@@ -200,7 +202,7 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
                 oldState is UserInitial && newState is! UserLoadInProgress,
             builder: (context, state) {
               if (state is UserLogInSuccess) {
-                return const ProfileScreen();
+                return  QuizResultScreen(score: 20,);
               } else {
                 return SignInScreen();
               }

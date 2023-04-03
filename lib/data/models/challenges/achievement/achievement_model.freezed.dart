@@ -20,8 +20,8 @@ Achievement _$AchievementFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Achievement {
-  String get name => throw _privateConstructorUsedError;
-  String get image => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get image => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +35,7 @@ abstract class $AchievementCopyWith<$Res> {
           Achievement value, $Res Function(Achievement) then) =
       _$AchievementCopyWithImpl<$Res, Achievement>;
   @useResult
-  $Res call({String name, String image});
+  $Res call({String? name, String? image});
 }
 
 /// @nodoc
@@ -51,18 +51,18 @@ class _$AchievementCopyWithImpl<$Res, $Val extends Achievement>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
-    Object? image = null,
+    Object? name = freezed,
+    Object? image = freezed,
   }) {
     return _then(_value.copyWith(
-      name: null == name
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      image: null == image
+              as String?,
+      image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -75,7 +75,7 @@ abstract class _$$_AchievementCopyWith<$Res>
       __$$_AchievementCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String image});
+  $Res call({String? name, String? image});
 }
 
 /// @nodoc
@@ -89,18 +89,18 @@ class __$$_AchievementCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
-    Object? image = null,
+    Object? name = freezed,
+    Object? image = freezed,
   }) {
     return _then(_$_Achievement(
-      name: null == name
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      image: null == image
+              as String?,
+      image: freezed == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -108,15 +108,15 @@ class __$$_AchievementCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Achievement implements _Achievement {
-  const _$_Achievement({required this.name, required this.image});
+  const _$_Achievement({this.name, this.image});
 
   factory _$_Achievement.fromJson(Map<String, dynamic> json) =>
       _$$_AchievementFromJson(json);
 
   @override
-  final String name;
+  final String? name;
   @override
-  final String image;
+  final String? image;
 
   @override
   String toString() {
@@ -151,17 +151,16 @@ class _$_Achievement implements _Achievement {
 }
 
 abstract class _Achievement implements Achievement {
-  const factory _Achievement(
-      {required final String name,
-      required final String image}) = _$_Achievement;
+  const factory _Achievement({final String? name, final String? image}) =
+      _$_Achievement;
 
   factory _Achievement.fromJson(Map<String, dynamic> json) =
       _$_Achievement.fromJson;
 
   @override
-  String get name;
+  String? get name;
   @override
-  String get image;
+  String? get image;
   @override
   @JsonKey(ignore: true)
   _$$_AchievementCopyWith<_$_Achievement> get copyWith =>

@@ -8,8 +8,8 @@ part of 'achievement_model.dart';
 
 _$_Achievement _$$_AchievementFromJson(Map<String, dynamic> json) =>
     _$_Achievement(
-      name: json['name'] as String,
-      image: json['image'] as String,
+      name: json['name'] as String?,
+      image: json['image'] as String?,
     );
 
 Map<String, dynamic> _$$_AchievementToJson(_$_Achievement instance) =>

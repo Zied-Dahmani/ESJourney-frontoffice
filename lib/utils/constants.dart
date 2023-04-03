@@ -28,6 +28,7 @@ const ksendEth = 'crypto/sendETH';
 const kerrorSendingEth = 'Transaction failed!';
 const ktopSolutions = 'problem/top';
 const kanswerQuiz = 'quiz/answer';
+const kAddAchievement = 'achievement/add';
 
 //seif
 const kgetEvents = 'event/getEvents';

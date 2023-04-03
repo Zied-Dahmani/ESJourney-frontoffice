@@ -3,6 +3,8 @@ import 'dart:ui';
 
 import 'package:esjourney/presentation/router/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_svg/svg.dart';
 
 class QuizResultScreen extends StatefulWidget {
   final int score;
@@ -19,7 +21,8 @@ class _QuizResultScreenState extends State<QuizResultScreen> {
     final theme = Theme.of(context);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    bool isCompleted = widget.score >= 2;
+    bool isCompleted = true ;
+     //  widget.score >= 2;
     print("score is ${widget.score}");
 
     double randomNumber = Random().nextInt(5000) + 5000;
@@ -102,8 +105,26 @@ class _QuizResultScreenState extends State<QuizResultScreen> {
                             fontWeight: FontWeight.w400,
                           ),
                         );
+
                       },
                       duration: const Duration(milliseconds: 1500),
+                    ),
+                    SvgPicture.network(
+                      "http://192.168.0.12:9090/img/1680451548823.svg",
+                      height: width * 0.1,
+
+
+                    )
+                        .animate(
+                      delay: 1000.ms,
+                      // this delay only happens once at the very start
+                      onPlay: (controller) => controller.repeat(), // loop
+                    )
+                        .shimmer(
+                      delay: 1000.ms,
+                      stops:
+                      // from top left to bottom right
+                      [0.0, 0.5, 1.0], // stops
                     ),
                     Visibility(
                       visible: !isCompleted,

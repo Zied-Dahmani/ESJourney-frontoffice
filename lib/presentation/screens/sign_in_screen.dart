@@ -41,7 +41,7 @@ class SignInScreen extends StatelessWidget {
           } else if (state is UserLogInSuccess) {
             //Navigator.pop(dialogContext!);
             Provider.of<SocketService>(context, listen: false).connect(state.user.token!);
-            Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
+            Navigator.of(context).pushNamed(AppRoutes.quizScreen);
           } else if (state is UserIsFailure) {
             Navigator.pop(dialogContext!);
             showSnackBar(context, state.error);
@@ -96,6 +96,9 @@ class SignInScreen extends StatelessWidget {
                                   BlocProvider.of<UserCubit>(context).signIn(
                                       _idController.text,
                                       _passwordController.text);
+                                  // navigatio nto home screen
+
+
                                 } else {
                                   showSnackBar(
                                       context, kcheckInternetConnection);
