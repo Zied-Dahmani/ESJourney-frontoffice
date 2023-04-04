@@ -12,6 +12,7 @@ class AppRoutes {
   static const clubEventTicketsScreen = 'club_event_tickets_screen';
   static const clubEventTicketScreen = 'club_event_ticket_screen';
   static const shortsScreen = 'shorts_screen';
+  static const clubInterviewScreen = 'club_interview_screen';
 
   // Louay
   static const courses = '/courses';

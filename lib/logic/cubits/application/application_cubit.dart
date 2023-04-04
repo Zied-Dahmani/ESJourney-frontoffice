@@ -27,8 +27,17 @@ class ApplicationCubit extends Cubit<ApplicationState> {
       List answers,
       String linkedInLink) async {
     try {
-      return await _clubRepository.apply(token, clubId, filePath, fileName,
-          phoneNumber, birthDate, studyLevel, speciality, answers, linkedInLink);
+      return await _clubRepository.apply(
+          token,
+          clubId,
+          filePath,
+          fileName,
+          phoneNumber,
+          birthDate,
+          studyLevel,
+          speciality,
+          answers,
+          linkedInLink);
     } catch (e) {
       developer.log(e.toString(), name: 'Catch apply');
       return false;
@@ -36,14 +45,13 @@ class ApplicationCubit extends Cubit<ApplicationState> {
   }
 
   void init() {
-    if(_isFirstTime)
-    {
+    if (_connectivityCubit.state is ConnectivityConnectSuccess) {
+      getAllApplications();
+    } else {
+      emit(ApplicationLoadFailure(kcheckInternetConnection));
+    }
+    if (_isFirstTime) {
       _isFirstTime = false;
-      if (_connectivityCubit.state is ConnectivityConnectSuccess) {
-        getAllApplications();
-      } else {
-        emit(ApplicationLoadFailure(kcheckInternetConnection));
-      }
       listen();
     }
   }
@@ -90,8 +98,7 @@ class ApplicationCubit extends Cubit<ApplicationState> {
             _clubName == 'All' && isStart) {
           list.add(application);
         } else if (application.club.name == _clubName ||
-            _clubName == 'All' &&
-                application.dateTime.compareTo(DateTime.now()) > 0) {
+            _clubName == 'All' && application.dateTime.compareTo(DateTime.now()) > 0  )    {
           list.add(application);
         }
       });

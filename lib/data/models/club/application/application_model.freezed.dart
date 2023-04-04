@@ -30,7 +30,7 @@ mixin _$Application {
   String get birthDate => throw _privateConstructorUsedError;
   String get studyLevel => throw _privateConstructorUsedError;
   String get speciality => throw _privateConstructorUsedError;
-  List<dynamic> get answers => throw _privateConstructorUsedError;
+  List<String> get answers => throw _privateConstructorUsedError;
   String get linkedInLink => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -56,7 +56,7 @@ abstract class $ApplicationCopyWith<$Res> {
       String birthDate,
       String studyLevel,
       String speciality,
-      List<dynamic> answers,
+      List<String> answers,
       String linkedInLink});
 
   $ClubCopyWith<$Res> get club;
@@ -132,7 +132,7 @@ class _$ApplicationCopyWithImpl<$Res, $Val extends Application>
       answers: null == answers
           ? _value.answers
           : answers // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+              as List<String>,
       linkedInLink: null == linkedInLink
           ? _value.linkedInLink
           : linkedInLink // ignore: cast_nullable_to_non_nullable
@@ -168,7 +168,7 @@ abstract class _$$_ApplicationCopyWith<$Res>
       String birthDate,
       String studyLevel,
       String speciality,
-      List<dynamic> answers,
+      List<String> answers,
       String linkedInLink});
 
   @override
@@ -243,7 +243,7 @@ class __$$_ApplicationCopyWithImpl<$Res>
       answers: null == answers
           ? _value._answers
           : answers // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+              as List<String>,
       linkedInLink: null == linkedInLink
           ? _value.linkedInLink
           : linkedInLink // ignore: cast_nullable_to_non_nullable
@@ -266,7 +266,7 @@ class _$_Application extends _Application {
       required this.birthDate,
       required this.studyLevel,
       required this.speciality,
-      required final List<dynamic> answers,
+      required final List<String> answers,
       required this.linkedInLink})
       : _answers = answers,
         super._();
@@ -294,9 +294,9 @@ class _$_Application extends _Application {
   final String studyLevel;
   @override
   final String speciality;
-  final List<dynamic> _answers;
+  final List<String> _answers;
   @override
-  List<dynamic> get answers {
+  List<String> get answers {
     if (_answers is EqualUnmodifiableListView) return _answers;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_answers);
@@ -378,7 +378,7 @@ abstract class _Application extends Application {
       required final String birthDate,
       required final String studyLevel,
       required final String speciality,
-      required final List<dynamic> answers,
+      required final List<String> answers,
       required final String linkedInLink}) = _$_Application;
   const _Application._() : super._();
 
@@ -406,7 +406,7 @@ abstract class _Application extends Application {
   @override
   String get speciality;
   @override
-  List<dynamic> get answers;
+  List<String> get answers;
   @override
   String get linkedInLink;
   @override

@@ -19,7 +19,7 @@ class Application with _$Application {
     required String birthDate,
     required String studyLevel,
     required String speciality,
-    required List answers,
+    required List<String> answers,
     required String linkedInLink
   }) = _Application;
 

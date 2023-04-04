@@ -1,5 +1,6 @@
 import 'package:esjourney/data/models/events/event_model.dart';
 import 'package:esjourney/data/models/user_model.dart';
+import 'package:esjourney/presentation/screens/application/club_interview_screen.dart';
 import 'package:esjourney/presentation/screens/club/apply_to_club_screen.dart';
 import 'package:esjourney/presentation/screens/club/club_screen.dart';
 import 'package:esjourney/presentation/screens/club/done_screen.dart';
@@ -41,7 +42,7 @@ class AppRouter {
 
       case AppRoutes.zoomDrawerScreen:
         return MaterialPageRoute(
-          builder: (_) => ZoomDrawerScreen(),
+          builder: (_) => const ZoomDrawerScreen(),
         );
 
       case AppRoutes.jackpotGame:
@@ -168,6 +169,11 @@ class AppRouter {
             shorts: shorts,
             startIndex: index,
           ),
+        );
+
+      case AppRoutes.clubInterviewScreen:
+        return MaterialPageRoute(
+          builder: (_) => ClubInterviewScreen(callID: args),
         );
 
 // souhail

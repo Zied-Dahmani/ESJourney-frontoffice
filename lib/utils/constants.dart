@@ -37,7 +37,7 @@ const kregisterEvent = 'event/register';
 final DateTime kFirstDay = DateTime(2021, 1, 1);
 final DateTime kLastDay = DateTime(2030, 12, 31);
 
-//zied
+//Zied
 const kgetAllClubs = 'club/getAll';
 const kgetClub = 'club/get';
 const kgetAllClubEvents = 'clubEvent/getAll';
@@ -49,3 +49,7 @@ const mapToken = 'pk.eyJ1IjoiemllZC1kYWhtYW5pIiwiYSI6ImNsZWJnd3RjMjA1c3kzb210OWQ
 const mapStyle = 'mapbox.mapbox-streets-v8';
 const mapUrlTemplate = 'https://api.mapbox.com/styles/v1/zied-dahmani/cled45t8y001801muszxjo9ti/tiles/256/{z}/{x}/{y}@2x?access_token={accessToken}';
 
+
+//zegocloud
+const kzegoAppId = 1961455378;
+const kzegoAppSign = '1d1fe700d00e6e452fb3fa49032ab5447492a20392944b300d3b864d7a10aa71';

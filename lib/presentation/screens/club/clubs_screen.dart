@@ -50,6 +50,7 @@ class ClubsScreen extends StatelessWidget {
                   BorderRadius.all(Radius.circular(AppSizes.kradius))),
           child:  Icon(FontAwesomeIcons.plus,color: Theme.of(context).colorScheme.onPrimary),
           onPressed: () {
+            //BlocProvider.of<UserCubit>(context).sendNotif('lorem','Hello world!','c4XQ2pK1Qhep5X2XjiSHUx:APA91bGZ2-YziMgMQCD3xsTyc2WxbMMkTszHnYb6j7Rw9Bxa6P0YSNIxW50VOgEVevMkR2w7FB65ufFxc1oDhP2k_GSWtMOsS-q4A_HuHKZNtAcCUBiVy6dod9-yaJTgQLVeuKoLVbDy');
             HydratedBloc.storage.clear();
           },
         ),

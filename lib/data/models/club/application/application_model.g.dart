@@ -18,7 +18,8 @@ _$_Application _$$_ApplicationFromJson(Map<String, dynamic> json) =>
       birthDate: json['birthDate'] as String,
       studyLevel: json['studyLevel'] as String,
       speciality: json['speciality'] as String,
-      answers: json['answers'] as List<dynamic>,
+      answers:
+          (json['answers'] as List<dynamic>).map((e) => e as String).toList(),
       linkedInLink: json['linkedInLink'] as String,
     );
 

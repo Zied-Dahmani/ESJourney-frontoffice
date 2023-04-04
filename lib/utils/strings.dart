@@ -66,6 +66,8 @@ class AppStrings {
   static const kseat = 'Seat';
 
   static const knoApplications = 'No applications';
+  static const kinterviewHasPassed = 'The date/time of the interview has passed!';
+  static const kearlyToJoinInterview = "It's still early to join the interview!";
 
   static const kok = 'Ok';
 
