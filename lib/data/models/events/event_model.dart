@@ -1,4 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'meeting/meeting_details.dart';
+
 part 'event_model.freezed.dart';
 part 'event_model.g.dart';
 
@@ -16,9 +18,8 @@ class Event with _$Event {
     required String eventImage,
     required String location,
     required String requirementsDescription,
+    MeetingDetail? meeting, // nullable field for MeetingDetail
   }) = _Event;
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
-
 }
-

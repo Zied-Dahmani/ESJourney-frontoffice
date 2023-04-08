@@ -1,4 +1,5 @@
-var kbaseUrl = 'http://192.168.0.9:9090/';
+var kbaseUrl = 'http://192.168.1.12:9090/';
+var kmeetingUrl = 'http://192.168.1.12:9091';
 const ksignUp = 'user/signUp';
 const ksignIn = 'user/signIn';
 const kgetUserData = 'user/getUserData';

@@ -159,13 +159,13 @@ class AppRouter {
         );
 // souhail
       case AppRoutes.quizScreen:
-        return MaterialPageRoute(
-          builder: (_) =>  QuizScreen(
+      /* return MaterialPageRoute(
+          builder: (_) => QuizScreen(
             //  language: args as String,
             restart: args as bool,
 
           ),
-        );
+        );*/
       case AppRoutes.quizResult:
         return MaterialPageRoute(
           builder: (_) => QuizResultScreen(

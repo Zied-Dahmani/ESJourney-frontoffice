@@ -164,7 +164,7 @@ class _EventListScreenState extends State<EventListScreen> {
                                         const SizedBox(width: 4),
                                         Flexible(
                                           child: Text(
-                                            event.location,
+                                            event.location!,
                                             style: const TextStyle(fontSize: 14),
                                             overflow: TextOverflow.ellipsis,
                                             maxLines: 1,

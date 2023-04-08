@@ -19,7 +19,7 @@ class User with _$User {
     required String lastSeen,
     String? twoDAvatar,
     String? threeDAvatar,
-    List<UserCourse>? courses,
+    List<Map<String, dynamic>>? courses,
     required bool online,
     String? token,
     String? fullName,

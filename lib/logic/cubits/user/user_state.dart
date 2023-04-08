@@ -25,7 +25,6 @@ class UserLogInSuccess extends UserState {
   Map<String, dynamic> toMap() {
     return {
       '_id': user.id,
-      'id':user.id,
       'email': user.email,
       'username': user.username,
       'password': user.password,

@@ -84,6 +84,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
           if (state is UserLogInSuccess) {
             final events = state.user.events;
             final eventsForSelectedDay = _getEventsForDay(selectedDay, events!);
+            print('event for selected date $eventsForSelectedDay');
             return Column(
               children: [
                 TableCalendar(

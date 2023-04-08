@@ -7,7 +7,7 @@ part of 'event_model.dart';
 // **************************************************************************
 
 _$_Event _$$_EventFromJson(Map<String, dynamic> json) => _$_Event(
-      id: json['id'] as String,
+      id: json['_id'] as String,
       title: json['title'] as String,
       date: DateTime.parse(json['date'] as String),
       startTime: json['startTime'] as String,
@@ -18,6 +18,9 @@ _$_Event _$$_EventFromJson(Map<String, dynamic> json) => _$_Event(
       eventImage: json['eventImage'] as String,
       location: json['location'] as String,
       requirementsDescription: json['requirementsDescription'] as String,
+      meeting: json['meeting'] == null
+          ? null
+          : MeetingDetail.fromJson(json['meeting'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_EventToJson(_$_Event instance) => <String, dynamic>{
@@ -32,4 +35,5 @@ Map<String, dynamic> _$$_EventToJson(_$_Event instance) => <String, dynamic>{
       'eventImage': instance.eventImage,
       'location': instance.location,
       'requirementsDescription': instance.requirementsDescription,
+      'meeting': instance.meeting,
     };
