@@ -110,7 +110,7 @@ class _QuizResultScreenState extends State<QuizResultScreen> {
                       duration: const Duration(milliseconds: 1500),
                     ),
                     SvgPicture.network(
-                      "http://192.168.0.12:9090/img/1680451548823.svg",
+                      "http://192.168.0.12:3030/img/1680451548823.svg",
                       height: width * 0.1,
 
 

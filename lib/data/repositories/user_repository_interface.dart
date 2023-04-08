@@ -6,4 +6,5 @@ abstract class IUserRepository {
   Future<dynamic> sendEth(String senderAddress, String senderPrivateKey, double amount, String token);
    Future<dynamic> updatePassword( String currentPassword, String newPassword,String token);
   Future<dynamic> updateUsername(String newUsername, String token);
+  Future<dynamic>  checkUsername(String username);
 }

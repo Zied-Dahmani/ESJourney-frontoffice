@@ -4,13 +4,23 @@ import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
 
 class TextFormFieldWidget extends StatefulWidget {
-  const TextFormFieldWidget(this.controller, this.labelText, this.inputType,
-      {super.key});
+  const TextFormFieldWidget(
+    this.controller,
+    this.labelText,
+    this.inputType, {
+    super.key,
+    this.onChanged,
+    this.isLoading = false,
+    this.icon,
+  });
 
   final controller, labelText, inputType;
+  final void Function(String)? onChanged;
+  final IconData? icon;
+  final bool isLoading;
 
   @override
-  State<TextFormFieldWidget> createState() => _TextFormFieldWidgetState();
+  _TextFormFieldWidgetState createState() => _TextFormFieldWidgetState();
 }
 
 class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
@@ -29,41 +39,50 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
 
     return SizedBox(
       width: width,
-      child: TextFormField(
-        obscureText: _isObscure,
-        controller: widget.controller,
-        validator: (val) {
-          if (val!.isEmpty) {
-            return '${AppStrings.ktypeYour} ${widget.labelText.toString().toLowerCase()}!';
-          }
-          return null;
-        },
-        cursorColor: theme.colorScheme.secondary,
-        keyboardType: widget.inputType,
-        style: TextStyle(
-          color: theme.colorScheme.secondary,
-        ),
-        decoration: InputDecoration(
-          contentPadding: const EdgeInsets.all(AppSizes.kbigSpace),
-          suffixIcon: widget.inputType == TextInputType.visiblePassword
-              ? IconButton(
-                  icon: Padding(
-                    padding: const EdgeInsets.all(AppSizes.ksmallSpace),
-                    child: Icon(
-                      _isObscure ? Icons.visibility_off : Icons.visibility,
-                      color: theme.colorScheme.tertiary,
-                    ),
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _isObscure = !_isObscure;
-                    });
-                  },
-                )
-              : null,
-          floatingLabelBehavior: FloatingLabelBehavior.never,
-          labelText: widget.labelText,
-        ),
+      child: Stack(
+        alignment: Alignment.centerRight,
+        children: [
+          TextFormField(
+            obscureText: _isObscure,
+            controller: widget.controller,
+            onChanged: widget.onChanged,
+            validator: (val) {
+              if (val!.isEmpty) {
+                return '${AppStrings.ktypeYour} ${widget.labelText.toLowerCase()}!';
+              }
+              return null;
+            },
+            cursorColor: theme.colorScheme.secondary,
+            keyboardType: widget.inputType,
+            style: TextStyle(
+              color: theme.colorScheme.secondary,
+            ),
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.all(AppSizes.kbigSpace),
+              floatingLabelBehavior: FloatingLabelBehavior.never,
+              labelText: widget.labelText,
+            ),
+          ),
+          if (widget.isLoading)
+            Container(
+              margin: const EdgeInsets.only(right: AppSizes.kbigSpace),
+              width: 20,
+              height: 20,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                valueColor: AlwaysStoppedAnimation<Color>(
+                    theme.colorScheme.secondary),
+              ),
+            ),
+          if (!widget.isLoading && widget.icon != null)
+            IconButton(
+              icon: Icon(
+                widget.icon,
+                color: theme.colorScheme.tertiary,
+              ),
+              onPressed: () {},
+            )
+        ],
       ),
     );
   }

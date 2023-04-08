@@ -63,4 +63,11 @@ class UserRepository implements IUserRepository {
       return AppStrings.KusernameAlreadyExist;
     }
   }
+
+  @override
+  Future<bool> checkUsername(String username) async {
+    final result = await _userDataProvider.checkUsername(username);
+    return result.statusCode == 409 ? false : true;
+  }
+
 }

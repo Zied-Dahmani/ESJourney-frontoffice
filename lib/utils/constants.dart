@@ -1,4 +1,4 @@
-var kbaseUrl = 'http://192.168.0.12:9090/';
+var kbaseUrl = 'http://192.168.0.3:9090/';
 
 
 
@@ -54,5 +54,5 @@ const kgetUserData = 'user/getUserData';
 const krefreshToken = 'user/refreshToken';
 const kupdatePassword ='user/updatePassword';
 const kerrorUpdatePassword = 'Error in updating password!';
-
 const kupdateUsername = 'user/updateUsername';
+const kCheckUsername = 'user/checkusername';

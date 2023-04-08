@@ -109,8 +109,8 @@ class UserDataProvider {
       ),
     );
   }
-  Future<Response> updateUsername(
-      String newUsername, String token) async {
+
+  Future<Response> updateUsername(String newUsername, String token) async {
     return await dio.request(
       kupdateUsername,
       data: {
@@ -122,6 +122,20 @@ class UserDataProvider {
           'Content-Type': 'application/json',
           'jwt': token,
         },
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+  }
+
+  Future<Response> checkUsername(String username) async {
+    return await dio.get(
+      kCheckUsername,
+      queryParameters: {
+        'username': username,
+      },
+      options: Options(
         validateStatus: (status) {
           return status! < 500;
         },

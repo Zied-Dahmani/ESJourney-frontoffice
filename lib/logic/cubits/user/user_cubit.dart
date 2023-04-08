@@ -10,6 +10,10 @@ import '../../../data/repositories/challenges/quiz_repository.dart';
 import 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> with HydratedMixin {
+  final _userRepository = UserRepository();
+  final _quizRepository = QuizRepository();
+  final _achievementRepository = AchievementRepository();
+
   UserCubit() : super(UserInitial()) {
     //
   }
@@ -26,9 +30,6 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
         : null;
   }
 
-  final _userRepository = UserRepository();
-  final _quizRepository = QuizRepository();
-  final _achievementRepository = AchievementRepository();
 
   Future<void> refreshUserData(String token) async {
     try {
