@@ -21,6 +21,7 @@ import 'package:esjourney/presentation/screens/main_screen.dart';
 import 'package:esjourney/presentation/screens/profile/edit_profile/edit_profile_screen.dart';
 import 'package:esjourney/presentation/screens/profile/profile_screen.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
+import 'package:esjourney/presentation/test.dart';
 import 'package:esjourney/utils/strings.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/foundation.dart';
@@ -205,10 +206,10 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
                 oldState is UserInitial && newState is! UserLoadInProgress,
             builder: (context, state) {
               if (state is UserLogInSuccess) {
-                return QuizScreen();
+                return  TestScreen();
                   //QuizResultScreen(score: 20,);
               } else {
-                return SignInScreen();
+                return  QuizResultScreen(score: 20);
               }
             },
           ),

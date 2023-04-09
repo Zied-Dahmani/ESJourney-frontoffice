@@ -4,7 +4,10 @@ import 'dart:ui';
 import 'package:esjourney/presentation/router/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_share_me/flutter_share_me.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:social_share_plugin/social_share_plugin.dart';
 
 class QuizResultScreen extends StatefulWidget {
   final int score;
@@ -21,12 +24,11 @@ class _QuizResultScreenState extends State<QuizResultScreen> {
     final theme = Theme.of(context);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    bool isCompleted = true ;
-     //  widget.score >= 2;
+    bool isCompleted = true;
+    //  widget.score >= 2;
     print("score is ${widget.score}");
 
     double randomNumber = Random().nextInt(5000) + 5000;
-
 
     return Scaffold(
       body: Center(
@@ -100,20 +102,17 @@ class _QuizResultScreenState extends State<QuizResultScreen> {
                         final percent = value.toStringAsFixed(2);
                         return Text(
                           'You earned $percent coins ',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w400,
                           ),
                         );
-
                       },
                       duration: const Duration(milliseconds: 1500),
                     ),
                     SvgPicture.network(
                       "http://192.168.0.12:3030/img/1680451548823.svg",
                       height: width * 0.1,
-
-
                     )
                         .animate(
                       delay: 1000.ms,
@@ -123,8 +122,8 @@ class _QuizResultScreenState extends State<QuizResultScreen> {
                         .shimmer(
                       delay: 1000.ms,
                       stops:
-                      // from top left to bottom right
-                      [0.0, 0.5, 1.0], // stops
+                          // from top left to bottom right
+                          [0.0, 0.5, 1.0], // stops
                     ),
                     Visibility(
                       visible: !isCompleted,
@@ -164,9 +163,7 @@ class _QuizResultScreenState extends State<QuizResultScreen> {
               height: height * 0.07,
             ),
             Row(
-              mainAxisAlignment: isCompleted
-                  ? MainAxisAlignment.spaceEvenly
-                  : MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 QuizResultOption(
                   theme: theme,
@@ -174,41 +171,49 @@ class _QuizResultScreenState extends State<QuizResultScreen> {
                   text: "Home",
                   width: width,
                 ),
-                Visibility(
-                    visible: !isCompleted,
-                    child: SizedBox(width: width * 0.05)),
-                QuizResultOption(
-                  theme: theme,
-                  icon: isCompleted
-                      ? Icons.remove_red_eye_outlined
-                      : Icons.refresh_outlined,
-                  text: isCompleted ? "Review Answer" : "Try Again",
-                  width: width,
-                  onTap: () {
-                    // Navigator.pop(context);
-                    isCompleted
-                        ? Navigator.of(context).pushNamed(
-                            AppRoutes.quizScreen,
-                            arguments: false,
-                          )
-                        : Navigator.of(context)
-                            .pushNamed(AppRoutes.quizScreen, arguments: true);
-                  },
-                ),
-                Visibility(
-                  visible: isCompleted,
-                  child: QuizResultOption(
+                if (!isCompleted)
+                  QuizResultOption(
+                    theme: theme,
+                    icon: Icons.refresh_outlined,
+                    text: "Try Again",
+                    width: width,
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushNamed(AppRoutes.quizScreen, arguments: true);
+                    },
+                  ),
+                if (isCompleted)
+                  QuizResultOption(
+                    theme: theme,
+                    icon: Icons.remove_red_eye_outlined,
+                    text: "Review",
+                    width: width,
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushNamed(AppRoutes.quizScreen, arguments: false);
+                    },
+                  ),
+                if (isCompleted)
+                  QuizResultOption(
                     theme: theme,
                     icon: Icons.leaderboard_outlined,
                     text: "Leaderboard",
                     width: width,
                     onTap: () {
-                      Navigator.of(context).pushNamed(
-                        AppRoutes.leaderboardScreen,
-                      );
+                      Navigator.of(context)
+                          .pushNamed(AppRoutes.leaderboardScreen);
                     },
                   ),
-                ),
+                if (isCompleted)
+                  QuizResultOption(
+                    theme: theme,
+                    icon: Icons.share,
+                    text: "Share",
+                    width: width,
+                    onTap: () {
+                      sharePressed();
+                    },
+                  ),
               ],
             ),
           ],
@@ -216,6 +221,25 @@ class _QuizResultScreenState extends State<QuizResultScreen> {
       ),
     );
   }
+}
+
+
+
+Future<void> sharePressed() async {
+  String msg =
+      "I just won my first quiz on the Quiz app and I'm feeling on top of the world!"
+      " 🎉🎊🥳 It's an awesome feeling to test my knowledge and be rewarded for it with"
+      " some crypto coins. If you're up for a challenge, download the Quiz app and see at "
+      "https://www.esprit.tn "
+      " if you can beat my score! #quiz #knowledgeispower #crypto";
+  String url = 'https.www.esprit.tn';
+
+  String? response;
+//   final FlutterShareMe flutterShareMe = FlutterShareMe();
+// response = await flutterShareMe.shareToFacebook(msg: msg, url: url);
+//   //response = await flutterShareMe.shareToSystem(msg: msg);
+//   debugPrint(response);
+ await SocialSharePlugin.shareToFeedFacebookLink(quote: 'quote', url: 'https://flutter.dev');
 }
 
 class QuizResultOption extends StatelessWidget {
@@ -236,40 +260,38 @@ class QuizResultOption extends StatelessWidget {
   final void Function()? onTap;
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        GestureDetector(
-          onTap: onTap,
-          child: Container(
-            width: width * 0.2, height: width * 0.2, // circular border
-            decoration: BoxDecoration(
-              color: theme.colorScheme.primary,
-              borderRadius: BorderRadius.circular(
-                width * 0.2,
+  Widget build(BuildContext context) => Column(
+        children: [
+          GestureDetector(
+            onTap: onTap,
+            child: Container(
+              width: width * 0.2, height: width * 0.2, // circular border
+              decoration: BoxDecoration(
+                color: theme.colorScheme.primary,
+                borderRadius: BorderRadius.circular(
+                  width * 0.2,
+                ),
               ),
-            ),
 
-            child: Center(
-              child: Icon(
-                icon,
-                color: theme.colorScheme.background,
-                size: width * 0.08,
+              child: Center(
+                child: Icon(
+                  icon,
+                  color: theme.colorScheme.background,
+                  size: width * 0.08,
+                ),
               ),
             ),
           ),
-        ),
-        SizedBox(
-          height: width * 0.03,
-        ),
-        Text(text,
-            style: TextStyle(
-              fontFamily: 'VisbyRoundCF',
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
-              color: theme.colorScheme.secondary,
-            ))
-      ],
-    );
-  }
+          SizedBox(
+            height: width * 0.03,
+          ),
+          Text(text,
+              style: TextStyle(
+                fontFamily: 'VisbyRoundCF',
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+                color: theme.colorScheme.secondary,
+              ))
+        ],
+      );
 }
