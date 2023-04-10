@@ -1,3 +1,4 @@
+import 'package:esjourney/data/models/events/poll/poll_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'meeting/meeting_details.dart';
 
@@ -18,7 +19,8 @@ class Event with _$Event {
     required String eventImage,
     required String location,
     required String requirementsDescription,
-    MeetingDetail? meeting, // nullable field for MeetingDetail
+    MeetingDetail? meeting,
+    List<Poll>? polls,
   }) = _Event;
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);

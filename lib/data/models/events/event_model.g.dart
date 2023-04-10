@@ -21,6 +21,9 @@ _$_Event _$$_EventFromJson(Map<String, dynamic> json) => _$_Event(
       meeting: json['meeting'] == null
           ? null
           : MeetingDetail.fromJson(json['meeting'] as Map<String, dynamic>),
+      polls: (json['polls'] as List<dynamic>?)
+          ?.map((e) => Poll.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$_EventToJson(_$_Event instance) => <String, dynamic>{
@@ -36,4 +39,5 @@ Map<String, dynamic> _$$_EventToJson(_$_Event instance) => <String, dynamic>{
       'location': instance.location,
       'requirementsDescription': instance.requirementsDescription,
       'meeting': instance.meeting,
+      'polls': instance.polls,
     };

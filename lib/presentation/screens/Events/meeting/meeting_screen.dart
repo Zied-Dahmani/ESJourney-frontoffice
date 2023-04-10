@@ -14,6 +14,7 @@ import 'package:esjourney/presentation/widgets/events/control_panel.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
 import '../../../widgets/events/poll.dart';
+import '../../../widgets/events/poll_users.dart';
 
 
 
@@ -37,6 +38,13 @@ class _MeetingPageState extends State<MeetingPage> {
   bool isConnectionFailed = false;
   WebRTCMeetingHelper? meetingHelper;
   bool _isHost = false;
+  bool _isPollDisplayed = false;
+  String? _pollQuestion;
+  List<String>? _pollOptions;
+  Map<String, int>? _pollVotes;
+  int _remainingTime = 0;
+  String? _votedOption;
+
   //final FlutterTts flutterTts = FlutterTts();
   @override
   void dispose() {
@@ -121,6 +129,28 @@ class _MeetingPageState extends State<MeetingPage> {
         setState(() {});
       },
     );
+    meetingHelper!.on('poll-result', null, (ev, context) {
+      final pollResult = ev.eventData as PollData;
+      setState(() {
+        _pollQuestion = pollResult.question;
+        _pollOptions = pollResult.options;
+        _pollVotes = pollResult.votes;
+      });
+      print('Poll Result: $_pollVotes');
+    });
+    meetingHelper!.on('poll-data', null, (ev, context) {
+      final pollData = ev.eventData as PollData;
+      setState(() {
+        _pollQuestion = pollData.question;
+        _pollOptions = pollData.options;
+        _pollVotes = pollData.votes; // Set the votes map
+        _isPollDisplayed = true;
+        _remainingTime = 30; // Set the remaining time to 30 seconds
+        _startTimer(); // Start the timer
+      });
+      print('Votes: $_pollVotes'); // Print the votes map
+    });
+
     meetingHelper!.on(
         'hand-toggle',
         this,
@@ -159,6 +189,7 @@ class _MeetingPageState extends State<MeetingPage> {
     );
     setState(() {});
   }
+
   Future<void> _showPollCreationDialog() async {
     showDialog<void>(
       context: context,
@@ -171,7 +202,7 @@ class _MeetingPageState extends State<MeetingPage> {
               onSubmit: (String question, List<String> options) {
                 print('Question: $question');
                 print('Options: $options');
-                // Use the question and options data to create a poll and broadcast it to other users
+                meetingHelper!.sendPollData(question, options);
                 Navigator.of(context).pop();
               },
             ),
@@ -185,7 +216,6 @@ class _MeetingPageState extends State<MeetingPage> {
 
   @override
   Widget build(BuildContext context) {
-    print("rebuilt");
     return Scaffold(
       backgroundColor: Colors.black87,
       body: GestureDetector(
@@ -211,45 +241,132 @@ class _MeetingPageState extends State<MeetingPage> {
       ),
     );
   }
-
-  @override
+//print('meeting id1: ${widget.event.meeting?.id}');
   _buildMeetingRoom() {
-    print('meeting id1: ${widget.event.meeting?.id}');
+
     return Stack(
       children: [
         meetingHelper != null && meetingHelper!.connections.isNotEmpty ?
         GridView.count(
           crossAxisCount: meetingHelper!.connections.length < 3 ? 1 : 2,
           children: List.generate(meetingHelper!.connections.length, (index) {
-            return Padding(padding: const EdgeInsets.all(1),
+            return Padding(
+              padding: const EdgeInsets.all(1),
               child: RemoteConnection(
                 renderer: meetingHelper!.connections[index].renderer,
                 connection: meetingHelper!.connections[index],
                 hostId: widget.event.meeting?.hostId,
-              ) ,
+              ),
             );
           }),
-        ):const Center(
+        ) : const Center(
           child: Padding(
             padding: EdgeInsets.all(10),
             child: Text(
               'Waiting for other participants to join',
               textAlign: TextAlign.center,
               style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 24
+                color: Colors.grey,
+                fontSize: 24,
               ),
             ),
           ),
         ),
-        Positioned(bottom: 10, right: 0, child: SizedBox(
-          width: 150,
-          height: 200,
-          child: RTCVideoView(_localRenderer),
-        ))
+        if (_isPollDisplayed)
+          Positioned.fill(
+            child: Container(
+              color: Colors.black54,
+              child: Center(
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      PollResult(
+                        question: _pollQuestion!,
+                        options: _pollOptions!,
+                        votes: _pollVotes!,
+                        displayTime: 30,
+                        onVote: _onVote,
+                        votedOption: _votedOption,
+                        onClose: () {
+                          setState(() {
+                            _isPollDisplayed = false;
+                          });
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                      _remainingTime > 0
+                        ?Text(
+                        'Results will be hidden in $_remainingTime seconds...',
+                        style: const TextStyle(fontSize: 16),
+                        )
+                        :const Text(
+                          'Poll ended',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16,
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        Positioned(
+          bottom: 10,
+          right: 0,
+          child: SizedBox(
+            width: 150,
+            height: 200,
+            child: RTCVideoView(_localRenderer),
+          ),
+        ),
       ],
     );
   }
+
+  void _onVote(String option) {
+    if (_votedOption != null) {
+      setState(() {
+        if (_pollVotes!.containsKey(_votedOption!)) {
+          _pollVotes!.update(_votedOption!, (value) => value - 1);
+        }
+      });
+    }
+
+    setState(() {
+      _votedOption = option;
+      if (_pollVotes!.containsKey(option)) {
+        _pollVotes!.update(option, (value) => value + 1);
+      } else {
+        _pollVotes![option] = 1;
+      }
+    });
+
+    if (meetingHelper != null) {
+      meetingHelper!.broadcastPollResult(_pollQuestion!, _pollOptions!, _pollVotes!);
+    }
+  }
+
+
+
+  void _startTimer() {
+    Future.delayed(const Duration(seconds: 1), () {
+      setState(() {
+        _remainingTime--;
+        if (_remainingTime > 0) {
+          _startTimer();
+        }
+      });
+    });
+  }
+
 
   void onMeetingEnd() {
     if (meetingHelper != null) {
@@ -268,8 +385,8 @@ class _MeetingPageState extends State<MeetingPage> {
       setState(() {
         meetingHelper!.toggleHand();
         //if (meetingHelper!.handEnabled!) {
-          //print('condition ${meetingHelper!.handEnabled!}');
-          //flutterTts.speak('$handUser Hand raise enabled');
+        //print('condition ${meetingHelper!.handEnabled!}');
+        //flutterTts.speak('$handUser Hand raise enabled');
         //}
       });
     }

@@ -22,15 +22,14 @@ class EventDetails extends StatefulWidget {
 
 class _EventDetailsState extends State<EventDetails> {
   get screenHeight => MediaQuery.of(context).size.height;
-
   get screenWidth => MediaQuery.of(context).size.width;
-
   get textTheme => Theme.of(context).textTheme;
   late Event event = widget.event;
   String _buttonText = 'Register';
   MaterialColor _buttonColor = Colors.green;
   //meeting
   bool showJoinMeetingButton = false;
+
 
   void updateButtonText(String text, MaterialColor color) {
     setState(() {
@@ -222,6 +221,7 @@ class _EventDetailsState extends State<EventDetails> {
               widget.event.id,
             );
         setState(() {
+          showJoinMeetingButton = false;
           updateButtonText('Register', Colors.green);
         });
       }
