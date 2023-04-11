@@ -31,6 +31,8 @@ mixin _$ClubEvent {
   List<String> get ticketTypeNames => throw _privateConstructorUsedError;
   List<String> get ticketTypeImages => throw _privateConstructorUsedError;
   List<Ticket> get tickets => throw _privateConstructorUsedError;
+  String get walletAddress => throw _privateConstructorUsedError;
+  String get privateKey => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,7 +56,9 @@ abstract class $ClubEventCopyWith<$Res> {
       List<String> timeline,
       List<String> ticketTypeNames,
       List<String> ticketTypeImages,
-      List<Ticket> tickets});
+      List<Ticket> tickets,
+      String walletAddress,
+      String privateKey});
 }
 
 /// @nodoc
@@ -81,6 +85,8 @@ class _$ClubEventCopyWithImpl<$Res, $Val extends ClubEvent>
     Object? ticketTypeNames = null,
     Object? ticketTypeImages = null,
     Object? tickets = null,
+    Object? walletAddress = null,
+    Object? privateKey = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -127,6 +133,14 @@ class _$ClubEventCopyWithImpl<$Res, $Val extends ClubEvent>
           ? _value.tickets
           : tickets // ignore: cast_nullable_to_non_nullable
               as List<Ticket>,
+      walletAddress: null == walletAddress
+          ? _value.walletAddress
+          : walletAddress // ignore: cast_nullable_to_non_nullable
+              as String,
+      privateKey: null == privateKey
+          ? _value.privateKey
+          : privateKey // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -149,7 +163,9 @@ abstract class _$$_ClubEventCopyWith<$Res> implements $ClubEventCopyWith<$Res> {
       List<String> timeline,
       List<String> ticketTypeNames,
       List<String> ticketTypeImages,
-      List<Ticket> tickets});
+      List<Ticket> tickets,
+      String walletAddress,
+      String privateKey});
 }
 
 /// @nodoc
@@ -174,6 +190,8 @@ class __$$_ClubEventCopyWithImpl<$Res>
     Object? ticketTypeNames = null,
     Object? ticketTypeImages = null,
     Object? tickets = null,
+    Object? walletAddress = null,
+    Object? privateKey = null,
   }) {
     return _then(_$_ClubEvent(
       id: freezed == id
@@ -220,6 +238,14 @@ class __$$_ClubEventCopyWithImpl<$Res>
           ? _value._tickets
           : tickets // ignore: cast_nullable_to_non_nullable
               as List<Ticket>,
+      walletAddress: null == walletAddress
+          ? _value.walletAddress
+          : walletAddress // ignore: cast_nullable_to_non_nullable
+              as String,
+      privateKey: null == privateKey
+          ? _value.privateKey
+          : privateKey // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -238,7 +264,9 @@ class _$_ClubEvent extends _ClubEvent {
       required final List<String> timeline,
       required final List<String> ticketTypeNames,
       required final List<String> ticketTypeImages,
-      required final List<Ticket> tickets})
+      required final List<Ticket> tickets,
+      required this.walletAddress,
+      required this.privateKey})
       : _latLng = latLng,
         _timeline = timeline,
         _ticketTypeNames = ticketTypeNames,
@@ -303,8 +331,13 @@ class _$_ClubEvent extends _ClubEvent {
   }
 
   @override
+  final String walletAddress;
+  @override
+  final String privateKey;
+
+  @override
   String toString() {
-    return 'ClubEvent(id: $id, name: $name, image: $image, description: $description, dateTime: $dateTime, latLng: $latLng, type: $type, timeline: $timeline, ticketTypeNames: $ticketTypeNames, ticketTypeImages: $ticketTypeImages, tickets: $tickets)';
+    return 'ClubEvent(id: $id, name: $name, image: $image, description: $description, dateTime: $dateTime, latLng: $latLng, type: $type, timeline: $timeline, ticketTypeNames: $ticketTypeNames, ticketTypeImages: $ticketTypeImages, tickets: $tickets, walletAddress: $walletAddress, privateKey: $privateKey)';
   }
 
   @override
@@ -326,7 +359,11 @@ class _$_ClubEvent extends _ClubEvent {
                 .equals(other._ticketTypeNames, _ticketTypeNames) &&
             const DeepCollectionEquality()
                 .equals(other._ticketTypeImages, _ticketTypeImages) &&
-            const DeepCollectionEquality().equals(other._tickets, _tickets));
+            const DeepCollectionEquality().equals(other._tickets, _tickets) &&
+            (identical(other.walletAddress, walletAddress) ||
+                other.walletAddress == walletAddress) &&
+            (identical(other.privateKey, privateKey) ||
+                other.privateKey == privateKey));
   }
 
   @JsonKey(ignore: true)
@@ -343,7 +380,9 @@ class _$_ClubEvent extends _ClubEvent {
       const DeepCollectionEquality().hash(_timeline),
       const DeepCollectionEquality().hash(_ticketTypeNames),
       const DeepCollectionEquality().hash(_ticketTypeImages),
-      const DeepCollectionEquality().hash(_tickets));
+      const DeepCollectionEquality().hash(_tickets),
+      walletAddress,
+      privateKey);
 
   @JsonKey(ignore: true)
   @override
@@ -371,7 +410,9 @@ abstract class _ClubEvent extends ClubEvent {
       required final List<String> timeline,
       required final List<String> ticketTypeNames,
       required final List<String> ticketTypeImages,
-      required final List<Ticket> tickets}) = _$_ClubEvent;
+      required final List<Ticket> tickets,
+      required final String walletAddress,
+      required final String privateKey}) = _$_ClubEvent;
   const _ClubEvent._() : super._();
 
   factory _ClubEvent.fromJson(Map<String, dynamic> json) =
@@ -399,6 +440,10 @@ abstract class _ClubEvent extends ClubEvent {
   List<String> get ticketTypeImages;
   @override
   List<Ticket> get tickets;
+  @override
+  String get walletAddress;
+  @override
+  String get privateKey;
   @override
   @JsonKey(ignore: true)
   _$$_ClubEventCopyWith<_$_ClubEvent> get copyWith =>

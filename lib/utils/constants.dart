@@ -1,4 +1,4 @@
-const kbaseUrl = 'http://192.168.1.3:9090/';
+const kbaseUrl = 'http://192.168.1.4:9090/';
 const ksignUp = 'user/signUp';
 const ksignIn = 'user/signIn';
 const kgetUserData = 'user/getUserData';
@@ -43,6 +43,7 @@ const kgetClub = 'club/get';
 const kgetAllClubEvents = 'clubEvent/getAll';
 const kgetAllApplications = 'application/getAll';
 const kapply = 'application/apply';
+const kbookEvent = 'clubEvent/book';
 
 //map consts
 const mapToken = 'pk.eyJ1IjoiemllZC1kYWhtYW5pIiwiYSI6ImNsZWJnd3RjMjA1c3kzb210OWQ0YW1pb2kifQ.KNa3PMeruCB7HdCN9zDfQQ';

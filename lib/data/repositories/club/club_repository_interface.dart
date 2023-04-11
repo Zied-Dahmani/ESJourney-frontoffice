@@ -13,4 +13,6 @@ abstract class IClubRepository {
       String specialty,
       List answers,
       String linkedInLink);
+  Future<bool> bookEvent(String token,String clubId, int ticketIndex);
+
 }

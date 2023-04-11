@@ -110,18 +110,29 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
     }
   }
 
-  updateDeviceToken(String token)
-  {
+  updateDeviceToken(String token) {
     FirebaseMessaging.instance.getToken().then((deviceToken) async {
       await _userRepository.updateDeviceToken(token, deviceToken!);
     });
   }
 
   Future<void> sendNotif(title, body, deviceToken) async {
-    final response = await FirebaseCloudMessaging.sendTo(
+    await FirebaseCloudMessaging.sendTo(
       title: title,
       body: body,
       fcmToken: deviceToken,
     );
+  }
+
+  Future<bool> bookEventWithETH(String? walletAddress, String privateKey,
+      double amount, String token) async {
+    try {
+      final result = await _userRepository.sendEth(
+          walletAddress!, privateKey, amount, token);
+      return result != null ? true : false;
+    } catch (e) {
+      developer.log(e.toString(), name: 'Catch send eth');
+      return false;
+    }
   }
 }

@@ -40,7 +40,7 @@ class ButtonWidget extends StatelessWidget {
             backgroundColor ?? theme.colorScheme.primary,
           ),
         ),
-        onPressed: isDisabled ? null : () => function?.call(),
+        onPressed: isDisabled ? null : () => function!(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

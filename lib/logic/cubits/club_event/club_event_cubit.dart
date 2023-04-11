@@ -10,16 +10,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 
 class ClubEventCubit extends Cubit<ClubEventState> {
-  ClubEventCubit(this._connectivityCubit, this._clubRepository) : super(ClubEventLoadInProgress()) {
+  ClubEventCubit(this._connectivityCubit, this._clubRepository)
+      : super(ClubEventLoadInProgress()) {
     init();
   }
 
-  final _connectivityCubit,_clubRepository;
+  final _connectivityCubit, _clubRepository;
   StreamSubscription? _connectivityStreamSubscription;
 
-  late final _allClubEventsList;
+  bool _isFirstTime = true;
+  List<ClubEvent> _allClubEventsList = [];
   Ticket? _ticket;
+  int? _ticketIndex;
   get ticket => _ticket;
+  get ticketIndex => _ticketIndex;
 
   void init() {
     if (_connectivityCubit.state is ConnectivityConnectSuccess) {
@@ -27,7 +31,10 @@ class ClubEventCubit extends Cubit<ClubEventState> {
     } else {
       emit(ClubEventLoadFailure(kcheckInternetConnection));
     }
-    listen();
+    if(_isFirstTime) {
+      _isFirstTime = false;
+      listen();
+    }
   }
 
   StreamSubscription<ConnectivityState> listen() {
@@ -58,7 +65,8 @@ class ClubEventCubit extends Cubit<ClubEventState> {
     }
   }
 
-  Future<void> launchGoogleMaps(double latitude, double longitude) async => MapsLauncher.launchCoordinates(latitude, longitude);
+  Future<void> launchGoogleMaps(double latitude, double longitude) async =>
+      MapsLauncher.launchCoordinates(latitude, longitude);
 
   void filter(ClubEventType clubEventType) {
     if (clubEventType == ClubEventType.all) {
@@ -74,17 +82,25 @@ class ClubEventCubit extends Cubit<ClubEventState> {
     }
   }
 
-
-  double remainingTickets(ClubEvent clubEvent, String type)
-  {
-    double count = 0.0;
-    clubEvent.tickets.forEach((ticket) {
-      if(ticket.type == type && !ticket.booked) {
-        _ticket ??= ticket;
-        count ++;
+  int remainingTickets(ClubEvent clubEvent, String type) {
+    int count = 0;
+    for (var i = 0 ; i < clubEvent.tickets.length; i++) {
+      if (clubEvent.tickets[i].type == type && !clubEvent.tickets[i].booked) {
+        _ticket ??= clubEvent.tickets[i];
+        _ticketIndex ??= i;
+        count++;
       }
-    });
+    }
     return count;
+  }
+
+  Future<bool> bookEvent(String token, String clubId, int ticketIndex) async {
+    try {
+      return await _clubRepository.bookEvent(token, clubId, ticketIndex);
+    } catch (e) {
+      developer.log(e.toString(), name: 'Catch bookEvent');
+      return false;
+    }
   }
 
   @override

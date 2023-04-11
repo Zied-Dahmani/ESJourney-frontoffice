@@ -68,4 +68,22 @@ class ClubDataProvider {
       ),
     );
   }
+
+  Future<Response> bookEvent(String token, String clubId, int ticketIndex) async {
+    return await dio.request(
+      kbookEvent,
+      data: {"clubId":clubId,"ticketIndex":ticketIndex},
+      options: Options(
+        method: 'POST',
+        headers: {
+          'jwt': token,
+        },
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+  }
+
+
 }

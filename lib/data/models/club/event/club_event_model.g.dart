@@ -27,6 +27,8 @@ _$_ClubEvent _$$_ClubEventFromJson(Map<String, dynamic> json) => _$_ClubEvent(
       tickets: (json['tickets'] as List<dynamic>)
           .map((e) => Ticket.fromJson(e as Map<String, dynamic>))
           .toList(),
+      walletAddress: json['walletAddress'] as String,
+      privateKey: json['privateKey'] as String,
     );
 
 Map<String, dynamic> _$$_ClubEventToJson(_$_ClubEvent instance) =>
@@ -42,6 +44,8 @@ Map<String, dynamic> _$$_ClubEventToJson(_$_ClubEvent instance) =>
       'ticketTypeNames': instance.ticketTypeNames,
       'ticketTypeImages': instance.ticketTypeImages,
       'tickets': instance.tickets,
+      'walletAddress': instance.walletAddress,
+      'privateKey': instance.privateKey,
     };
 
 const _$ClubEventTypeEnumMap = {

@@ -64,6 +64,7 @@ class AppStrings {
   static const kowner = 'Owner';
   static const kdate = 'Date';
   static const kseat = 'Seat';
+  static const knotEnoughMoney = 'Not enough money!';
 
   static const knoApplications = 'No applications';
   static const kinterviewHasPassed = 'The date/time of the interview has passed!';

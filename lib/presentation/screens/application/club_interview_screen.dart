@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 class ClubInterviewScreen extends StatelessWidget {
-  const ClubInterviewScreen({super.key, required this.callID, this.admin = false});
+  const ClubInterviewScreen({super.key, required this.callID, this.admin = true});
 
   final callID, admin;
 
