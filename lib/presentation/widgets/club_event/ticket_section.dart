@@ -16,16 +16,20 @@ import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class TicketSection extends StatelessWidget {
-  TicketSection({
-    Key? key,
-    required this.verticalPos,
-    required this.clubEvent,
-    required this.ticketTypeIndex,
-    required this.ticketIndex,
-    required this.setStateRemainingTickets
-  }) : super(key: key);
+  TicketSection(
+      {Key? key,
+      required this.verticalPos,
+      required this.clubEvent,
+      required this.ticketTypeIndex,
+      required this.ticketIndex,
+      required this.setStateRemainingTickets})
+      : super(key: key);
 
-  final verticalPos, clubEvent, ticketTypeIndex, ticketIndex, setStateRemainingTickets;
+  final verticalPos,
+      clubEvent,
+      ticketTypeIndex,
+      ticketIndex,
+      setStateRemainingTickets;
 
   @override
   Widget build(BuildContext context) {
@@ -137,31 +141,84 @@ class TicketSection extends StatelessWidget {
                           Align(
                             alignment: Alignment.centerRight,
                             child: GestureDetector(
-                              onTap: () async {
+                              onTap: () {
                                 final ticket =
                                     BlocProvider.of<ClubEventCubit>(context)
                                         .ticket;
-
-                                if (state.user.coins <= ticket.price) {
-                                  showTopSnackBar(
-                                    Overlay.of(context)!,
-                                    const CustomSnackBar.error(
-                                      message: AppStrings.knotEnoughMoney,
-                                    ),
-                                  );
-                                } else {
-                                  // TODO Blockchain
-                                  /*final result = BlocProvider.of<UserCubit>(context).bookEventWithETH(clubEvent.walletAddress,clubEvent.privateKey,ticket.price+0.0,
-                                      state.user.token!);
-                                  if(await result) {*/
-                                    final result2 = BlocProvider.of<ClubEventCubit>(context).bookEvent(state.user.token!,clubEvent.id,ticketIndex);
-                                    if(await result2) {
-                                      setStateRemainingTickets();
-                                      BlocProvider.of<ClubEventCubit>(context).init();
-                                      Navigator.of(context).pushNamed(AppRoutes.doneScreen);
-                                    }
-                                  //}
-                                }
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      backgroundColor:
+                                          theme.colorScheme.background,
+                                      title: Text(AppStrings.kpayment,
+                                          style:
+                                              theme.textTheme.headlineMedium),
+                                      content: Text(
+                                          '${AppStrings.kpaymentConfirmation}${ticket.price}?',
+                                          style: theme.textTheme.bodyMedium),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () async {
+                                              if (state.user.coins <=
+                                                  ticket.price) {
+                                                Navigator.of(context).pop();
+                                                showTopSnackBar(
+                                                  Overlay.of(context)!,
+                                                  const CustomSnackBar.error(
+                                                    message: AppStrings
+                                                        .knotEnoughMoney,
+                                                  ),
+                                                );
+                                              } else {
+                                                final result = BlocProvider.of<
+                                                        UserCubit>(context)
+                                                    .bookEventWithETH(
+                                                        clubEvent.walletAddress,
+                                                        clubEvent.privateKey,
+                                                        ticket.price + 0.0,
+                                                        state.user.token!);
+                                                if (await result) {
+                                                  final result2 = BlocProvider
+                                                          .of<ClubEventCubit>(
+                                                              context)
+                                                      .bookEvent(
+                                                          state.user.token!,
+                                                          clubEvent.id,
+                                                          ticketIndex);
+                                                  if (await result2) {
+                                                    setStateRemainingTickets();
+                                                    BlocProvider.of<
+                                                                ClubEventCubit>(
+                                                            context)
+                                                        .init();
+                                                    Navigator.of(context)
+                                                        .pushNamed(AppRoutes
+                                                            .doneScreen);
+                                                  }
+                                                }
+                                              }
+                                            },
+                                            child: Text(AppStrings.kyes,
+                                                style: theme
+                                                    .textTheme.bodySmall!
+                                                    .copyWith(
+                                                        color: theme.colorScheme
+                                                            .outline))),
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text(AppStrings.kno,
+                                                style: theme
+                                                    .textTheme.bodySmall!
+                                                    .copyWith(
+                                                        color: theme.colorScheme
+                                                            .error))),
+                                      ],
+                                    );
+                                  },
+                                );
                               },
                               child: Container(
                                 height: AppSizes.kiconSize * 2,

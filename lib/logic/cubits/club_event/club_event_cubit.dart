@@ -12,7 +12,6 @@ import 'package:maps_launcher/maps_launcher.dart';
 class ClubEventCubit extends Cubit<ClubEventState> {
   ClubEventCubit(this._connectivityCubit, this._clubRepository)
       : super(ClubEventLoadInProgress()) {
-    init();
   }
 
   final _connectivityCubit, _clubRepository;

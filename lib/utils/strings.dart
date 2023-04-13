@@ -24,6 +24,7 @@ class AppStrings {
   static const kclubEvents = 'Club Events';
   static const kapplications = 'Applications';
   static const ksettings = 'Settings';
+  static const kmyEvents = 'My Events';
 
 
   // Zied
@@ -71,6 +72,10 @@ class AppStrings {
   static const kearlyToJoinInterview = "It's still early to join the interview!";
 
   static const kok = 'Ok';
+  static const kpayment = 'Payment';
+  static const kpaymentConfirmation = 'Do you confirm to pay \$';
+  static const kyes = 'Yes';
+  static const kno = 'No';
 
   // Louay
 

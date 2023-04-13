@@ -1,5 +1,6 @@
 import 'package:esjourney/logic/cubits/club/club_cubit.dart';
 import 'package:esjourney/presentation/router/routes.dart';
+import 'package:esjourney/presentation/screens/club_event/my_events_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
@@ -75,7 +76,8 @@ class _ZoomDrawerScreenState extends State<ZoomDrawerScreen> {
         if (state is UserLogInSuccess) {
           if (_isFirstTime) {
             _isFirstTime = false;
-            BlocProvider.of<UserCubit>(context).updateDeviceToken(state.user.token!);
+            BlocProvider.of<UserCubit>(context)
+                .updateDeviceToken(state.user.token!);
           }
           socketService.connect(state.user.token!);
           return ZoomDrawer(
@@ -111,6 +113,8 @@ class _ZoomDrawerScreenState extends State<ZoomDrawerScreen> {
       case 3:
         return const ApplicationsScreen();
       case 4:
+        return const MyEventsScreen();
+      case 5:
         return const MainScreen();
       default:
         return const MainScreen();
