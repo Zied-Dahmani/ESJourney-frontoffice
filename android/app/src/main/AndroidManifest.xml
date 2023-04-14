@@ -10,6 +10,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove"/>
    <application
         android:label="ESJourney"
         android:name="${applicationName}"
@@ -52,6 +56,13 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-
+   <meta-data
+           android:name="com.facebook.sdk.ApplicationId"
+           android:value="@string/facebook_app_id" />
+       <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+       <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
+       <provider android:authorities="com.facebook.app.FacebookContentProvider238186382082217"
+           android:name="com.facebook.FacebookContentProvider"
+           android:exported="true"  />
    </application>
 </manifest>

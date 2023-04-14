@@ -1,9 +1,9 @@
 const kbaseUrl = 'http://192.168.1.4:9090/';
-const ksignUp = 'user/signUp';
-const ksignIn = 'user/signIn';
-const kgetUserData = 'user/getUserData';
-const krefreshToken = 'user/refreshToken';
-const kupdateDeviceToken = 'user/updateDeviceToken';
+
+
+
+
+
 
 const kcheckInternetConnection = 'Check your internet connection!';
 const kidPasswordIncorrect = 'Id or password Incorrect!';
@@ -29,6 +29,7 @@ const ksendEth = 'crypto/sendETH';
 const kerrorSendingEth = 'Transaction failed!';
 const ktopSolutions = 'problem/top';
 const kanswerQuiz = 'quiz/answer';
+const kAddAchievement = 'achievement/add';
 
 //seif
 const kgetEvents = 'event/getEvents';
@@ -54,3 +55,17 @@ const mapUrlTemplate = 'https://api.mapbox.com/styles/v1/zied-dahmani/cled45t8y0
 //zegocloud
 const kzegoAppId = 1961455378;
 const kzegoAppSign = '1d1fe700d00e6e452fb3fa49032ab5447492a20392944b300d3b864d7a10aa71';
+// User
+const ksignUp = 'user/signUp';
+const ksignIn = 'user/signIn';
+const kgetUserData = 'user/getUserData';
+const krefreshToken = 'user/refreshToken';
+const kupdatePassword ='user/updatePassword';
+const kerrorUpdatePassword = 'Error in updating password!';
+const kupdateUsername = 'user/updateUsername';
+const kCheckUsername = 'user/checkusername';
+
+
+
+
+const kupdateDeviceToken = 'user/updateDeviceToken';

@@ -1,17 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:esjourney/utils/constants.dart';
 
-class SubmitDataProvider {
+class AchievementDataProvider {
   final dio = Dio()
     ..options.baseUrl = kbaseUrl
     ..options.connectTimeout = 5000
     ..options.receiveTimeout = 3000;
 
-  Future<Response> submit(String problemId , String token , int memory  ) async {
-    return await dio.request(
-
-      ksubmission,
-      data: {'problemId': problemId,  'memory': memory},
+  Future<Response> addAchievement(String token, String name) async {
+    return await dio.post(
+      kAddAchievement,
+      data: {
+        'name': name,
+      },
       options: Options(
         method: 'POST',
         headers: {

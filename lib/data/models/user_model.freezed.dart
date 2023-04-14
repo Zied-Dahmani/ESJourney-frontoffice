@@ -36,7 +36,9 @@ mixin _$User {
   String? get fullName => throw _privateConstructorUsedError;
   String? get walletAddress => throw _privateConstructorUsedError;
   String? get privateKey => throw _privateConstructorUsedError;
-  String? get deviceToken => throw _privateConstructorUsedError;
+  Score? get score => throw _privateConstructorUsedError;
+  Achievement? get achievement => throw _privateConstructorUsedError;
+  List<Achievement>? get achievements => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -65,7 +67,12 @@ abstract class $UserCopyWith<$Res> {
       String? fullName,
       String? walletAddress,
       String? privateKey,
-      String? deviceToken});
+      Score? score,
+      Achievement? achievement,
+      List<Achievement>? achievements});
+
+  $ScoreCopyWith<$Res>? get score;
+  $AchievementCopyWith<$Res>? get achievement;
 }
 
 /// @nodoc
@@ -97,7 +104,9 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? fullName = freezed,
     Object? walletAddress = freezed,
     Object? privateKey = freezed,
-    Object? deviceToken = freezed,
+    Object? score = freezed,
+    Object? achievement = freezed,
+    Object? achievements = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -164,11 +173,43 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.privateKey
           : privateKey // ignore: cast_nullable_to_non_nullable
               as String?,
-      deviceToken: freezed == deviceToken
-          ? _value.deviceToken
-          : deviceToken // ignore: cast_nullable_to_non_nullable
-              as String?,
+      score: freezed == score
+          ? _value.score
+          : score // ignore: cast_nullable_to_non_nullable
+              as Score?,
+      achievement: freezed == achievement
+          ? _value.achievement
+          : achievement // ignore: cast_nullable_to_non_nullable
+              as Achievement?,
+      achievements: freezed == achievements
+          ? _value.achievements
+          : achievements // ignore: cast_nullable_to_non_nullable
+              as List<Achievement>?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ScoreCopyWith<$Res>? get score {
+    if (_value.score == null) {
+      return null;
+    }
+
+    return $ScoreCopyWith<$Res>(_value.score!, (value) {
+      return _then(_value.copyWith(score: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AchievementCopyWith<$Res>? get achievement {
+    if (_value.achievement == null) {
+      return null;
+    }
+
+    return $AchievementCopyWith<$Res>(_value.achievement!, (value) {
+      return _then(_value.copyWith(achievement: value) as $Val);
+    });
   }
 }
 
@@ -195,7 +236,14 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String? fullName,
       String? walletAddress,
       String? privateKey,
-      String? deviceToken});
+      Score? score,
+      Achievement? achievement,
+      List<Achievement>? achievements});
+
+  @override
+  $ScoreCopyWith<$Res>? get score;
+  @override
+  $AchievementCopyWith<$Res>? get achievement;
 }
 
 /// @nodoc
@@ -223,7 +271,9 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? fullName = freezed,
     Object? walletAddress = freezed,
     Object? privateKey = freezed,
-    Object? deviceToken = freezed,
+    Object? score = freezed,
+    Object? achievement = freezed,
+    Object? achievements = freezed,
   }) {
     return _then(_$_User(
       id: freezed == id
@@ -290,10 +340,18 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.privateKey
           : privateKey // ignore: cast_nullable_to_non_nullable
               as String?,
-      deviceToken: freezed == deviceToken
-          ? _value.deviceToken
-          : deviceToken // ignore: cast_nullable_to_non_nullable
-              as String?,
+      score: freezed == score
+          ? _value.score
+          : score // ignore: cast_nullable_to_non_nullable
+              as Score?,
+      achievement: freezed == achievement
+          ? _value.achievement
+          : achievement // ignore: cast_nullable_to_non_nullable
+              as Achievement?,
+      achievements: freezed == achievements
+          ? _value._achievements
+          : achievements // ignore: cast_nullable_to_non_nullable
+              as List<Achievement>?,
     ));
   }
 }
@@ -318,9 +376,12 @@ class _$_User implements _User {
       this.fullName,
       this.walletAddress,
       this.privateKey,
-      this.deviceToken})
+      this.score,
+      this.achievement,
+      final List<Achievement>? achievements})
       : _events = events,
-        _courses = courses;
+        _courses = courses,
+        _achievements = achievements;
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
@@ -373,11 +434,22 @@ class _$_User implements _User {
   @override
   final String? privateKey;
   @override
-  final String? deviceToken;
+  final Score? score;
+  @override
+  final Achievement? achievement;
+  final List<Achievement>? _achievements;
+  @override
+  List<Achievement>? get achievements {
+    final value = _achievements;
+    if (value == null) return null;
+    if (_achievements is EqualUnmodifiableListView) return _achievements;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'User(id: $id, username: $username, email: $email, password: $password, grade: $grade, events: $events, coins: $coins, lastSeen: $lastSeen, twoDAvatar: $twoDAvatar, threeDAvatar: $threeDAvatar, courses: $courses, online: $online, token: $token, fullName: $fullName, walletAddress: $walletAddress, privateKey: $privateKey, deviceToken: $deviceToken)';
+    return 'User(id: $id, username: $username, email: $email, password: $password, grade: $grade, events: $events, coins: $coins, lastSeen: $lastSeen, twoDAvatar: $twoDAvatar, threeDAvatar: $threeDAvatar, courses: $courses, online: $online, token: $token, fullName: $fullName, walletAddress: $walletAddress, privateKey: $privateKey, score: $score, achievement: $achievement, achievements: $achievements)';
   }
 
   @override
@@ -409,31 +481,37 @@ class _$_User implements _User {
                 other.walletAddress == walletAddress) &&
             (identical(other.privateKey, privateKey) ||
                 other.privateKey == privateKey) &&
-            (identical(other.deviceToken, deviceToken) ||
-                other.deviceToken == deviceToken));
+            (identical(other.score, score) || other.score == score) &&
+            (identical(other.achievement, achievement) ||
+                other.achievement == achievement) &&
+            const DeepCollectionEquality()
+                .equals(other._achievements, _achievements));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      username,
-      email,
-      password,
-      grade,
-      const DeepCollectionEquality().hash(_events),
-      coins,
-      lastSeen,
-      twoDAvatar,
-      threeDAvatar,
-      const DeepCollectionEquality().hash(_courses),
-      online,
-      token,
-      fullName,
-      walletAddress,
-      privateKey,
-      deviceToken);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        const DeepCollectionEquality().hash(id),
+        username,
+        email,
+        password,
+        grade,
+        const DeepCollectionEquality().hash(_events),
+        coins,
+        lastSeen,
+        twoDAvatar,
+        threeDAvatar,
+        const DeepCollectionEquality().hash(_courses),
+        online,
+        token,
+        fullName,
+        walletAddress,
+        privateKey,
+        score,
+        achievement,
+        const DeepCollectionEquality().hash(_achievements)
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -467,7 +545,9 @@ abstract class _User implements User {
       final String? fullName,
       final String? walletAddress,
       final String? privateKey,
-      final String? deviceToken}) = _$_User;
+      final Score? score,
+      final Achievement? achievement,
+      final List<Achievement>? achievements}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -504,7 +584,11 @@ abstract class _User implements User {
   @override
   String? get privateKey;
   @override
-  String? get deviceToken;
+  Score? get score;
+  @override
+  Achievement? get achievement;
+  @override
+  List<Achievement>? get achievements;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;

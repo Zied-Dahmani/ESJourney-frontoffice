@@ -86,4 +86,8 @@ class AppStrings {
   // Youssef
 
 
+// user
+static const kIncorrectPassword = 'Incorrect password';
+static const KusernameAlreadyExist = 'Username already exists please try another one';
+
 }

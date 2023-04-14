@@ -89,6 +89,60 @@ class UserDataProvider {
     );
   }
 
+  Future<Response> updatePassword(
+      String currentPassword, String newPassword, String token) async {
+    return await dio.request(
+      kupdatePassword,
+      data: {
+        'currentPassword': currentPassword,
+        'newPassword': newPassword,
+      },
+      options: Options(
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt': token,
+        },
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+  }
+
+  Future<Response> updateUsername(String newUsername, String token) async {
+    return await dio.request(
+      kupdateUsername,
+      data: {
+        'newUsername': newUsername,
+      },
+      options: Options(
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt': token,
+        },
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+  }
+
+  Future<Response> checkUsername(String username) async {
+    return await dio.get(
+      kCheckUsername,
+      queryParameters: {
+        'username': username,
+      },
+      options: Options(
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+  }
+
   Future<Response> updateDeviceToken(String token, String deviceToken) async {
     return await dio.request(
       kupdateDeviceToken,

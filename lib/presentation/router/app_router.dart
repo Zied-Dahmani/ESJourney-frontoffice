@@ -19,6 +19,8 @@ import 'package:esjourney/presentation/screens/curriculum/games/memory/screen/me
 import 'package:esjourney/presentation/screens/curriculum/games/slide/pages/slide_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/worldy/screens/wordly_game.dart';
 import 'package:esjourney/presentation/screens/curriculum/map/level_map.dart';
+import 'package:esjourney/presentation/screens/profile/edit_profile/update_password/update_password_screen.dart';
+import 'package:esjourney/presentation/screens/profile/edit_profile/update_username/update_username.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
 import 'package:esjourney/presentation/screens/sign_up_screen.dart';
 import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
@@ -203,7 +205,18 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => const EditProfileScreen(),
         );
+      case AppRoutes.updatePasswordScreen:
+        return MaterialPageRoute(
+          builder: (_) =>  const UpdatePasswordBaseScreen(
 
+          ),
+        );
+      case AppRoutes.updateUsername:
+        return MaterialPageRoute(
+          builder: (_) =>  const UpdateUsernameScreen(
+
+          ),
+        );
       default:
         return null;
     }
