@@ -20,7 +20,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$User {
-  String get id => throw _privateConstructorUsedError;
+  dynamic get id => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
@@ -51,7 +51,7 @@ abstract class $UserCopyWith<$Res> {
       _$UserCopyWithImpl<$Res, User>;
   @useResult
   $Res call(
-      {String id,
+      {dynamic id,
       String username,
       String email,
       String password,
@@ -88,7 +88,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? username = null,
     Object? email = null,
     Object? password = null,
@@ -109,10 +109,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? achievements = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as dynamic,
       username: null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -220,7 +220,7 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String id,
+      {dynamic id,
       String username,
       String email,
       String password,
@@ -255,7 +255,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? username = null,
     Object? email = null,
     Object? password = null,
@@ -276,10 +276,10 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? achievements = freezed,
   }) {
     return _then(_$_User(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as dynamic,
       username: null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -386,7 +386,7 @@ class _$_User implements _User {
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
   @override
-  final String id;
+  final dynamic id;
   @override
   final String username;
   @override
@@ -457,7 +457,7 @@ class _$_User implements _User {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_User &&
-            (identical(other.id, id) || other.id == id) &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             (identical(other.username, username) ||
                 other.username == username) &&
             (identical(other.email, email) || other.email == email) &&
@@ -492,7 +492,7 @@ class _$_User implements _User {
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
-        id,
+        const DeepCollectionEquality().hash(id),
         username,
         email,
         password,
@@ -529,7 +529,7 @@ class _$_User implements _User {
 
 abstract class _User implements User {
   const factory _User(
-      {required final String id,
+      {required final dynamic id,
       required final String username,
       required final String email,
       required final String password,
@@ -552,7 +552,7 @@ abstract class _User implements User {
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
   @override
-  String get id;
+  dynamic get id;
   @override
   String get username;
   @override
