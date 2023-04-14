@@ -84,7 +84,7 @@ dependencies:
   countup: ^0.1.4
   awesome_card: ^1.1.7
   animate_icons: ^2.0.0
-  # Souhail
+# Souhail
   circular_countdown_timer: ^0.2.3
   tflite_flutter: ^0.8.0
   code_text_field: ^1.0.2
@@ -99,9 +99,6 @@ dependencies:
   audioplayers: ^3.0.1
   share_plus: ^4.1.0
   flutter_share_me: ^1.4.0
-
-
-
  #Youssef
   http: ^0.13.5
 

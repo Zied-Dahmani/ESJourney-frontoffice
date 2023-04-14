@@ -14,7 +14,7 @@ part 'user_model.g.dart';
 @freezed
 class User with _$User {
   const factory User({
-    required String id,
+    required dynamic id,
     required String username,
     required String email,
     required String password,
@@ -25,7 +25,7 @@ class User with _$User {
     String? twoDAvatar,
     String? threeDAvatar,
     List<UserCourse>? courses,
-     required bool online,
+    required bool online,
     String? token,
     String? fullName,
     String? walletAddress,
