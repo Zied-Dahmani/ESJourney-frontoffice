@@ -1,21 +1,28 @@
+import 'package:esjourney/logic/cubits/application/application_cubit.dart';
+import 'package:esjourney/logic/cubits/user/user_cubit.dart';
+import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/animations/club/custom_animated_opacity.dart';
 import 'package:esjourney/presentation/animations/club/screen_animation_controller.dart';
 import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/presentation/widgets/club/apply_1.dart';
 import 'package:esjourney/presentation/widgets/club/apply_2.dart';
 import 'package:esjourney/presentation/widgets/club/apply_3.dart';
+import 'package:esjourney/utils/constants.dart';
 import 'package:esjourney/utils/strings.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:im_stepper/stepper.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class ApplyToClubScreen extends StatefulWidget {
-  const ApplyToClubScreen({Key? key}) : super(key: key);
+  const ApplyToClubScreen({Key? key, this.clubId}) : super(key: key);
 
+  final clubId;
+  
   @override
   State<ApplyToClubScreen> createState() => _ApplyToClubScreenState();
 }
@@ -24,7 +31,11 @@ class _ApplyToClubScreenState extends State<ApplyToClubScreen>
     with TickerProviderStateMixin {
   late final ScreenAnimationController _controller;
 
-  List<String> titles = [AppStrings.kapplyToClubTitle1,AppStrings.kapplyToClubTitle2,AppStrings.kapplyToClubTitle3];
+  List<String> titles = [
+    AppStrings.kapplyToClubTitle1,
+    AppStrings.kapplyToClubTitle2,
+    AppStrings.kapplyToClubTitle3
+  ];
   int activeStep = 0;
   int upperBound = 2;
 
@@ -32,8 +43,8 @@ class _ApplyToClubScreenState extends State<ApplyToClubScreen>
   String _birthDate = AppStrings.kbirthDate;
   String? _studyLevel;
   String? _speciality;
-  String _answer1='';
-  String _answer2='';
+  String _answer1 = '';
+  String _answer2 = '';
   final _linkedInLinkController = TextEditingController();
   PlatformFile? _pdfFile;
 
@@ -89,7 +100,8 @@ class _ApplyToClubScreenState extends State<ApplyToClubScreen>
                 width: w,
                 height: h * .89,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: AppSizes.kbigSpace),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: AppSizes.kbigSpace),
                   child: Column(
                     children: [
                       CustomAnimatedOpacity(
@@ -122,31 +134,40 @@ class _ApplyToClubScreenState extends State<ApplyToClubScreen>
               ),
               Positioned(
                 bottom: 1,
-                child: GestureDetector(
-                  onTap: () => apply(),
-                  child: AnimatedBuilder(
-                    animation: _controller.buttonController,
-                    builder: (_, child) {
-                      final size = _controller
-                          .buttonSizeAnimation(
-                            Size(w * .8, AppSizes.kbuttonHeight),
-                            Size(w * 1.2, h * 1.1),
-                          )
-                          .value;
-                      final margin =
-                          _controller.buttonMarginAnimation(h * .03).value;
-                      return Container(
-                        width: size.width,
-                        height: size.height,
-                        margin: EdgeInsets.only(bottom: margin),
-                        decoration: BoxDecoration(
-                          color: theme.colorScheme.primary,
-                          borderRadius: const BorderRadius.all(
-                              Radius.circular(AppSizes.kradius)),
+                child: BlocBuilder<UserCubit, UserState>(
+                  builder: (context, state) {
+                    if (state is UserLogInSuccess) {
+                      return GestureDetector(
+                        onTap: () => apply(state.user.token!),
+                        child: AnimatedBuilder(
+                          animation: _controller.buttonController,
+                          builder: (_, child) {
+                            final size = _controller
+                                .buttonSizeAnimation(
+                                  Size(w * .8, AppSizes.kbuttonHeight),
+                                  Size(w * 1.2, h * 1.1),
+                                )
+                                .value;
+                            final margin = _controller
+                                .buttonMarginAnimation(h * .03)
+                                .value;
+                            return Container(
+                              width: size.width,
+                              height: size.height,
+                              margin: EdgeInsets.only(bottom: margin),
+                              decoration: BoxDecoration(
+                                color: theme.colorScheme.primary,
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(AppSizes.kradius)),
+                              ),
+                            );
+                          },
                         ),
                       );
-                    },
-                  ),
+                    } else {
+                      return const SizedBox();
+                    }
+                  },
                 ),
               ),
               Positioned(
@@ -176,59 +197,61 @@ class _ApplyToClubScreenState extends State<ApplyToClubScreen>
             updateStudyLevel: (String studyLevel) => _studyLevel = studyLevel,
             updateSpeciality: (String speciality) => _speciality = speciality);
       case 1:
-        return  Apply2(updateAnswer1: (String answer1) => _answer1 = answer1, updateAnswer2:  (String answer2) => _answer2 = answer2);
+        return Apply2(
+            updateAnswer1: (String answer1) => _answer1 = answer1,
+            updateAnswer2: (String answer2) => _answer2 = answer2);
       case 2:
-        return Apply3(linkedInLinkController: _linkedInLinkController,updatePDFFile: (pdfFile) => _pdfFile = pdfFile);
+        return Apply3(
+            linkedInLinkController: _linkedInLinkController,
+            updatePDFFile: (pdfFile) => _pdfFile = pdfFile);
       default:
         return const SizedBox();
     }
   }
 
-  void apply()
-  {
+  Future<void> apply(String token) async {
     if (_controller.buttonController.value == 0.0) {
-      // TODO Logic
       if (activeStep == 0) {
-        if (_phoneNumberController.text.isNotEmpty && _phoneNumberController.text.length != 8) {
+        if (_phoneNumberController.text.isNotEmpty &&
+            _phoneNumberController.text.length != 8) {
           showErrorTopSnackBar(AppStrings.ktypeValidPhoneNumber);
-        } else if (_phoneNumberController.text.isEmpty || _birthDate == AppStrings.kbirthDate || _studyLevel == null || _speciality == null) {
+        } else if (_phoneNumberController.text.isEmpty ||
+            _birthDate == AppStrings.kbirthDate ||
+            _studyLevel == null ||
+            _speciality == null) {
           showErrorTopSnackBar(AppStrings.kcompleteTheForm);
-        }
-        else
-        {
+        } else {
           setState(() {
             activeStep++;
           });
         }
       } else if (activeStep == 1) {
-        if(_answer1.isEmpty || _answer2.isEmpty)
-        {
+        if (_answer1.isEmpty || _answer2.isEmpty) {
           showErrorTopSnackBar(AppStrings.kcompleteTheForm);
-        }
-        else
-        {
+        } else {
           setState(() {
             activeStep++;
           });
         }
       } else {
-        if(_linkedInLinkController.text.isNotEmpty && ! validator.url(_linkedInLinkController.text) )
-        {
+        if (_linkedInLinkController.text.isNotEmpty &&
+            !validator.url(_linkedInLinkController.text)) {
           showErrorTopSnackBar(AppStrings.ktypeValidLink);
-        }
-        else if(_linkedInLinkController.text.isEmpty || _pdfFile == null)
-        {
+        } else if (_linkedInLinkController.text.isEmpty || _pdfFile == null) {
           showErrorTopSnackBar(AppStrings.kcompleteTheForm);
-        }
-        else{
-          Navigator.of(context).pushNamed(AppRoutes.doneScreen);
+        } else {
+          bool result = await BlocProvider.of<ApplicationCubit>(context).apply(token,widget.clubId,_pdfFile!.path,_pdfFile!.name,_phoneNumberController.text,_birthDate,_studyLevel!,_speciality!,[_answer1,_answer2],_linkedInLinkController.text);
+          if (result) {
+            Navigator.of(context).pushNamed(AppRoutes.doneScreen);
+          } else {
+            showErrorTopSnackBar(ktryLater);
+          }
         }
       }
     }
   }
 
-  void showErrorTopSnackBar(String message)
-  {
+  void showErrorTopSnackBar(String message) {
     showTopSnackBar(
       Overlay.of(context)!,
       CustomSnackBar.error(

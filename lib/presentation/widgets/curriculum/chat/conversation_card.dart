@@ -29,7 +29,7 @@ class ConversationCard extends StatelessWidget {
                   backgroundColor: Colors.white,
                   backgroundImage: Image.network(chat.twoDAvatar!).image,
                 ),
-                if (chat.online)
+                if (chat.online!)
                   Positioned(
                     right: 0,
                     bottom: 0,

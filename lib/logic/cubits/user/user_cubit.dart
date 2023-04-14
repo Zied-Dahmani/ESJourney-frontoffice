@@ -1,15 +1,27 @@
 import 'dart:developer' as developer;
-import 'package:esjourney/data/models/events/event_model.dart';
-import 'package:esjourney/data/models/user_model.dart';
 import 'package:esjourney/data/repositories/user_repository.dart';
 import 'package:esjourney/utils/constants.dart';
+import 'package:esjourney/utils/firebase_cloud_messaging.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import '../../../data/repositories/challenges/quiz_repository.dart';
 import 'user_state.dart';
+
+import 'package:esjourney/data/models/user_model.dart';
+import 'package:esjourney/data/repositories/user_repository.dart';
+import 'package:esjourney/utils/constants.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
+import '../../../data/repositories/challenges/achievement/achievement_repository.dart';
+
+
+
 class UserCubit extends Cubit<UserState> with HydratedMixin {
+  final _userRepository = UserRepository();
+  final _quizRepository = QuizRepository();
+  final _achievementRepository = AchievementRepository();
+
   UserCubit() : super(UserInitial()) {
     //
   }
@@ -26,10 +38,8 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
         : null;
   }
 
-  final _userRepository = UserRepository();
-  final _quizRepository = QuizRepository();
 
-   Future<void> refreshUserData(String token) async {
+  Future<void> refreshUserData(String token) async {
     try {
       final result = await _userRepository.getUserData(token);
       if (result != null) {
@@ -55,10 +65,10 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
     }
   }
 
-  Future<void> signUp(String? id,String email, String password) async {
+  Future<void> signUp(String? id, String email, String password) async {
     try {
       emit(UserLoadInProgress());
-      final result = await _userRepository.signUp(id,email, password);
+      final result = await _userRepository.signUp(id, email, password);
       result != null
           ? emit(UserLogInSuccess(result))
           : emit(UserIsFailure("error in sign up"));
@@ -68,10 +78,12 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
     }
   }
 
-  Future<void> addAvatars(String token,String twoDAvatar, String threeDAvatar) async {
+  Future<void> addAvatars(
+      String token, String twoDAvatar, String threeDAvatar) async {
     try {
       emit(UserLoadInProgress());
-      final result = await _userRepository.addAvatars(token,twoDAvatar, threeDAvatar);
+      final result =
+          await _userRepository.addAvatars(token, twoDAvatar, threeDAvatar);
       result != null
           ? emit(UserLogInSuccess(result))
           : emit(UserIsFailure("error in sign up"));
@@ -80,10 +92,13 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
       emit(UserIsFailure(kcheckInternetConnection));
     }
   }
-  Future<void> sendEth(String? walletAddress, String privateKey,double amount, String token) async {
+
+  Future<void> sendEth(String? walletAddress, String privateKey, double amount,
+      String token) async {
     try {
       emit(UserLoadInProgress());
-      final result = await _userRepository.sendEth( walletAddress!, privateKey,  amount,token);
+      final result = await _userRepository.sendEth(
+          walletAddress!, privateKey, amount, token);
       result != null
           ? emit(UserLogInSuccess(result))
           : emit(UserIsFailure(kerrorSendingEth));
@@ -92,6 +107,7 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
       emit(UserIsFailure(kcheckInternetConnection));
     }
   }
+
   Future<void> answerQuiz(double coins, String token) async {
     try {
       emit(UserLoadInProgress());
@@ -104,4 +120,85 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
       emit(UserIsFailure(kcheckInternetConnection));
     }
   }
+
+  updateDeviceToken(String token) {
+    FirebaseMessaging.instance.getToken().then((deviceToken) async {
+      await _userRepository.updateDeviceToken(token, deviceToken!);
+    });
+  }
+
+  Future<void> sendNotif(title, body, deviceToken) async {
+    await FirebaseCloudMessaging.sendTo(
+      title: title,
+      body: body,
+      fcmToken: deviceToken,
+    );
+  }
+
+  Future<bool> bookEventWithETH(String? walletAddress, String privateKey,
+      double amount, String token) async {
+    try {
+      final result = await _userRepository.sendEth(
+          walletAddress!, privateKey, amount, token);
+      return result != null ? true : false;
+    } catch (e) {
+      developer.log(e.toString(), name: 'Catch send eth');
+      return false;
+    }
+  }
+  Future<void> updatePassword(
+      String currentPassword, String newPassword, String token) async {
+    try {
+      emit(UserLoadInProgress());
+      final result = await _userRepository.updatePassword(
+          currentPassword, newPassword, token);
+      if (result is String) {
+        // If result is a string, it means there was an error message returned from the API
+        emit(UserIsFailure(result));
+      } else  {
+        // If result is a UserModel, it means the password was updated successfully
+        emit(UserLogInSuccess(result));
+      }
+    } catch (e) {
+      developer.log(e.toString(), name: 'Catch update password');
+      emit(UserIsFailure(kcheckInternetConnection));
+    }
+  }
+  Future<void> updateUsername(
+      String newUsername, String token) async {
+    try {
+      emit(UserLoadInProgress());
+      final result = await _userRepository.updateUsername(
+          newUsername, token);
+      if (result is String) {
+        // If result is a string, it means there was an error message retured from the API
+        emit(UserIsFailure(result));
+      } else  {
+        // If result is a UserModel, it means the username was updated successfully
+        emit(UserLogInSuccess(result));
+      }
+    } catch (e) {
+      developer.log(e.toString(), name: 'Catch update username');
+      emit(UserIsFailure(kcheckInternetConnection));
+    }
+  }
+  Future<void> addAchievement(
+      String token, String name) async {
+    try {
+      emit(UserLoadInProgress());
+      final result = await _achievementRepository.addAchievement(
+          token, name);
+      if (result is String) {
+        // If result is a string, it means there was an error message returned from the API
+        emit(UserIsFailure(result));
+      } else  {
+        // If result is a UserModel, it means the achievement was added successfully
+        emit(UserLogInSuccess(result));
+      }
+    } catch (e) {
+      developer.log(e.toString(), name: 'Catch add achievement');
+      emit(UserIsFailure(kcheckInternetConnection));
+    }
+  }
 }
+

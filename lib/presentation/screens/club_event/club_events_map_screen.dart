@@ -34,6 +34,7 @@ class _ClubEventsMapScreenState extends State<ClubEventsMapScreen>
   @override
   void initState() {
     super.initState();
+    BlocProvider.of<ClubEventCubit>(context).init();
     _animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 600));
     _animationController.repeat(reverse: true);
@@ -153,7 +154,8 @@ class _ClubEventsMapScreenState extends State<ClubEventsMapScreen>
                   )
                 ],
               ),
-            ));
+            )
+            );
       } else {
         return Scaffold(
             appBar: AppBar(leading: const DrawerIcon()),

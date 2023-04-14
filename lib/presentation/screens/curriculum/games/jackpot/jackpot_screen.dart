@@ -69,7 +69,6 @@ class JackpotScreenState extends State<JackpotScreen>
                   'assets/images/curriculum/games/jackpot/Graphics/gfx-slot-machine.png',
                   width: width * 0.6,
                 ),
-                //TODO : watch add to get coins
                 GestureDetector(
                   onTap: () {},
                   child: const Icon(

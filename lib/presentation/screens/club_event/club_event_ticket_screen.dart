@@ -4,6 +4,7 @@ import 'package:esjourney/logic/cubits/club_event/club_event_cubit.dart';
 import 'package:esjourney/presentation/screens/club_event/payment_screen.dart';
 import 'package:esjourney/presentation/widgets/club_event/ticket_section.dart';
 import 'package:esjourney/presentation/widgets/club_event/ticket_type_card.dart';
+import 'package:esjourney/utils/screen_size.dart';
 import 'package:esjourney/utils/strings.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,7 @@ class _ClubEventTicketScreenState extends State<ClubEventTicketScreen> {
   late double _opacity;
   double verPos = 0.0;
   late Size size;
-  double remainingTickets = 0.0;
+  int remainingTickets = 0;
 
   void _pageListener() {
     setState(() {
@@ -98,7 +99,14 @@ class _ClubEventTicketScreenState extends State<ClubEventTicketScreen> {
                                         verticalPos: verPos,
                                         clubEvent: widget.clubEvent,
                                         ticketTypeIndex:
-                                            widget.ticketTypeIndex),
+                                            widget.ticketTypeIndex, setStateRemainingTickets: (){
+                                          setState(() {
+                                            remainingTickets--;
+                                            if(remainingTickets == 0) {
+                                              _opacity = 0;
+                                            }
+                                          });
+                                    }, ticketIndex: BlocProvider.of<ClubEventCubit>(context).ticketIndex,),
                                   ),
                                 ),
                         ),
@@ -125,7 +133,7 @@ class _ClubEventTicketScreenState extends State<ClubEventTicketScreen> {
                             children: [
                               Countup(
                                 begin: 1999,
-                                end: remainingTickets,
+                                end: remainingTickets+0.0,
                                 duration: const Duration(seconds: 3),
                                 separator: ',',
                                 style: theme.textTheme.bodySmall!.copyWith(
@@ -155,9 +163,9 @@ class _ClubEventTicketScreenState extends State<ClubEventTicketScreen> {
                         (BuildContext context, double opacity, Widget? child) {
                       return Opacity(
                         opacity: opacity,
-                        /*child: Transform.translate(
+                        child: Transform.translate(
                           offset: Offset(
-                              _page < 1 ? 0 : (-1 * _page * ScreenSize.width(context) + ScreenSize.width(context)), 0),*/
+                              _page < 1 ? 0 : (-1 * _page * ScreenSize.width(context) + ScreenSize.width(context)), 0),
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(
@@ -169,12 +177,12 @@ class _ClubEventTicketScreenState extends State<ClubEventTicketScreen> {
                                     blurRadius: 20.0),
                               ]),
                         ),
-                        //),
+                        ),
                       );
                     }),
               ),
             ),
-
+            
             // Payment screen
             AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),

@@ -24,13 +24,14 @@ class AppStrings {
   static const kclubEvents = 'Club Events';
   static const kapplications = 'Applications';
   static const ksettings = 'Settings';
+  static const kmyEvents = 'My Events';
 
 
   // Zied
   static const knoClubs = 'No clubs';
   static const kapplyWithin = 'Apply within';
   static const kdescription = 'Description';
-  static const kstories = 'Stories';
+  static const kshorts = 'Shorts';
   static const kapply = 'Apply';
   static const kdeadlineHasGonePast = 'The deadline has gone past';
   static const kcontinue = 'Continue';
@@ -64,8 +65,17 @@ class AppStrings {
   static const kowner = 'Owner';
   static const kdate = 'Date';
   static const kseat = 'Seat';
+  static const knotEnoughMoney = 'Not enough money!';
 
   static const knoApplications = 'No applications';
+  static const kinterviewHasPassed = 'The date/time of the interview has passed!';
+  static const kearlyToJoinInterview = "It's still early to join the interview!";
+
+  static const kok = 'Ok';
+  static const kpayment = 'Payment';
+  static const kpaymentConfirmation = 'Do you confirm to pay \$';
+  static const kyes = 'Yes';
+  static const kno = 'No';
 
   // Louay
 
@@ -75,5 +85,9 @@ class AppStrings {
 
   // Youssef
 
+
+// user
+static const kIncorrectPassword = 'Incorrect password';
+static const KusernameAlreadyExist = 'Username already exists please try another one';
 
 }

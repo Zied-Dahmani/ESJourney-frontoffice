@@ -8,11 +8,13 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import '../../../data/repositories/challenges/quiz_repository.dart';
 
 class QuizCubit extends Cubit<QuizState> {
-  QuizCubit() : super(QuizInitial()) {
-    getQuiz("c");
-  }
+  QuizCubit() : super(QuizInitial(
 
+
+
+  )) ;
   final _quizRepository = QuizRepository();
+
 
   Future<void> getQuiz(String language) async {
     try {

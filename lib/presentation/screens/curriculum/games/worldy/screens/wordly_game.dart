@@ -69,7 +69,6 @@ class WordlyPageState extends State<WordlyPage> {
                   () {
                     if (mounted) {
                       print("first");
-                      //TODO: check what to do here
                       /*showDialog(context: context, builder: (_) => const StatsBox());*/
                     }
                   },

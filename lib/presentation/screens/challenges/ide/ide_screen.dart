@@ -115,7 +115,7 @@ class _IdeScreenState extends State<IdeScreen> {
                                   builder: (BuildContext context) {
                                     return AlertDialog(
                                       backgroundColor: Colors.white,
-                                      surfaceTintColor: Colors.white,
+                                      //surfaceTintColor: Colors.white,
                                       content: Text(
                                         codingProblemState
                                             .codingProblems.description,
@@ -157,7 +157,7 @@ class _IdeScreenState extends State<IdeScreen> {
                                     builder: (BuildContext context) {
                                       return AlertDialog(
                                         backgroundColor: Colors.white,
-                                        surfaceTintColor: Colors.white,
+                                        //surfaceTintColor: Colors.white,
                                         content: Container(
                                           height: width * 0.7,
                                           width: width * 0.7,

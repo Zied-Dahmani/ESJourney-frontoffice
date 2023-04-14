@@ -2,6 +2,9 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/utils/scroll_level.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../logic/cubits/challenges/quiz_cubit.dart';
 
 class MapLevelScreen extends StatefulWidget {
   const MapLevelScreen({Key? key, required this.myCourses}) : super(key: key);
@@ -42,7 +45,15 @@ class _MapLevelScreenState extends State<MapLevelScreen> {
                         },
                       ),
                     ),
-                    PointModel(70, GameQuizItem(onTap: () {})),
+                    PointModel(70, GameQuizItem(onTap: () {
+
+                      BlocProvider.of<QuizCubit>(context).getQuiz(course.title);
+                      Navigator.of(context).pushNamed(
+                        AppRoutes.quizScreen,
+                        arguments: false,
+                      );
+
+                    })),
                   ]
                 ],
                 width: constraints.maxWidth,
@@ -136,7 +147,11 @@ class GameLevelMapItem extends StatelessWidget {
     return InkWell(
       child: AvatarGlow(
           glowColor: Colors.yellowAccent, endRadius: 40.0, child: levelItem),
-      onTap: () {},
+      onTap: () {
+
+
+
+      },
     );
   }
 }

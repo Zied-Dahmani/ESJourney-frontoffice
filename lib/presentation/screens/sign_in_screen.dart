@@ -1,3 +1,5 @@
+import 'package:esjourney/logic/cubits/club/club_cubit.dart';
+import 'package:esjourney/presentation/screens/club/club_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
@@ -13,6 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/snackbar.dart';
+import '../../logic/cubits/user/username_available/username_available_cubit.dart';
 
 
 class SignInScreen extends StatelessWidget {
@@ -23,31 +26,40 @@ class SignInScreen extends StatelessWidget {
   final _passwordController = TextEditingController();
   BuildContext? dialogContext;
 
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: BlocListener<UserCubit, UserState>(
-        listener: (context, state) async {
-          if (state is UserLoadInProgress) {
+      body: Builder
+        (
+        builder: (context) {
+
+
+          final userState = context.watch<UserCubit>().state;
+    final usernameAvailableState = context.watch<UsernameAvailableCubit>().state;
+          if (userState is UserLoadInProgress) {
             showDialog(
                 context: context,
                 builder: (context) {
                   dialogContext = context;
                   return const Center(child: CircularProgressIndicator());
                 });
-          } else if (state is UserLogInSuccess) {
-            //Navigator.pop(dialogContext!);
-            Provider.of<SocketService>(context, listen: false).connect(state.user.token!);
-            Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
-          } else if (state is UserIsFailure) {
+          } else if (userState is UserLogInSuccess) {
             Navigator.pop(dialogContext!);
-            showSnackBar(context, state.error);
+            Provider.of<SocketService>(context, listen: false).connect(userState.user.token!);
+            if (BlocProvider.of<ClubCubit>(context).getClub() != null) {
+              Navigator.of(context).pushNamed(AppRoutes.clubScreen,arguments: BlocProvider.of<ClubCubit>(context).getClub());
+            }
+            else {
+              Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
+            }
+          } else if (userState is UserIsFailure) {
+            Navigator.pop(dialogContext!);
+            showSnackBar(context, userState.error);
           }
-        },
-        child: GestureDetector(
+
+       return GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: Container(
             padding: const EdgeInsets.symmetric(
@@ -71,8 +83,9 @@ class SignInScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: AppSizes.khugeSpace),
                   TextFormFieldWidget(
+                      _idController, AppStrings.kusername, TextInputType.name,
 
-                      _idController, AppStrings.kusername, TextInputType.name),
+                  ),
                   const SizedBox(height: AppSizes.kbigSpace),
                   TextFormFieldWidget(_passwordController, AppStrings.kpassword,
                       TextInputType.visiblePassword),
@@ -94,9 +107,10 @@ class SignInScreen extends StatelessWidget {
                             function: () {
                               if (_formKey.currentState!.validate()) {
                                 if (state is ConnectivityConnectSuccess) {
-                                  BlocProvider.of<UserCubit>(context).signIn(
+                                 BlocProvider.of<UserCubit>(context).signIn(
                                       _idController.text,
                                       _passwordController.text);
+                                  // navigatio nto home screen
                                 } else {
                                   showSnackBar(
                                       context, kcheckInternetConnection);
@@ -135,11 +149,9 @@ class SignInScreen extends StatelessWidget {
               ),
             ),
           ),
-        ),
+        );
+      }
       ),
     );
   }
-
-
-
 }

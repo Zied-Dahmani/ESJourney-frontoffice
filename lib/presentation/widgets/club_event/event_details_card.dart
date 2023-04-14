@@ -19,13 +19,15 @@ class EventDetailsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return GestureDetector(
-      onTap: () => Navigator.of(context).pushNamed(AppRoutes.clubEventTimelineScreen, arguments: clubEvent),
+      onTap: () => Navigator.of(context)
+          .pushNamed(AppRoutes.clubEventTimelineScreen, arguments: clubEvent),
       child: Container(
           margin: const EdgeInsets.all(AppSizes.kbigSpace),
           padding: const EdgeInsets.all(AppSizes.kbigSpace),
           decoration: BoxDecoration(
             color: theme.colorScheme.background,
-            borderRadius: const BorderRadius.all(Radius.circular(AppSizes.kradius)),
+            borderRadius:
+                const BorderRadius.all(Radius.circular(AppSizes.kradius)),
             boxShadow: [
               BoxShadow(
                 color: theme.colorScheme.secondary.withOpacity(.5),
@@ -45,13 +47,18 @@ class EventDetailsCard extends StatelessWidget {
                     width: AppSizes.ksmallImageSize,
                     decoration: BoxDecoration(
                       color: theme.colorScheme.tertiary,
-                      borderRadius: const BorderRadius.all(Radius.circular(AppSizes.kradius)),
-                      image: DecorationImage(image: NetworkImage('$kbaseUrl${clubEvent.image}'), fit: BoxFit.fitHeight),
+                      borderRadius: const BorderRadius.all(
+                          Radius.circular(AppSizes.kradius)),
+                      image: DecorationImage(
+                          image: NetworkImage('$kbaseUrl${clubEvent.image}'),
+                          fit: BoxFit.fitHeight),
                     ),
-                  ).animate(
+                  )
+                      .animate(
                     delay: 1000.ms,
                     onPlay: (controller) => controller.repeat(), // loop
-                  ).shimmer(
+                  )
+                      .shimmer(
                     delay: 1500.ms,
                     duration: 1000.ms,
                     stops: [0.0, 0.5, 1.0],
@@ -66,19 +73,24 @@ class EventDetailsCard extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Text(clubEvent.convertDate(), style: theme.textTheme.bodySmall),
+                  Text(clubEvent.convertDate(),
+                      style: theme.textTheme.bodySmall),
                   const Spacer(),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 6.0),
-                    child: IconButton(icon: Icon(FontAwesomeIcons.route,color: theme.colorScheme.primary), onPressed: () {
-                      clubEventCubit.launchGoogleMaps(clubEvent.latLng[0], clubEvent.latLng[1]);
-                    },),
+                    padding: const EdgeInsets.only(bottom: AppSizes.ksmallSpace - 2),
+                    child: GestureDetector(
+                      onTap: () => clubEventCubit.launchGoogleMaps(clubEvent.latLng[0], clubEvent.latLng[1]),
+                      child: SizedBox(
+                          height: AppSizes.kiconSize,
+                          width: AppSizes.kiconSize,
+                          child: Image.asset("assets/images/google_maps.png")),
+                    ),
                   ),
                 ],
               ),
               Text(clubEvent.description,
-                  style: theme.textTheme.bodySmall!
-                      .copyWith(color: theme.colorScheme.tertiary,fontSize: 12))
+                  style: theme.textTheme.bodySmall!.copyWith(
+                      color: theme.colorScheme.tertiary, fontSize: 12))
             ],
           )),
     );
