@@ -45,16 +45,16 @@ class SignInScreen extends StatelessWidget {
                   dialogContext = context;
                   return const Center(child: CircularProgressIndicator());
                 });
-          } else if (state is UserLogInSuccess) {
+          } else if (userState is UserLogInSuccess) {
             Navigator.pop(dialogContext!);
-            Provider.of<SocketService>(context, listen: false).connect(state.user.token!);
+            Provider.of<SocketService>(context, listen: false).connect(userState.user.token!);
             if (BlocProvider.of<ClubCubit>(context).getClub() != null) {
               Navigator.of(context).pushNamed(AppRoutes.clubScreen,arguments: BlocProvider.of<ClubCubit>(context).getClub());
             }
             else {
               Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
             }
-          } else if (state is UserIsFailure) {
+          } else if (userState is UserIsFailure) {
             Navigator.pop(dialogContext!);
             showSnackBar(context, userState.error);
           }

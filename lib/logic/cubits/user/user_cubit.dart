@@ -145,6 +145,7 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
       developer.log(e.toString(), name: 'Catch send eth');
       return false;
     }
+  }
   Future<void> updatePassword(
       String currentPassword, String newPassword, String token) async {
     try {
@@ -200,4 +201,4 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
     }
   }
 }
-}
+

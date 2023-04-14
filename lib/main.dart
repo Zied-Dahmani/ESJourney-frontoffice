@@ -47,6 +47,7 @@ import 'presentation/screens/curriculum/games/draw/main_module.dart';
 import 'presentation/screens/curriculum/games/slide/tools/board_controller.dart';
 import 'presentation/screens/curriculum/games/slide/tools/navigation.dart';
 import 'presentation/screens/curriculum/games/worldy/provider/controller.dart';
+import 'presentation/screens/zoom_drawer_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -92,7 +92,7 @@ dependencies:
   video_player: ^2.6.0
   chewie: ^1.4.0
   flutter_swiper_plus: ^2.0.4
-  zego_uikit_prebuilt_call: ^3.1.1
+  zego_uikit_prebuilt_call: ^3.1.0
   google_mlkit_image_labeling: ^0.5.0
   image_picker: ^0.8.7+2
   # Souhail
@@ -108,7 +108,7 @@ dependencies:
   syncfusion_flutter_charts: ^20.4.51
   qr_flutter: ^4.0.0
   qr_code_scanner: ^1.0.1
-  audioplayers: ^3.0.1
+
   share_plus: ^4.1.0
   flutter_share_me: ^1.4.0
  #Youssef
