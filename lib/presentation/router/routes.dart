@@ -2,8 +2,7 @@ class AppRoutes {
   static const signInScreen = '/';
   static const signUpScreen = '/signUpScreen';
 
-  //static const zoomDrawerScreen = 'zoom_drawer_screen';
-  static const zoomDrawerScreen = 'x';
+  static const zoomDrawerScreen = 'zoom_drawer_screen';
 
   // Zied
   static const clubScreen = 'club_screen';
@@ -11,6 +10,9 @@ class AppRoutes {
   static const doneScreen = 'done_screen';
   static const clubEventTimelineScreen = 'club_event_timeline_screen';
   static const clubEventTicketsScreen = 'club_event_tickets_screen';
+  static const clubEventTicketScreen = 'club_event_ticket_screen';
+  static const shortsScreen = 'shorts_screen';
+  static const clubInterviewScreen = 'club_interview_screen';
 
   // Louay
   static const courses = '/courses';

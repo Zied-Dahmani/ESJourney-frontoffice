@@ -1,3 +1,5 @@
+import 'package:esjourney/logic/cubits/club/club_cubit.dart';
+import 'package:esjourney/presentation/screens/club/club_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
@@ -12,8 +14,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/snackbar.dart';
 import '../../logic/cubits/user/username_available/username_available_cubit.dart';
-import '../widgets/snack_bar.dart';
+
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
@@ -42,12 +45,16 @@ class SignInScreen extends StatelessWidget {
                   dialogContext = context;
                   return const Center(child: CircularProgressIndicator());
                 });
-          } else if (userState is UserLogInSuccess) {
-            //Navigator.pop(dialogContext!);
-            Provider.of<SocketService>(context, listen: false)
-                .connect(userState.user.token!);
-            Navigator.of(context).pushNamed(AppRoutes.quizScreen);
-          } else if (userState is UserIsFailure) {
+          } else if (state is UserLogInSuccess) {
+            Navigator.pop(dialogContext!);
+            Provider.of<SocketService>(context, listen: false).connect(state.user.token!);
+            if (BlocProvider.of<ClubCubit>(context).getClub() != null) {
+              Navigator.of(context).pushNamed(AppRoutes.clubScreen,arguments: BlocProvider.of<ClubCubit>(context).getClub());
+            }
+            else {
+              Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
+            }
+          } else if (state is UserIsFailure) {
             Navigator.pop(dialogContext!);
             showSnackBar(context, userState.error);
           }
@@ -100,7 +107,7 @@ class SignInScreen extends StatelessWidget {
                             function: () {
                               if (_formKey.currentState!.validate()) {
                                 if (state is ConnectivityConnectSuccess) {
-                                  BlocProvider.of<UserCubit>(context).signIn(
+                                 BlocProvider.of<UserCubit>(context).signIn(
                                       _idController.text,
                                       _passwordController.text);
                                   // navigatio nto home screen

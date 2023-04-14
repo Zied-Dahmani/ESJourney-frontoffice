@@ -1,4 +1,4 @@
-import 'package:esjourney/data/models/club_event_model.dart';
+import 'package:esjourney/data/models/club/event/club_event_model.dart';
 
 abstract class ClubEventState {}
 

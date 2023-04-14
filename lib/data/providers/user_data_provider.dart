@@ -142,4 +142,24 @@ class UserDataProvider {
       ),
     );
   }
+
+  Future<Response> updateDeviceToken(String token, String deviceToken) async {
+    return await dio.request(
+      kupdateDeviceToken,
+      data: {
+        'deviceToken':deviceToken
+      },
+      options: Options(
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt': token,
+        },
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+  }
+
 }

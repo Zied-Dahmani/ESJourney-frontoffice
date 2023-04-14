@@ -84,7 +84,19 @@ dependencies:
   countup: ^0.1.4
   awesome_card: ^1.1.7
   animate_icons: ^2.0.0
-# Souhail
+  firebase_core: ^2.8.0
+  firebase_messaging: ^14.3.0
+  firebase_dynamic_links: ^5.0.17
+  flutter_share: ^2.0.0
+  memoize: ^3.0.0
+  video_player: ^2.6.0
+  chewie: ^1.4.0
+  flutter_swiper_plus: ^2.0.4
+  zego_uikit_prebuilt_call: ^3.1.1
+  google_mlkit_image_labeling: ^0.5.0
+  image_picker: ^0.8.7+2
+  # Souhail
+
   circular_countdown_timer: ^0.2.3
   tflite_flutter: ^0.8.0
   code_text_field: ^1.0.2
@@ -141,8 +153,16 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/images/app_logo.png
+    - assets/images/turn_on_location.svg
+    - assets/images/sad.svg
+    - assets/images/no_internet.svg
+    - assets/images/marker.svg
+    - assets/images/coins.gif
+    - assets/images/barcode.png
+    - assets/images/google_maps.png
+    - assets/sound/scan_complete.mp3
     - assets/
-    - assets/html/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -1,4 +1,5 @@
-var kbaseUrl = 'http://172.16.8.149:9090/';
+const kbaseUrl = 'http://192.168.1.4:9090/';
+
 
 
 
@@ -37,16 +38,23 @@ const kregisterEvent = 'event/register';
 final DateTime kFirstDay = DateTime(2021, 1, 1);
 final DateTime kLastDay = DateTime(2030, 12, 31);
 
-//zied
+//Zied
 const kgetAllClubs = 'club/getAll';
+const kgetClub = 'club/get';
 const kgetAllClubEvents = 'clubEvent/getAll';
 const kgetAllApplications = 'application/getAll';
+const kapply = 'application/apply';
+const kbookEvent = 'clubEvent/book';
 
 //map consts
 const mapToken = 'pk.eyJ1IjoiemllZC1kYWhtYW5pIiwiYSI6ImNsZWJnd3RjMjA1c3kzb210OWQ0YW1pb2kifQ.KNa3PMeruCB7HdCN9zDfQQ';
 const mapStyle = 'mapbox.mapbox-streets-v8';
 const mapUrlTemplate = 'https://api.mapbox.com/styles/v1/zied-dahmani/cled45t8y001801muszxjo9ti/tiles/256/{z}/{x}/{y}@2x?access_token={accessToken}';
 
+
+//zegocloud
+const kzegoAppId = 1961455378;
+const kzegoAppSign = '1d1fe700d00e6e452fb3fa49032ab5447492a20392944b300d3b864d7a10aa71';
 // User
 const ksignUp = 'user/signUp';
 const ksignIn = 'user/signIn';
@@ -56,3 +64,8 @@ const kupdatePassword ='user/updatePassword';
 const kerrorUpdatePassword = 'Error in updating password!';
 const kupdateUsername = 'user/updateUsername';
 const kCheckUsername = 'user/checkusername';
+
+
+
+
+const kupdateDeviceToken = 'user/updateDeviceToken';

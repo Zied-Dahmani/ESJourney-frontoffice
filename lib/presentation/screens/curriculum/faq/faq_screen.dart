@@ -104,7 +104,7 @@ class FAQScreen extends StatelessWidget {
     showModalBottomSheet(
         context: ctx,
         enableDrag: true,
-        useSafeArea: true,
+        //useSafeArea: true,
         isScrollControlled: true,
         isDismissible: true,
         elevation: 0,
@@ -189,7 +189,7 @@ class FAQScreen extends StatelessWidget {
     showModalBottomSheet(
       context: ctx,
       enableDrag: true,
-      useSafeArea: true,
+      //useSafeArea: true,
       isScrollControlled: false,
       isDismissible: true,
       elevation: 0,

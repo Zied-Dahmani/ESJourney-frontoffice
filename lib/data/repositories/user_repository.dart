@@ -41,6 +41,9 @@ class UserRepository implements IUserRepository {
   }
 
   @override
+  Future<void> updateDeviceToken(String token, String deviceToken) async {
+    await _userDataProvider.updateDeviceToken(token,deviceToken);
+  }
   Future<dynamic> updatePassword(
       String currentPassword, String newPassword, String token) async {
     final result = await _userDataProvider.updatePassword(

@@ -56,7 +56,7 @@ class _EthQrCodeScreenState extends State<EthQrCodeScreen> {
                         builder: (context) {
                           return AlertDialog(
                             backgroundColor: Colors.white,
-                            surfaceTintColor: Colors.white,
+                            //surfaceTintColor: Colors.white,
                             content: SizedBox(
                               width: width * 0.8,
                               height: width * 0.8,
@@ -104,7 +104,7 @@ class _EthQrCodeScreenState extends State<EthQrCodeScreen> {
       builder: (context) {
         return AlertDialog(
           backgroundColor: Colors.white,
-          surfaceTintColor: Colors.white,
+          //surfaceTintColor: Colors.white,
           title: const Text(
             'Select Amount',
             style: TextStyle(

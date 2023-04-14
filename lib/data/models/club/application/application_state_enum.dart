@@ -8,7 +8,7 @@ extension ApplicationStateExtenstion on ApplicationState {
       case ApplicationState.underReview:
         return 'Under review';
       case ApplicationState.accepted:
-        return 'Accepted';
+        return 'Interview';
       case ApplicationState.denied:
         return 'Denied';
       default:

@@ -30,6 +30,7 @@ class User with _$User {
     String? fullName,
     String? walletAddress,
     String? privateKey,
+    String? deviceToken,
     Score? score,
     Achievement? achievement,
     List<Achievement>? achievements,

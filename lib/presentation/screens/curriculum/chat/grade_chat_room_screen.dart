@@ -46,7 +46,6 @@ class _ChatGradeRoomScreenState extends State<ChatGradeRoomScreen>
       grade: widget.grade,
     );
 
-    //todo: this pops up the message twice
     //_messages.insert(0, newMessage);
     newMessage.animationController.forward();
 

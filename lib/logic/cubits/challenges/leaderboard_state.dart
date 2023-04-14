@@ -6,13 +6,11 @@ abstract class LeaderboardState extends Equatable {}
 
 class LeaderboardInitial extends LeaderboardState {
   @override
-  // TODO: implement props
   List<Object?> get props => [] ;
 }
 
 class LeaderboardLoadInProgress extends LeaderboardState {
   @override
-  // TODO: implement props
   List<Object?> get props => [] ;
 }
 
@@ -34,7 +32,6 @@ class LeaderboardSuccess extends LeaderboardState {
   }
 
   @override
-  // TODO: implement props
   List<Object?> get props => [weeklyUsers, monthlyUsers, allTimeUsers, period] ;
 }
 
@@ -44,6 +41,5 @@ class LeaderboardIsFailure extends LeaderboardState {
   LeaderboardIsFailure(this.error);
 
   @override
-  // TODO: implement props
   List<Object?> get props => [] ;
 }

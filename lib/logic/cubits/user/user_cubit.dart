@@ -1,4 +1,12 @@
 import 'dart:developer' as developer;
+import 'package:esjourney/data/repositories/user_repository.dart';
+import 'package:esjourney/utils/constants.dart';
+import 'package:esjourney/utils/firebase_cloud_messaging.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import '../../../data/repositories/challenges/quiz_repository.dart';
+import 'user_state.dart';
 
 import 'package:esjourney/data/models/user_model.dart';
 import 'package:esjourney/data/repositories/user_repository.dart';
@@ -6,8 +14,8 @@ import 'package:esjourney/utils/constants.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 import '../../../data/repositories/challenges/achievement/achievement_repository.dart';
-import '../../../data/repositories/challenges/quiz_repository.dart';
-import 'user_state.dart';
+
+
 
 class UserCubit extends Cubit<UserState> with HydratedMixin {
   final _userRepository = UserRepository();
@@ -113,6 +121,30 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
     }
   }
 
+  updateDeviceToken(String token) {
+    FirebaseMessaging.instance.getToken().then((deviceToken) async {
+      await _userRepository.updateDeviceToken(token, deviceToken!);
+    });
+  }
+
+  Future<void> sendNotif(title, body, deviceToken) async {
+    await FirebaseCloudMessaging.sendTo(
+      title: title,
+      body: body,
+      fcmToken: deviceToken,
+    );
+  }
+
+  Future<bool> bookEventWithETH(String? walletAddress, String privateKey,
+      double amount, String token) async {
+    try {
+      final result = await _userRepository.sendEth(
+          walletAddress!, privateKey, amount, token);
+      return result != null ? true : false;
+    } catch (e) {
+      developer.log(e.toString(), name: 'Catch send eth');
+      return false;
+    }
   Future<void> updatePassword(
       String currentPassword, String newPassword, String token) async {
     try {
@@ -167,4 +199,5 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
       emit(UserIsFailure(kcheckInternetConnection));
     }
   }
+}
 }
