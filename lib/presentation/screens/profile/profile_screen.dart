@@ -1,5 +1,10 @@
+import 'package:esjourney/data/models/user_model.dart';
+import 'package:esjourney/logic/cubits/user/user_cubit.dart';
+import 'package:esjourney/logic/cubits/user/user_state.dart';
+import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'edit_profile/edit_profile_screen.dart';
 
@@ -35,146 +40,178 @@ class _ProfileScreenState extends State<ProfileScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const EditProfileScreen()),
-              );
+              Navigator.of(context).pushNamed(AppRoutes.editProfileScreen
+                  // Write the code to navigate to the edit profile screen
+                  );
 
               // Write the code to navigate to the settings screen
             },
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Stack(
+      body: BlocBuilder<UserCubit, UserState>(
+        builder: (context, state) {
+          if (state is UserLoadInProgress) {
+          } else if (state is UserLogInSuccess) {
+            print("image is ${state.user.achievement!.image}");
+            return Column(
               children: [
-                CustomContainer(
-                  width: width,
-                  backgroundColor: theme.colorScheme.onPrimary,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                Expanded(
+                  child: Stack(
                     children: [
-                      SizedBox(
-                        height: width * 0.15,
-                      ),
-                      Center(
-                        child: Text(
-                          "userx",
-                          style: theme.textTheme.headlineMedium,
-                        ),
-                      ),
-                      Container(
+                      CustomContainer(
                         width: width,
-                        margin: const EdgeInsets.only(
-                            left: 20.0, right: 20.0, top: 20.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: const [
-                            BoxShadow(
-                              color: // custom color hex code
-                                  Color(0xFFE7E7E7),
-                              offset: Offset(6.0, 8.0),
-                              blurRadius: 10.0,
-                              spreadRadius: 2.0, // changes position of shadow
+                        backgroundColor: theme.colorScheme.onPrimary,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: width * 0.15,
                             ),
+                            Center(
+                              child: Text(
+                                "userx",
+                                style: theme.textTheme.headlineMedium,
+                              ),
+                            ),
+                            Container(
+                              width: width,
+                              margin: const EdgeInsets.only(
+                                  left: 20.0, right: 20.0, top: 20.0),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: // custom color hex code
+                                        Color(0xFFE7E7E7),
+                                    offset: Offset(6.0, 8.0),
+                                    blurRadius: 10.0,
+                                    spreadRadius:
+                                        2.0, // changes position of shadow
+                                  ),
+                                ],
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Container(
+                                margin: const EdgeInsets.all(5.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    const ProfileContainer(
+                                      icon: Icons.monetization_on_outlined,
+                                      title: "Coins",
+                                      subtitle: "5000",
+                                    ),
+                                    SizedBox(
+                                      height: width * 0.13,
+                                      child: VerticalDivider(
+                                        color: Colors.grey[100],
+                                        thickness: 1,
+                                      ),
+                                    ),
+                                    const ProfileContainer(
+                                      icon: Icons.leaderboard_outlined,
+                                      title: "Rank",
+                                      subtitle: "1",
+                                    ),
+                                    SizedBox(
+                                      height: width * 0.13,
+                                      child: VerticalDivider(
+                                        color: Colors.grey[100],
+                                        thickness: 1,
+                                      ),
+                                    ),
+                                    const ProfileContainer(
+                                      icon: Icons.leaderboard_outlined,
+                                      title: "Grade",
+                                      subtitle: "1",
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: width * 0.05,
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(
+                                  left: 20.0,
+                                  right: 20.0,
+                                  top: 0.0,
+                                  bottom: 10.0),
+                              child: Text(
+                                "Achievements (${state.user.achievements!.length})",
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'VisbyRoundCF',
+                                ),
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(left: 10.0),
+                              child: Row(
+                                children: [
+                                  SvgPicture.network(
+                                    height: width * 0.15,
+                                    state.user.achievement!.image!,
+                                    placeholderBuilder:
+                                        (BuildContext context) =>
+                                            const CircularProgressIndicator(),
+                                  ),
+                                ],
+                              ),
+                            )
                           ],
-                          borderRadius: BorderRadius.circular(10.0),
                         ),
-                        child: Container(
-                          margin: const EdgeInsets.all(5.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              const ProfileContainer(
-                                icon: Icons.monetization_on_outlined,
-                                title: "Coins",
-                                subtitle: "5000",
-                              ),
-                              SizedBox(
-                                height: width * 0.13,
-                                child: VerticalDivider(
-                                  color: Colors.grey[100],
-                                  thickness: 1,
+                      ),
+                      Positioned(
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        child: Center(
+                          child: SizedBox(
+                            height: width * 0.27,
+                            width: width * 0.25,
+                            child: Stack(
+                              children: [
+                                const CircleAvatar(
+                                  backgroundImage: AssetImage(
+                                      'assets/images/challenges/avatar.png'),
+                                  radius: 50,
+                                  backgroundColor: Colors.white,
                                 ),
-                              ),
-                              const ProfileContainer(
-                                icon: Icons.leaderboard_outlined,
-                                title: "Rank",
-                                subtitle: "1",
-                              ),
-                              SizedBox(
-                                height: width * 0.13,
-                                child: VerticalDivider(
-                                  color: Colors.grey[100],
-                                  thickness: 1,
+                                Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: SvgPicture.network(
+                                    height: width * 0.05,
+                                    state.user.achievement!.image!,
+                                    placeholderBuilder:
+                                        (BuildContext context) =>
+                                            const CircularProgressIndicator(),
+                                  ),
                                 ),
-                              ),
-                              const ProfileContainer(
-                                icon: Icons.leaderboard_outlined,
-                                title: "Grade",
-                                subtitle: "1",
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: width * 0.05,
-                      ),
-                      Container(
-                          margin: const EdgeInsets.only(
-                              left: 20.0, right: 20.0, top: 0.0, bottom: 10.0),
-                          child: const Text("Badges (2)",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: 'VisbyRoundCF',
-                              ))),
-                      Container(
-                        margin: const EdgeInsets.only(left: 10.0),
-                        child: Row(
-                          children: [
-                            SvgPicture.asset(
-                              'assets/icons/challenges/first_badge.svg',
-                              height: width * 0.15,
-                            ),
-                            SvgPicture.asset(
-                              'assets/icons/challenges/trophy.svg',
-                              height: width * 0.15,
-                            ),
-                            SvgPicture.asset(
-                              'assets/icons/challenges/second_badge.svg',
-                              height: width * 0.15,
-                            ),
-                          ],
-                        ),
-                      )
                     ],
                   ),
                 ),
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  child: Center(
-                    child: Stack(
-                      children: const [
-                        CircleAvatar(
-                          backgroundImage:
-                          AssetImage('assets/images/challenges/avatar.png'),
-                          radius: 50,
-                          backgroundColor: Colors.white,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
               ],
-            ),
-          ),
-        ],
+            );
+          } else if (state is UserIsFailure) {
+            return const Center(
+              child: Text('Something went wroddng!'),
+            );
+          }
+          return const Center(
+            child: Text('Something went wrddong!'),
+          );
+        },
       ),
     );
   }

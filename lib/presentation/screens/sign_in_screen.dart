@@ -12,8 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/snackbar.dart';
-
+import '../../logic/cubits/user/username_available/username_available_cubit.dart';
+import '../widgets/snack_bar.dart';
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
@@ -23,31 +23,36 @@ class SignInScreen extends StatelessWidget {
   final _passwordController = TextEditingController();
   BuildContext? dialogContext;
 
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: BlocListener<UserCubit, UserState>(
-        listener: (context, state) async {
-          if (state is UserLoadInProgress) {
+      body: Builder
+        (
+        builder: (context) {
+
+
+          final userState = context.watch<UserCubit>().state;
+    final usernameAvailableState = context.watch<UsernameAvailableCubit>().state;
+          if (userState is UserLoadInProgress) {
             showDialog(
                 context: context,
                 builder: (context) {
                   dialogContext = context;
                   return const Center(child: CircularProgressIndicator());
                 });
-          } else if (state is UserLogInSuccess) {
+          } else if (userState is UserLogInSuccess) {
             //Navigator.pop(dialogContext!);
-            Provider.of<SocketService>(context, listen: false).connect(state.user.token!);
-            Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
-          } else if (state is UserIsFailure) {
+            Provider.of<SocketService>(context, listen: false)
+                .connect(userState.user.token!);
+            Navigator.of(context).pushNamed(AppRoutes.quizScreen);
+          } else if (userState is UserIsFailure) {
             Navigator.pop(dialogContext!);
-            showSnackBar(context, state.error);
+            showSnackBar(context, userState.error);
           }
-        },
-        child: GestureDetector(
+
+       return GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: Container(
             padding: const EdgeInsets.symmetric(
@@ -71,8 +76,9 @@ class SignInScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: AppSizes.khugeSpace),
                   TextFormFieldWidget(
+                      _idController, AppStrings.kusername, TextInputType.name,
 
-                      _idController, AppStrings.kusername, TextInputType.name),
+                  ),
                   const SizedBox(height: AppSizes.kbigSpace),
                   TextFormFieldWidget(_passwordController, AppStrings.kpassword,
                       TextInputType.visiblePassword),
@@ -97,6 +103,7 @@ class SignInScreen extends StatelessWidget {
                                   BlocProvider.of<UserCubit>(context).signIn(
                                       _idController.text,
                                       _passwordController.text);
+                                  // navigatio nto home screen
                                 } else {
                                   showSnackBar(
                                       context, kcheckInternetConnection);
@@ -135,11 +142,9 @@ class SignInScreen extends StatelessWidget {
               ),
             ),
           ),
-        ),
+        );
+      }
       ),
     );
   }
-
-
-
 }

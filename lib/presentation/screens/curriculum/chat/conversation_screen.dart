@@ -229,7 +229,7 @@ class _ConversationScreenState extends State<ConversationScreen>
       final differenceInMinutes = difference.inMinutes;
       final differenceInHours = difference.inHours;
       final differenceInDays = difference.inDays;
-      if (widget.receiver.online) {
+      if (widget.receiver.online!) {
         return 'Online';
       } else if (differenceInMinutes < 60) {
         return '$differenceInMinutes minutes ago';

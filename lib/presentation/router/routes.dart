@@ -33,11 +33,17 @@ class AppRoutes {
   static const quizResult = '/quizResult';
   static const leaderboardScreen = '/leaderboard';
   static const ethQrCodeScreen = '/ethQrCode';
-  static const profileScreen = '/profile';
-  static const editProfileScreen = '/editProfile';
 // Seif
   static const eventDetails = '/eventDetails';
   static const eventList = '/eventList';
 
 // Youssef
+
+
+// user
+
+  static const profileScreen = '/profile';
+  static const editProfileScreen = '/editProfile';
+  static const updatePasswordScreen = '/updatePassword';
+  static const updateUsername = '/updateUsername';
 }
