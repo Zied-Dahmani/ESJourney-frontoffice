@@ -30,7 +30,7 @@ mixin _$User {
   String get lastSeen => throw _privateConstructorUsedError;
   String? get twoDAvatar => throw _privateConstructorUsedError;
   String? get threeDAvatar => throw _privateConstructorUsedError;
-  List<UserCourse>? get courses => throw _privateConstructorUsedError;
+  List<Map<String, dynamic>>? get courses => throw _privateConstructorUsedError;
   bool get online => throw _privateConstructorUsedError;
   String? get token => throw _privateConstructorUsedError;
   String? get fullName => throw _privateConstructorUsedError;
@@ -62,7 +62,7 @@ abstract class $UserCopyWith<$Res> {
       String lastSeen,
       String? twoDAvatar,
       String? threeDAvatar,
-      List<UserCourse>? courses,
+      List<Map<String, dynamic>>? courses,
       bool online,
       String? token,
       String? fullName,
@@ -155,7 +155,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
       courses: freezed == courses
           ? _value.courses
           : courses // ignore: cast_nullable_to_non_nullable
-              as List<UserCourse>?,
+              as List<Map<String, dynamic>>?,
       online: null == online
           ? _value.online
           : online // ignore: cast_nullable_to_non_nullable
@@ -237,7 +237,7 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String lastSeen,
       String? twoDAvatar,
       String? threeDAvatar,
-      List<UserCourse>? courses,
+      List<Map<String, dynamic>>? courses,
       bool online,
       String? token,
       String? fullName,
@@ -328,7 +328,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
       courses: freezed == courses
           ? _value._courses
           : courses // ignore: cast_nullable_to_non_nullable
-              as List<UserCourse>?,
+              as List<Map<String, dynamic>>?,
       online: null == online
           ? _value.online
           : online // ignore: cast_nullable_to_non_nullable
@@ -383,7 +383,7 @@ class _$_User implements _User {
       required this.lastSeen,
       this.twoDAvatar,
       this.threeDAvatar,
-      final List<UserCourse>? courses,
+      final List<Map<String, dynamic>>? courses,
       required this.online,
       this.token,
       this.fullName,
@@ -427,9 +427,9 @@ class _$_User implements _User {
   final String? twoDAvatar;
   @override
   final String? threeDAvatar;
-  final List<UserCourse>? _courses;
+  final List<Map<String, dynamic>>? _courses;
   @override
-  List<UserCourse>? get courses {
+  List<Map<String, dynamic>>? get courses {
     final value = _courses;
     if (value == null) return null;
     if (_courses is EqualUnmodifiableListView) return _courses;
@@ -558,7 +558,7 @@ abstract class _User implements User {
       required final String lastSeen,
       final String? twoDAvatar,
       final String? threeDAvatar,
-      final List<UserCourse>? courses,
+      final List<Map<String, dynamic>>? courses,
       required final bool online,
       final String? token,
       final String? fullName,
@@ -592,7 +592,7 @@ abstract class _User implements User {
   @override
   String? get threeDAvatar;
   @override
-  List<UserCourse>? get courses;
+  List<Map<String, dynamic>>? get courses;
   @override
   bool get online;
   @override

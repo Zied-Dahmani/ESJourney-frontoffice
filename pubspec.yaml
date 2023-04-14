@@ -117,7 +117,11 @@ dependencies:
   #Seif
   table_calendar: ^3.0.3
   scaled_list: ^2.0.0
-
+  snippet_coder_utils: ^1.0.12
+  flutter_webrtc_wrapper: ^1.0.2
+  flutter_tts: ^3.6.3
+  audioplayers: ^0.20.1
+  camera: ^0.10.0+1
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -163,6 +167,10 @@ flutter:
     - assets/images/google_maps.png
     - assets/sound/scan_complete.mp3
     - assets/
+    - assets/html/
+    - assets/images/
+    - assets/icons/
+    - assets/sound/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

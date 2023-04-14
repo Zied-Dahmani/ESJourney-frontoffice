@@ -130,11 +130,12 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     /*if (state == AppLifecycleState.resumed ||
         state == AppLifecycleState.inactive) {
-      final token = _userCubit.state is UserLogInSuccess
-          ? (_userCubit.state as UserLogInSuccess).user.token
-          : null;
-      if (token != null) {
-        await _userCubit.refreshUserData(token);
+      final state = _userCubit.state;
+      if (state is UserLogInSuccess) {
+        final token = state.user.token;
+        if (token != null) {
+          await _userCubit.refreshUserData(token);
+        }
       }
     }*/
   }
@@ -230,5 +231,12 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
             )),
       ),
     );
+  }
+  Widget _getInitialWidget(UserState state) {
+    if (state is UserLogInSuccess) {
+      return ZoomDrawerScreen();
+    } else {
+      return SignInScreen();
+    }
   }
 }

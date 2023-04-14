@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import '../../../data/models/events/event_model.dart';
+import '../../../logic/cubits/user/user_cubit.dart';
+import '../../../logic/cubits/user/user_state.dart';
 import '../../../utils/constants.dart';
 import '../../router/routes.dart';
 
@@ -21,6 +23,10 @@ class _EventListScreenState extends State<EventListScreen> {
   bool isLoading = false;
 
   Future<void> _onRefresh() async {
+    final userState = context.read<UserCubit>().state;
+    if (userState is! UserLogInSuccess) return;
+    final token = userState.user.token;
+    await context.read<UserCubit>().refreshUserData(token!);
     context.read<EventCubit>().getAllEvents();
     final eventState = context.read<EventCubit>().state;
     if (eventState is EventSuccess) {
@@ -164,7 +170,7 @@ class _EventListScreenState extends State<EventListScreen> {
                                         const SizedBox(width: 4),
                                         Flexible(
                                           child: Text(
-                                            event.location,
+                                            event.location!,
                                             style: const TextStyle(fontSize: 14),
                                             overflow: TextOverflow.ellipsis,
                                             maxLines: 1,

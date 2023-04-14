@@ -1,4 +1,4 @@
-import 'package:circular_countdown_timer/circular_countdown_timer.dart';
+/*import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:esjourney/data/models/challenges/quiz/quiz_model.dart';
 import 'package:esjourney/logic/cubits/challenges/quiz_cubit.dart';
 import 'package:esjourney/logic/cubits/challenges/quiz_state.dart';
@@ -9,7 +9,7 @@ import 'package:esjourney/presentation/screens/challenges/quiz/question_card.dar
 import 'package:esjourney/presentation/widgets/challenges/disco_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tflite_flutter/tflite_flutter.dart';
+//import 'package:tflite_flutter/tflite_flutter.dart';
 
 class QuizScreen extends StatefulWidget {
   QuizScreen({Key? key, this.restart = false}) : super(key: key);
@@ -375,7 +375,7 @@ Future<void> findNextQuestion() async {
       hardness(_currentQuestion.difficulty, predictedDifficulty);
 }
 
-Future<int> predData(List<List<double>> input) async {
+/*Future<int> predData(List<List<double>> input) async {
   final interpreter = await Interpreter.fromAsset('quiz.tflite');
   var output = List.filled(1 * 3, 0).reshape([1, 3]);
 
@@ -385,7 +385,7 @@ Future<int> predData(List<List<double>> input) async {
       .indexOf(output[0].reduce((double a, double b) => a > b ? a : b));
 
   return predictedDifficultyIndex;
-}
+}*/
 
 String hardness(String currentHardness, int predictedHardness) {
   final Map<int, int> incDecreaseHardness = {0: -1, 1: 0, 2: 1};
@@ -416,4 +416,4 @@ void saveAnswer() {
   _userAnswers.add(_selectedOptionIndex);
   _answeredQuestions.add(_currentQuestion);
   _isSelected = false;
-}
+}*/

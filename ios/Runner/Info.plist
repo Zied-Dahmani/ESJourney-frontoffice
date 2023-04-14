@@ -47,6 +47,15 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSMicrophoneUsageDescription</key>
+        <string>Allow microphone?</string>
+        <key>NSCameraUsageDescription</key>
+        <string>Allow camera?</string>
+        <key>UIBackgroundModes</key>
+        <array>
+        <string>audio</string>
+        </array>
+
 	<key>FirebaseDynamicLinksCustomDomains</key>
     <array>
         <string>https://custom.domain.io/path1</string>
