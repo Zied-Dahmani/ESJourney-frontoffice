@@ -21,6 +21,7 @@ import 'package:esjourney/presentation/screens/main_screen.dart';
 import 'package:esjourney/presentation/screens/profile/edit_profile/edit_profile_screen.dart';
 import 'package:esjourney/presentation/screens/profile/profile_screen.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
+import 'package:esjourney/presentation/screens/sign_up_screen.dart';
 import 'package:esjourney/presentation/test.dart';
 import 'package:esjourney/utils/strings.dart';
 import 'package:esjourney/utils/theme.dart';
@@ -209,7 +210,9 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
                 return  TestScreen();
                   //QuizResultScreen(score: 20,);
               } else {
-                return  QuizResultScreen(score: 20);
+                return QuizResultScreen(score: 20,);
+
+                  //QuizResultScreen(score: 20);
               }
             },
           ),

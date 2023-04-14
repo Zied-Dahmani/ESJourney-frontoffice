@@ -1,4 +1,4 @@
-var kbaseUrl = 'http://192.168.0.3:9090/';
+var kbaseUrl = 'http://172.16.8.149:9090/';
 
 
 

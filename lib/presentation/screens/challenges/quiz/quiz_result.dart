@@ -1,13 +1,11 @@
 import 'dart:math';
 import 'dart:ui';
-
 import 'package:esjourney/presentation/router/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_share_me/flutter_share_me.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:social_share_plugin/social_share_plugin.dart';
+
 
 class QuizResultScreen extends StatefulWidget {
   final int score;
@@ -223,23 +221,18 @@ class _QuizResultScreenState extends State<QuizResultScreen> {
   }
 }
 
-
-
 Future<void> sharePressed() async {
   String msg =
       "I just won my first quiz on the Quiz app and I'm feeling on top of the world!"
       " 🎉🎊🥳 It's an awesome feeling to test my knowledge and be rewarded for it with"
       " some crypto coins. If you're up for a challenge, download the Quiz app and see at "
-      "https://www.esprit.tn "
+      "https.//esjourney.page.link/iGuj "
       " if you can beat my score! #quiz #knowledgeispower #crypto";
-  String url = 'https.www.esprit.tn';
+  String url = 'https.//esjourney.page.link/iGuj';
 
   String? response;
-//   final FlutterShareMe flutterShareMe = FlutterShareMe();
-// response = await flutterShareMe.shareToFacebook(msg: msg, url: url);
-//   //response = await flutterShareMe.shareToSystem(msg: msg);
-//   debugPrint(response);
- await SocialSharePlugin.shareToFeedFacebookLink(quote: 'quote', url: 'https://flutter.dev');
+  final FlutterShareMe flutterShareMe = FlutterShareMe();
+  response = await flutterShareMe.shareToSystem(msg: msg);
 }
 
 class QuizResultOption extends StatelessWidget {

@@ -99,8 +99,8 @@ dependencies:
   audioplayers: ^3.0.1
   share_plus: ^4.1.0
   flutter_share_me: ^1.4.0
-  social_share_plugin: ^0.4.1+2
-  flutter_social_content_share: ^1.0.2
+
+
 
  #Youssef
   http: ^0.13.5
