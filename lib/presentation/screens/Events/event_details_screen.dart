@@ -104,12 +104,12 @@ class _EventDetailsState extends State<EventDetails> {
 
 
   void _joinMeeting() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => MeetingPage(event: event),
-      ),
-    );
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (_) => MeetingPage(event: event),
+    //   ),
+    // );
   }
 
   Future<void> _registerOrUnregister() async {

@@ -273,6 +273,46 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.2"
+  camera:
+    dependency: "direct main"
+    description:
+      name: camera
+      sha256: "7afc256902062cab191540c09908b98bc71e93d5e20b6486dbee51aa7731e9b2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.10.4"
+  camera_android:
+    dependency: transitive
+    description:
+      name: camera_android
+      sha256: "772c111c78f31f868b98dbf6dbeda8d6ff77acea773a92ea5705ee2f7949ebfb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.10.5"
+  camera_avfoundation:
+    dependency: transitive
+    description:
+      name: camera_avfoundation
+      sha256: "7ac8b950672716722af235eed7a7c37896853669800b7da706bb0a9fd41d3737"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.9.13+1"
+  camera_platform_interface:
+    dependency: transitive
+    description:
+      name: camera_platform_interface
+      sha256: "525017018d116c5db8c4c43ec2d9b1663216b369c9f75149158280168a7ce472"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.5.0"
+  camera_web:
+    dependency: transitive
+    description:
+      name: camera_web
+      sha256: d77965f32479ee6d8f48205dcf10f845d7210595c6c00faa51eab265d1cae993
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.1+3"
   carousel_slider:
     dependency: "direct main"
     description:
@@ -473,6 +513,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.0"
+  dart_webrtc:
+    dependency: transitive
+    description:
+      name: dart_webrtc
+      sha256: a34e59ac1559cac954e48c9fe156164992163d2f4b7e75d5b0e927ee2f1e4922
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.16"
   dbus:
     dependency: transitive
     description:
@@ -529,6 +577,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.5"
+  eventify:
+    dependency: transitive
+    description:
+      name: eventify
+      sha256: b829429f08586cc2001c628e7499e3e3c2493a1d895fd73b00ecb23351aa5a66
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   fake_async:
     dependency: transitive
     description:
@@ -795,6 +851,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  flutter_tts:
+    dependency: "direct main"
+    description:
+      name: flutter_tts
+      sha256: e91ad17793ad12cca9c3066accf99ceb353bf0355ad06b767176f178b5c428f6
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.6.3"
   flutter_vibrate:
     dependency: transitive
     description:
@@ -808,6 +872,22 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_webrtc:
+    dependency: transitive
+    description:
+      name: flutter_webrtc
+      sha256: f8904369f3ad57945a797481bf079c281f4944ad4635e9d412529141d81c9c76
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.9.25"
+  flutter_webrtc_wrapper:
+    dependency: "direct main"
+    description:
+      name: flutter_webrtc_wrapper
+      sha256: "00e5f71bf8bf901af664e66a691d7c9ac996bd20d3be6b3dff01ecc2bba75444"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   flutter_zoom_drawer:
     dependency: "direct main"
     description:
@@ -1384,6 +1464,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.0"
+  platform_detect:
+    dependency: transitive
+    description:
+      name: platform_detect
+      sha256: "14afcb6ffcd93745e39a288db53d1d6522ea25d71f7993c13a367a86c437b54d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.7"
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -1693,6 +1781,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  snippet_coder_utils:
+    dependency: "direct main"
+    description:
+      name: snippet_coder_utils
+      sha256: fb60b8a6b4cab3dddc17ce903cc073d2f5d42ebed676146dde0faba040dc4158
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.13"
   socket_io_client:
     dependency: "direct main"
     description:
@@ -2085,6 +2181,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.0"
+  webrtc_interface:
+    dependency: transitive
+    description:
+      name: webrtc_interface
+      sha256: "5fdd616bc2937194402298f3024e81c74f68f44f6d73de31aaea69ee7d156b12"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.12"
   webview_flutter:
     dependency: "direct main"
     description:
