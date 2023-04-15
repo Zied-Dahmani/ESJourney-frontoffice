@@ -22,8 +22,11 @@ Club _$ClubFromJson(Map<String, dynamic> json) {
 mixin _$Club {
   dynamic get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get image => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
+  List<dynamic> get images => throw _privateConstructorUsedError;
+  String get shortDescription => throw _privateConstructorUsedError;
+  String get fullDescription => throw _privateConstructorUsedError;
+  List<dynamic> get likes => throw _privateConstructorUsedError;
+  DateTime get deadline => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +38,14 @@ abstract class $ClubCopyWith<$Res> {
   factory $ClubCopyWith(Club value, $Res Function(Club) then) =
       _$ClubCopyWithImpl<$Res, Club>;
   @useResult
-  $Res call({dynamic id, String name, String image, String description});
+  $Res call(
+      {dynamic id,
+      String name,
+      List<dynamic> images,
+      String shortDescription,
+      String fullDescription,
+      List<dynamic> likes,
+      DateTime deadline});
 }
 
 /// @nodoc
@@ -53,8 +63,11 @@ class _$ClubCopyWithImpl<$Res, $Val extends Club>
   $Res call({
     Object? id = freezed,
     Object? name = null,
-    Object? image = null,
-    Object? description = null,
+    Object? images = null,
+    Object? shortDescription = null,
+    Object? fullDescription = null,
+    Object? likes = null,
+    Object? deadline = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -65,14 +78,26 @@ class _$ClubCopyWithImpl<$Res, $Val extends Club>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
+      images: null == images
+          ? _value.images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      shortDescription: null == shortDescription
+          ? _value.shortDescription
+          : shortDescription // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      fullDescription: null == fullDescription
+          ? _value.fullDescription
+          : fullDescription // ignore: cast_nullable_to_non_nullable
               as String,
+      likes: null == likes
+          ? _value.likes
+          : likes // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      deadline: null == deadline
+          ? _value.deadline
+          : deadline // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 }
@@ -83,7 +108,14 @@ abstract class _$$_ClubCopyWith<$Res> implements $ClubCopyWith<$Res> {
       __$$_ClubCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({dynamic id, String name, String image, String description});
+  $Res call(
+      {dynamic id,
+      String name,
+      List<dynamic> images,
+      String shortDescription,
+      String fullDescription,
+      List<dynamic> likes,
+      DateTime deadline});
 }
 
 /// @nodoc
@@ -97,8 +129,11 @@ class __$$_ClubCopyWithImpl<$Res> extends _$ClubCopyWithImpl<$Res, _$_Club>
   $Res call({
     Object? id = freezed,
     Object? name = null,
-    Object? image = null,
-    Object? description = null,
+    Object? images = null,
+    Object? shortDescription = null,
+    Object? fullDescription = null,
+    Object? likes = null,
+    Object? deadline = null,
   }) {
     return _then(_$_Club(
       id: freezed == id
@@ -109,14 +144,26 @@ class __$$_ClubCopyWithImpl<$Res> extends _$ClubCopyWithImpl<$Res, _$_Club>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
+      images: null == images
+          ? _value._images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      shortDescription: null == shortDescription
+          ? _value.shortDescription
+          : shortDescription // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      fullDescription: null == fullDescription
+          ? _value.fullDescription
+          : fullDescription // ignore: cast_nullable_to_non_nullable
               as String,
+      likes: null == likes
+          ? _value._likes
+          : likes // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      deadline: null == deadline
+          ? _value.deadline
+          : deadline // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -127,9 +174,14 @@ class _$_Club extends _Club {
   const _$_Club(
       {required this.id,
       required this.name,
-      required this.image,
-      required this.description})
-      : super._();
+      required final List<dynamic> images,
+      required this.shortDescription,
+      required this.fullDescription,
+      required final List<dynamic> likes,
+      required this.deadline})
+      : _images = images,
+        _likes = likes,
+        super._();
 
   factory _$_Club.fromJson(Map<String, dynamic> json) => _$$_ClubFromJson(json);
 
@@ -137,14 +189,32 @@ class _$_Club extends _Club {
   final dynamic id;
   @override
   final String name;
+  final List<dynamic> _images;
   @override
-  final String image;
+  List<dynamic> get images {
+    if (_images is EqualUnmodifiableListView) return _images;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_images);
+  }
+
   @override
-  final String description;
+  final String shortDescription;
+  @override
+  final String fullDescription;
+  final List<dynamic> _likes;
+  @override
+  List<dynamic> get likes {
+    if (_likes is EqualUnmodifiableListView) return _likes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_likes);
+  }
+
+  @override
+  final DateTime deadline;
 
   @override
   String toString() {
-    return 'Club(id: $id, name: $name, image: $image, description: $description)';
+    return 'Club(id: $id, name: $name, images: $images, shortDescription: $shortDescription, fullDescription: $fullDescription, likes: $likes, deadline: $deadline)';
   }
 
   @override
@@ -154,15 +224,27 @@ class _$_Club extends _Club {
             other is _$_Club &&
             const DeepCollectionEquality().equals(other.id, id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.image, image) || other.image == image) &&
-            (identical(other.description, description) ||
-                other.description == description));
+            const DeepCollectionEquality().equals(other._images, _images) &&
+            (identical(other.shortDescription, shortDescription) ||
+                other.shortDescription == shortDescription) &&
+            (identical(other.fullDescription, fullDescription) ||
+                other.fullDescription == fullDescription) &&
+            const DeepCollectionEquality().equals(other._likes, _likes) &&
+            (identical(other.deadline, deadline) ||
+                other.deadline == deadline));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(id), name, image, description);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      name,
+      const DeepCollectionEquality().hash(_images),
+      shortDescription,
+      fullDescription,
+      const DeepCollectionEquality().hash(_likes),
+      deadline);
 
   @JsonKey(ignore: true)
   @override
@@ -182,8 +264,11 @@ abstract class _Club extends Club {
   const factory _Club(
       {required final dynamic id,
       required final String name,
-      required final String image,
-      required final String description}) = _$_Club;
+      required final List<dynamic> images,
+      required final String shortDescription,
+      required final String fullDescription,
+      required final List<dynamic> likes,
+      required final DateTime deadline}) = _$_Club;
   const _Club._() : super._();
 
   factory _Club.fromJson(Map<String, dynamic> json) = _$_Club.fromJson;
@@ -193,9 +278,15 @@ abstract class _Club extends Club {
   @override
   String get name;
   @override
-  String get image;
+  List<dynamic> get images;
   @override
-  String get description;
+  String get shortDescription;
+  @override
+  String get fullDescription;
+  @override
+  List<dynamic> get likes;
+  @override
+  DateTime get deadline;
   @override
   @JsonKey(ignore: true)
   _$$_ClubCopyWith<_$_Club> get copyWith => throw _privateConstructorUsedError;

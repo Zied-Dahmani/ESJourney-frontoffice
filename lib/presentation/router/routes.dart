@@ -1,14 +1,43 @@
 class AppRoutes {
   static const signInScreen = '/';
-  static const zoomDrawerScreen = 'zoom_drawer_screen';
+  static const signUpScreen = '/signUpScreen';
 
-    // Zied
+  //static const zoomDrawerScreen = 'zoom_drawer_screen';
+  static const zoomDrawerScreen = 'x';
 
-    // Louay
+  // Zied
+  static const clubScreen = 'club_screen';
+  static const applyToClubScreen = 'apply_to_club_screen';
+  static const doneScreen = 'done_screen';
+  static const clubEventTimelineScreen = 'club_event_timeline_screen';
+  static const clubEventTicketsScreen = 'club_event_tickets_screen';
 
-    // Souhail
+  // Louay
+  static const courses = '/courses';
+  static const courseDetails = '/courseDetails';
+  static const jackpotGame = '/jackpot';
+  static const wordlyGame = '/wordly';
+  static const memoryGame = '/memory';
+  static const hangmanGame = '/hangman';
+  static const messages = '/messages';
+  static const conversation = '/conversation';
+  static const avatar = '/avatar';
+  static const slideGame = '/slide';
+  static const listDrawRoom = "/listDrawRoom";
+  static const drawingRoom = "/drawingRoom";
+  static const gradeChatRoom = "/gradeChatRoom";
+  static const mapLevels = "/mapLevels";
 
-    // Seif
+// Souhail
+  static const quizScreen = '/quiz';
+  static const quizResult = '/quizResult';
+  static const leaderboardScreen = '/leaderboard';
+  static const ethQrCodeScreen = '/ethQrCode';
+  static const profileScreen = '/profile';
+  static const editProfileScreen = '/editProfile';
+// Seif
+  static const eventDetails = '/eventDetails';
+  static const eventList = '/eventList';
 
-    // Youssef
+// Youssef
 }

@@ -24,7 +24,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
         children: [
           DrawerItem(FontAwesomeIcons.house, AppStrings.khome, 0),
           DrawerItem(FontAwesomeIcons.calendarDays, AppStrings.kevents, 1),
-          DrawerItem(FontAwesomeIcons.gear, AppStrings.ksettings, 2)
+          DrawerItem(FontAwesomeIcons.gear, AppStrings.ksettings, 2),
+          DrawerItem(FontAwesomeIcons.calendarDays, AppStrings.kclubEvents, 2),
+          DrawerItem(FontAwesomeIcons.video, AppStrings.kapplications, 3),
+          DrawerItem(FontAwesomeIcons.gear, AppStrings.ksettings, 4)
         ],
       ),
     );

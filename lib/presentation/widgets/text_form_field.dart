@@ -38,7 +38,7 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
           }
           return null;
         },
-        cursorColor: theme.colorScheme.onBackground,
+        cursorColor: theme.colorScheme.secondary,
         keyboardType: widget.inputType,
         style: TextStyle(
           color: theme.colorScheme.secondary,

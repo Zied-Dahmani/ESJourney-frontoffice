@@ -1,3 +1,4 @@
+import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
@@ -9,21 +10,27 @@ import 'package:esjourney/utils/strings.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
+
+import '../widgets/snackbar.dart';
+
 
 class SignInScreen extends StatelessWidget {
-  SignInScreen({Key? key}) : super(key: key);
+  SignInScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
   final _idController = TextEditingController();
   final _passwordController = TextEditingController();
   BuildContext? dialogContext;
 
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: BlocListener<UserCubit, UserState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is UserLoadInProgress) {
             showDialog(
                 context: context,
@@ -32,11 +39,12 @@ class SignInScreen extends StatelessWidget {
                   return const Center(child: CircularProgressIndicator());
                 });
           } else if (state is UserLogInSuccess) {
-            Navigator.pop(dialogContext!);
+            //Navigator.pop(dialogContext!);
+            Provider.of<SocketService>(context, listen: false).connect(state.user.token!);
             Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
           } else if (state is UserIsFailure) {
             Navigator.pop(dialogContext!);
-            showScaffold(context, state.error);
+            showSnackBar(context, state.error);
           }
         },
         child: GestureDetector(
@@ -54,8 +62,8 @@ class SignInScreen extends StatelessWidget {
                   const SizedBox(height: AppSizes.khugeSpace),
                   Image.asset(
                     'assets/images/app_logo.png',
-                    height: AppSizes.kimageSize,
-                    width: AppSizes.kimageSize,
+                    height: AppSizes.khugeImageSize,
+                    width: AppSizes.khugeImageSize,
                   ),
                   Text(
                     AppStrings.ksignInPrompt,
@@ -63,6 +71,7 @@ class SignInScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: AppSizes.khugeSpace),
                   TextFormFieldWidget(
+
                       _idController, AppStrings.kusername, TextInputType.name),
                   const SizedBox(height: AppSizes.kbigSpace),
                   TextFormFieldWidget(_passwordController, AppStrings.kpassword,
@@ -89,13 +98,38 @@ class SignInScreen extends StatelessWidget {
                                       _idController.text,
                                       _passwordController.text);
                                 } else {
-                                  showScaffold(
+                                  showSnackBar(
                                       context, kcheckInternetConnection);
                                 }
                               }
                             }),
                       );
                     },
+                  ),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            AppStrings.kdontHaveAccount,
+                            style: theme.textTheme.bodyMedium,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context)
+                                  .pushNamed(AppRoutes.signUpScreen);
+                            },
+                            child: Text(
+                              AppStrings.ksignUp,
+                              style: theme.textTheme.bodyMedium!
+                                  .copyWith(color: theme.colorScheme.primary),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -106,10 +140,6 @@ class SignInScreen extends StatelessWidget {
     );
   }
 
-  void showScaffold(BuildContext context, String text) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(text),
-      duration: const Duration(milliseconds: 2000),
-    ));
-  }
+
+
 }
