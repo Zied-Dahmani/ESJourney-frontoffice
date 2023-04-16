@@ -168,6 +168,10 @@ class _QuizResultScreenState extends State<QuizResultScreen> {
                   icon: Icons.home_outlined,
                   text: "Home",
                   width: width,
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushNamed(AppRoutes.zoomDrawerScreen);
+                  },
                 ),
                 if (!isCompleted)
                   QuizResultOption(

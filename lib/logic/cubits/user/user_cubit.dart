@@ -205,5 +205,11 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
       emit(UserIsFailure(kcheckInternetConnection));
     }
   }
+
+  void signOut() {
+    HydratedBloc.storage.clear();
+    emit(UserLogOutSuccess());
+}
+
 }
 

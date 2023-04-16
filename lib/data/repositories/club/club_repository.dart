@@ -25,8 +25,8 @@ class ClubRepository implements IClubRepository {
   }
 
   @override
-  Future<dynamic> getAllApplications() async {
-    final result = await _clubDataProvider.getAllApplications();
+  Future<dynamic> getAllApplications(String token) async {
+    final result = await _clubDataProvider.getAllApplications(token);
     return result.statusCode == 200
         ? result.data
             .map((application) => Application.fromJson(application))

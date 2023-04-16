@@ -15,6 +15,7 @@ import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/logic/cubits/user/username_available/username_available_cubit.dart';
 import 'package:esjourney/presentation/router/app_router.dart';
+import 'package:esjourney/presentation/screens/challenges/ide/ide_screen.dart';
 import 'package:esjourney/presentation/screens/club/club_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/draw/core/bloc/user_cubit/drawer_cubit.dart';
@@ -187,7 +188,7 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
           BlocProvider<ApplicationCubit>(
               create: (context) => ApplicationCubit(
                   BlocProvider.of<ConnectivityCubit>(context),
-                  context.read<ClubRepository>()),
+                  context.read<ClubRepository>(),BlocProvider.of<UserCubit>(context)),
               lazy: true),
 
           // souhail blocs
@@ -216,19 +217,15 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
               buildWhen: (oldState, newState) => oldState is UserInitial && newState is! UserLoadInProgress,
               builder: (context, state) {
                 if (state is UserLogInSuccess) {
-                  print("aaaa");
-                  return const ZoomDrawerScreen();
                   return Builder(builder: (context) {
                     final clubState = context.watch<ClubCubit>().state;
                     if (clubState is ClubLoadSuccess && BlocProvider.of<ClubCubit>(context).getClub() != null) {
                       return ClubScreen(club: BlocProvider.of<ClubCubit>(context).getClub());
                     } else {
-                      print("tes");
-
+                      return const ZoomDrawerScreen();
                     }
                   });
                 } else {
-                  print("bbbb");
                   return SignInScreen();
                 }
               },
@@ -236,11 +233,11 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
       ),
     );
   }
-  Widget _getInitialWidget(UserState state) {
-    if (state is UserLogInSuccess) {
-      return ZoomDrawerScreen();
-    } else {
-      return SignInScreen();
-    }
-  }
+  // Widget _getInitialWidget(UserState state) {
+  //   if (state is UserLogInSuccess) {
+  //     return ZoomDrawerScreen();
+  //   } else {
+  //     return SignInScreen();
+  //   }
+  // }
 }

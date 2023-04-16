@@ -3,14 +3,15 @@ import 'dart:developer' as developer;
 import 'package:esjourney/data/models/club/application/application_model.dart';
 import 'package:esjourney/logic/cubits/application/application_state.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
+import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/utils/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ApplicationCubit extends Cubit<ApplicationState> {
-  ApplicationCubit(this._connectivityCubit, this._clubRepository)
+  ApplicationCubit(this._connectivityCubit, this._clubRepository, this._userCubit)
       : super(ApplicationLoadInProgress());
 
-  final _connectivityCubit, _clubRepository;
+  final _connectivityCubit, _clubRepository, _userCubit;
   StreamSubscription? _connectivityStreamSubscription;
   List<Application> _allApplicationsList = [];
   bool _isFirstTime = true;
@@ -45,8 +46,8 @@ class ApplicationCubit extends Cubit<ApplicationState> {
   }
 
   void init() {
-    if (_connectivityCubit.state is ConnectivityConnectSuccess) {
-      getAllApplications();
+    if (_connectivityCubit.state is ConnectivityConnectSuccess && _userCubit.state is UserLogInSuccess ) {
+      getAllApplications(_userCubit.state.user.token);
     } else {
       emit(ApplicationLoadFailure(kcheckInternetConnection));
     }
@@ -60,8 +61,8 @@ class ApplicationCubit extends Cubit<ApplicationState> {
     return _connectivityStreamSubscription =
         _connectivityCubit.stream.listen((connectivityState) {
       if (connectivityState is ConnectivityConnectSuccess &&
-          state is! ApplicationLoadSuccess) {
-        getAllApplications();
+          state is! ApplicationLoadSuccess && _userCubit.state is UserLogInSuccess) {
+        getAllApplications(_userCubit.state.user.token);
       } else if (connectivityState is ConnectivityDisconnectSuccess &&
           state is ApplicationLoadInProgress) {
         emit(ApplicationLoadFailure(kcheckInternetConnection));
@@ -69,9 +70,9 @@ class ApplicationCubit extends Cubit<ApplicationState> {
     });
   }
 
-  Future<void> getAllApplications() async {
+  Future<void> getAllApplications(String token) async {
     try {
-      final result = await _clubRepository.getAllApplications();
+      final result = await _clubRepository.getAllApplications(token);
       if (result != null) {
         _allApplicationsList = result.cast<Application>();
         emit(ApplicationLoadSuccess(_allApplicationsList));

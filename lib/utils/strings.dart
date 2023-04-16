@@ -3,7 +3,7 @@ class AppStrings {
   static const kerror = 'Error';
   static const klogin = 'Login';
   static const ksubLogin = 'Enter your university identify';
-
+  static const kProfile = 'Profile';
   static const kid = 'Id';
   static const kusername = 'Username';
   static const kemail = 'Email';
@@ -18,14 +18,12 @@ class AppStrings {
   static const ksignUp = 'Sign Up';
   static const kalreadyHaveAnAccount = 'Already have an account? ';
 
-
   static const khome = 'Home';
   static const kevents = 'Events';
   static const kclubEvents = 'Club Events';
   static const kapplications = 'Applications';
   static const ksettings = 'Settings';
   static const kmyEvents = 'My Events';
-
 
   // Zied
   static const knoClubs = 'No clubs';
@@ -44,7 +42,8 @@ class AppStrings {
   static const kspeciality = 'Speciality';
   static const kWhyWouldYouLikeToJoinUs = 'Why would you like to join us?';
   static const klinkedInProfileLink = 'LinkedIn profile link';
-  static const kdoYouHaveXP = 'Have you had any experience or responsibility in another club or association?';
+  static const kdoYouHaveXP =
+      'Have you had any experience or responsibility in another club or association?';
   static const kcompleteTheForm = 'Complete the form!';
   static const ktypeValidPhoneNumber = 'Type a valid phone number!';
   static const ktypeValidLink = 'Type a valid link!';
@@ -68,8 +67,10 @@ class AppStrings {
   static const knotEnoughMoney = 'Not enough money!';
 
   static const knoApplications = 'No applications';
-  static const kinterviewHasPassed = 'The date/time of the interview has passed!';
-  static const kearlyToJoinInterview = "It's still early to join the interview!";
+  static const kinterviewHasPassed =
+      'The date/time of the interview has passed!';
+  static const kearlyToJoinInterview =
+      "It's still early to join the interview!";
 
   static const kok = 'Ok';
   static const kpayment = 'Payment';
@@ -81,13 +82,13 @@ class AppStrings {
 
   // Souhail
   static const kleaderboard = 'Leaderboard';
+
   // Seif
 
   // Youssef
 
-
 // user
-static const kIncorrectPassword = 'Incorrect password';
-static const KusernameAlreadyExist = 'Username already exists please try another one';
-
+  static const kIncorrectPassword = 'Incorrect password';
+  static const KusernameAlreadyExist =
+      'Username already exists please try another one';
 }
