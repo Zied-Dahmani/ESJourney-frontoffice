@@ -18,7 +18,7 @@ import 'package:esjourney/presentation/router/app_router.dart';
 import 'package:esjourney/presentation/screens/club/club_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/draw/core/bloc/user_cubit/drawer_cubit.dart';
-import 'package:esjourney/presentation/screens/challenges/quiz/quiz.dart';
+import 'package:esjourney/presentation/screens/challenges/quiz/quiz_screen.dart';
 import 'package:esjourney/presentation/screens/challenges/quiz/quiz_result.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/draw/core/bloc/user_cubit/drawer_cubit.dart';
@@ -216,15 +216,19 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
               buildWhen: (oldState, newState) => oldState is UserInitial && newState is! UserLoadInProgress,
               builder: (context, state) {
                 if (state is UserLogInSuccess) {
+                  print("aaaa");
+                  return const ZoomDrawerScreen();
                   return Builder(builder: (context) {
                     final clubState = context.watch<ClubCubit>().state;
                     if (clubState is ClubLoadSuccess && BlocProvider.of<ClubCubit>(context).getClub() != null) {
                       return ClubScreen(club: BlocProvider.of<ClubCubit>(context).getClub());
                     } else {
-                      return const ZoomDrawerScreen();
+                      print("tes");
+
                     }
                   });
                 } else {
+                  print("bbbb");
                   return SignInScreen();
                 }
               },

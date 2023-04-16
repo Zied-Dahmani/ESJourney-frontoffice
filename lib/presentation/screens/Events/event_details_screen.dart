@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import '../../../logic/cubits/events/event_cubit.dart';
 import '../../../logic/cubits/user/user_cubit.dart';
 import '../../../logic/cubits/user/user_state.dart';
+import '../../../utils/constants.dart';
 import 'meeting/meeting_screen.dart';
 
 class EventDetails extends StatefulWidget {
@@ -104,12 +105,12 @@ class _EventDetailsState extends State<EventDetails> {
 
 
   void _joinMeeting() {
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (_) => MeetingPage(event: event),
-    //   ),
-    // );
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => MeetingPage(event: event),
+      ),
+    );
   }
 
   Future<void> _registerOrUnregister() async {
@@ -243,7 +244,7 @@ class _EventDetailsState extends State<EventDetails> {
           child: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(event.eventImage!),
+                image: Image.network(imageUrl + event.eventImage ).image,
                 fit: BoxFit.cover,
               ),
             ),

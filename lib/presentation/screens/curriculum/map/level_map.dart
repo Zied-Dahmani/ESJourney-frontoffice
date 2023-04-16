@@ -47,7 +47,7 @@ class _MapLevelScreenState extends State<MapLevelScreen> {
                     ),
                     PointModel(70, GameQuizItem(onTap: () {
 
-                      BlocProvider.of<QuizCubit>(context).getQuiz(course.title);
+                      BlocProvider.of<QuizCubit>(context).getQuiz(course.title.toString().toLowerCase());
                       Navigator.of(context).pushNamed(
                         AppRoutes.quizScreen,
                         arguments: false,

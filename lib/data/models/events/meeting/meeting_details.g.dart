@@ -8,7 +8,7 @@ part of 'meeting_details.dart';
 
 _$_MeetingDetail _$$_MeetingDetailFromJson(Map<String, dynamic> json) =>
     _$_MeetingDetail(
-      id: json['_id'] as String?,
+      id: json['id'] as String?,
       hostId: json['hostId'] as String?,
       hostName: json['hostName'] as String?,
     );
