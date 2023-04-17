@@ -222,6 +222,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 Navigator.pushNamed(context, AppRoutes.signInScreen);
                               },
                             ),
+                            UserInfo(
+                              infoTitle: "Generate QrCode",
+                              infoValue: "" ,
+                              onPressed: () {
+
+                                Navigator.pushNamed(context, AppRoutes.ethQrCodeScreen);
+                              },
+                            ),
                           ],
                         )),
                   ),

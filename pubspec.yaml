@@ -109,6 +109,7 @@ dependencies:
   qr_flutter: ^4.0.0
   qr_code_scanner: ^1.0.1
 
+
   share_plus: ^4.1.0
   flutter_share_me: ^1.4.0
  #Youssef
@@ -120,11 +121,13 @@ dependencies:
   snippet_coder_utils: ^1.0.12
   flutter_webrtc_wrapper: ^1.0.2
   flutter_tts: ^3.6.3
+#youssef
 
   camera: ^0.10.0+1
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+
 
 
 dev_dependencies:

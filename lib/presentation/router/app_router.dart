@@ -1,5 +1,6 @@
 import 'package:esjourney/data/models/events/event_model.dart';
 import 'package:esjourney/data/models/user_model.dart';
+import 'package:esjourney/presentation/screens/Internship/postToLinkedinScreen.dart';
 import 'package:esjourney/presentation/screens/application/club_interview_screen.dart';
 import 'package:esjourney/presentation/screens/club/apply_to_club_screen.dart';
 import 'package:esjourney/presentation/screens/club/club_screen.dart';
@@ -28,6 +29,7 @@ import 'package:flutter/material.dart';
 
 import '../screens/Events/event_details_screen.dart';
 import '../screens/Internship/profileScreen.dart';
+import '../screens/challenges/ethQrCode/eth_qr_code_screen.dart';
 import '../screens/challenges/leaderboard/leaderboard_screen.dart';
 import '../screens/challenges/quiz/quiz_screen.dart';
 import '../screens/challenges/quiz/quiz_result.dart';
@@ -180,7 +182,7 @@ class AppRouter {
 
 // souhail
       case AppRoutes.quizScreen:
-       return MaterialPageRoute(
+        return MaterialPageRoute(
           builder: (_) => QuizScreen(
             //  language: args as String,
             restart: args as bool,
@@ -207,16 +209,22 @@ class AppRouter {
         );
       case AppRoutes.updatePasswordScreen:
         return MaterialPageRoute(
-          builder: (_) =>  const UpdatePasswordBaseScreen(
-
-          ),
+          builder: (_) => const UpdatePasswordBaseScreen(),
         );
       case AppRoutes.updateUsername:
         return MaterialPageRoute(
-          builder: (_) =>  const UpdateUsernameScreen(
-
-          ),
+          builder: (_) => const UpdateUsernameScreen(),
         );
+
+      case AppRoutes.postToLinkedinScreen:
+        return MaterialPageRoute(
+          builder: (_) => const PostToLinkedinScreen(),
+        );
+      case AppRoutes.ethQrCodeScreen:
+        return MaterialPageRoute(
+          builder: (_) => const EthQrCodeScreen(),
+        );
+
       default:
         return null;
     }

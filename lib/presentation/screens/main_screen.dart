@@ -10,6 +10,8 @@ import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'Internship/InternshipHomePage.dart';
+
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
@@ -106,7 +108,7 @@ class _MainScreenState extends State<MainScreen> {
           Container(
             color: theme.colorScheme.background,
           ),
-          Container(),
+          InternshipHomePage(),
           const EventListScreen(),
           const ClubsScreen()
         ],

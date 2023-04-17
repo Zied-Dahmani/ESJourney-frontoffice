@@ -171,14 +171,14 @@ class TicketSection extends StatelessWidget {
                                                   ),
                                                 );
                                               } else {
-                                                final result = BlocProvider.of<
-                                                        UserCubit>(context)
-                                                    .bookEventWithETH(
-                                                        clubEvent.walletAddress,
-                                                        clubEvent.privateKey,
-                                                        ticket.price + 0.0,
-                                                        state.user.token!);
-                                                if (await result) {
+                                                // final result = BlocProvider.of<
+                                                //         UserCubit>(context)
+                                                //     .bookEventWithETH(
+                                                //         clubEvent.walletAddress,
+                                                //         clubEvent.privateKey,
+                                                //         ticket.price + 0.0,
+                                                //         state.user.token!);
+                                                //if (await result) {
                                                   final result2 = BlocProvider
                                                           .of<ClubEventCubit>(
                                                               context)
@@ -197,8 +197,8 @@ class TicketSection extends StatelessWidget {
                                                             .doneScreen);
                                                   }
                                                 }
-                                              }
-                                            },
+                                              },
+                                           // },
                                             child: Text(AppStrings.kyes,
                                                 style: theme
                                                     .textTheme.bodySmall!

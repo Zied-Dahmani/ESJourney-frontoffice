@@ -2,6 +2,7 @@ import 'package:esjourney/data/models/user_model.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/router/routes.dart';
+import 'package:esjourney/utils/constants.dart';
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -134,7 +135,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   top: 0.0,
                                   bottom: 10.0),
                               child: const Text(
-                                "aa", //"Achievements (${state.user.achievements!.length})",
+                                "1",
+                                //"Achievements (${state.user.achievements!.length})",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 17,
@@ -147,15 +149,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               margin: const EdgeInsets.only(left: 10.0),
                               child: Row(
                                 children: [
-                                  if (state.user.achievement != null)
-                                    SvgPicture.network(
-                                      height: width * 0.15,
-                                      "aa",
-                                      //  state.user.achievement!.image!,
-                                      placeholderBuilder:
-                                          (BuildContext context) =>
-                                              const CircularProgressIndicator(),
-                                    ),
+                                  SvgPicture.network(
+                                    height: width * 0.15,
+                                    "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
+                                    placeholderBuilder:
+                                        (BuildContext context) =>
+                                            const CircularProgressIndicator(),
+                                  ),
                                 ],
                               ),
                             ),
@@ -172,23 +172,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             width: width * 0.25,
                             child: Stack(
                               children: [
-                                const CircleAvatar(
-                                  backgroundImage: AssetImage(
-                                      'assets/images/challenges/avatar.png'),
+                                CircleAvatar(
+                                  backgroundImage:
+                                      NetworkImage("https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png"),
                                   radius: 50,
                                   backgroundColor: Colors.white,
                                 ),
-                                if (state.user.achievement != null)
-                                  Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: SvgPicture.network(
-                                      height: width * 0.05,
-                                      state.user.achievement!.image!,
-                                      placeholderBuilder:
-                                          (BuildContext context) =>
-                                              const CircularProgressIndicator(),
-                                    ),
+                                Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: SvgPicture.network(
+                                    height: width * 0.05,
+                                    "${kbaseUrl}img/1681727801155.svg",
+                                    placeholderBuilder:
+                                        (BuildContext context) =>
+                                            const CircularProgressIndicator(),
                                   ),
+                                ),
                               ],
                             ),
                           ),

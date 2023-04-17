@@ -40,7 +40,7 @@ class AppRoutes {
   static const eventList = '/eventList';
 
 // Youssef
-
+  static const postToLinkedinScreen = '/postToLinkedin';
 
 // user
 
