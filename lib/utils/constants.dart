@@ -1,9 +1,15 @@
+<<<<<<< Updated upstream
 var kbaseUrl = 'http://172.16.8.149:9090/';
 
 
 
 
 
+=======
+var kbaseUrl = 'http://192.168.0.3:9090/';
+var kmeetingUrl = 'http://192.168.0.9:9091';
+var imageUrl = kbaseUrl + '/images/';
+>>>>>>> Stashed changes
 const kcheckInternetConnection = 'Check your internet connection!';
 const kidPasswordIncorrect = 'Id or password Incorrect!';
 

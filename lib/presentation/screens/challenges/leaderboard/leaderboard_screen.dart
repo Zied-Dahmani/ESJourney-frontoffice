@@ -18,6 +18,7 @@ class LeaderboardScreen extends StatefulWidget {
   State<LeaderboardScreen> createState() => _LeaderboardScreenState();
 }
 
+<<<<<<< Updated upstream
 final List<String> _listItems = [
   'Item 1',
   'Item 2',
@@ -29,8 +30,10 @@ final List<String> _listItems = [
 List<LeaderboardRes> monthlyTop10 = [];
 List<LeaderboardRes> weeklyTop10 = [];
 List<LeaderboardRes> allTimeTop10 = [];
+=======
+>>>>>>> Stashed changes
 
-final List<LeaderboardRes> _usersList = [];
+
 
 class _LeaderboardScreenState extends State<LeaderboardScreen> {
   @override

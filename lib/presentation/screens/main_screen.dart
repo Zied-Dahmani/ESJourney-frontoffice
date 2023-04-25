@@ -10,6 +10,12 @@ import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+<<<<<<< Updated upstream
+=======
+import 'Internship/InternshipHomePage.dart';
+import 'home/home_screen.dart';
+
+>>>>>>> Stashed changes
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
@@ -102,10 +108,15 @@ class _MainScreenState extends State<MainScreen> {
               text: ''),
         ],
         bodyItems: [
+<<<<<<< Updated upstream
           Container(
             color: theme.colorScheme.background,
           ),
           Container(),
+=======
+          HomeScreen(),
+          InternshipHomePage(),
+>>>>>>> Stashed changes
           const EventListScreen(),
           const ClubsScreen()
         ],
