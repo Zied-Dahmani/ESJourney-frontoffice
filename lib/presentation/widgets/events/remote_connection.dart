@@ -70,11 +70,11 @@ class _RemoteConnectionState extends State<RemoteConnection> {
                   color: Colors.white,
                   size: 15,
                 ),
-                Icon(
+                /*Icon(
                   widget.connection.handEnabled! ? Icons.back_hand : Icons.back_hand_outlined,
                   color: Colors.white,
                   size: 15,
-                ),
+                ),*/
               ],
             ),
           ),

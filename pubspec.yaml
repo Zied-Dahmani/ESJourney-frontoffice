@@ -170,7 +170,8 @@ flutter:
     - assets/images/google_maps.png
     - assets/sound/scan_complete.mp3
     - assets/
-    - assets/html/
+    - assets/html/curriculum/iframe.html
+    - assets/html/curriculum/viewer.html
     - assets/images/
     - assets/icons/
     - assets/sound/
