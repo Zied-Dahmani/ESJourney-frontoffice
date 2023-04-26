@@ -131,20 +131,21 @@ class _MeetingPageState extends State<MeetingPage> {
       },
     );
     meetingHelper!.on('poll-result', null, (ev, context) {
-      final pollResult = ev.eventData as PollData;
+      final pollResult = ev.eventData;
       setState(() {
-        _pollQuestion = pollResult.question;
+        /*_pollQuestion = pollResult.question;
         _pollOptions = pollResult.options;
-        _pollVotes = pollResult.votes;
+        _pollVotes = pollResult.votes;*/
       });
       print('Poll Result: $_pollVotes');
     });
     meetingHelper!.on('poll-data', null, (ev, context) {
-      final pollData = ev.eventData as PollData;
+      //final pollData = ev.eventData as PollData;
+      final pollData = ev.eventData;
       setState(() {
-        _pollQuestion = pollData.question;
+        /*_pollQuestion = pollData.question;
         _pollOptions = pollData.options;
-        _pollVotes = pollData.votes; // Set the votes map
+        _pollVotes = pollData.votes; */ //Set the votes map
         _isPollDisplayed = true;
         _remainingTime = 30; // Set the remaining time to 30 seconds
         _startTimer(); // Start the timer
@@ -203,7 +204,7 @@ class _MeetingPageState extends State<MeetingPage> {
               onSubmit: (String question, List<String> options) {
                 print('Question: $question');
                 print('Options: $options');
-                meetingHelper!.sendPollData(question, options);
+                //meetingHelper!.sendPollData(question, options);
                 Navigator.of(context).pop();
               },
             ),
@@ -222,7 +223,7 @@ class _MeetingPageState extends State<MeetingPage> {
       body: GestureDetector(
         onDoubleTap: () {
           if (meetingHelper != null) {
-            meetingHelper!.switchCameraForCurrentUser();
+           // meetingHelper!.switchCameraForCurrentUser();
           }
         },
         child: _buildMeetingRoom(),
@@ -351,7 +352,7 @@ class _MeetingPageState extends State<MeetingPage> {
     });
 
     if (meetingHelper != null) {
-      meetingHelper!.broadcastPollResult(_pollQuestion!, _pollOptions!, _pollVotes!);
+      //meetingHelper!.broadcastPollResult(_pollQuestion!, _pollOptions!, _pollVotes!);
     }
   }
 
@@ -384,7 +385,7 @@ class _MeetingPageState extends State<MeetingPage> {
   void onHandToggle() {
     if (meetingHelper != null) {
       setState(() {
-        meetingHelper!.toggleHand();
+        //meetingHelper!.toggleHand();
         //if (meetingHelper!.handEnabled!) {
         //print('condition ${meetingHelper!.handEnabled!}');
         //flutterTts.speak('$handUser Hand raise enabled');
@@ -424,7 +425,8 @@ class _MeetingPageState extends State<MeetingPage> {
   }
 
   bool isHandEnabled() {
-    return meetingHelper != null ? meetingHelper!.handEnabled! : true;
+    return true;
+    //return meetingHelper != null ? meetingHelper!.handEnabled! : true;
   }
 
   void goToHomePage() {

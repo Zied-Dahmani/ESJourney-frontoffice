@@ -34,6 +34,7 @@ import 'logic/cubits/challenges/leaderboard_cubit.dart';
 import 'logic/cubits/challenges/quiz_cubit.dart';
 import 'logic/cubits/challenges/submission_cubit.dart';
 import 'logic/cubits/challenges/top_solutions_cubit.dart';
+import 'presentation/screens/club_event/my_events_screen.dart';
 import 'presentation/screens/curriculum/games/draw/main_module.dart';
 import 'presentation/screens/curriculum/games/slide/tools/board_controller.dart';
 import 'presentation/screens/curriculum/games/slide/tools/navigation.dart';
@@ -223,11 +224,4 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
       ),
     );
   }
-  // Widget _getInitialWidget(UserState state) {
-  //   if (state is UserLogInSuccess) {
-  //     return ZoomDrawerScreen();
-  //   } else {
-  //     return SignInScreen();
-  //   }
-  // }
 }

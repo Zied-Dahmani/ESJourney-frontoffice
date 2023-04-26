@@ -66,9 +66,9 @@ class _ZoomDrawerScreenState extends State<ZoomDrawerScreen> {
       case 3:
         return const ApplicationsScreen();
       case 4:
-        return const MyEventsScreen();
+        return MyEventsScreen();
         case 5:
-        return  ProfileScreen();
+        return  const ProfileScreen();
       case 6:
         return  ChatBotScreen();
       default:

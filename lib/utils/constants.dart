@@ -1,6 +1,6 @@
-var kbaseUrl = 'http://172.20.10.2:9090/';
+var kbaseUrl = 'http://192.168.1.4:9090/';
 var kmeetingUrl = 'http://192.168.0.9:9091';
-var imageUrl = kbaseUrl + '/images/';
+var imageUrl = '$kbaseUrl/images/';
 const kcheckInternetConnection = 'Check your internet connection!';
 const kidPasswordIncorrect = 'Id or password Incorrect!';
 

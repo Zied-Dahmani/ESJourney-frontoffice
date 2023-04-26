@@ -19,8 +19,6 @@ class _ShortsScreenState extends State<ShortsScreen> {
   void dispose() {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.dark,
-      // TODO : Change the color of the status bar
-      statusBarColor: Colors.white,
       systemNavigationBarIconBrightness: Brightness.dark,
       systemNavigationBarColor: Colors.white,
     ));
