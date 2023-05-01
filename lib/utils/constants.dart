@@ -27,6 +27,7 @@ const kerrorSendingEth = 'Transaction failed!';
 const ktopSolutions = 'problem/top';
 const kanswerQuiz = 'quiz/answer';
 const kAddAchievement = 'achievement/add';
+const kCreatePost = "post/create";
 //seif
 const kgetEvents = 'event/getEvents';
 const kgetUserEvent = 'event/getUserEvents';
@@ -40,16 +41,18 @@ const kgetAllClubEvents = 'clubEvent/getAll';
 const kgetAllApplications = 'application/getAll';
 
 //map consts
-const mapToken = 'pk.eyJ1IjoiemllZC1kYWhtYW5pIiwiYSI6ImNsZWJnd3RjMjA1c3kzb210OWQ0YW1pb2kifQ.KNa3PMeruCB7HdCN9zDfQQ';
+const mapToken =
+    'pk.eyJ1IjoiemllZC1kYWhtYW5pIiwiYSI6ImNsZWJnd3RjMjA1c3kzb210OWQ0YW1pb2kifQ.KNa3PMeruCB7HdCN9zDfQQ';
 const mapStyle = 'mapbox.mapbox-streets-v8';
-const mapUrlTemplate = 'https://api.mapbox.com/styles/v1/zied-dahmani/cled45t8y001801muszxjo9ti/tiles/256/{z}/{x}/{y}@2x?access_token={accessToken}';
+const mapUrlTemplate =
+    'https://api.mapbox.com/styles/v1/zied-dahmani/cled45t8y001801muszxjo9ti/tiles/256/{z}/{x}/{y}@2x?access_token={accessToken}';
 
 // User
 const ksignUp = 'user/signUp';
 const ksignIn = 'user/signIn';
 const kgetUserData = 'user/getUserData';
 const krefreshToken = 'user/refreshToken';
-const kupdatePassword ='user/updatePassword';
+const kupdatePassword = 'user/updatePassword';
 const kerrorUpdatePassword = 'Error in updating password!';
 const kupdateUsername = 'user/updateUsername';
 const kCheckUsername = 'user/checkusername';

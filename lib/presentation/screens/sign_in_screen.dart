@@ -46,8 +46,10 @@ class SignInScreen extends StatelessWidget {
             //Navigator.pop(dialogContext!);
             Provider.of<SocketService>(context, listen: false)
                 .connect(userState.user.token!);
-            Navigator.of(context).pushNamed(AppRoutes.quizScreen);
+            print("here");
+           // Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
           } else if (userState is UserIsFailure) {
+            print("here11");
             Navigator.pop(dialogContext!);
             showSnackBar(context, userState.error);
           }

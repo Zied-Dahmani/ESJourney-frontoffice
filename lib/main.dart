@@ -2,6 +2,7 @@ import 'package:esjourney/data/repositories/chat/chat_service.dart';
 import 'package:esjourney/data/repositories/club/club_repository.dart';
 import 'package:esjourney/logic/app_bloc_observer.dart';
 import 'package:esjourney/logic/cubits/application/application_cubit.dart';
+import 'package:esjourney/logic/cubits/challenges/posts/post_cubit.dart';
 import 'package:esjourney/logic/cubits/chat/user/users_cubit.dart';
 import 'package:esjourney/logic/cubits/club/club_cubit.dart';
 import 'package:esjourney/logic/cubits/club_event/club_event_cubit.dart';
@@ -18,11 +19,13 @@ import 'package:esjourney/presentation/screens/challenges/quiz/quiz_result.dart'
 import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/draw/core/bloc/user_cubit/drawer_cubit.dart';
 import 'package:esjourney/presentation/screens/home/home_screen.dart';
+import 'package:esjourney/presentation/screens/home/posts/create_post_screen.dart';
 import 'package:esjourney/presentation/screens/main_screen.dart';
 import 'package:esjourney/presentation/screens/profile/edit_profile/edit_profile_screen.dart';
 import 'package:esjourney/presentation/screens/profile/profile_screen.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
 import 'package:esjourney/presentation/screens/sign_up_screen.dart';
+import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
 import 'package:esjourney/presentation/test.dart';
 import 'package:esjourney/utils/strings.dart';
 import 'package:esjourney/utils/theme.dart';
@@ -195,6 +198,8 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
               create: (context) => TopSolutionsCubit(), lazy: true),
           BlocProvider<UsernameAvailableCubit>(
               create: (context) => UsernameAvailableCubit(), lazy: true),
+          BlocProvider<PostCubit>(
+              create: (context) => PostCubit(), lazy: true),
         ],
         child: MaterialApp(
           title: 'ESJourney',
@@ -208,10 +213,12 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
                 oldState is UserInitial && newState is! UserLoadInProgress,
             builder: (context, state) {
               if (state is UserLogInSuccess) {
-                return  TestScreen();
+                return  ZoomDrawerScreen();
 
               } else {
-                return const HomeScreen();
+                return  SignInScreen(
+
+                );
 
               }
             },
