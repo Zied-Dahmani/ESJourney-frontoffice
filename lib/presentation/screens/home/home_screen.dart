@@ -1,10 +1,14 @@
 import 'package:esjourney/data/models/challenges/leaderboard/leaderboard_res.dart';
 import 'package:esjourney/logic/cubits/challenges/leaderboard_cubit.dart';
 import 'package:esjourney/logic/cubits/challenges/leaderboard_state.dart';
+import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/presentation/widgets/challenges/top-three_users_homepage.dart';
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../logic/cubits/challenges/posts/post_cubit.dart';
+import '../../../logic/cubits/challenges/posts/post_state.dart';
 
 List<LeaderboardRes> allTimeTop3 = [];
 
@@ -42,9 +46,6 @@ class HomeScreen extends StatelessWidget {
                           SizedBox(
                             height: width * 0.03,
                           ),
-
-                          // this delay happens at the start of each loop
-
                           TopThreeUsersHomePage(
                             firstUsername: state.allTimeUsers[0].username,
                             secondUsername: state.allTimeUsers[1].username,
@@ -66,7 +67,10 @@ class HomeScreen extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: theme.colorScheme.primary,
-          onPressed: () {},
+          onPressed: () {
+            BlocProvider.of<PostCubit>(context).emit(PostInitial());
+            Navigator.pushNamed(context, AppRoutes.createPostScreen);
+          },
           shape: const CircleBorder(),
           child: const Icon(
             Icons.edit,

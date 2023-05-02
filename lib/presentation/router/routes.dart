@@ -33,6 +33,7 @@ class AppRoutes {
   static const quizResult = '/quizResult';
   static const leaderboardScreen = '/leaderboard';
   static const ethQrCodeScreen = '/ethQrCode';
+  static const createPostScreen ="/createPostScreen";
 // Seif
   static const eventDetails = '/eventDetails';
   static const eventList = '/eventList';

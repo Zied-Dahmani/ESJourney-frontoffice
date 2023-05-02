@@ -8,8 +8,11 @@ class PostRepository implements IPostRepository {
   @override
   Future<dynamic> createPost(String status, {XFile? media}) async {
     final result = await _postDataProvider.createPost(status, media: media);
+    print("result is $result");
+    print( result.statusCode == 200);
+
     return result.statusCode == 200
-        ? result.data.map((post) => Post.fromJson(post)).toList()
+        ? Post.fromJson(result.data)
         : null;
   }
 }

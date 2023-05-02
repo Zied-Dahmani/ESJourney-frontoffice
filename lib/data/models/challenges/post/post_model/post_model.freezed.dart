@@ -20,7 +20,6 @@ Post _$PostFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Post {
-  String get userId => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
   String get avatar => throw _privateConstructorUsedError;
   List<PostItem> get posts => throw _privateConstructorUsedError;
@@ -35,8 +34,7 @@ abstract class $PostCopyWith<$Res> {
   factory $PostCopyWith(Post value, $Res Function(Post) then) =
       _$PostCopyWithImpl<$Res, Post>;
   @useResult
-  $Res call(
-      {String userId, String username, String avatar, List<PostItem> posts});
+  $Res call({String username, String avatar, List<PostItem> posts});
 }
 
 /// @nodoc
@@ -52,16 +50,11 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = null,
     Object? username = null,
     Object? avatar = null,
     Object? posts = null,
   }) {
     return _then(_value.copyWith(
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String,
       username: null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -84,8 +77,7 @@ abstract class _$$_PostCopyWith<$Res> implements $PostCopyWith<$Res> {
       __$$_PostCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String userId, String username, String avatar, List<PostItem> posts});
+  $Res call({String username, String avatar, List<PostItem> posts});
 }
 
 /// @nodoc
@@ -97,16 +89,11 @@ class __$$_PostCopyWithImpl<$Res> extends _$PostCopyWithImpl<$Res, _$_Post>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = null,
     Object? username = null,
     Object? avatar = null,
     Object? posts = null,
   }) {
     return _then(_$_Post(
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String,
       username: null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -127,16 +114,13 @@ class __$$_PostCopyWithImpl<$Res> extends _$PostCopyWithImpl<$Res, _$_Post>
 @JsonSerializable()
 class _$_Post implements _Post {
   const _$_Post(
-      {required this.userId,
-      required this.username,
+      {required this.username,
       required this.avatar,
       required final List<PostItem> posts})
       : _posts = posts;
 
   factory _$_Post.fromJson(Map<String, dynamic> json) => _$$_PostFromJson(json);
 
-  @override
-  final String userId;
   @override
   final String username;
   @override
@@ -151,7 +135,7 @@ class _$_Post implements _Post {
 
   @override
   String toString() {
-    return 'Post(userId: $userId, username: $username, avatar: $avatar, posts: $posts)';
+    return 'Post(username: $username, avatar: $avatar, posts: $posts)';
   }
 
   @override
@@ -159,7 +143,6 @@ class _$_Post implements _Post {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Post &&
-            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.username, username) ||
                 other.username == username) &&
             (identical(other.avatar, avatar) || other.avatar == avatar) &&
@@ -168,7 +151,7 @@ class _$_Post implements _Post {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, userId, username, avatar,
+  int get hashCode => Object.hash(runtimeType, username, avatar,
       const DeepCollectionEquality().hash(_posts));
 
   @JsonKey(ignore: true)
@@ -187,15 +170,12 @@ class _$_Post implements _Post {
 
 abstract class _Post implements Post {
   const factory _Post(
-      {required final String userId,
-      required final String username,
+      {required final String username,
       required final String avatar,
       required final List<PostItem> posts}) = _$_Post;
 
   factory _Post.fromJson(Map<String, dynamic> json) = _$_Post.fromJson;
 
-  @override
-  String get userId;
   @override
   String get username;
   @override

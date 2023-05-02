@@ -17,6 +17,7 @@ import 'package:esjourney/presentation/screens/curriculum/games/memory/screen/me
 import 'package:esjourney/presentation/screens/curriculum/games/slide/pages/slide_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/worldy/screens/wordly_game.dart';
 import 'package:esjourney/presentation/screens/curriculum/map/level_map.dart';
+import 'package:esjourney/presentation/screens/home/posts/create_post_screen.dart';
 import 'package:esjourney/presentation/screens/profile/edit_profile/update_password/update_password_screen.dart';
 import 'package:esjourney/presentation/screens/profile/edit_profile/update_username/update_username.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
@@ -162,50 +163,41 @@ class AppRouter {
 // souhail
       case AppRoutes.quizScreen:
         return MaterialPageRoute(
-          builder: (_) =>  QuizScreen(
+          builder: (_) => QuizScreen(
             //  language: args as String,
             restart: args as bool,
-
           ),
         );
       case AppRoutes.quizResult:
         return MaterialPageRoute(
           builder: (_) => QuizResultScreen(
-            score : args as int,
+            score: args as int,
           ),
         );
 
       case AppRoutes.leaderboardScreen:
         return MaterialPageRoute(
-          builder: (_) =>  const LeaderboardScreen(
-
-
-          ),
+          builder: (_) => const LeaderboardScreen(),
         );
       case AppRoutes.profileScreen:
         return MaterialPageRoute(
-          builder: (_) =>  const ApplicationFormScreen(
-
-
-          ),
+          builder: (_) => const ApplicationFormScreen(),
         );
       case AppRoutes.editProfileScreen:
         return MaterialPageRoute(
-          builder: (_) =>  const EditProfileScreen(
-
-          ),
+          builder: (_) => const EditProfileScreen(),
         );
       case AppRoutes.updatePasswordScreen:
         return MaterialPageRoute(
-          builder: (_) =>  const UpdatePasswordBaseScreen(
-
-          ),
+          builder: (_) => const UpdatePasswordBaseScreen(),
         );
       case AppRoutes.updateUsername:
         return MaterialPageRoute(
-          builder: (_) =>  const UpdateUsernameScreen(
-
-          ),
+          builder: (_) => const UpdateUsernameScreen(),
+        );
+      case AppRoutes.createPostScreen:
+        return MaterialPageRoute(
+          builder: (_) => CreatePostScreen(),
         );
       default:
         return null;

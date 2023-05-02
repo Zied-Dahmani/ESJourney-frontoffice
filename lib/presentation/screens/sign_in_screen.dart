@@ -28,33 +28,30 @@ class SignInScreen extends StatelessWidget {
     final theme = Theme.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Builder
-        (
-        builder: (context) {
+      body: Builder(builder: (context) {
+        final userState = context.watch<UserCubit>().state;
+        final usernameAvailableState =
+            context.watch<UsernameAvailableCubit>().state;
+        if (userState is UserLoadInProgress) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                dialogContext = context;
+                return const Center(child: CircularProgressIndicator());
+              });
+        } else if (userState is UserLogInSuccess) {
+          //Navigator.pop(dialogContext!);
+          Provider.of<SocketService>(context, listen: false)
+              .connect(userState.user.token!);
+          print("here");
+          Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
+        } else if (userState is UserIsFailure) {
+          print("here11");
+          // Navigator.pop(dialogContext!);
+          //showSnackBar(context, userState.error);
+        }
 
-
-          final userState = context.watch<UserCubit>().state;
-    final usernameAvailableState = context.watch<UsernameAvailableCubit>().state;
-          if (userState is UserLoadInProgress) {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  dialogContext = context;
-                  return const Center(child: CircularProgressIndicator());
-                });
-          } else if (userState is UserLogInSuccess) {
-            //Navigator.pop(dialogContext!);
-            Provider.of<SocketService>(context, listen: false)
-                .connect(userState.user.token!);
-            print("here");
-           // Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
-          } else if (userState is UserIsFailure) {
-            print("here11");
-            Navigator.pop(dialogContext!);
-            showSnackBar(context, userState.error);
-          }
-
-       return GestureDetector(
+        return GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: Container(
             padding: const EdgeInsets.symmetric(
@@ -78,8 +75,9 @@ class SignInScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: AppSizes.khugeSpace),
                   TextFormFieldWidget(
-                      _idController, AppStrings.kusername, TextInputType.name,
-
+                    _idController,
+                    AppStrings.kusername,
+                    TextInputType.name,
                   ),
                   const SizedBox(height: AppSizes.kbigSpace),
                   TextFormFieldWidget(_passwordController, AppStrings.kpassword,
@@ -145,8 +143,7 @@ class SignInScreen extends StatelessWidget {
             ),
           ),
         );
-      }
-      ),
+      }),
     );
   }
 }
