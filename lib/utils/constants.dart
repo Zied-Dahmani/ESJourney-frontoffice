@@ -1,4 +1,4 @@
-var kbaseUrl = 'http://192.168.0.3:9090/';
+var kbaseUrl = 'http://172.16.4.116:9090/';
 var kmeetingUrl = 'http://192.168.0.9:9091';
 var imageUrl = '$kbaseUrl/images/';
 
@@ -28,6 +28,7 @@ const ktopSolutions = 'problem/top';
 const kanswerQuiz = 'quiz/answer';
 const kAddAchievement = 'achievement/add';
 const kCreatePost = "post/create";
+const kGetPosts = "post/get";
 //seif
 const kgetEvents = 'event/getEvents';
 const kgetUserEvent = 'event/getUserEvents';

@@ -40,4 +40,16 @@ class PostDataProvider {
       ),
     );
   }
+
+   Future<Response> getPosts() async {
+    return await dio.request(
+      kGetPosts,
+      options: Options(
+        method: 'GET',
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+  }
 }
