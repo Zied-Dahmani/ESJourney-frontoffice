@@ -1,6 +1,7 @@
 import 'package:esjourney/data/models/challenges/leaderboard/leaderboard_res.dart';
 import 'package:esjourney/logic/cubits/challenges/leaderboard_cubit.dart';
 import 'package:esjourney/logic/cubits/challenges/leaderboard_state.dart';
+import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/presentation/widgets/challenges/top-three_users_homepage.dart';
 import 'package:esjourney/utils/screen_size.dart';
@@ -9,10 +10,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/models/challenges/post/post_model/post_model.dart';
+import '../../../data/models/user_model.dart';
 import '../../../logic/cubits/challenges/posts/post_cubit.dart';
 import '../../../logic/cubits/challenges/posts/post_state.dart';
+import '../../../logic/cubits/user/user_cubit.dart';
 import '../../../utils/constants.dart';
-
+late User user;
 List<LeaderboardRes> allTimeTop3 = [];
 
 class HomeScreen extends StatefulWidget {
@@ -22,7 +25,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-List<Post> posts = [];
+late ValueNotifier<bool> isLiked = ValueNotifier<bool>(false);
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
@@ -32,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  List<Post> posts = [];
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -41,14 +45,12 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Builder(builder: (context) {
           final leaderboardState = context.watch<LeaderboardCubit>().state;
           final postState = context.watch<PostCubit>().state;
+          final userState = context.watch<UserCubit>().state;
           if (leaderboardState is LeaderboardLoadInProgress &&
               postState is PostLoadInProgress) {
           } else if (leaderboardState is LeaderboardSuccess &&
-              postState is PostIsSuccess) {
-            for (int i = 0; i < postState.posts.length; i++) {
-              posts.add(postState.posts[i]);
-            }
-
+              postState is PostIsSuccess && userState is UserLogInSuccess) {
+            user = userState.user;
             return NestedScrollView(
               physics: const BouncingScrollPhysics(),
               headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -56,7 +58,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   CupertinoSliverRefreshControl(onRefresh: () async {
                     print("hereere");
                     await Future.delayed(const Duration(seconds: 2));
-
                   }),
                   const SliverAppBar(
                     backgroundColor: Colors.transparent,
@@ -99,7 +100,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   // Wrap the TabBar widget with a SliverPersistentHeader widget
                 ];
               },
-              body: PostsList(posts: posts),
+              body: PostsList(
+                posts: postState.posts.cast<Post>(),
+              ),
             );
           } else if (leaderboardState is LeaderboardIsFailure &&
               postState is PostIsFailure) {
@@ -126,22 +129,34 @@ class _HomeScreenState extends State<HomeScreen> {
 class PostsList extends StatelessWidget {
   final List<Post> posts;
 
+
   const PostsList({
     Key? key,
-    required this.posts, // Add the required posts parameter
+    required this.posts,
+
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    final ValueNotifier<bool> expanded = ValueNotifier<bool>(false);
+    ValueNotifier<bool> isLiked = ValueNotifier<bool>(false);
+    void _toggleExpand() {
+      expanded.value = !expanded.value;
+    }
+
     final double width = ScreenSize.width(context);
     return Column(
       children: [
         Expanded(
-          child: ListView.builder(physics: const NeverScrollableScrollPhysics(),
+          child: ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: posts.length,
             itemBuilder: (context, index) {
+              isLiked.value = posts[index].likedBy.contains(user.id);
               return Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
@@ -159,20 +174,22 @@ class PostsList extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                             Text(
+                            Text(
                               posts[index].username,
                               style: const TextStyle(
                                 fontFamily: 'VisbyRoundCF',
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            Text("2h",
-                                style: TextStyle(
-                                  fontFamily: 'VisbyRoundCF',
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.grey[400],
-                                  fontSize: 12,
-                                )),
+                            Text(
+                              timeAgo(posts[index].createdAt!),
+                              style: TextStyle(
+                                fontFamily: 'VisbyRoundCF',
+                                fontWeight: FontWeight.w400,
+                                color: Colors.grey[400],
+                                fontSize: 12,
+                              ),
+                            ),
                           ],
                         ),
                       ],
@@ -180,15 +197,89 @@ class PostsList extends StatelessWidget {
                     SizedBox(
                       height: width * 0.02,
                     ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Image.network(
-                        "${kbaseUrl}img/${posts[index].posts[0].mediaContent!}",
-                        fit: BoxFit.cover,
-                        height: 350,
-                        width: double.infinity,
+                    if(posts[index].mediaContent != null)
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.network(
+                          "${kbaseUrl}img/${posts[index].mediaContent!}",
+                          fit: BoxFit.cover,
+                          height: 350,
+                          width: double.infinity,
+                        ),
                       ),
+                    if(posts[index].mediaContent != null)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        ValueListenableBuilder<bool>(
+                          valueListenable: isLiked,
+                          builder: (BuildContext context, bool isLikedValue,
+                              Widget? child) {
+                            return IconButton(
+                              onPressed: () {
+                                BlocProvider.of<PostCubit>(context).likePost(posts[index].id);
+                                isLiked.value = !isLikedValue;
+                              },
+                              icon: isLikedValue
+                                  ? const Icon(
+                                      Icons.favorite,
+                                      color: Colors.red,
+                                    )
+                                  : const Icon(
+                                      Icons.favorite_border,
+                                      color: Colors.black,
+                                    ),
+                            );
+                          },
+                        ),
+                        Text("112"),
+                      ],
                     ),
+
+                    ValueListenableBuilder<bool>(
+                        valueListenable: expanded,
+                        builder: (BuildContext context, bool expanded,
+                            Widget? child) {
+                          return  GestureDetector(
+                            onTap: _toggleExpand,
+                            child: Text(
+                              posts[index].status,
+                              maxLines: expanded ? null : 1,
+
+                            ),
+                          );
+
+                        }
+                    ),
+                    ValueListenableBuilder<bool>(
+                        valueListenable: expanded,
+                        builder: (BuildContext context, bool expanded,
+                            Widget? child) {
+                          return        Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+
+                              Visibility(
+                                visible: !expanded,
+                                child: GestureDetector(
+                                  onTap: _toggleExpand,
+                                  child: const Text(
+                                    "more...",
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+
+                        }
+                    ),
+
+
+
                     SizedBox(
                       height: width * 0.03,
                     ),
@@ -200,5 +291,32 @@ class PostsList extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+
+
+
+
+
+String timeAgo(int timestampMilliseconds) {
+  final timestamp = DateTime.fromMillisecondsSinceEpoch(timestampMilliseconds);
+  final now = DateTime.now();
+  final difference = now.difference(timestamp);
+
+  if (difference.inDays >= 365) {
+    final years = (difference.inDays / 365).floor();
+    return '${years}y ago';
+  } else if (difference.inDays >= 30) {
+    final months = (difference.inDays / 30).floor();
+    return '${months}m ago';
+  } else if (difference.inDays >= 1) {
+    return '${difference.inDays}d ago';
+  } else if (difference.inHours >= 1) {
+    return '${difference.inHours}h ago';
+  } else if (difference.inMinutes >= 1) {
+    return '${difference.inMinutes}m ago';
+  } else {
+    return '${difference.inSeconds}s ago';
   }
 }

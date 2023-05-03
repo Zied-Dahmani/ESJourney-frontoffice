@@ -20,9 +20,14 @@ Post _$PostFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Post {
+  String get id => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
   String get avatar => throw _privateConstructorUsedError;
-  List<PostItem> get posts => throw _privateConstructorUsedError;
+  String get status => throw _privateConstructorUsedError;
+  String? get mediaContent => throw _privateConstructorUsedError;
+  int get createdAt => throw _privateConstructorUsedError;
+  int get likes => throw _privateConstructorUsedError;
+  List<String> get likedBy => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +39,15 @@ abstract class $PostCopyWith<$Res> {
   factory $PostCopyWith(Post value, $Res Function(Post) then) =
       _$PostCopyWithImpl<$Res, Post>;
   @useResult
-  $Res call({String username, String avatar, List<PostItem> posts});
+  $Res call(
+      {String id,
+      String username,
+      String avatar,
+      String status,
+      String? mediaContent,
+      int createdAt,
+      int likes,
+      List<String> likedBy});
 }
 
 /// @nodoc
@@ -50,11 +63,20 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? username = null,
     Object? avatar = null,
-    Object? posts = null,
+    Object? status = null,
+    Object? mediaContent = freezed,
+    Object? createdAt = null,
+    Object? likes = null,
+    Object? likedBy = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       username: null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -63,10 +85,26 @@ class _$PostCopyWithImpl<$Res, $Val extends Post>
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
               as String,
-      posts: null == posts
-          ? _value.posts
-          : posts // ignore: cast_nullable_to_non_nullable
-              as List<PostItem>,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
+      mediaContent: freezed == mediaContent
+          ? _value.mediaContent
+          : mediaContent // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as int,
+      likes: null == likes
+          ? _value.likes
+          : likes // ignore: cast_nullable_to_non_nullable
+              as int,
+      likedBy: null == likedBy
+          ? _value.likedBy
+          : likedBy // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ) as $Val);
   }
 }
@@ -77,7 +115,15 @@ abstract class _$$_PostCopyWith<$Res> implements $PostCopyWith<$Res> {
       __$$_PostCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String username, String avatar, List<PostItem> posts});
+  $Res call(
+      {String id,
+      String username,
+      String avatar,
+      String status,
+      String? mediaContent,
+      int createdAt,
+      int likes,
+      List<String> likedBy});
 }
 
 /// @nodoc
@@ -89,11 +135,20 @@ class __$$_PostCopyWithImpl<$Res> extends _$PostCopyWithImpl<$Res, _$_Post>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? username = null,
     Object? avatar = null,
-    Object? posts = null,
+    Object? status = null,
+    Object? mediaContent = freezed,
+    Object? createdAt = null,
+    Object? likes = null,
+    Object? likedBy = null,
   }) {
     return _then(_$_Post(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       username: null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -102,10 +157,26 @@ class __$$_PostCopyWithImpl<$Res> extends _$PostCopyWithImpl<$Res, _$_Post>
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
               as String,
-      posts: null == posts
-          ? _value._posts
-          : posts // ignore: cast_nullable_to_non_nullable
-              as List<PostItem>,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
+      mediaContent: freezed == mediaContent
+          ? _value.mediaContent
+          : mediaContent // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as int,
+      likes: null == likes
+          ? _value.likes
+          : likes // ignore: cast_nullable_to_non_nullable
+              as int,
+      likedBy: null == likedBy
+          ? _value._likedBy
+          : likedBy // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -114,28 +185,43 @@ class __$$_PostCopyWithImpl<$Res> extends _$PostCopyWithImpl<$Res, _$_Post>
 @JsonSerializable()
 class _$_Post implements _Post {
   const _$_Post(
-      {required this.username,
+      {required this.id,
+      required this.username,
       required this.avatar,
-      required final List<PostItem> posts})
-      : _posts = posts;
+      required this.status,
+      this.mediaContent,
+      required this.createdAt,
+      required this.likes,
+      required final List<String> likedBy})
+      : _likedBy = likedBy;
 
   factory _$_Post.fromJson(Map<String, dynamic> json) => _$$_PostFromJson(json);
 
   @override
+  final String id;
+  @override
   final String username;
   @override
   final String avatar;
-  final List<PostItem> _posts;
   @override
-  List<PostItem> get posts {
-    if (_posts is EqualUnmodifiableListView) return _posts;
+  final String status;
+  @override
+  final String? mediaContent;
+  @override
+  final int createdAt;
+  @override
+  final int likes;
+  final List<String> _likedBy;
+  @override
+  List<String> get likedBy {
+    if (_likedBy is EqualUnmodifiableListView) return _likedBy;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_posts);
+    return EqualUnmodifiableListView(_likedBy);
   }
 
   @override
   String toString() {
-    return 'Post(username: $username, avatar: $avatar, posts: $posts)';
+    return 'Post(id: $id, username: $username, avatar: $avatar, status: $status, mediaContent: $mediaContent, createdAt: $createdAt, likes: $likes, likedBy: $likedBy)';
   }
 
   @override
@@ -143,16 +229,31 @@ class _$_Post implements _Post {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Post &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.username, username) ||
                 other.username == username) &&
             (identical(other.avatar, avatar) || other.avatar == avatar) &&
-            const DeepCollectionEquality().equals(other._posts, _posts));
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.mediaContent, mediaContent) ||
+                other.mediaContent == mediaContent) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.likes, likes) || other.likes == likes) &&
+            const DeepCollectionEquality().equals(other._likedBy, _likedBy));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, username, avatar,
-      const DeepCollectionEquality().hash(_posts));
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      username,
+      avatar,
+      status,
+      mediaContent,
+      createdAt,
+      likes,
+      const DeepCollectionEquality().hash(_likedBy));
 
   @JsonKey(ignore: true)
   @override
@@ -170,18 +271,33 @@ class _$_Post implements _Post {
 
 abstract class _Post implements Post {
   const factory _Post(
-      {required final String username,
+      {required final String id,
+      required final String username,
       required final String avatar,
-      required final List<PostItem> posts}) = _$_Post;
+      required final String status,
+      final String? mediaContent,
+      required final int createdAt,
+      required final int likes,
+      required final List<String> likedBy}) = _$_Post;
 
   factory _Post.fromJson(Map<String, dynamic> json) = _$_Post.fromJson;
 
+  @override
+  String get id;
   @override
   String get username;
   @override
   String get avatar;
   @override
-  List<PostItem> get posts;
+  String get status;
+  @override
+  String? get mediaContent;
+  @override
+  int get createdAt;
+  @override
+  int get likes;
+  @override
+  List<String> get likedBy;
   @override
   @JsonKey(ignore: true)
   _$$_PostCopyWith<_$_Post> get copyWith => throw _privateConstructorUsedError;

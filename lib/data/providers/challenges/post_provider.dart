@@ -46,6 +46,34 @@ class PostDataProvider {
       kGetPosts,
       options: Options(
         method: 'GET',
+
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      ),
+    );
+  }
+  Future<Response> likePost(String postId) async {
+    String? token = "";
+    UserCubit userCubit = UserCubit();
+
+    final state = userCubit.state;
+    if (state is UserLogInSuccess) {
+      token = state.user.token;
+    }
+    return await dio.request(
+      kLikePosts,
+
+      data: {
+        'postId': postId,
+      },
+
+      options: Options(
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'jwt': token,
+        },
         validateStatus: (status) {
           return status! < 500;
         },

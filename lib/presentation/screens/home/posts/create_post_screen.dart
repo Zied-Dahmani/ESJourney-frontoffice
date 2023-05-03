@@ -99,7 +99,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   const SizedBox(
                     width: 10,
                   ),
-                  const Text("aaaa"),
+                  const Text("user1"),
                   const SizedBox(
                     width: 10,
                   ),

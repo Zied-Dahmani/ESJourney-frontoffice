@@ -29,6 +29,7 @@ const kanswerQuiz = 'quiz/answer';
 const kAddAchievement = 'achievement/add';
 const kCreatePost = "post/create";
 const kGetPosts = "post/get";
+const kLikePosts = "post/like";
 //seif
 const kgetEvents = 'event/getEvents';
 const kgetUserEvent = 'event/getUserEvents';

@@ -9,7 +9,9 @@ class PostRepository implements IPostRepository {
   Future<dynamic> createPost(String status, {XFile? media}) async {
     final result = await _postDataProvider.createPost(status, media: media);
 
-    return result.statusCode == 200 ? Post.fromJson(result.data) : null;
+    return result.statusCode == 200
+        ? result.data.map((post) => Post.fromJson(post)).toList()
+        : null;
   }
 
   @override
@@ -24,5 +26,18 @@ class PostRepository implements IPostRepository {
       catch (e) {
         print("errorrr " + e.toString());
       }
+  }
+  @override
+  Future<dynamic> likePost(String postId) async {
+    final result = await _postDataProvider.likePost(postId);
+    try {
+
+      return result.statusCode == 200
+          ? result.data.map((post) => Post.fromJson(post)).toList()
+          : null;
+    }
+    catch (e) {
+      print("errorrr " + e.toString());
+    }
   }
 }
