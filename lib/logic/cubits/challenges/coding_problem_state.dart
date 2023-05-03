@@ -23,4 +23,3 @@ class CodingProblemIsFailure extends CodingProblemState {
 
   CodingProblemIsFailure(this.error);
 }
-

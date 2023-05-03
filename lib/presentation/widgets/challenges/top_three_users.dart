@@ -38,6 +38,7 @@ class TopThreeUsers extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: width * 0.05),
       child: Column(
         children: [
+
           SizedBox(
             height: width * 0.5,
             child: Row(
@@ -70,7 +71,9 @@ class TopThreeUsers extends StatelessWidget {
                                 backgroundColor: Colors.transparent,
                                 radius: 50,
                                 backgroundImage: NetworkImage(
+
                                     "https://api.readyplayer.me/v1/avatars/63ef772d12b893b896d44960.png"),
+
                               ),
                             ),
                           ),
@@ -149,6 +152,7 @@ class TopThreeUsers extends StatelessWidget {
                                 radius: 50,
                                 backgroundImage: NetworkImage(
                                     "https://api.readyplayer.me/v1/avatars/63ef772d12b893b896d44960.png"),
+
                               ),
                             ),
                           ),
@@ -225,6 +229,7 @@ class TopThreeUsers extends StatelessWidget {
                                 radius: 50,
                                 backgroundImage: NetworkImage(
                                     "https://api.readyplayer.me/v1/avatars/63ef772d12b893b896d44960.png"),
+
                               ),
                             ),
                           ),

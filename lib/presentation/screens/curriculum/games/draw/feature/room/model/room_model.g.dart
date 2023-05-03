@@ -7,14 +7,14 @@ part of 'room_model.dart';
 // **************************************************************************
 
 RoomModel<T> _$RoomModelFromJson<T>(Map<String, dynamic> json) => RoomModel<T>(
-      id: json['id'] as String?,
+      id: json['_id'] as String?,
     )
       ..roomOwner = json['roomOwner'] as String?
       ..players = json['connectedClients'] as List<dynamic>?;
 
 Map<String, dynamic> _$RoomModelToJson<T>(RoomModel<T> instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'roomOwner': instance.roomOwner,
       'connectedClients': instance.players,
     };

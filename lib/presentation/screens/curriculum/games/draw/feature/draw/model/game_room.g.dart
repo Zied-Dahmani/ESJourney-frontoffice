@@ -7,7 +7,7 @@ part of 'game_room.dart';
 // **************************************************************************
 
 _$_GameRoom _$$_GameRoomFromJson(Map<String, dynamic> json) => _$_GameRoom(
-      id: json['id'] as String? ?? "-1",
+      id: json['_id'] as String? ?? "-1",
       roomOwner: json['roomOwner'] as String? ?? "1",
       connectedClients: (json['connectedClients'] as List<dynamic>?)
               ?.map((e) => GamePlayer.fromJson(e as Map<String, dynamic>))
@@ -27,7 +27,7 @@ _$_GameRoom _$$_GameRoomFromJson(Map<String, dynamic> json) => _$_GameRoom(
 
 Map<String, dynamic> _$$_GameRoomToJson(_$_GameRoom instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'roomOwner': instance.roomOwner,
       'connectedClients': instance.connectedClients,
       'isPlaying': instance.isPlaying,

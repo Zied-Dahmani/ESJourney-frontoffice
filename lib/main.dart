@@ -3,7 +3,7 @@ import 'package:esjourney/data/repositories/chat/chat_service.dart';
 import 'package:esjourney/data/repositories/club/club_repository.dart';
 import 'package:esjourney/logic/app_bloc_observer.dart';
 import 'package:esjourney/logic/cubits/application/application_cubit.dart';
-import 'package:esjourney/logic/cubits/challenges/posts/post_cubit.dart';
+import 'package:esjourney/logic/cubits/challenges/posts/posts_cubit.dart';
 import 'package:esjourney/logic/cubits/chat/user/users_cubit.dart';
 import 'package:esjourney/logic/cubits/club/club_cubit.dart';
 import 'package:esjourney/logic/cubits/club/club_state.dart';
@@ -15,6 +15,7 @@ import 'package:esjourney/logic/cubits/location/location_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/logic/cubits/user/username_available/username_available_cubit.dart';
+import 'package:esjourney/presentation/home/home_screen.dart';
 import 'package:esjourney/presentation/router/app_router.dart';
 import 'package:esjourney/presentation/screens/club/club_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
@@ -30,6 +31,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+
 import 'logic/cubits/challenges/coding_problem_cubit.dart';
 import 'logic/cubits/challenges/leaderboard_cubit.dart';
 import 'logic/cubits/challenges/quiz_cubit.dart';
@@ -97,6 +99,7 @@ class MyApp extends StatefulWidget {
 
 class _AppState extends State<MyApp> with WidgetsBindingObserver {
   final AppRouter _appRouter = AppRouter();
+
   //late UserCubit _userCubit;
   Club? club;
 
@@ -179,7 +182,8 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
           BlocProvider<ApplicationCubit>(
               create: (context) => ApplicationCubit(
                   BlocProvider.of<ConnectivityCubit>(context),
-                  context.read<ClubRepository>(),BlocProvider.of<UserCubit>(context)),
+                  context.read<ClubRepository>(),
+                  BlocProvider.of<UserCubit>(context)),
               lazy: true),
 
           // souhail blocs
@@ -196,8 +200,7 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
               create: (context) => TopSolutionsCubit(), lazy: true),
           BlocProvider<UsernameAvailableCubit>(
               create: (context) => UsernameAvailableCubit(), lazy: true),
-          BlocProvider<PostCubit>(
-              create: (context) => PostCubit(), lazy: true),
+          BlocProvider<PostCubit>(create: (context) => PostCubit(), lazy: true),
         ],
         child: MaterialApp(
             title: AppStrings.kappName,
@@ -207,13 +210,16 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
             themeMode: ThemeMode.light,
             onGenerateRoute: _appRouter.onGenerateRoute,
             home: BlocBuilder<UserCubit, UserState>(
-              buildWhen: (oldState, newState) => oldState is UserInitial && newState is! UserLoadInProgress,
+              buildWhen: (oldState, newState) =>
+                  oldState is UserInitial && newState is! UserLoadInProgress,
               builder: (context, state) {
                 if (state is UserLogInSuccess) {
                   return Builder(builder: (context) {
                     final clubState = context.watch<ClubCubit>().state;
-                    if (clubState is ClubLoadSuccess && BlocProvider.of<ClubCubit>(context).getClub() != null) {
-                      return ClubScreen(club: BlocProvider.of<ClubCubit>(context).getClub());
+                    if (clubState is ClubLoadSuccess &&
+                        BlocProvider.of<ClubCubit>(context).getClub() != null) {
+                      return ClubScreen(
+                          club: BlocProvider.of<ClubCubit>(context).getClub());
                     } else {
                       return const ZoomDrawerScreen();
                     }
@@ -226,11 +232,11 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
       ),
     );
   }
-  // Widget _getInitialWidget(UserState state) {
-  //   if (state is UserLogInSuccess) {
-  //     return ZoomDrawerScreen();
-  //   } else {
-  //     return SignInScreen();
-  //   }
-  // }
+// Widget _getInitialWidget(UserState state) {
+//   if (state is UserLogInSuccess) {
+//     return ZoomDrawerScreen();
+//   } else {
+//     return SignInScreen();
+//   }
+// }
 }

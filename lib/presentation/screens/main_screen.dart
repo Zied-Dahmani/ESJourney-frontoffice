@@ -1,19 +1,17 @@
 import 'package:curved_nav_bar/curved_bar/curved_action_bar.dart';
 import 'package:curved_nav_bar/fab_bar/fab_bottom_app_bar_item.dart';
 import 'package:curved_nav_bar/flutter_curved_bottom_nav_bar.dart';
-import 'package:esjourney/presentation/screens/Events/event_list_screen.dart';
-import 'package:esjourney/presentation/screens/curriculum/courses/course_screen.dart';
+import 'package:esjourney/presentation/home/home_screen.dart';
 import 'package:esjourney/presentation/router/routes.dart';
+import 'package:esjourney/presentation/screens/Events/event_list_screen.dart';
 import 'package:esjourney/presentation/screens/club/clubs_screen.dart';
+import 'package:esjourney/presentation/screens/curriculum/courses/course_screen.dart';
 import 'package:esjourney/presentation/widgets/drawer_icon.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-
 import 'Internship/InternshipHomePage.dart';
-import 'home/home_screen.dart';
-
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -31,7 +29,7 @@ class _MainScreenState extends State<MainScreen> {
         leading: const DrawerIcon(),
         actions: [
           IconButton(
-            icon:  const Icon(FontAwesomeIcons.message),
+            icon: const Icon(FontAwesomeIcons.message),
             onPressed: () {
               Navigator.of(context).pushNamed(AppRoutes.messages);
             },
@@ -106,12 +104,11 @@ class _MainScreenState extends State<MainScreen> {
               ),
               text: ''),
         ],
-        bodyItems: [
-
+        bodyItems: const [
           HomeScreen(),
           InternshipHomePage(),
-          const EventListScreen(),
-          const ClubsScreen()
+          EventListScreen(),
+          ClubsScreen()
         ],
         actionBarView: const CourseScreen(),
         extendBody: false,

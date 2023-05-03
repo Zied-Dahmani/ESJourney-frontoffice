@@ -15,7 +15,6 @@ class _FAQScreenState extends State<FAQScreen> {
   final _replyController = TextEditingController();
   final _questionController = TextEditingController();
 
-
   //get current user from user cubit
   UserState? get _user => context.read<UserCubit>().state;
   var user;

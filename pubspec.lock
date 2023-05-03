@@ -1949,6 +1949,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.8.0"
+  tflite_flutter_helper:
+    dependency: "direct main"
+    description:
+      name: tflite_flutter_helper
+      sha256: d81124afea5a96fbcdad71375ad42acb48e65fd530497bd98ef891daf736883c
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
   ticket_widget:
     dependency: "direct main"
     description:

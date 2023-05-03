@@ -7,7 +7,7 @@ part of 'poll_model.dart';
 // **************************************************************************
 
 _$_Poll _$$_PollFromJson(Map<String, dynamic> json) => _$_Poll(
-      id: json['id'] as String,
+      id: json['_id'] as String,
       question: json['question'] as String,
       options:
           (json['options'] as List<dynamic>).map((e) => e as String).toList(),
@@ -16,7 +16,7 @@ _$_Poll _$$_PollFromJson(Map<String, dynamic> json) => _$_Poll(
     );
 
 Map<String, dynamic> _$$_PollToJson(_$_Poll instance) => <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'question': instance.question,
       'options': instance.options,
       'votes': instance.votes,

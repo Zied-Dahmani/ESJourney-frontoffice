@@ -17,7 +17,7 @@ _$_DrawingPoint _$$_DrawingPointFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_DrawingPointToJson(_$_DrawingPoint instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'offsets': instance.offsets,
     };
 

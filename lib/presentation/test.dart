@@ -1,158 +1,137 @@
-import 'dart:async';
+import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_share_me/flutter_share_me.dart';
 
-import '../utils/screen_size.dart';
 
-String image = "https://picsum.photos/400/600";
+///sharing platform
+enum Share {
+  facebook,
+  messenger,
+  twitter,
+  whatsapp,
+  whatsapp_personal,
+  whatsapp_business,
+  share_system,
+  share_instagram,
+  share_telegram
+}
+
+
 
 class TestScreen extends StatefulWidget {
-  const TestScreen({Key? key}) : super(key: key);
-
   @override
-  State<TestScreen> createState() => _TestScreenState();
+  _TestScreenState createState() => _TestScreenState();
 }
 
 class _TestScreenState extends State<TestScreen> {
-  @override
-  Widget build(BuildContext context) {
-    String photoUrl = "https://picsum.photos/400/600";
+  File? file;
 
-    return Scaffold(
-      body: NestedScrollView(
-        physics: const BouncingScrollPhysics(),
-        headerSliverBuilder: (context, innerBoxIsScrolled) {
-          return [
-            CupertinoSliverRefreshControl(onRefresh: () async {
-              await Future.delayed(const Duration(seconds: 2));
-            }),
-            const SliverAppBar(
-              backgroundColor: Colors.transparent,
-              title: Text("Viator"),
-              centerTitle: false,
-              pinned: false,
-            ),
-            SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(" t.moments"),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            // Wrap the TabBar widget with a SliverPersistentHeader widget
-          ];
-        },
-        body: MomentsList(),
-      ),
-    );
-  }
-}
-
-class PostsWidget extends StatelessWidget {
-  const PostsWidget({Key? key}) : super(key: key);
+  bool videoEnable = false;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(height: 40),
-        Text(
-          " t.moments",
-          style: theme.textTheme.headlineLarge,
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Plugin example app'),
         ),
-        const SizedBox(height: 30),
-        const MomentsList(),
-      ],
-    );
-  }
-}
+        body: Container(
+          width: double.infinity,
+          child: Column(
+            children: <Widget>[
+              const SizedBox(height: 30),
 
-class MomentsList extends StatelessWidget {
-  const MomentsList({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) => Expanded(
-        child: ListView.builder(
-          itemCount: 2,
-          itemBuilder: (context, index) {
-            return const PostListItem();
-          },
-        ),
-      );
-}
-
-class PostListItem extends StatelessWidget {
-  const PostListItem({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final double width = ScreenSize.width(context);
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Image.network(
-                  image,
-                  fit: BoxFit.cover,
-                  height: 50,
-                  width: 50,
-                ),
+              ElevatedButton(
+                  onPressed: () => onButtonTap(Share.twitter),
+                  child: const Text('share to twitter')),
+              ElevatedButton(
+                onPressed: () => onButtonTap(Share.whatsapp),
+                child: const Text('share to WhatsApp'),
               ),
-              SizedBox(width: width * 0.02),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "SouhailKrs",
-                    style: TextStyle(
-                      fontFamily: 'VisbyRoundCF',
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Text("2h",
-                      style: TextStyle(
-                        fontFamily: 'VisbyRoundCF',
-                        fontWeight: FontWeight.w400,
-                        color: Colors.grey[400],
-                        fontSize: 12,
-                      )),
-                ],
+              ElevatedButton(
+                onPressed: () => onButtonTap(Share.whatsapp_business),
+                child: const Text('share to WhatsApp Business'),
+              ),
+              ElevatedButton(
+                onPressed: () => onButtonTap(Share.whatsapp_personal),
+                child: const Text('share to WhatsApp Personal'),
+              ),
+              ElevatedButton(
+                onPressed: () => onButtonTap(Share.facebook),
+                child: const Text('share to  FaceBook'),
+              ),
+              ElevatedButton(
+                onPressed: () => onButtonTap(Share.messenger),
+                child: const Text('share to  Messenger'),
+
+              ),
+              ElevatedButton(
+                onPressed: () => onButtonTap(Share.share_instagram),
+                child: const Text('share to Instagram'),
+              ),
+              ElevatedButton(
+                onPressed: () => onButtonTap(Share.share_telegram),
+                child: const Text('share to Telegram'),
+              ),
+              ElevatedButton(
+                onPressed: () => onButtonTap(Share.share_system),
+                child: const Text('share to System'),
               ),
             ],
           ),
-          SizedBox(
-            height: width * 0.02,
-          ),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8.0),
-            child: Image.network(
-              image,
-              fit: BoxFit.cover,
-              height: 350,
-              width: double.infinity,
-            ),
-          ),
-          SizedBox(
-            height: width * 0.03,
-          ),
-        ],
+        ),
       ),
     );
+  }
+
+
+
+  Future<void> onButtonTap(Share share) async {
+    String msg =
+        'Flutter share is great!!\n Check out full example at https://pub.dev/packages/flutter_share_me';
+    String url = 'https://pub.dev/packages/flutter_share_me';
+
+    String? response;
+    final FlutterShareMe flutterShareMe = FlutterShareMe();
+    switch (share) {
+      case Share.facebook:
+        response = await flutterShareMe.shareToFacebook(url: url, msg: msg);
+        break;
+      case Share.messenger:
+        response = await flutterShareMe.shareToMessenger(url: url, msg: msg);
+        break;
+      case Share.twitter:
+        response = await flutterShareMe.shareToTwitter(url: url, msg: msg);
+        break;
+      case Share.whatsapp:
+        if (file != null) {
+          response = await flutterShareMe.shareToWhatsApp(
+              imagePath: file!.path,
+              fileType: videoEnable ? FileType.video : FileType.image);
+        } else {
+          response = await flutterShareMe.shareToWhatsApp(msg: msg);
+        }
+        break;
+      case Share.whatsapp_business:
+        response = await flutterShareMe.shareToWhatsApp(msg: msg);
+        break;
+      case Share.share_system:
+        response = await flutterShareMe.shareToSystem(msg: msg);
+        break;
+      case Share.whatsapp_personal:
+        response = await flutterShareMe.shareWhatsAppPersonalMessage(
+            message: msg, phoneNumber: 'phone-number-with-country-code');
+        break;
+      case Share.share_instagram:
+        response = await flutterShareMe.shareToInstagram(
+            filePath: file!.path,
+            fileType: videoEnable ? FileType.video : FileType.image);
+        break;
+      case Share.share_telegram:
+        response = await flutterShareMe.shareToTelegram(msg: msg);
+        break;
+    }
+    debugPrint(response);
   }
 }

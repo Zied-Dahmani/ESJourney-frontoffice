@@ -1,4 +1,4 @@
-var kbaseUrl = 'http://172.20.10.2:9090/';
+var kbaseUrl = 'http://192.168.0.5:9090/';
 var kmeetingUrl = 'http://192.168.0.9:9091';
 var imageUrl = kbaseUrl + '/images/';
 const kcheckInternetConnection = 'Check your internet connection!';
@@ -45,11 +45,9 @@ const kapply = 'application/apply';
 const kbookEvent = 'clubEvent/book';
 
 //map consts
-const mapToken =
-    'pk.eyJ1IjoiemllZC1kYWhtYW5pIiwiYSI6ImNsZWJnd3RjMjA1c3kzb210OWQ0YW1pb2kifQ.KNa3PMeruCB7HdCN9zDfQQ';
+const mapToken = 'pk.eyJ1IjoiemllZC1kYWhtYW5pIiwiYSI6ImNsZWJnd3RjMjA1c3kzb210OWQ0YW1pb2kifQ.KNa3PMeruCB7HdCN9zDfQQ';
 const mapStyle = 'mapbox.mapbox-streets-v8';
-const mapUrlTemplate =
-    'https://api.mapbox.com/styles/v1/zied-dahmani/cled45t8y001801muszxjo9ti/tiles/256/{z}/{x}/{y}@2x?access_token={accessToken}';
+const mapUrlTemplate = 'https://api.mapbox.com/styles/v1/zied-dahmani/cled45t8y001801muszxjo9ti/tiles/256/{z}/{x}/{y}@2x?access_token={accessToken}';
 
 
 //zegocloud
@@ -60,7 +58,7 @@ const ksignUp = 'user/signUp';
 const ksignIn = 'user/signIn';
 const kgetUserData = 'user/getUserData';
 const krefreshToken = 'user/refreshToken';
-const kupdatePassword = 'user/updatePassword';
+const kupdatePassword ='user/updatePassword';
 const kerrorUpdatePassword = 'Error in updating password!';
 const kupdateUsername = 'user/updateUsername';
 const kCheckUsername = 'user/checkusername';

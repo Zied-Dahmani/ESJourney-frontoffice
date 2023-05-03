@@ -95,6 +95,7 @@ dependencies:
   zego_uikit_prebuilt_call: ^3.1.0
   google_mlkit_image_labeling: ^0.5.0
   image_picker: ^0.8.7+2
+  tflite_flutter_helper: ^0.2.0
   # Souhail
 
   circular_countdown_timer: ^0.2.3
@@ -112,7 +113,6 @@ dependencies:
 
   share_plus: ^4.1.0
   flutter_share_me: ^1.4.0
-  image_picker: ^0.8.7+4
  #Youssef
   http: ^0.13.5
 
@@ -156,7 +156,6 @@ flutter:
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
-  # the material Icons class.
   # the material Icons class.
   uses-material-design: true
 

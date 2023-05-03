@@ -151,10 +151,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 children: [
                                   SvgPicture.network(
                                     height: width * 0.15,
-                                    "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
-                                    placeholderBuilder:
-                                        (BuildContext context) =>
-                                            const CircularProgressIndicator(),
+                                    "${kbaseUrl}img/1683150474601.svg",
+
                                   ),
                                 ],
                               ),
@@ -172,7 +170,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             width: width * 0.25,
                             child: Stack(
                               children: [
-                                CircleAvatar(
+                                const CircleAvatar(
                                   backgroundImage:
                                       NetworkImage("https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png"),
                                   radius: 50,
@@ -183,9 +181,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   child: SvgPicture.network(
                                     height: width * 0.05,
                                     "${kbaseUrl}img/1681727801155.svg",
-                                    placeholderBuilder:
-                                        (BuildContext context) =>
-                                            const CircularProgressIndicator(),
+
+
                                   ),
                                 ),
                               ],
