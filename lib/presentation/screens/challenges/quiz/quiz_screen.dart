@@ -34,12 +34,11 @@ bool goToLeaderBoard = false;
 bool _isQuizAnswered = false;
 bool timerEnded = false;
 bool hasSetState = false;
-bool _isAnswerAdded = false;
 bool _firstCall = true;
 List<Quiz> apiQuiz = [];
 List<Quiz> allQuestions = [];
 double _isAnswerCorrect = 0.0;
-const _totalQuestions = 3;
+const _totalQuestions = 5;
 String _discoBtnText = "Next";
 int _userScore = 7;
 String _token = "";
@@ -57,8 +56,8 @@ List<Quiz> _answeredQuestions = [];
 class _QuizScreenState extends State<QuizScreen> {
   @override
   void initState() {
-    BlocProvider.of<QuizCubit>(context).getQuiz("c");
     super.initState();
+    // BlocProvider.of<QuizCubit>(context).getQuiz("c");
     if (widget.restart) {
       _isQuizAnswered = false;
       _displayedQuestionIndex = 1;
@@ -77,6 +76,37 @@ class _QuizScreenState extends State<QuizScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text("Are you sure you want to quit?"),
+                  actions: [
+                    TextButton(
+                      child: Text("Yes"),
+                      onPressed: () {
+                        Navigator.pushNamed(
+                            context, AppRoutes.zoomDrawerScreen);
+                      },
+                    ),
+                    TextButton(
+                      child: Text("Cancel"),
+                      onPressed: () {
+                        Navigator.pop(context); // Close the dialog
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+        ),
+      ),
       body: Builder(
         builder: (context) {
           final userState = context.watch<UserCubit>().state;
@@ -101,9 +131,6 @@ class _QuizScreenState extends State<QuizScreen> {
                 backgroundColor: Colors.white,
                 body: Column(
                   children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.05,
-                    ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.9,
                       height: MediaQuery.of(context).size.height * 0.05,
@@ -146,9 +173,6 @@ class _QuizScreenState extends State<QuizScreen> {
                           ),
                         ],
                       ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.015,
                     ),
                     Stack(
                       children: [
@@ -247,6 +271,9 @@ class _QuizScreenState extends State<QuizScreen> {
                         ),
                       ],
                     ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.02,
+                    ),
                     QuestionCard(
                       isQuizAnswered: _isQuizAnswered,
                       quiz: _currentQuestion,
@@ -276,10 +303,10 @@ class _QuizScreenState extends State<QuizScreen> {
 
                           final userCubit = BlocProvider.of<UserCubit>(context);
                           if (_userScore > 0.01) {
-                            userCubit.addAchievement(_token, "firstQuiz");
+                         //   userCubit.addAchievement(_token, "firstQuiz");
                           }
                           print("token is $_token");
-                        //  userCubit.answerQuiz(0.01, _token);
+                          //  userCubit.answerQuiz(0.01, _token);
 
                           return;
                         }

@@ -20,13 +20,14 @@ _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
       twoDAvatar: json['twoDAvatar'] as String?,
       threeDAvatar: json['threeDAvatar'] as String?,
       courses: (json['courses'] as List<dynamic>?)
-          ?.map((e) => UserCourse.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => e as Map<String, dynamic>)
           .toList(),
       online: json['online'] as bool,
       token: json['token'] as String?,
       fullName: json['fullName'] as String?,
       walletAddress: json['walletAddress'] as String?,
       privateKey: json['privateKey'] as String?,
+      deviceToken: json['deviceToken'] as String?,
       score: json['score'] == null
           ? null
           : Score.fromJson(json['score'] as Map<String, dynamic>),
@@ -55,6 +56,7 @@ Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
       'fullName': instance.fullName,
       'walletAddress': instance.walletAddress,
       'privateKey': instance.privateKey,
+      'deviceToken': instance.deviceToken,
       'score': instance.score,
       'achievement': instance.achievement,
       'achievements': instance.achievements,

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:equatable/equatable.dart';
 import 'package:esjourney/data/models/challenges/achievement/achievement_model.dart';
 import 'package:esjourney/data/models/user_model.dart';
@@ -71,8 +70,8 @@ class UserLogInSuccess extends UserState {
       walletAddress: map['walletAddress'],
       privateKey: map['privateKey'],
       score: Score.fromJson(map['score']),
-      achievement: Achievement.fromJson(map['achievement']),
-      achievements: List<Achievement>.from(map['achievements']?.map((x) => Achievement.fromJson(x))),
+      achievement: map [''] , //Achievement.fromJson(map['achievement']),
+      achievements: map [''], // List<Achievement>.from(map['achievements']?.map((x) => Achievement.fromJson(x))),
 
 
     ));

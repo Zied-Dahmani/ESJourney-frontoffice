@@ -30,12 +30,13 @@ mixin _$User {
   String get lastSeen => throw _privateConstructorUsedError;
   String? get twoDAvatar => throw _privateConstructorUsedError;
   String? get threeDAvatar => throw _privateConstructorUsedError;
-  List<UserCourse>? get courses => throw _privateConstructorUsedError;
+  List<Map<String, dynamic>>? get courses => throw _privateConstructorUsedError;
   bool get online => throw _privateConstructorUsedError;
   String? get token => throw _privateConstructorUsedError;
   String? get fullName => throw _privateConstructorUsedError;
   String? get walletAddress => throw _privateConstructorUsedError;
   String? get privateKey => throw _privateConstructorUsedError;
+  String? get deviceToken => throw _privateConstructorUsedError;
   Score? get score => throw _privateConstructorUsedError;
   Achievement? get achievement => throw _privateConstructorUsedError;
   List<Achievement>? get achievements => throw _privateConstructorUsedError;
@@ -61,12 +62,13 @@ abstract class $UserCopyWith<$Res> {
       String lastSeen,
       String? twoDAvatar,
       String? threeDAvatar,
-      List<UserCourse>? courses,
+      List<Map<String, dynamic>>? courses,
       bool online,
       String? token,
       String? fullName,
       String? walletAddress,
       String? privateKey,
+      String? deviceToken,
       Score? score,
       Achievement? achievement,
       List<Achievement>? achievements});
@@ -104,6 +106,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? fullName = freezed,
     Object? walletAddress = freezed,
     Object? privateKey = freezed,
+    Object? deviceToken = freezed,
     Object? score = freezed,
     Object? achievement = freezed,
     Object? achievements = freezed,
@@ -152,7 +155,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
       courses: freezed == courses
           ? _value.courses
           : courses // ignore: cast_nullable_to_non_nullable
-              as List<UserCourse>?,
+              as List<Map<String, dynamic>>?,
       online: null == online
           ? _value.online
           : online // ignore: cast_nullable_to_non_nullable
@@ -172,6 +175,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
       privateKey: freezed == privateKey
           ? _value.privateKey
           : privateKey // ignore: cast_nullable_to_non_nullable
+              as String?,
+      deviceToken: freezed == deviceToken
+          ? _value.deviceToken
+          : deviceToken // ignore: cast_nullable_to_non_nullable
               as String?,
       score: freezed == score
           ? _value.score
@@ -230,12 +237,13 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String lastSeen,
       String? twoDAvatar,
       String? threeDAvatar,
-      List<UserCourse>? courses,
+      List<Map<String, dynamic>>? courses,
       bool online,
       String? token,
       String? fullName,
       String? walletAddress,
       String? privateKey,
+      String? deviceToken,
       Score? score,
       Achievement? achievement,
       List<Achievement>? achievements});
@@ -271,6 +279,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? fullName = freezed,
     Object? walletAddress = freezed,
     Object? privateKey = freezed,
+    Object? deviceToken = freezed,
     Object? score = freezed,
     Object? achievement = freezed,
     Object? achievements = freezed,
@@ -319,7 +328,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
       courses: freezed == courses
           ? _value._courses
           : courses // ignore: cast_nullable_to_non_nullable
-              as List<UserCourse>?,
+              as List<Map<String, dynamic>>?,
       online: null == online
           ? _value.online
           : online // ignore: cast_nullable_to_non_nullable
@@ -339,6 +348,10 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
       privateKey: freezed == privateKey
           ? _value.privateKey
           : privateKey // ignore: cast_nullable_to_non_nullable
+              as String?,
+      deviceToken: freezed == deviceToken
+          ? _value.deviceToken
+          : deviceToken // ignore: cast_nullable_to_non_nullable
               as String?,
       score: freezed == score
           ? _value.score
@@ -370,12 +383,13 @@ class _$_User implements _User {
       required this.lastSeen,
       this.twoDAvatar,
       this.threeDAvatar,
-      final List<UserCourse>? courses,
+      final List<Map<String, dynamic>>? courses,
       required this.online,
       this.token,
       this.fullName,
       this.walletAddress,
       this.privateKey,
+      this.deviceToken,
       this.score,
       this.achievement,
       final List<Achievement>? achievements})
@@ -413,9 +427,9 @@ class _$_User implements _User {
   final String? twoDAvatar;
   @override
   final String? threeDAvatar;
-  final List<UserCourse>? _courses;
+  final List<Map<String, dynamic>>? _courses;
   @override
-  List<UserCourse>? get courses {
+  List<Map<String, dynamic>>? get courses {
     final value = _courses;
     if (value == null) return null;
     if (_courses is EqualUnmodifiableListView) return _courses;
@@ -434,6 +448,8 @@ class _$_User implements _User {
   @override
   final String? privateKey;
   @override
+  final String? deviceToken;
+  @override
   final Score? score;
   @override
   final Achievement? achievement;
@@ -449,7 +465,7 @@ class _$_User implements _User {
 
   @override
   String toString() {
-    return 'User(id: $id, username: $username, email: $email, password: $password, grade: $grade, events: $events, coins: $coins, lastSeen: $lastSeen, twoDAvatar: $twoDAvatar, threeDAvatar: $threeDAvatar, courses: $courses, online: $online, token: $token, fullName: $fullName, walletAddress: $walletAddress, privateKey: $privateKey, score: $score, achievement: $achievement, achievements: $achievements)';
+    return 'User(id: $id, username: $username, email: $email, password: $password, grade: $grade, events: $events, coins: $coins, lastSeen: $lastSeen, twoDAvatar: $twoDAvatar, threeDAvatar: $threeDAvatar, courses: $courses, online: $online, token: $token, fullName: $fullName, walletAddress: $walletAddress, privateKey: $privateKey, deviceToken: $deviceToken, score: $score, achievement: $achievement, achievements: $achievements)';
   }
 
   @override
@@ -481,6 +497,8 @@ class _$_User implements _User {
                 other.walletAddress == walletAddress) &&
             (identical(other.privateKey, privateKey) ||
                 other.privateKey == privateKey) &&
+            (identical(other.deviceToken, deviceToken) ||
+                other.deviceToken == deviceToken) &&
             (identical(other.score, score) || other.score == score) &&
             (identical(other.achievement, achievement) ||
                 other.achievement == achievement) &&
@@ -508,6 +526,7 @@ class _$_User implements _User {
         fullName,
         walletAddress,
         privateKey,
+        deviceToken,
         score,
         achievement,
         const DeepCollectionEquality().hash(_achievements)
@@ -539,12 +558,13 @@ abstract class _User implements User {
       required final String lastSeen,
       final String? twoDAvatar,
       final String? threeDAvatar,
-      final List<UserCourse>? courses,
+      final List<Map<String, dynamic>>? courses,
       required final bool online,
       final String? token,
       final String? fullName,
       final String? walletAddress,
       final String? privateKey,
+      final String? deviceToken,
       final Score? score,
       final Achievement? achievement,
       final List<Achievement>? achievements}) = _$_User;
@@ -572,7 +592,7 @@ abstract class _User implements User {
   @override
   String? get threeDAvatar;
   @override
-  List<UserCourse>? get courses;
+  List<Map<String, dynamic>>? get courses;
   @override
   bool get online;
   @override
@@ -583,6 +603,8 @@ abstract class _User implements User {
   String? get walletAddress;
   @override
   String? get privateKey;
+  @override
+  String? get deviceToken;
   @override
   Score? get score;
   @override

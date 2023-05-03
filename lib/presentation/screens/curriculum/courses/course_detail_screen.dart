@@ -86,7 +86,6 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                     child: CircleAvatar(
                       backgroundColor: Colors.transparent,
                       radius: 0.1 * width,
-                      //TODO : change to course image
                       child: Image.asset(
                         "assets/images/curriculum/hangman.png",
                         fit: BoxFit.cover,

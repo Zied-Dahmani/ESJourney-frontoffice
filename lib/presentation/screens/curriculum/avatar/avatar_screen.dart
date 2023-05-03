@@ -22,15 +22,18 @@ class _AvatarScreenState extends State<AvatarScreen> {
       body: BlocListener<UserCubit,UserState>(
         listener: (context, state) {
           if (state is UserLoadInProgress) {
+            print("here 1 ") ;
             showDialog(
                 context: context,
                 builder: (context) {
                   return const Center(child: CircularProgressIndicator());
                 });
           } else if (state is UserLogInSuccess) {
-            //Navigator.pop(dialogContext!);
+            print("here 2 ") ;
             Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
           } else if (state is UserIsFailure) {
+            print("here 3 ") ;
+            print("errrrorr is ${state.error}");
             showScaffold(context, state.error);
           }
         },
@@ -54,6 +57,9 @@ class _AvatarScreenState extends State<AvatarScreen> {
                         final user3DUrl = json['data']['url'];
                         final userId = user3DUrl?.split('/').last.toString().replaceAll('.glb', '').trim();
                         final user2DUrl = '$api$userId''.png';
+                        print('user2DUrl: $user2DUrl');
+                        print('user3DUrl: $user3DUrl');
+                        print(state.user.token!);
                         BlocProvider.of<UserCubit>(context).addAvatars(
                             state.user.token!,user2DUrl, user3DUrl);
                       }

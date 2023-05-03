@@ -111,7 +111,6 @@ class Controller extends ChangeNotifier {
       gameCompleted = true;
     }
 
-    //TODO: display word + definition
     /*if (gameCompleted) {
       calculateStats(gameWon: gameWon);
       if (gameWon) {

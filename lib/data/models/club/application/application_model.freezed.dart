@@ -25,6 +25,13 @@ mixin _$Application {
   ApplicationState get state => throw _privateConstructorUsedError;
   Club get club => throw _privateConstructorUsedError;
   DateTime get dateTime => throw _privateConstructorUsedError;
+  String get resume => throw _privateConstructorUsedError;
+  String get phoneNumber => throw _privateConstructorUsedError;
+  String get birthDate => throw _privateConstructorUsedError;
+  String get studyLevel => throw _privateConstructorUsedError;
+  String get speciality => throw _privateConstructorUsedError;
+  List<String> get answers => throw _privateConstructorUsedError;
+  String get linkedInLink => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,7 +50,14 @@ abstract class $ApplicationCopyWith<$Res> {
       dynamic userId,
       ApplicationState state,
       Club club,
-      DateTime dateTime});
+      DateTime dateTime,
+      String resume,
+      String phoneNumber,
+      String birthDate,
+      String studyLevel,
+      String speciality,
+      List<String> answers,
+      String linkedInLink});
 
   $ClubCopyWith<$Res> get club;
 }
@@ -66,6 +80,13 @@ class _$ApplicationCopyWithImpl<$Res, $Val extends Application>
     Object? state = null,
     Object? club = null,
     Object? dateTime = null,
+    Object? resume = null,
+    Object? phoneNumber = null,
+    Object? birthDate = null,
+    Object? studyLevel = null,
+    Object? speciality = null,
+    Object? answers = null,
+    Object? linkedInLink = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -88,6 +109,34 @@ class _$ApplicationCopyWithImpl<$Res, $Val extends Application>
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      resume: null == resume
+          ? _value.resume
+          : resume // ignore: cast_nullable_to_non_nullable
+              as String,
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      birthDate: null == birthDate
+          ? _value.birthDate
+          : birthDate // ignore: cast_nullable_to_non_nullable
+              as String,
+      studyLevel: null == studyLevel
+          ? _value.studyLevel
+          : studyLevel // ignore: cast_nullable_to_non_nullable
+              as String,
+      speciality: null == speciality
+          ? _value.speciality
+          : speciality // ignore: cast_nullable_to_non_nullable
+              as String,
+      answers: null == answers
+          ? _value.answers
+          : answers // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      linkedInLink: null == linkedInLink
+          ? _value.linkedInLink
+          : linkedInLink // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 
@@ -113,7 +162,14 @@ abstract class _$$_ApplicationCopyWith<$Res>
       dynamic userId,
       ApplicationState state,
       Club club,
-      DateTime dateTime});
+      DateTime dateTime,
+      String resume,
+      String phoneNumber,
+      String birthDate,
+      String studyLevel,
+      String speciality,
+      List<String> answers,
+      String linkedInLink});
 
   @override
   $ClubCopyWith<$Res> get club;
@@ -135,6 +191,13 @@ class __$$_ApplicationCopyWithImpl<$Res>
     Object? state = null,
     Object? club = null,
     Object? dateTime = null,
+    Object? resume = null,
+    Object? phoneNumber = null,
+    Object? birthDate = null,
+    Object? studyLevel = null,
+    Object? speciality = null,
+    Object? answers = null,
+    Object? linkedInLink = null,
   }) {
     return _then(_$_Application(
       id: freezed == id
@@ -157,6 +220,34 @@ class __$$_ApplicationCopyWithImpl<$Res>
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      resume: null == resume
+          ? _value.resume
+          : resume // ignore: cast_nullable_to_non_nullable
+              as String,
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      birthDate: null == birthDate
+          ? _value.birthDate
+          : birthDate // ignore: cast_nullable_to_non_nullable
+              as String,
+      studyLevel: null == studyLevel
+          ? _value.studyLevel
+          : studyLevel // ignore: cast_nullable_to_non_nullable
+              as String,
+      speciality: null == speciality
+          ? _value.speciality
+          : speciality // ignore: cast_nullable_to_non_nullable
+              as String,
+      answers: null == answers
+          ? _value._answers
+          : answers // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      linkedInLink: null == linkedInLink
+          ? _value.linkedInLink
+          : linkedInLink // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -169,8 +260,16 @@ class _$_Application extends _Application {
       required this.userId,
       required this.state,
       required this.club,
-      required this.dateTime})
-      : super._();
+      required this.dateTime,
+      required this.resume,
+      required this.phoneNumber,
+      required this.birthDate,
+      required this.studyLevel,
+      required this.speciality,
+      required final List<String> answers,
+      required this.linkedInLink})
+      : _answers = answers,
+        super._();
 
   factory _$_Application.fromJson(Map<String, dynamic> json) =>
       _$$_ApplicationFromJson(json);
@@ -185,10 +284,30 @@ class _$_Application extends _Application {
   final Club club;
   @override
   final DateTime dateTime;
+  @override
+  final String resume;
+  @override
+  final String phoneNumber;
+  @override
+  final String birthDate;
+  @override
+  final String studyLevel;
+  @override
+  final String speciality;
+  final List<String> _answers;
+  @override
+  List<String> get answers {
+    if (_answers is EqualUnmodifiableListView) return _answers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_answers);
+  }
+
+  @override
+  final String linkedInLink;
 
   @override
   String toString() {
-    return 'Application(id: $id, userId: $userId, state: $state, club: $club, dateTime: $dateTime)';
+    return 'Application(id: $id, userId: $userId, state: $state, club: $club, dateTime: $dateTime, resume: $resume, phoneNumber: $phoneNumber, birthDate: $birthDate, studyLevel: $studyLevel, speciality: $speciality, answers: $answers, linkedInLink: $linkedInLink)';
   }
 
   @override
@@ -201,7 +320,19 @@ class _$_Application extends _Application {
             (identical(other.state, state) || other.state == state) &&
             (identical(other.club, club) || other.club == club) &&
             (identical(other.dateTime, dateTime) ||
-                other.dateTime == dateTime));
+                other.dateTime == dateTime) &&
+            (identical(other.resume, resume) || other.resume == resume) &&
+            (identical(other.phoneNumber, phoneNumber) ||
+                other.phoneNumber == phoneNumber) &&
+            (identical(other.birthDate, birthDate) ||
+                other.birthDate == birthDate) &&
+            (identical(other.studyLevel, studyLevel) ||
+                other.studyLevel == studyLevel) &&
+            (identical(other.speciality, speciality) ||
+                other.speciality == speciality) &&
+            const DeepCollectionEquality().equals(other._answers, _answers) &&
+            (identical(other.linkedInLink, linkedInLink) ||
+                other.linkedInLink == linkedInLink));
   }
 
   @JsonKey(ignore: true)
@@ -212,7 +343,14 @@ class _$_Application extends _Application {
       const DeepCollectionEquality().hash(userId),
       state,
       club,
-      dateTime);
+      dateTime,
+      resume,
+      phoneNumber,
+      birthDate,
+      studyLevel,
+      speciality,
+      const DeepCollectionEquality().hash(_answers),
+      linkedInLink);
 
   @JsonKey(ignore: true)
   @override
@@ -234,7 +372,14 @@ abstract class _Application extends Application {
       required final dynamic userId,
       required final ApplicationState state,
       required final Club club,
-      required final DateTime dateTime}) = _$_Application;
+      required final DateTime dateTime,
+      required final String resume,
+      required final String phoneNumber,
+      required final String birthDate,
+      required final String studyLevel,
+      required final String speciality,
+      required final List<String> answers,
+      required final String linkedInLink}) = _$_Application;
   const _Application._() : super._();
 
   factory _Application.fromJson(Map<String, dynamic> json) =
@@ -250,6 +395,20 @@ abstract class _Application extends Application {
   Club get club;
   @override
   DateTime get dateTime;
+  @override
+  String get resume;
+  @override
+  String get phoneNumber;
+  @override
+  String get birthDate;
+  @override
+  String get studyLevel;
+  @override
+  String get speciality;
+  @override
+  List<String> get answers;
+  @override
+  String get linkedInLink;
   @override
   @JsonKey(ignore: true)
   _$$_ApplicationCopyWith<_$_Application> get copyWith =>

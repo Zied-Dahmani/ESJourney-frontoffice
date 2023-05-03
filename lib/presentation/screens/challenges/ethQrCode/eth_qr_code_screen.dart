@@ -24,6 +24,18 @@ class _EthQrCodeScreenState extends State<EthQrCodeScreen> {
     final double width = ScreenSize.width(context);
     final theme = Theme.of(context);
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+              ))
+        ],
+      ),
       body: Builder(
         builder: (context) {
           final userState = context.watch<UserCubit>().state;
@@ -49,6 +61,9 @@ class _EthQrCodeScreenState extends State<EthQrCodeScreen> {
                     },
                     text: 'Choose Amount',
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   ButtonWidget(
                     function: () {
                       showDialog(
@@ -56,7 +71,7 @@ class _EthQrCodeScreenState extends State<EthQrCodeScreen> {
                         builder: (context) {
                           return AlertDialog(
                             backgroundColor: Colors.white,
-                            surfaceTintColor: Colors.white,
+                            //surfaceTintColor: Colors.white,
                             content: SizedBox(
                               width: width * 0.8,
                               height: width * 0.8,
@@ -104,7 +119,7 @@ class _EthQrCodeScreenState extends State<EthQrCodeScreen> {
       builder: (context) {
         return AlertDialog(
           backgroundColor: Colors.white,
-          surfaceTintColor: Colors.white,
+          //surfaceTintColor: Colors.white,
           title: const Text(
             'Select Amount',
             style: TextStyle(

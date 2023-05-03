@@ -11,6 +11,7 @@ final QuizDataProvider _quizDataProvider = QuizDataProvider();
 @override
 Future <dynamic> getQuiz(String language) async {
   final result = await _quizDataProvider.getQuiz(language);
+  print("result is $result");
   return result.statusCode == 200
       ? result.data.map((quiz) => Quiz.fromJson(quiz)).toList()
       : null;

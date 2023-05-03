@@ -23,7 +23,7 @@ class UserRepository implements IUserRepository {
       String token, String twoDAvatar, String threeDAvatar) async {
     final result =
         await _userDataProvider.addAvatars(token, twoDAvatar, threeDAvatar);
-    return result.statusCode == 200 ? User.fromJson(result.data) : null;
+    return result.statusCode == 201 ? User.fromJson(result.data) : null;
   }
 
   @override
@@ -41,6 +41,9 @@ class UserRepository implements IUserRepository {
   }
 
   @override
+  Future<void> updateDeviceToken(String token, String deviceToken) async {
+    await _userDataProvider.updateDeviceToken(token,deviceToken);
+  }
   Future<dynamic> updatePassword(
       String currentPassword, String newPassword, String token) async {
     final result = await _userDataProvider.updatePassword(

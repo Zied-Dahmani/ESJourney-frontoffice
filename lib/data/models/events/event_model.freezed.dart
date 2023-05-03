@@ -31,6 +31,8 @@ mixin _$Event {
   String get eventImage => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
   String get requirementsDescription => throw _privateConstructorUsedError;
+  MeetingDetail? get meeting => throw _privateConstructorUsedError;
+  List<Poll>? get polls => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,7 +55,11 @@ abstract class $EventCopyWith<$Res> {
       String type,
       String eventImage,
       String location,
-      String requirementsDescription});
+      String requirementsDescription,
+      MeetingDetail? meeting,
+      List<Poll>? polls});
+
+  $MeetingDetailCopyWith<$Res>? get meeting;
 }
 
 /// @nodoc
@@ -80,6 +86,8 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
     Object? eventImage = null,
     Object? location = null,
     Object? requirementsDescription = null,
+    Object? meeting = freezed,
+    Object? polls = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -126,7 +134,27 @@ class _$EventCopyWithImpl<$Res, $Val extends Event>
           ? _value.requirementsDescription
           : requirementsDescription // ignore: cast_nullable_to_non_nullable
               as String,
+      meeting: freezed == meeting
+          ? _value.meeting
+          : meeting // ignore: cast_nullable_to_non_nullable
+              as MeetingDetail?,
+      polls: freezed == polls
+          ? _value.polls
+          : polls // ignore: cast_nullable_to_non_nullable
+              as List<Poll>?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MeetingDetailCopyWith<$Res>? get meeting {
+    if (_value.meeting == null) {
+      return null;
+    }
+
+    return $MeetingDetailCopyWith<$Res>(_value.meeting!, (value) {
+      return _then(_value.copyWith(meeting: value) as $Val);
+    });
   }
 }
 
@@ -147,7 +175,12 @@ abstract class _$$_EventCopyWith<$Res> implements $EventCopyWith<$Res> {
       String type,
       String eventImage,
       String location,
-      String requirementsDescription});
+      String requirementsDescription,
+      MeetingDetail? meeting,
+      List<Poll>? polls});
+
+  @override
+  $MeetingDetailCopyWith<$Res>? get meeting;
 }
 
 /// @nodoc
@@ -170,6 +203,8 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
     Object? eventImage = null,
     Object? location = null,
     Object? requirementsDescription = null,
+    Object? meeting = freezed,
+    Object? polls = freezed,
   }) {
     return _then(_$_Event(
       id: null == id
@@ -216,6 +251,14 @@ class __$$_EventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_Event>
           ? _value.requirementsDescription
           : requirementsDescription // ignore: cast_nullable_to_non_nullable
               as String,
+      meeting: freezed == meeting
+          ? _value.meeting
+          : meeting // ignore: cast_nullable_to_non_nullable
+              as MeetingDetail?,
+      polls: freezed == polls
+          ? _value._polls
+          : polls // ignore: cast_nullable_to_non_nullable
+              as List<Poll>?,
     ));
   }
 }
@@ -234,7 +277,10 @@ class _$_Event implements _Event {
       required this.type,
       required this.eventImage,
       required this.location,
-      required this.requirementsDescription});
+      required this.requirementsDescription,
+      this.meeting,
+      final List<Poll>? polls})
+      : _polls = polls;
 
   factory _$_Event.fromJson(Map<String, dynamic> json) =>
       _$$_EventFromJson(json);
@@ -261,10 +307,21 @@ class _$_Event implements _Event {
   final String location;
   @override
   final String requirementsDescription;
+  @override
+  final MeetingDetail? meeting;
+  final List<Poll>? _polls;
+  @override
+  List<Poll>? get polls {
+    final value = _polls;
+    if (value == null) return null;
+    if (_polls is EqualUnmodifiableListView) return _polls;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'Event(id: $id, title: $title, date: $date, startTime: $startTime, endTime: $endTime, description: $description, isDone: $isDone, type: $type, eventImage: $eventImage, location: $location, requirementsDescription: $requirementsDescription)';
+    return 'Event(id: $id, title: $title, date: $date, startTime: $startTime, endTime: $endTime, description: $description, isDone: $isDone, type: $type, eventImage: $eventImage, location: $location, requirementsDescription: $requirementsDescription, meeting: $meeting, polls: $polls)';
   }
 
   @override
@@ -288,7 +345,9 @@ class _$_Event implements _Event {
                 other.location == location) &&
             (identical(
                     other.requirementsDescription, requirementsDescription) ||
-                other.requirementsDescription == requirementsDescription));
+                other.requirementsDescription == requirementsDescription) &&
+            (identical(other.meeting, meeting) || other.meeting == meeting) &&
+            const DeepCollectionEquality().equals(other._polls, _polls));
   }
 
   @JsonKey(ignore: true)
@@ -305,7 +364,9 @@ class _$_Event implements _Event {
       type,
       eventImage,
       location,
-      requirementsDescription);
+      requirementsDescription,
+      meeting,
+      const DeepCollectionEquality().hash(_polls));
 
   @JsonKey(ignore: true)
   @override
@@ -333,7 +394,9 @@ abstract class _Event implements Event {
       required final String type,
       required final String eventImage,
       required final String location,
-      required final String requirementsDescription}) = _$_Event;
+      required final String requirementsDescription,
+      final MeetingDetail? meeting,
+      final List<Poll>? polls}) = _$_Event;
 
   factory _Event.fromJson(Map<String, dynamic> json) = _$_Event.fromJson;
 
@@ -359,6 +422,10 @@ abstract class _Event implements Event {
   String get location;
   @override
   String get requirementsDescription;
+  @override
+  MeetingDetail? get meeting;
+  @override
+  List<Poll>? get polls;
   @override
   @JsonKey(ignore: true)
   _$$_EventCopyWith<_$_Event> get copyWith =>

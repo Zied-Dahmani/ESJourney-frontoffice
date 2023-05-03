@@ -1,3 +1,4 @@
+import 'package:esjourney/presentation/screens/club_event/my_events_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
@@ -5,6 +6,7 @@ import 'package:esjourney/presentation/screens/application/applications_screen.d
 import 'package:esjourney/presentation/screens/club_event/club_events_map_screen.dart';
 import 'package:esjourney/presentation/screens/drawer_screen.dart';
 import 'package:esjourney/presentation/screens/main_screen.dart';
+import 'package:esjourney/presentation/screens/profile/profile_screen.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
@@ -12,6 +14,7 @@ import 'Events/calendar_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'curriculum/faq/faq_screen.dart';
+import 'Internship/chat_bot_screen.dart';
 
 class ZoomDrawerScreen extends StatefulWidget {
   const ZoomDrawerScreen({Key? key}) : super(key: key);
@@ -67,8 +70,13 @@ class _ZoomDrawerScreenState extends State<ZoomDrawerScreen> {
         return const MainScreen();
       case 7:
         return  FAQScreen();
+        return const MyEventsScreen();
+        case 5:
+        return  ProfileScreen();
+      case 6:
+        return  ChatBotScreen();
       default:
-        return const MainScreen();
+        return const ProfileScreen();
     }
   }
 }

@@ -1,27 +1,44 @@
 import 'dart:async';
 import 'dart:developer' as developer;
-import 'package:esjourney/data/models/club_model.dart';
+import 'package:esjourney/data/models/club/club/club_model.dart';
 import 'package:esjourney/logic/cubits/club/club_state.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
 import 'package:esjourney/utils/constants.dart';
+import 'package:esjourney/utils/dynamic_link.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_share/flutter_share.dart';
 
 class ClubCubit extends Cubit<ClubState> {
-  ClubCubit(this._connectivityCubit,this._userCubit, this._clubRepository) : super(ClubLoadInProgress()) {
-    init();
+  ClubCubit(this._connectivityCubit, this._userCubit, this._clubRepository)
+      : super(ClubLoadInProgress()) {
+    initDynamicLink();
   }
 
-  final _connectivityCubit,_clubRepository,_userCubit;
+  final _connectivityCubit, _clubRepository, _userCubit;
   StreamSubscription? _connectivityStreamSubscription;
 
+  bool isFirstTime = true;
+  late List<Club> _clubs;
+  late String clubId;
+
+  initDynamicLink() async {
+      clubId = await DynamicLink().init();
+      if (clubId != '') {
+        init();
+      }
+
+  }
 
   void init() {
-    if (_connectivityCubit.state is ConnectivityConnectSuccess) {
-      getAllClubs();
-    } else {
-      emit(ClubLoadFailure(kcheckInternetConnection));
+    if (isFirstTime) {
+      isFirstTime = false;
+      if (_connectivityCubit.state is ConnectivityConnectSuccess) {
+        getAllClubs();
+      } else {
+        emit(ClubLoadFailure(kcheckInternetConnection));
+      }
+      listen();
     }
-    listen();
   }
 
   StreamSubscription<ConnectivityState> listen() {
@@ -41,7 +58,7 @@ class ClubCubit extends Cubit<ClubState> {
     try {
       final result = await _clubRepository.getAllClubs();
       result != null
-          ? emit(ClubLoadSuccess(result.cast<Club>()))
+          ? {_clubs = result.cast<Club>(), emit(ClubLoadSuccess(_clubs))}
           : emit(ClubLoadFailure(kbadRequest));
     } catch (e) {
       developer.log(e.toString(), name: 'Catch getAllClubs');
@@ -49,6 +66,22 @@ class ClubCubit extends Cubit<ClubState> {
     }
   }
 
+  Club? getClub() {
+    try {
+      return _clubs.where((club) => club.id == clubId).first;
+    } catch (e) {
+      developer.log(e.toString(), name: 'Catch getClub');
+      return null;
+    }
+  }
+
+  Future<void> shareClub(Club club, String linkUrl) async {
+    await FlutterShare.share(
+        title: club.name,
+        text: club.name,
+        linkUrl: linkUrl,
+        chooserTitle: club.name);
+  }
 
   /*var isFirstTime = true;
 

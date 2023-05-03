@@ -457,7 +457,6 @@ class _DashtarState extends State<SDashtar> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     dance42seconds();
     Timer.periodic(const Duration(seconds: 3), (t) {
@@ -467,7 +466,6 @@ class _DashtarState extends State<SDashtar> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     if (mounted && controller != null) controller!.dispose();
   }

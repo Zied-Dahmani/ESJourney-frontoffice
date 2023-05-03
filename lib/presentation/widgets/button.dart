@@ -10,7 +10,7 @@ class ButtonWidget extends StatelessWidget {
     this.icon,
     this.backgroundColor,
     this.textColor,
-    this.height,
+    this.height = AppSizes.kbuttonHeight - 5,
     this.width,
     this.function,
     this.isDisabled = false,
@@ -40,7 +40,7 @@ class ButtonWidget extends StatelessWidget {
             backgroundColor ?? theme.colorScheme.primary,
           ),
         ),
-        onPressed: isDisabled ? null : () => function?.call(),
+        onPressed: isDisabled ? null : () => function!(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

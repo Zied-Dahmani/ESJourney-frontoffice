@@ -6,6 +6,8 @@ import 'package:intl/intl.dart';
 import '../../../logic/cubits/events/event_cubit.dart';
 import '../../../logic/cubits/user/user_cubit.dart';
 import '../../../logic/cubits/user/user_state.dart';
+import '../../../utils/constants.dart';
+import 'meeting/meeting_screen.dart';
 
 class EventDetails extends StatefulWidget {
   final Event event;
@@ -21,13 +23,14 @@ class EventDetails extends StatefulWidget {
 
 class _EventDetailsState extends State<EventDetails> {
   get screenHeight => MediaQuery.of(context).size.height;
-
   get screenWidth => MediaQuery.of(context).size.width;
-
   get textTheme => Theme.of(context).textTheme;
   late Event event = widget.event;
   String _buttonText = 'Register';
   MaterialColor _buttonColor = Colors.green;
+  //meeting
+  bool showJoinMeetingButton = false;
+
 
   void updateButtonText(String text, MaterialColor color) {
     setState(() {
@@ -36,24 +39,63 @@ class _EventDetailsState extends State<EventDetails> {
     });
   }
 
-  void _fetchEvent() {
-    final userState = context.read<UserCubit>().state;
 
+  void _fetchEvent() async {
+    final userState = context.read<UserCubit>().state;
     if (userState is! UserLogInSuccess) return;
-    final isRegistered = userState.user.events
-        ?.where((element) => element.id == event.id)
-        .isNotEmpty;
-    print('isRegistered $isRegistered');
-    print('userEvents ${userState.user.events}');
-    print('widget.eventId ${widget.event.id}');
+    final token = userState.user.token;
+    await context.read<UserCubit>().refreshUserData(token!);
+    print('user id: ${userState.user.id}');
+    final isRegistered =
+        userState.user.events?.any((element) => element.id == event.id) ?? false;
+    final isMeeting = event.location == 'meeting';
+    final eventStartTime = DateFormat.Hm().parse(event.startTime);
+    final eventEndTime = DateFormat.Hm().parse(event.endTime);
+    final eventDateTime = event.date
+        .add(Duration(hours: eventStartTime.hour - 1, minutes: eventStartTime.minute));
+    final eventEndDateTime = event.date
+        .add(Duration(hours: eventEndTime.hour - 1, minutes: eventEndTime.minute));
+    final currentTime = DateTime.now();
+
     setState(() {
-      if (isRegistered!) {
+      if (isRegistered) {
         updateButtonText('Unregister', Colors.red);
       } else {
         updateButtonText('Register', Colors.green);
       }
+      print('isRegistered: $isRegistered');
+
+      print('eventStartTime: $eventStartTime');
+      print('eventEndTime: $eventEndTime');
+      print('event date time: $eventDateTime');
+      print('event end date time: $eventEndDateTime');
+      print('date correct? ${event.date == DateTime.now()}');
+      print('currentTime: $currentTime');
+      print('testing ${eventDateTime.isBefore(currentTime)}');
+      // Show Join Meeting button if event is registered, has a location of "meeting", and has started
+      //to add later eventStartTime.isBefore(currentTime)
+      if (isRegistered && isMeeting && eventDateTime.isBefore(currentTime.toUtc()) && eventEndDateTime.isAfter(currentTime.toUtc())) {
+        showJoinMeetingButton = true;
+      } else {
+        showJoinMeetingButton = false;
+      }
+      print(isRegistered);
+      print(isMeeting);
+      print('start time');
+      print(eventDateTime.isBefore(currentTime));
+      print('end time');
+      print(eventEndDateTime.isAfter(currentTime));
+      print('current time: ${currentTime.toUtc()}');
+      print('showJoinMeetingButton: $showJoinMeetingButton');
     });
   }
+
+
+
+
+
+
+
 
   @override
   void initState() {
@@ -61,22 +103,14 @@ class _EventDetailsState extends State<EventDetails> {
     _fetchEvent();
   }
 
-  void checkEventStatus() {
-    final currentTime = DateTime.now();
-    final endTime = DateFormat.Hm().parse(event.endTime);
-    final eventDate = event.date;
-    final eventEndTime = DateTime(
-      eventDate.year,
-      eventDate.month,
-      eventDate.day,
-      endTime.hour,
-      endTime.minute,
+
+  void _joinMeeting() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => MeetingPage(event: event),
+      ),
     );
-    if (currentTime.isAfter(eventEndTime)) {
-      setState(() {
-        event = event.copyWith(isDone: true);
-      });
-    }
   }
 
   Future<void> _registerOrUnregister() async {
@@ -165,6 +199,14 @@ class _EventDetailsState extends State<EventDetails> {
               );
             },
           );
+          setState(() {
+            final isMeeting = widget.event.location == 'meeting';
+            final eventStartTime = DateFormat.Hm().parse(widget.event.startTime);
+            final currentTime = DateTime.now();
+            if (isMeeting && widget.event.date.isBefore(currentTime)) {
+              showJoinMeetingButton = true;
+            }
+          });
         } else {
           await context.read<EventCubit>().registerEvent(
                 userState.user.token!,
@@ -180,6 +222,7 @@ class _EventDetailsState extends State<EventDetails> {
               widget.event.id,
             );
         setState(() {
+          showJoinMeetingButton = false;
           updateButtonText('Register', Colors.green);
         });
       }
@@ -192,23 +235,23 @@ class _EventDetailsState extends State<EventDetails> {
       body: event == null
           ? const CircularProgressIndicator()
           : Container(
-              color: Colors.grey[500],
-              child: Stack(
-                children: [
-                  event.eventImage != null
-                      ? Material(
-                          elevation: 3,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(event.eventImage),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        )
-                      : Container(),
-                  SafeArea(
+        color: Colors.grey[500],
+        child: Stack(
+          children: [
+        event.eventImage != null
+        ? Material(
+        elevation: 3,
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: Image.network(imageUrl + event.eventImage ).image,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        )
+              : Container(),
+            SafeArea(
                     child: Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
@@ -342,12 +385,10 @@ class _EventDetailsState extends State<EventDetails> {
                                     //button
                                     SizedBox(height: screenHeight * 0.01),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         StatefulBuilder(
-                                          builder: (BuildContext context,
-                                              StateSetter setState) {
+                                          builder: (BuildContext context, StateSetter setState) {
                                             return Expanded(
                                               child: ElevatedButton(
                                                 onPressed: () {
@@ -356,20 +397,37 @@ class _EventDetailsState extends State<EventDetails> {
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor: _buttonColor,
                                                   shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
+                                                    borderRadius: BorderRadius.circular(10),
                                                   ),
                                                 ),
-                                                child: Text(_buttonText,
-                                                    style: textTheme.titleSmall
-                                                        ?.copyWith(
-                                                      color: Colors.white,
-                                                    )),
+                                                child: Text(
+                                                  _buttonText,
+                                                  style: textTheme.titleSmall?.copyWith(
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
                                               ),
                                             );
                                           },
-                                        )
+                                        ),
+                                        if (showJoinMeetingButton)
+                                          Expanded(
+                                            child: ElevatedButton(
+                                              onPressed: _joinMeeting,
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.blue,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(10),
+                                                ),
+                                              ),
+                                              child: Text(
+                                                'Join Meeting',
+                                                style: textTheme.titleSmall?.copyWith(
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
                                       ],
                                     ),
                                     SizedBox(height: screenHeight * 0.02),
