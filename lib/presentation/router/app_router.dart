@@ -1,11 +1,8 @@
 import 'package:esjourney/data/models/events/event_model.dart';
 import 'package:esjourney/data/models/user_model.dart';
-import 'package:esjourney/presentation/screens/Internship/postToLinkedinScreen.dart';
-import 'package:esjourney/presentation/screens/application/club_interview_screen.dart';
 import 'package:esjourney/presentation/screens/club/apply_to_club_screen.dart';
 import 'package:esjourney/presentation/screens/club/club_screen.dart';
 import 'package:esjourney/presentation/screens/club/done_screen.dart';
-import 'package:esjourney/presentation/screens/club/shorts_screen.dart';
 import 'package:esjourney/presentation/screens/club_event/club_event_tickets_screen.dart';
 import 'package:esjourney/presentation/screens/club_event/club_event_timeline_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/avatar/avatar_screen.dart';
@@ -20,6 +17,7 @@ import 'package:esjourney/presentation/screens/curriculum/games/memory/screen/me
 import 'package:esjourney/presentation/screens/curriculum/games/slide/pages/slide_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/worldy/screens/wordly_game.dart';
 import 'package:esjourney/presentation/screens/curriculum/map/level_map.dart';
+import 'package:esjourney/presentation/screens/home/posts/create_post_screen.dart';
 import 'package:esjourney/presentation/screens/profile/edit_profile/update_password/update_password_screen.dart';
 import 'package:esjourney/presentation/screens/profile/edit_profile/update_username/update_username.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
@@ -29,9 +27,8 @@ import 'package:flutter/material.dart';
 
 import '../screens/Events/event_details_screen.dart';
 import '../screens/Internship/profileScreen.dart';
-import '../screens/challenges/ethQrCode/eth_qr_code_screen.dart';
 import '../screens/challenges/leaderboard/leaderboard_screen.dart';
-import '../screens/challenges/quiz/quiz_screen.dart';
+import '../screens/challenges/quiz/quiz.dart';
 import '../screens/challenges/quiz/quiz_result.dart';
 import '../screens/profile/edit_profile/edit_profile_screen.dart';
 import 'routes.dart';
@@ -146,7 +143,7 @@ class AppRouter {
 
       case AppRoutes.applyToClubScreen:
         return MaterialPageRoute(
-          builder: (_) => ApplyToClubScreen(clubId: args),
+          builder: (_) => const ApplyToClubScreen(),
         );
 
       case AppRoutes.doneScreen:
@@ -163,23 +160,6 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => ClubEventTicketsScreen(clubEvent: args),
         );
-
-      case AppRoutes.shortsScreen:
-        final Map<String, dynamic> argsMap = args as Map<String, dynamic>;
-        final int index = argsMap['index'] as int;
-        final List<String> shorts = argsMap['shorts'] as List<String>;
-        return MaterialPageRoute(
-          builder: (_) => ShortsScreen(
-            shorts: shorts,
-            startIndex: index,
-          ),
-        );
-
-      case AppRoutes.clubInterviewScreen:
-        return MaterialPageRoute(
-          builder: (_) => ClubInterviewScreen(callID: args),
-        );
-
 // souhail
       case AppRoutes.quizScreen:
         return MaterialPageRoute(
@@ -215,16 +195,10 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => const UpdateUsernameScreen(),
         );
-
-      case AppRoutes.postToLinkedinScreen:
+      case AppRoutes.createPostScreen:
         return MaterialPageRoute(
-          builder: (_) => const PostToLinkedinScreen(),
+          builder: (_) => CreatePostScreen(),
         );
-      case AppRoutes.ethQrCodeScreen:
-        return MaterialPageRoute(
-          builder: (_) => const EthQrCodeScreen(),
-        );
-
       default:
         return null;
     }

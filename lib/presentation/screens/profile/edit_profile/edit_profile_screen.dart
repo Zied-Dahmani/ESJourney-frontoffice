@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
-
 import '../../../../logic/cubits/user/user_cubit.dart';
 import '../../../../logic/cubits/user/user_state.dart';
 import '../../../../utils/screen_size.dart';
@@ -171,65 +169,45 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           left: 10,
                           right: 10,
                         ),
-                        child: Column(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  "Push notifications",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w700,
-                                    fontFamily: 'VisbyRoundCF',
+                            const Text(
+                              "Push notifications",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                fontFamily: 'VisbyRoundCF',
+                              ),
+                            ),
+                            GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: () {
+                                setState(() {
+                                  switched = !switched;
+                                });
+                              },
+                              child: Transform.scale(
+                                scale: 0.7,
+                                child: Theme(
+                                  data: ThemeData(
+                                    primarySwatch: Colors.blue,
+                                    unselectedWidgetColor: Colors.deepPurple,
+                                  ),
+                                  child: Switch(
+                                    value: switched,
+                                    activeColor: theme.colorScheme.primary,
+                                    inactiveTrackColor: Colors.grey[300],
+                                    onChanged: (bool newValue) {
+                                      setState(() {
+                                        switched = newValue;
+                                      });
+                                    },
                                   ),
                                 ),
-                                GestureDetector(
-                                  behavior: HitTestBehavior.opaque,
-                                  onTap: () {
-                                    setState(() {
-                                      switched = !switched;
-                                    });
-                                  },
-                                  child: Transform.scale(
-                                    scale: 0.7,
-                                    child: Theme(
-                                      data: ThemeData(
-                                        primarySwatch: Colors.blue,
-                                        unselectedWidgetColor: Colors.deepPurple,
-                                      ),
-                                      child: Switch(
-                                        value: switched,
-                                        activeColor: theme.colorScheme.primary,
-                                        inactiveTrackColor: Colors.grey[300],
-                                        onChanged: (bool newValue) {
-                                          setState(() {
-                                            switched = newValue;
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                            UserInfo(
-                              infoTitle: "Sign out",
-                              infoValue: "" ,
-                              onPressed: () {
-                                context.read<UserCubit>().signOut();
-                                Navigator.pushNamed(context, AppRoutes.signInScreen);
-                              },
-                            ),
-                            UserInfo(
-                              infoTitle: "Generate QrCode",
-                              infoValue: "" ,
-                              onPressed: () {
-
-                                Navigator.pushNamed(context, AppRoutes.ethQrCodeScreen);
-                              },
-                            ),
+                              ),
+                            )
                           ],
                         )),
                   ),

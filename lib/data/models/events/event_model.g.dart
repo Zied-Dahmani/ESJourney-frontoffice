@@ -27,7 +27,7 @@ _$_Event _$$_EventFromJson(Map<String, dynamic> json) => _$_Event(
     );
 
 Map<String, dynamic> _$$_EventToJson(_$_Event instance) => <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'title': instance.title,
       'date': instance.date.toIso8601String(),
       'startTime': instance.startTime,

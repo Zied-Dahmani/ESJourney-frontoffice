@@ -1,102 +1,117 @@
 import 'package:comment_tree/comment_tree.dart';
+import 'package:esjourney/logic/cubits/user/user_cubit.dart';
+import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:flutter/material.dart';
-import 'package:searchbar_animation/searchbar_animation.dart';
+import 'package:provider/provider.dart';
 
-class FAQScreen extends StatelessWidget {
+class FAQScreen extends StatefulWidget {
   FAQScreen({Key? key}) : super(key: key);
+
+  @override
+  State<FAQScreen> createState() => _FAQScreenState();
+}
+
+class _FAQScreenState extends State<FAQScreen> {
   final _replyController = TextEditingController();
   final _questionController = TextEditingController();
-  final _searchController = TextEditingController();
 
+
+  //get current user from user cubit
+  UserState? get _user => context.read<UserCubit>().state;
+  var user;
+
+  List<Question> _questions = [];
+
+  _submitQuestion() {
+    if (_user is UserLogInSuccess) {
+      user = (_user as UserLogInSuccess).user;
+    }
+    if (_questionController.text.isNotEmpty) {
+      setState(() {
+        _questions.add(Question(
+          avatar: user.twoDAvatar,
+          userName: user.username,
+          content: _questionController.text,
+          replies: [],
+        ));
+      });
+      _questionController.clear();
+    }
+  }
+
+  _submitReply(Question question) {
+    if (_replyController.text.isNotEmpty) {
+      setState(() {
+        question.replies?.add(Reply(
+          avatar: user.twoDAvatar,
+          userName: user.username,
+          content: _replyController.text,
+        ));
+      });
+      _replyController.clear();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Container(
-          margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
-          child: Row(
-            children: [
-              Expanded(
-                child: SearchBarAnimation(
-                  textEditingController: _searchController,
-                  isOriginalAnimation: false,
-                  hintText: "Search",
-                  trailingWidget: const Padding(
-                    padding: EdgeInsets.only(right: 4),
-                    child: Icon(
-                      Icons.search,
-                      color: Colors.black
-                    ),
-                  ),
-                  secondaryButtonWidget: const Icon(
-                    Icons.close,
-                    color: Colors.black
-                  ),
-                  buttonWidget: const Icon(
-                    Icons.search,
-                    color: Colors.black
-                  ),
-                  buttonColour: Colors.transparent,
-                  buttonShadowColour: Colors.transparent,
-                  enableBoxBorder: true,
-                  enableBoxShadow: false,
-                  enableButtonBorder: false,
-                  enableButtonShadow: false,
-                  enableKeyboardFocus: true,
-                  isSearchBoxOnRightSide: false,
-                  searchBoxBorderColour: Colors.transparent,
-                  searchBoxColour: Colors.transparent,
-                  buttonBorderColour: Colors.transparent,
-                  buttonElevation: 0,
-                  durationInMilliSeconds: 500,
-
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  _askQuestion(context, _questionController);
-                },
-                child: const Text("ASK"),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(8),
-          margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.grey[200],
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Flexible(
-                child: Container(
-                  margin: const EdgeInsets.only(left: 10, right: 10),
-                  child: const Text(
-                    "Your question goes here ?",
-                    maxLines: 1,
-                    overflow: TextOverflow.fade,
-                    softWrap: false,
-                  ),
-                ),
-              ),
-              Container(
-                  margin: const EdgeInsets.only(right: 10),
-                  child: TextButton(
+    return Scaffold(
+      body: Container(
+        padding: const EdgeInsets.only(top: 40),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
+              child: Row(
+                children: [
+                  const Spacer(),
+                  TextButton(
                     onPressed: () {
-                      _showReplies(context, _replyController);
+                      _askQuestion(context, _questionController);
                     },
-                    child: const Text("View All"),
-                  )),
+                    child: const Text("ASK"),
+                  ),
+                ],
+              ),
+            ),
+            for (var question in _questions) ...[
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(8),
+                margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.grey[200],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Flexible(
+                      child: Container(
+                        margin: const EdgeInsets.only(left: 10, right: 10),
+                        child: Text(
+                          question.content,
+                          maxLines: 1,
+                          overflow: TextOverflow.fade,
+                          softWrap: false,
+                        ),
+                      ),
+                    ),
+                    Container(
+                        margin: const EdgeInsets.only(right: 10),
+                        child: TextButton(
+                          onPressed: () {
+                            _showReplies(context, _replyController, question);
+                          },
+                          child: const Text("View All"),
+                        )),
+                  ],
+                ),
+              ),
             ],
-          ),
+          ],
         ),
-      ],
+      ),
     );
   }
 
@@ -173,7 +188,8 @@ class FAQScreen extends StatelessWidget {
                     margin: const EdgeInsets.only(right: 10),
                     child: TextButton(
                       onPressed: () {
-                        //Navigator.of(context).pop();
+                        _submitQuestion();
+                        Navigator.of(context).pop();
                       },
                       child: const Text("Post"),
                     ),
@@ -185,7 +201,7 @@ class FAQScreen extends StatelessWidget {
         });
   }
 
-  _showReplies(ctx, controller) {
+  _showReplies(ctx, controller, Question question) {
     showModalBottomSheet(
       context: ctx,
       enableDrag: true,
@@ -218,43 +234,33 @@ class FAQScreen extends StatelessWidget {
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                 child: CommentTreeWidget<Comment, Comment>(
                   Comment(
-                      avatar: 'null',
-                      userName: 'user',
-                      content: 'Your question goes here ?'),
+                      avatar: question.avatar,
+                      userName: question.userName,
+                      content: question.content),
                   [
-                    Comment(
-                        avatar: 'null',
-                        userName: 'user1',
-                        content: 'first comment'),
-                    Comment(
-                        avatar: 'null',
-                        userName: 'user2',
-                        content: 'second comment'),
-                    Comment(
-                        avatar: 'null',
-                        userName: 'user3',
-                        content: 'third comment'),
-                    Comment(
-                        avatar: 'null',
-                        userName: 'user4',
-                        content: 'fourth comment'),
+                    for (var reply in question.replies!) ...[
+                      Comment(
+                          avatar: reply.avatar,
+                          userName: reply.userName,
+                          content: reply.content),
+                    ],
                   ],
-                  treeThemeData: TreeThemeData(
-                      lineColor: Colors.green[500]!, lineWidth: 3),
-                  avatarRoot: (context, data) => const PreferredSize(
-                    preferredSize: Size.fromRadius(18),
+                  treeThemeData:
+                      TreeThemeData(lineColor: Colors.red[200]!, lineWidth: 3),
+                  avatarRoot: (context, data) => PreferredSize(
+                    preferredSize: const Size.fromRadius(18),
                     child: CircleAvatar(
                       radius: 18,
                       backgroundColor: Colors.transparent,
-                      backgroundImage: AssetImage('assets/images/app_logo.png'),
+                      backgroundImage: NetworkImage(question.avatar),
                     ),
                   ),
-                  avatarChild: (context, data) => const PreferredSize(
-                    preferredSize: Size.fromRadius(12),
+                  avatarChild: (context, data) => PreferredSize(
+                    preferredSize: const Size.fromRadius(12),
                     child: CircleAvatar(
                       radius: 12,
                       backgroundColor: Colors.transparent,
-                      backgroundImage: AssetImage('assets/images/app_logo.png'),
+                      backgroundImage: NetworkImage(question.avatar),
                     ),
                   ),
                   contentChild: (context, data) {
@@ -352,6 +358,7 @@ class FAQScreen extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
+                        _submitReply(question);
                         //Navigator.of(context).pop();
                       },
                       child: const Text("Post"),
@@ -365,4 +372,25 @@ class FAQScreen extends StatelessWidget {
       },
     );
   }
+}
+
+class Question {
+  final String avatar;
+  final String userName;
+  final String content;
+  final List<Reply>? replies;
+
+  Question(
+      {required this.avatar,
+      required this.userName,
+      required this.content,
+      this.replies});
+}
+
+class Reply {
+  final String avatar;
+  final String userName;
+  final String content;
+
+  Reply({required this.avatar, required this.userName, required this.content});
 }

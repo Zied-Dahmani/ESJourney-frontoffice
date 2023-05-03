@@ -10,7 +10,10 @@ import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+
 import 'Internship/InternshipHomePage.dart';
+import 'home/home_screen.dart';
+
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -40,8 +43,7 @@ class _MainScreenState extends State<MainScreen> {
       ),
       body: CurvedNavBar(
         actionButton: CurvedActionBar(
-            onTab: (value) {
-            },
+            onTab: (value) {},
             activeIcon: Container(
               padding: const EdgeInsets.all(AppSizes.kbigSpace - 6),
               decoration: BoxDecoration(
@@ -105,9 +107,8 @@ class _MainScreenState extends State<MainScreen> {
               text: ''),
         ],
         bodyItems: [
-          Container(
-            color: theme.colorScheme.background,
-          ),
+
+          HomeScreen(),
           InternshipHomePage(),
           const EventListScreen(),
           const ClubsScreen()

@@ -13,6 +13,7 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'Events/calendar_screen.dart';
 import 'package:provider/provider.dart';
 
+import 'curriculum/faq/faq_screen.dart';
 import 'Internship/chat_bot_screen.dart';
 
 class ZoomDrawerScreen extends StatefulWidget {
@@ -66,6 +67,9 @@ class _ZoomDrawerScreenState extends State<ZoomDrawerScreen> {
       case 3:
         return const ApplicationsScreen();
       case 4:
+        return const MainScreen();
+      case 7:
+        return  FAQScreen();
         return const MyEventsScreen();
         case 5:
         return  ProfileScreen();

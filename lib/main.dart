@@ -3,6 +3,7 @@ import 'package:esjourney/data/repositories/chat/chat_service.dart';
 import 'package:esjourney/data/repositories/club/club_repository.dart';
 import 'package:esjourney/logic/app_bloc_observer.dart';
 import 'package:esjourney/logic/cubits/application/application_cubit.dart';
+import 'package:esjourney/logic/cubits/challenges/posts/post_cubit.dart';
 import 'package:esjourney/logic/cubits/chat/user/users_cubit.dart';
 import 'package:esjourney/logic/cubits/club/club_cubit.dart';
 import 'package:esjourney/logic/cubits/club/club_state.dart';
@@ -195,6 +196,8 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
               create: (context) => TopSolutionsCubit(), lazy: true),
           BlocProvider<UsernameAvailableCubit>(
               create: (context) => UsernameAvailableCubit(), lazy: true),
+          BlocProvider<PostCubit>(
+              create: (context) => PostCubit(), lazy: true),
         ],
         child: MaterialApp(
             title: AppStrings.kappName,

@@ -112,6 +112,7 @@ dependencies:
 
   share_plus: ^4.1.0
   flutter_share_me: ^1.4.0
+  image_picker: ^0.8.7+4
  #Youssef
   http: ^0.13.5
 
@@ -155,6 +156,7 @@ flutter:
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
+  # the material Icons class.
   # the material Icons class.
   uses-material-design: true
 
