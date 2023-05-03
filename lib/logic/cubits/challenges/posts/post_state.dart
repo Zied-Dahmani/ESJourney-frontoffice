@@ -7,8 +7,7 @@ class PostInitial extends PostState {}
 class PostLoadInProgress extends PostState {}
 
 class PostIsSuccess extends PostState {
-  final Post posts;
-
+  final List<dynamic> posts;
   PostIsSuccess(this.posts);
 }
 

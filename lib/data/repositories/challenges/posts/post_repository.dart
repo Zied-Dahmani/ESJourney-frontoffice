@@ -13,10 +13,16 @@ class PostRepository implements IPostRepository {
   }
 
   @override
-  Future<dynamic> getPosts() async {
-    final result = await _postDataProvider.getPosts();
-    return result.statusCode == 200
-        ? result.data.map((posts) => Post.fromJson(posts)).toList()
-        : null;
+    Future<dynamic> getPosts() async {
+      final result = await _postDataProvider.getPosts();
+      try {
+
+        return result.statusCode == 200
+            ? result.data.map((post) => Post.fromJson(post)).toList()
+            : null;
+      }
+      catch (e) {
+        print("errorrr " + e.toString());
+      }
   }
 }

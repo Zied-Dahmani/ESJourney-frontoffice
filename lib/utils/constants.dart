@@ -1,4 +1,4 @@
-var kbaseUrl = 'http://172.16.4.116:9090/';
+var kbaseUrl = 'http://192.168.0.5:9090/';
 var kmeetingUrl = 'http://192.168.0.9:9091';
 var imageUrl = '$kbaseUrl/images/';
 

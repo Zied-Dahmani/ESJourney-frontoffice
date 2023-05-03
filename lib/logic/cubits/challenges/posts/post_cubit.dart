@@ -22,8 +22,24 @@ class PostCubit extends Cubit<PostState> {
           ? emit(PostIsSuccess(result))
           : emit(PostIsFailure("error while getting data"));
     } catch (e) {
-      developer.log(e.toString(), name: 'error coding problem');
+      developer.log(e.toString(), name: 'error posts ');
       emit(PostIsFailure(kcheckInternetConnection));
     }
   }
+
+  Future<void> getPosts() async {
+    try {
+      emit(PostLoadInProgress());
+      final result = await _postRepository.getPosts();
+
+      result != null
+          ? emit(PostIsSuccess(result))
+          : emit(PostIsFailure("error while getting data"));
+    } catch (e) {
+      developer.log(e.toString(), name: 'error posts ');
+      emit(PostIsFailure(kcheckInternetConnection));
+    }
+  }
+
+
 }
