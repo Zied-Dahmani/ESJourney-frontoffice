@@ -221,7 +221,8 @@ class _MyEventsScreenState extends State<MyEventsScreen> {
   }
 
   void _predict() async {
-    img.Image imageInput = img.decodeImage(_image!.readAsBytesSync())!;
+    //img.Image imageInput = img.decodeImage(_image!.readAsBytesSync())!;
+    img.Image imageInput = img.decodeImage(_imageWidget)!;
     var pred = _classifier.predict(imageInput);
 
     setState(() {

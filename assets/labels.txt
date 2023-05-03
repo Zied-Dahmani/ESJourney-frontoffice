@@ -1,7 +1,7 @@
-0 Jeans
-1 Boots
-2 Sneakers
-3 Sandals
-4 Black
-5 White
-6 Green
+Jeans
+Boots
+Sneakers
+Sandals
+Black
+White
+Green
