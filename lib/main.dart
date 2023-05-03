@@ -217,7 +217,7 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
                     }
                   });
                 } else {
-                  return SignInScreen();
+                  return MyEventsScreen();
                 }
               },
             )),
