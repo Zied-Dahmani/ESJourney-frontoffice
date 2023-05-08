@@ -101,7 +101,7 @@ class SignInScreen extends StatelessWidget {
                               if (_formKey.currentState!.validate()) {
                                 if (state is ConnectivityConnectSuccess) {
                                   BlocProvider.of<UserCubit>(context).signIn(
-                                      _idController.text,
+                                      _idController.text.toLowerCase(),
                                       _passwordController.text);
                                 } else {
                                   showSnackBar(

@@ -1,12 +1,9 @@
-import 'package:esjourney/data/models/club/club/club_model.dart';
 import 'package:esjourney/data/repositories/chat/chat_service.dart';
 import 'package:esjourney/data/repositories/club/club_repository.dart';
 import 'package:esjourney/logic/app_bloc_observer.dart';
 import 'package:esjourney/logic/cubits/application/application_cubit.dart';
-import 'package:esjourney/logic/cubits/challenges/posts/posts_cubit.dart';
 import 'package:esjourney/logic/cubits/chat/user/users_cubit.dart';
 import 'package:esjourney/logic/cubits/club/club_cubit.dart';
-import 'package:esjourney/logic/cubits/club/club_state.dart';
 import 'package:esjourney/logic/cubits/club_event/club_event_cubit.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
 import 'package:esjourney/logic/cubits/curriculum/course_cubit.dart';
@@ -15,15 +12,13 @@ import 'package:esjourney/logic/cubits/location/location_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/logic/cubits/user/username_available/username_available_cubit.dart';
-import 'package:esjourney/presentation/home/home_screen.dart';
 import 'package:esjourney/presentation/router/app_router.dart';
-import 'package:esjourney/presentation/screens/club/club_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/draw/core/bloc/user_cubit/drawer_cubit.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
+import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
 import 'package:esjourney/utils/strings.dart';
 import 'package:esjourney/utils/theme.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,6 +29,7 @@ import 'package:provider/provider.dart';
 
 import 'logic/cubits/challenges/coding_problem_cubit.dart';
 import 'logic/cubits/challenges/leaderboard_cubit.dart';
+import 'logic/cubits/challenges/posts/posts_cubit.dart';
 import 'logic/cubits/challenges/quiz_cubit.dart';
 import 'logic/cubits/challenges/submission_cubit.dart';
 import 'logic/cubits/challenges/top_solutions_cubit.dart';
@@ -41,11 +37,9 @@ import 'presentation/screens/curriculum/games/draw/main_module.dart';
 import 'presentation/screens/curriculum/games/slide/tools/board_controller.dart';
 import 'presentation/screens/curriculum/games/slide/tools/navigation.dart';
 import 'presentation/screens/curriculum/games/worldy/provider/controller.dart';
-import 'presentation/screens/zoom_drawer_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
   await MainModule.init();
 
   ErrorWidget.builder = (FlutterErrorDetails details) {
@@ -86,7 +80,6 @@ void main() async {
         : await getTemporaryDirectory(),
   );
   Bloc.observer = AppBlocObserver();
-
   runApp(const MyApp());
 }
 
@@ -98,41 +91,38 @@ class MyApp extends StatefulWidget {
 }
 
 class _AppState extends State<MyApp> with WidgetsBindingObserver {
+  late UserCubit _userCubit;
   final AppRouter _appRouter = AppRouter();
-
-  //late UserCubit _userCubit;
-  Club? club;
 
   @override
   void initState() {
     super.initState();
-    /*    WidgetsBinding.instance.addObserver(this);
     _userCubit = UserCubit();
+    WidgetsBinding.instance.addObserver(this);
     if (_userCubit.state is UserLogInSuccess) {
       final token = (_userCubit.state as UserLogInSuccess).user.token;
       _userCubit.refreshUserData(token!);
-    }*/
+    }
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    //_userCubit.close();
+    _userCubit.close();
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
-    /*if (state == AppLifecycleState.resumed ||
+    if (state == AppLifecycleState.resumed ||
         state == AppLifecycleState.inactive) {
-      final state = _userCubit.state;
-      if (state is UserLogInSuccess) {
-        final token = state.user.token;
-        if (token != null) {
-          await _userCubit.refreshUserData(token);
-        }
+      final token = _userCubit.state is UserLogInSuccess
+          ? (_userCubit.state as UserLogInSuccess).user.token
+          : null;
+      if (token != null) {
+        await _userCubit.refreshUserData(token);
       }
-    }*/
+    }
   }
 
   @override
@@ -161,8 +151,8 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
           BlocProvider<UsersDataCubit>(
               create: (context) => UsersDataCubit(), lazy: true),
           /* end louay*/
+
           BlocProvider<EventCubit>(create: (context) => EventCubit()),
-          //Zied
           BlocProvider<ConnectivityCubit>(
               create: (context) => ConnectivityCubit(), lazy: false),
           BlocProvider<UserCubit>(create: (context) => UserCubit(), lazy: true),
@@ -171,7 +161,7 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
                   BlocProvider.of<ConnectivityCubit>(context),
                   BlocProvider.of<UserCubit>(context),
                   context.read<ClubRepository>()),
-              lazy: false),
+              lazy: true),
           BlocProvider<LocationCubit>(
               create: (context) => LocationCubit(), lazy: true),
           BlocProvider<ClubEventCubit>(
@@ -185,7 +175,6 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
                   context.read<ClubRepository>(),
                   BlocProvider.of<UserCubit>(context)),
               lazy: true),
-
           // souhail blocs
           BlocProvider<QuizCubit>(create: (context) => QuizCubit(), lazy: true),
           BlocProvider<CourseCubit>(
@@ -203,40 +192,25 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
           BlocProvider<PostCubit>(create: (context) => PostCubit(), lazy: true),
         ],
         child: MaterialApp(
-            title: AppStrings.kappName,
-            debugShowCheckedModeBanner: false,
-            showPerformanceOverlay: false,
-            theme: lightTheme,
-            themeMode: ThemeMode.light,
-            onGenerateRoute: _appRouter.onGenerateRoute,
-            home: BlocBuilder<UserCubit, UserState>(
-              buildWhen: (oldState, newState) =>
-                  oldState is UserInitial && newState is! UserLoadInProgress,
-              builder: (context, state) {
-                if (state is UserLogInSuccess) {
-                  return Builder(builder: (context) {
-                    final clubState = context.watch<ClubCubit>().state;
-                    if (clubState is ClubLoadSuccess &&
-                        BlocProvider.of<ClubCubit>(context).getClub() != null) {
-                      return ClubScreen(
-                          club: BlocProvider.of<ClubCubit>(context).getClub());
-                    } else {
-                      return const ZoomDrawerScreen();
-                    }
-                  });
-                } else {
-                  return SignInScreen();
-                }
-              },
-            )),
+          title: 'ESJourney',
+          debugShowCheckedModeBanner: false,
+          showPerformanceOverlay: false,
+          theme: lightTheme,
+          themeMode: ThemeMode.light,
+          onGenerateRoute: _appRouter.onGenerateRoute,
+          home: BlocBuilder<UserCubit, UserState>(
+            buildWhen: (oldState, newState) =>
+                oldState is UserInitial && newState is! UserLoadInProgress,
+            builder: (context, state) {
+              if (state is UserLogInSuccess) {
+                return ZoomDrawerScreen();
+              } else {
+                return SignInScreen();
+              }
+            },
+          ),
+        ),
       ),
     );
   }
-// Widget _getInitialWidget(UserState state) {
-//   if (state is UserLogInSuccess) {
-//     return ZoomDrawerScreen();
-//   } else {
-//     return SignInScreen();
-//   }
-// }
 }

@@ -3,20 +3,31 @@ import 'package:esjourney/logic/cubits/challenges/leaderboard_cubit.dart';
 import 'package:esjourney/logic/cubits/challenges/leaderboard_state.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/router/routes.dart';
-import 'package:esjourney/presentation/widgets/challenges/top-three_users_homepage.dart';
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../data/models/challenges/post/post_model/post_model.dart';
+import '../../../data/models/challenges/posts/post_model.dart';
 import '../../../data/models/user_model.dart';
-import '../../../logic/cubits/challenges/posts/post_cubit.dart';
-import '../../../logic/cubits/challenges/posts/post_state.dart';
+import '../../../logic/cubits/challenges/posts/posts_cubit.dart';
+import '../../../logic/cubits/challenges/posts/posts_state.dart';
 import '../../../logic/cubits/user/user_cubit.dart';
 import '../../../utils/constants.dart';
+import '../../widgets/challenges/top_three_users_homepage.dart';
+
 late User user;
 List<LeaderboardRes> allTimeTop3 = [];
+List<String> topUsersUsername = [];
+List<String> topUsersAvatars = [
+  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
+  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
+  "https://api.readyplayer.me/v1/avatars/645908d1bf91881a1ddaceac.png",
+  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
+  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
+  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
+  "https://api.readyplayer.me/v1/avatars/645908d1bf91881a1ddaceac.png",
+];
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -25,7 +36,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-late ValueNotifier<bool> isLiked = ValueNotifier<bool>(false);
+ValueNotifier<bool> isLiked = ValueNotifier<bool>(false);
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
@@ -36,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   List<Post> posts = [];
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -49,8 +61,13 @@ class _HomeScreenState extends State<HomeScreen> {
           if (leaderboardState is LeaderboardLoadInProgress &&
               postState is PostLoadInProgress) {
           } else if (leaderboardState is LeaderboardSuccess &&
-              postState is PostIsSuccess && userState is UserLogInSuccess) {
+              postState is PostIsSuccess &&
+              userState is UserLogInSuccess) {
+            for (int i = 0; i < leaderboardState.allTimeUsers.length; i++) {
+              topUsersUsername.add(leaderboardState.allTimeUsers[i].username);
+            }
             user = userState.user;
+            print("user is " + user.toString());
             return NestedScrollView(
               physics: const BouncingScrollPhysics(),
               headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -59,11 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     print("hereere");
                     await Future.delayed(const Duration(seconds: 2));
                   }),
-                  const SliverAppBar(
-                    backgroundColor: Colors.transparent,
-                    centerTitle: false,
-                    pinned: false,
-                  ),
+
                   SliverList(
                     delegate: SliverChildListDelegate(
                       [
@@ -85,12 +98,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: width * 0.03,
                             ),
                             TopThreeUsersHomePage(
-                              firstUsername:
-                                  leaderboardState.allTimeUsers[0].username,
-                              secondUsername:
-                                  leaderboardState.allTimeUsers[1].username,
-                              thirdUsername:
-                                  leaderboardState.allTimeUsers[2].username,
+                              username: topUsersUsername,
+                              userAvatar: topUsersAvatars,
                             ),
                           ],
                         ),
@@ -113,7 +122,8 @@ class _HomeScreenState extends State<HomeScreen> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: theme.colorScheme.primary,
           onPressed: () {
-            BlocProvider.of<PostCubit>(context).emit(PostInitial());
+            //BlocProvider.of<PostCubit>(context).emit(PostInitial());
+
             Navigator.pushNamed(context, AppRoutes.createPostScreen);
           },
           shape: const CircleBorder(),
@@ -129,11 +139,9 @@ class _HomeScreenState extends State<HomeScreen> {
 class PostsList extends StatelessWidget {
   final List<Post> posts;
 
-
   const PostsList({
     Key? key,
     required this.posts,
-
   }) : super(key: key);
 
   @override
@@ -152,6 +160,7 @@ class PostsList extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: posts.length,
             itemBuilder: (context, index) {
+
               isLiked.value = posts[index].likedBy.contains(user.id);
               return Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -197,7 +206,7 @@ class PostsList extends StatelessWidget {
                     SizedBox(
                       height: width * 0.02,
                     ),
-                    if(posts[index].mediaContent != null)
+                    if (posts[index].mediaContent != null)
                       ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
                         child: Image.network(
@@ -207,79 +216,78 @@ class PostsList extends StatelessWidget {
                           width: double.infinity,
                         ),
                       ),
-                    if(posts[index].mediaContent != null)
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        ValueListenableBuilder<bool>(
-                          valueListenable: isLiked,
-                          builder: (BuildContext context, bool isLikedValue,
-                              Widget? child) {
-                            return IconButton(
-                              onPressed: () {
-                                BlocProvider.of<PostCubit>(context).likePost(posts[index].id);
-                                isLiked.value = !isLikedValue;
-                              },
-                              icon: isLikedValue
-                                  ? const Icon(
-                                      Icons.favorite,
-                                      color: Colors.red,
-                                    )
-                                  : const Icon(
-                                      Icons.favorite_border,
-                                      color: Colors.black,
-                                    ),
-                            );
-                          },
-                        ),
-                        Text("112"),
-                      ],
-                    ),
+                    if (posts[index].mediaContent != null)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          ValueListenableBuilder<bool>(
+                            valueListenable: isLiked,
+                            builder: (BuildContext context, bool isLikedValue,
+                                Widget? child) {
+                              return IconButton(
+                                onPressed: () {
+                                  BlocProvider.of<PostCubit>(context)
+                                      .likePost(posts[index].id);
+                                  isLiked.value = !isLikedValue;
+                                  print(" isLiked" + isLiked.value.toString());
 
+                                  print("1   " + posts[index].likedBy.contains(user.id).toString());
+                                  print("2    " + posts[index].likedBy.toString());
+                                  print("3    " + user.id);
+                                },
+                                icon: isLikedValue
+                                    ? const Icon(
+                                        Icons.favorite,
+                                        color: Colors.red,
+                                      )
+                                    : const Icon(
+                                        Icons.favorite_border,
+                                        color: Colors.black,
+                                      ),
+                              );
+                            },
+                          ),
+                          Text("112"),
+                        ],
+                      ),
                     ValueListenableBuilder<bool>(
                         valueListenable: expanded,
                         builder: (BuildContext context, bool expanded,
                             Widget? child) {
-                          return  GestureDetector(
+                          return GestureDetector(
                             onTap: _toggleExpand,
                             child: Text(
                               posts[index].status,
                               maxLines: expanded ? null : 1,
-
                             ),
                           );
-
-                        }
-                    ),
+                        }),
                     ValueListenableBuilder<bool>(
                         valueListenable: expanded,
                         builder: (BuildContext context, bool expanded,
                             Widget? child) {
-                          return        Row(
+                          return Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-
                               Visibility(
                                 visible: !expanded,
                                 child: GestureDetector(
                                   onTap: _toggleExpand,
-                                  child: const Text(
-                                    "more...",
-                                    style: TextStyle(
-                                      color: Colors.blue,
-                                      fontWeight: FontWeight.bold,
+                                  child: Visibility(
+                                    visible: posts[index].status.length > 62,
+                                    child: const Text(
+                                      "more...",
+                                      style: TextStyle(
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ],
                           );
-
-                        }
-                    ),
-
-
-
+                        }),
                     SizedBox(
                       height: width * 0.03,
                     ),
@@ -293,11 +301,6 @@ class PostsList extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
 
 String timeAgo(int timestampMilliseconds) {
   final timestamp = DateTime.fromMillisecondsSinceEpoch(timestampMilliseconds);

@@ -7,13 +7,15 @@ class TopUsersStack extends StatelessWidget {
     super.key,
     required this.width,
     required this.rank,
-    required this.color, required this.rankPosition,
+    required this.color, required this.rankPosition, required this.userAvatar,
   });
+
 
   final double width;
   final int rank;
   final Color color;
   final double rankPosition ;
+  final String  userAvatar;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -32,13 +34,14 @@ class TopUsersStack extends StatelessWidget {
                 width: 3,
               ),
             ),
-            child: const Padding(
-              padding: EdgeInsets.all(4.0),
+            child:  Padding(
+              padding: const EdgeInsets.all(4.0),
               child: CircleAvatar(
                 backgroundColor: Colors.transparent,
                 radius: 50,
                 backgroundImage: NetworkImage(
-                    "https://api.readyplayer.me/v1/avatars/63ef772d12b893b896d44960.png"),
+                    userAvatar
+                ),
               ),
             ),
           ),
@@ -73,25 +76,16 @@ class TopUsersStack extends StatelessWidget {
 class TopThreeUsersHomePage extends StatelessWidget {
   const TopThreeUsersHomePage({
     super.key,
-    this.firstUserImage,
-    required this.firstUsername,
-    this.secondUserImage,
-    required this.secondUsername,
-    this.thirdUserImage,
-    required this.thirdUsername,
+    required this.username,
+    this.userAvatar,
   });
 
-  final String firstUsername;
-
-  final String secondUsername;
-
-  final String thirdUsername;
-  final Image? firstUserImage;
-  final Image? secondUserImage;
-  final Image? thirdUserImage;
+  final List<String> username;
+  final List<String>? userAvatar;
 
   @override
   Widget build(BuildContext context) {
+    print("qqqqq  ${userAvatar![0]}");
     final theme = Theme.of(context);
     final double width = ScreenSize.width(context);
     return Container(
@@ -110,6 +104,7 @@ class TopThreeUsersHomePage extends StatelessWidget {
                     color: const Color(0xff3C4150),
                     rank: 1,
                     rankPosition: 0.0101,
+                    userAvatar: userAvatar![0],
                   ),
 
                   SizedBox(
@@ -117,7 +112,7 @@ class TopThreeUsersHomePage extends StatelessWidget {
                   ),
 
                   Text(
-                    secondUsername,
+                    username[0],
                     style: const TextStyle(
                       fontSize: 13,
                       fontFamily: 'VisbyRoundCF',
@@ -134,6 +129,7 @@ class TopThreeUsersHomePage extends StatelessWidget {
                     color: const Color(0xff00919E),
                     rank: 2,
                     rankPosition: 0.0108,
+                    userAvatar: userAvatar![0],
                   ),
 
                   SizedBox(
@@ -141,7 +137,7 @@ class TopThreeUsersHomePage extends StatelessWidget {
                   ),
 
                   Text(
-                    firstUsername,
+                    username[1],
                     style: const TextStyle(
                       fontSize: 13,
                       fontFamily: 'VisbyRoundCF',
@@ -156,12 +152,13 @@ class TopThreeUsersHomePage extends StatelessWidget {
                     color: const Color(0xff2CBA9E),
                     rank: 3,
                     rankPosition: 0.01199,
+                    userAvatar: userAvatar![2],
                   ),
                   SizedBox(
                     height: width * 0.02,
                   ),
                   Text(
-                    thirdUsername,
+                    username[2],
                     style: const TextStyle(
                       fontSize: 13,
                       fontFamily: 'VisbyRoundCF',
@@ -175,4 +172,5 @@ class TopThreeUsersHomePage extends StatelessWidget {
       ),
     );
   }
+
 }
