@@ -210,8 +210,8 @@ class _MyEventsScreenState extends State<MyEventsScreen> {
   Future getImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      //_imageWidget = await pickedFile.readAsBytes();
-      _imageWidget = await ApiClient().removeBgApi(pickedFile.path);
+      _imageWidget = await pickedFile.readAsBytes();
+      //_imageWidget = await ApiClient().removeBgApi(pickedFile.path);
       setState(()  {
         _image = File(pickedFile.path);
         //_imageWidget = Image.file(_image!);
@@ -220,9 +220,10 @@ class _MyEventsScreenState extends State<MyEventsScreen> {
     }
   }
 
+
   void _predict() async {
-    //img.Image imageInput = img.decodeImage(_image!.readAsBytesSync())!;
-    img.Image imageInput = img.decodeImage(_imageWidget)!;
+    img.Image imageInput = img.decodeImage(_image!.readAsBytesSync())!;
+    //img.Image imageInput = img.decodeImage(_imageWidget)!;
     var pred = _classifier.predict(imageInput);
 
     setState(() {

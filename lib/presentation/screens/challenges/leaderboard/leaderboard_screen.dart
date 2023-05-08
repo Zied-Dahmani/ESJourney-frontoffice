@@ -10,7 +10,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+List<String> avatars = [
+  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
+  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
+  "https://api.readyplayer.me/v1/avatars/645908d1bf91881a1ddaceac.png",
+  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
+  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
+  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
+  "https://api.readyplayer.me/v1/avatars/645908d1bf91881a1ddaceac.png",
+];
 class LeaderboardScreen extends StatefulWidget {
   const LeaderboardScreen({Key? key}) : super(key: key);
 
@@ -117,6 +125,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                         // this delay happens at the start of each loop
 
                         TopThreeUsers(
+                          avatar: avatars,
                           firstUsername: state.period == 0
                               ? state.weeklyUsers[0].username
                               : state.period == 1

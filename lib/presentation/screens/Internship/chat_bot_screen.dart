@@ -22,7 +22,7 @@ class _ChatBotScreenState extends State<ChatBotScreen>
   void _addMessage(String message, bool isUser) {
     final newMessage = ChatMessage(
       twoDAvatar:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/180px-ChatGPT_logo.svg.png",
+      "https://raw.githubusercontent.com/ZiedDaedly/ESJourney-frontoffice/main/assets/images/app_logo.png",
       currentUsername: isUser ? "Chatbot" : "User",
       msg: message,
       animationController: AnimationController(
@@ -47,7 +47,7 @@ class _ChatBotScreenState extends State<ChatBotScreen>
     });
 //change ip address to your ip address
     final response = await http.post(
-      Uri.parse('http://172.20.10.2:9090/chatbot/chat'),
+      Uri.parse('http://192.168.0.2:9090/chatbot/chat'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -76,7 +76,7 @@ class _ChatBotScreenState extends State<ChatBotScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chatbot'),
+        title: Text('Assistant'),
         leading: DrawerIcon(),
       ),
       body: Column(

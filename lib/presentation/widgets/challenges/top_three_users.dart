@@ -14,6 +14,7 @@ class TopThreeUsers extends StatelessWidget {
     this.thirdUserImage,
     required this.thirdUsername,
     required this.thirdUserScore,
+    required this.avatar
   });
 
   final String firstUsername;
@@ -30,6 +31,7 @@ class TopThreeUsers extends StatelessWidget {
 
   final double thirdUserScore;
 
+final List<String>  avatar;
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -65,14 +67,15 @@ class TopThreeUsers extends StatelessWidget {
                                 width: 3,
                               ),
                             ),
-                            child: const Padding(
-                              padding: EdgeInsets.all(4.0),
+                            child:  Padding(
+                              padding: const EdgeInsets.all(4.0),
                               child: CircleAvatar(
                                 backgroundColor: Colors.transparent,
                                 radius: 50,
                                 backgroundImage: NetworkImage(
+                                    avatar[0] ),
 
-                                    "https://api.readyplayer.me/v1/avatars/63ef772d12b893b896d44960.png"),
+
 
                               ),
                             ),
@@ -145,13 +148,13 @@ class TopThreeUsers extends StatelessWidget {
                                 width: 3,
                               ),
                             ),
-                            child: const Padding(
+                            child:  Padding(
                               padding: EdgeInsets.all(4.0),
                               child: CircleAvatar(
                                 backgroundColor: Colors.transparent,
                                 radius: 50,
                                 backgroundImage: NetworkImage(
-                                    "https://api.readyplayer.me/v1/avatars/63ef772d12b893b896d44960.png"),
+                                  avatar[1] ),
 
                               ),
                             ),
@@ -222,13 +225,13 @@ class TopThreeUsers extends StatelessWidget {
                                 width: 3,
                               ),
                             ),
-                            child: const Padding(
+                            child:  Padding(
                               padding: EdgeInsets.all(4.0),
                               child: CircleAvatar(
                                 backgroundColor: Colors.transparent,
                                 radius: 50,
                                 backgroundImage: NetworkImage(
-                                    "https://api.readyplayer.me/v1/avatars/63ef772d12b893b896d44960.png"),
+                                    avatar[2]),
 
                               ),
                             ),

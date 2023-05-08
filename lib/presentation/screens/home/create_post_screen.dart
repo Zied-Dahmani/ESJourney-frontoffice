@@ -1,12 +1,16 @@
 import 'dart:io';
 
+import 'package:esjourney/logic/cubits/user/user_cubit.dart';
+import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/router/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../logic/cubits/challenges/posts/posts_cubit.dart';
-import '../../logic/cubits/challenges/posts/posts_state.dart';
+
+import '../../../logic/cubits/challenges/posts/posts_cubit.dart';
+import '../../../logic/cubits/challenges/posts/posts_state.dart';
+
 
 class CreatePostScreen extends StatefulWidget {
   const CreatePostScreen({Key? key}) : super(key: key);
@@ -20,7 +24,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
 
   final ImagePicker picker = ImagePicker();
   XFile? _imageFile;
-
+ String username = "";
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -31,7 +35,10 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
           children: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context);
+
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Navigator.pop(context);
+                });
               },
               child: const Text(
                 "cancel",
@@ -48,6 +55,9 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
               onPressed: () {
                 BlocProvider.of<PostCubit>(context)
                     .createPost(_controller.text, media: _imageFile);
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Navigator.pop(context);
+                });
               },
               child: Text(
                 "post",
@@ -72,12 +82,13 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         }
 
         final postState = context.watch<PostCubit>().state;
+final userState = context.watch<UserCubit>().state;
+        if(userState is UserLogInSuccess){
 
-        if (postState is PostIsSuccess) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            Navigator.pop(context);
-          });
-        } else if (postState is PostIsFailure) {
+          username = userState.user.username;
+
+        }
+       if (postState is PostIsFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text("Something went wrong"),
@@ -100,7 +111,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   const SizedBox(
                     width: 10,
                   ),
-                  const Text("user1"),
+                   Text(username),
                   const SizedBox(
                     width: 10,
                   ),
@@ -110,6 +121,9 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 controller: _controller,
                 cursorColor: theme.colorScheme.secondary,
                 enableSuggestions: false,
+                maxLines: null,
+
+
                 autocorrect: false,
                 decoration: const InputDecoration(
                   labelStyle: TextStyle(decoration: TextDecoration.none),
@@ -124,6 +138,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   focusedBorder: InputBorder.none,
                   enabledBorder: InputBorder.none,
                   disabledBorder: InputBorder.none,
+
                 ),
               ),
               Row(

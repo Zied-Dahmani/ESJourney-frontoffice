@@ -27,13 +27,13 @@ import 'package:esjourney/presentation/screens/sign_up_screen.dart';
 import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../home/create_post_screen.dart';
 import '../screens/Events/event_details_screen.dart';
 import '../screens/Internship/profileScreen.dart';
 import '../screens/challenges/ethQrCode/eth_qr_code_screen.dart';
 import '../screens/challenges/leaderboard/leaderboard_screen.dart';
 import '../screens/challenges/quiz/quiz_result.dart';
 import '../screens/challenges/quiz/quiz_screen.dart';
+import '../screens/home/create_post_screen.dart';
 import '../screens/profile/edit_profile/edit_profile_screen.dart';
 import 'routes.dart';
 

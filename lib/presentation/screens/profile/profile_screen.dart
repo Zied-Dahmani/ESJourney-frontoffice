@@ -96,6 +96,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     ProfileContainer(
                                       icon: Icons.monetization_on_outlined,
                                       title: "Coins",
+
                                       subtitle: state.user.coins.toString(),
                                     ),
                                     SizedBox(
@@ -134,9 +135,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   right: 20.0,
                                   top: 0.0,
                                   bottom: 10.0),
-                              child: const Text(
-                                "1",
-                                //"Achievements (${state.user.achievements!.length})",
+                              child:  Text(
+
+                                "Achievements (${state.user.achievements!.length})",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 17,
@@ -148,15 +149,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Container(
                               margin: const EdgeInsets.only(left: 10.0),
                               child: Row(
-                                children: [
-                                  SvgPicture.network(
-                                    height: width * 0.15,
-                                    "${kbaseUrl}img/1683150474601.svg",
-
-                                  ),
-                                ],
+                                children: state.user.achievements!.map((achievement) {
+                                  print("achievement is $achievement");
+                                  return Padding(
+                                    padding: const EdgeInsets.only(right: 10.0),
+                                    child: SvgPicture.network(
+                                      "${kbaseUrl}img/${achievement.image}",
+                                      height: width * 0.15,
+                                    ),
+                                  );
+                                }).toList(),
                               ),
                             ),
+
                           ],
                         ),
                       ),
@@ -170,9 +175,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             width: width * 0.25,
                             child: Stack(
                               children: [
-                                const CircleAvatar(
+                                 CircleAvatar(
                                   backgroundImage:
-                                      NetworkImage("https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png"),
+                                      NetworkImage(state.user.twoDAvatar!),
                                   radius: 50,
                                   backgroundColor: Colors.white,
                                 ),
@@ -180,7 +185,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   alignment: Alignment.bottomCenter,
                                   child: SvgPicture.network(
                                     height: width * 0.05,
-                                    "${kbaseUrl}img/1681727801155.svg",
+                                    "${kbaseUrl}img/${state.user.achievement!.image}",
 
 
                                   ),

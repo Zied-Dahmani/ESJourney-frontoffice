@@ -63,9 +63,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               width: 4,
                             ),
                           ),
-                          child: const CircleAvatar(
-                            backgroundImage: AssetImage(
-                                'assets/images/challenges/avatar.png'),
+                          child:  CircleAvatar(
+                            backgroundImage: NetworkImage(
+                              userState.user.twoDAvatar!,
+                            ),
                             radius: 50,
                             backgroundColor: Colors.white,
                           ),
@@ -128,7 +129,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         ),
                         UserInfo(
                             infoTitle: "Email",
-                            infoValue: "",
+                            infoValue: userState.user.email,
                             onPressed: () {
                               Navigator.of(context).pushNamed(
                                   AppRoutes.updateUsername
@@ -165,75 +166,131 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    child: Container(
-                        margin: const EdgeInsets.only(left: 15, right: 0),
-                        padding: const EdgeInsets.only(
-                          left: 10,
-                          right: 10,
-                        ),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  "Push notifications",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w700,
-                                    fontFamily: 'VisbyRoundCF',
-                                  ),
+                    child: Column(
+                      children: [
+
+                        Container(
+                          margin: const EdgeInsets.only(left: 15, right: 0),
+                          padding: const EdgeInsets.only(
+                            left: 10,
+                            right: 10,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                "Push notifications",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'VisbyRoundCF',
                                 ),
-                                GestureDetector(
-                                  behavior: HitTestBehavior.opaque,
-                                  onTap: () {
-                                    setState(() {
-                                      switched = !switched;
-                                    });
-                                  },
-                                  child: Transform.scale(
-                                    scale: 0.7,
-                                    child: Theme(
-                                      data: ThemeData(
-                                        primarySwatch: Colors.blue,
-                                        unselectedWidgetColor: Colors.deepPurple,
-                                      ),
-                                      child: Switch(
-                                        value: switched,
-                                        activeColor: theme.colorScheme.primary,
-                                        inactiveTrackColor: Colors.grey[300],
-                                        onChanged: (bool newValue) {
-                                          setState(() {
-                                            switched = newValue;
-                                          });
-                                        },
-                                      ),
+                              ),
+                              GestureDetector(
+                                behavior: HitTestBehavior.opaque,
+                                onTap: () {
+                                  setState(() {
+                                    switched = !switched;
+                                  });
+                                },
+                                child: Transform.scale(
+                                  scale: 0.7,
+                                  child: Theme(
+                                    data: ThemeData(
+                                      primarySwatch: Colors.blue,
+                                      unselectedWidgetColor: Colors.deepPurple,
+                                    ),
+                                    child: Switch(
+                                      value: switched,
+                                      activeColor: theme.colorScheme.primary,
+                                      inactiveTrackColor: Colors.grey[300],
+                                      onChanged: (bool newValue) {
+                                        setState(() {
+                                          switched = newValue;
+                                        });
+                                      },
                                     ),
                                   ),
-                                )
-                              ],
-                            ),
-                            UserInfo(
-                              infoTitle: "Sign out",
-                              infoValue: "" ,
-                              onPressed: () {
-                                context.read<UserCubit>().signOut();
-                                Navigator.pushNamed(context, AppRoutes.signInScreen);
-                              },
-                            ),
-                            UserInfo(
-                              infoTitle: "Generate QrCode",
-                              infoValue: "" ,
-                              onPressed: () {
+                                ),
+                              )
+                            ],
+                          ),
 
-                                Navigator.pushNamed(context, AppRoutes.ethQrCodeScreen);
-                              },
-                            ),
-                          ],
-                        )),
+                        ),
+
+                        UserInfo(
+                          infoTitle: "Generate QrCode",
+                          infoValue: "" ,
+                          onPressed: () {
+
+                            Navigator.pushNamed(context, AppRoutes.ethQrCodeScreen);
+                          },
+                        ),
+                        UserInfo(
+                          infoTitle: "Sign out",
+                          infoValue: "" ,
+                          onPressed: () {
+                            context.read<UserCubit>().signOut();
+                            Navigator.pushNamed(context, AppRoutes.signInScreen);
+                          },
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 20, top: 20),
+                    child: Text(
+                      "Security",
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'VisbyRoundCF',
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 10, top: 5, right: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Column(
+                      children: [
+
+                        Container(
+                          margin: const EdgeInsets.only(left: 15, right: 0),
+                          padding: const EdgeInsets.only(
+                            left: 10,
+                            right: 10,
+                          ),
+
+
+                        ),
+
+                        UserInfo(
+                          infoTitle: "Terms & Conditions",
+                          infoValue: "" ,
+                          onPressed: () {
+
+
+                          },
+                        ),
+                        UserInfo(
+                          infoTitle: "Report a problem",
+                          infoValue: "" ,
+                          onPressed: () {
+
+                          },
+                        ),
+
+                      ],
+                    ),
                   ),
                 ],
+
               );
             } else if (userState is UserIsFailure) {
               return Center(

@@ -72,7 +72,7 @@ class _CourseScreenState extends State<CourseScreen> {
           Navigator.of(context).pushNamed(AppRoutes.wordlyGame);
         },
       ),
-      Game(
+      /*Game(
         colors: [
           const Color(0xff373B44),
           const Color(0xff4286f4),
@@ -83,7 +83,7 @@ class _CourseScreenState extends State<CourseScreen> {
           Navigator.of(context).pushNamed(AppRoutes.memoryGame);
         },
       ),
-      /*Game(
+      Game(
         colors: [
           const Color(0xff12c2e9),
           const Color(0xffc471ed),
