@@ -1,4 +1,5 @@
 import 'package:esjourney/presentation/animations/club/face_id_animation_controller.dart';
+import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/presentation/widgets/club/face_id_painter.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +33,7 @@ class _DoneScreenState extends State<DoneScreen>
         const Duration(seconds: 1),
         () => _controller.forward().then((_) {
               FocusManager.instance.primaryFocus?.unfocus();
-            //  Navigator.of(context).popUntil((route) => route.isFirst);
+              Navigator.of(context).popUntil((route) => route.isFirst);
           
             }));
   }

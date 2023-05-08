@@ -42,10 +42,12 @@ class SignInScreen extends StatelessWidget {
             Navigator.pop(dialogContext!);
             Provider.of<SocketService>(context, listen: false).connect(state.user.token!);
             if (BlocProvider.of<ClubCubit>(context).getClub() != null) {
-              Navigator.of(context).pushNamed(AppRoutes.clubScreen,arguments: BlocProvider.of<ClubCubit>(context).getClub());
+
+              Navigator.of(context).pushReplacementNamed(AppRoutes.clubScreen,arguments: BlocProvider.of<ClubCubit>(context).getClub());
             }
             else {
-              Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
+
+              Navigator.of(context).pushReplacementNamed(AppRoutes.zoomDrawerScreen);
             }
           } else if (state is UserIsFailure) {
             Navigator.pop(dialogContext!);

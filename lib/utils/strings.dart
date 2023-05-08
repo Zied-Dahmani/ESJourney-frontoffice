@@ -78,6 +78,9 @@ class AppStrings {
   static const kyes = 'Yes';
   static const kno = 'No';
 
+  static const khasBookedYourEvent= 'has booked your event';
+  static const knotification= 'Notification';
+
   // Louay
 
   // Souhail

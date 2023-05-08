@@ -126,9 +126,9 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
     }
   }
 
-  updateDeviceToken(String token) {
+  updateDeviceToken(String? token) {
     FirebaseMessaging.instance.getToken().then((deviceToken) async {
-      await _userRepository.updateDeviceToken(token, deviceToken!);
+      await _userRepository.updateDeviceToken(token!, deviceToken!);
     });
   }
 

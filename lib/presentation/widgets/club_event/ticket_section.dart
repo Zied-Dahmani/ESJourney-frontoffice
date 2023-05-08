@@ -16,7 +16,7 @@ import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class TicketSection extends StatelessWidget {
-  TicketSection(
+  const TicketSection(
       {Key? key,
       required this.verticalPos,
       required this.clubEvent,
@@ -160,8 +160,7 @@ class TicketSection extends StatelessWidget {
                                       actions: [
                                         TextButton(
                                             onPressed: () async {
-                                              if (state.user.coins <=
-                                                  ticket.price) {
+                                              if (state.user.coins <= ticket.price) {
                                                 Navigator.of(context).pop();
                                                 showTopSnackBar(
                                                   Overlay.of(context)!,
@@ -179,26 +178,23 @@ class TicketSection extends StatelessWidget {
                                                 //         ticket.price + 0.0,
                                                 //         state.user.token!);
                                                 //if (await result) {
-                                                  final result2 = BlocProvider
-                                                          .of<ClubEventCubit>(
-                                                              context)
-                                                      .bookEvent(
-                                                          state.user.token!,
-                                                          clubEvent.id,
-                                                          ticketIndex);
-                                                  if (await result2) {
-                                                    setStateRemainingTickets();
-                                                    BlocProvider.of<
-                                                                ClubEventCubit>(
-                                                            context)
-                                                        .init();
-                                                    Navigator.of(context)
-                                                        .pushNamed(AppRoutes
-                                                            .doneScreen);
-                                                  }
+
+
+                                                final result2 = BlocProvider.of<
+                                                        ClubEventCubit>(context)
+                                                    .bookEvent(
+                                                        state.user.token!,
+                                                        clubEvent.id,
+                                                        ticketIndex);
+                                                if (await result2) {
+                                                  setStateRemainingTickets();
+                                                  BlocProvider.of<UserCubit>(context).sendNotif(clubEvent.name,'${state.user.fullName} ${AppStrings.khasBookedYourEvent}',state.user.deviceToken);
+                                                  BlocProvider.of<ClubEventCubit>(context).init();
+                                                  Navigator.of(context).pushNamed(AppRoutes.doneScreen);
                                                 }
-                                              },
-                                           // },
+                                              }
+                                            },
+                                            // },
                                             child: Text(AppStrings.kyes,
                                                 style: theme
                                                     .textTheme.bodySmall!

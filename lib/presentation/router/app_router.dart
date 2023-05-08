@@ -20,6 +20,7 @@ import 'package:esjourney/presentation/screens/curriculum/games/memory/screen/me
 import 'package:esjourney/presentation/screens/curriculum/games/slide/pages/slide_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/worldy/screens/wordly_game.dart';
 import 'package:esjourney/presentation/screens/curriculum/map/level_map.dart';
+import 'package:esjourney/presentation/screens/main_screen.dart';
 import 'package:esjourney/presentation/screens/profile/edit_profile/update_password/update_password_screen.dart';
 import 'package:esjourney/presentation/screens/profile/edit_profile/update_username/update_username.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
@@ -48,6 +49,11 @@ class AppRouter {
       case AppRoutes.zoomDrawerScreen:
         return MaterialPageRoute(
           builder: (_) => const ZoomDrawerScreen(),
+        );
+
+      case AppRoutes.mainScreen:
+        return MaterialPageRoute(
+          builder: (_) => const MainScreen(),
         );
 
       case AppRoutes.jackpotGame:

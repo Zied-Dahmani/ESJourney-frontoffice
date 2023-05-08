@@ -3,6 +3,7 @@ class AppRoutes {
   static const signUpScreen = '/signUpScreen';
 
   static const zoomDrawerScreen = 'zoom_drawer_screen';
+  static const mainScreen = 'main_screen';
 
   // Zied
   static const clubScreen = 'club_screen';
