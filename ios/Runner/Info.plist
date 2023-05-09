@@ -53,8 +53,13 @@
         <string>Allow camera?</string>
         <key>UIBackgroundModes</key>
         <array>
-        <string>audio</string>
+            <string>audio</string>
         </array>
-
-</dict>
+            <key>NSLocationUsageDescription</key>
+            <string>Your description of why the app needs location access.</string>
+            <key>NSLocationWhenInUseUsageDescription</key>
+            <string>Your description of why the app needs location access while the app is in use.</string>
+            <key>NSLocationAlwaysUsageDescription</key>
+            <string>Your description of why the app needs location access at all times.</string>
+        </dict>
 </plist>

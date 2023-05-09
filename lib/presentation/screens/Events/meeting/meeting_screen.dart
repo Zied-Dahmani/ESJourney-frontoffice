@@ -78,8 +78,9 @@ class _MeetingPageState extends State<MeetingPage> {
     if (userState is! UserLogInSuccess) return;
     final userId = userState.user.id;
     final userName = userState.user.username;
+    print('event: ${widget.event}');
     print('userId: $userId');
-
+    print('meetingid${widget.event.meeting?.id}');
     meetingHelper = WebRTCMeetingHelper(
       url: kmeetingUrl,
       meetingId: widget.event.meeting?.id,

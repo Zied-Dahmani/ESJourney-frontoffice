@@ -73,6 +73,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.0"
+  arkit_plugin:
+    dependency: "direct main"
+    description:
+      name: arkit_plugin
+      sha256: "7579f4708ad5cacbc4c4c26559b673ae1f174cd93a2c91c57435a39957540b94"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.6"
   async:
     dependency: transitive
     description:
@@ -574,6 +582,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.0"
+  flutter_compass:
+    dependency: "direct main"
+    description:
+      name: flutter_compass
+      sha256: "1a0121bff32df95193812b4e0f69e95f45fdec042ebd7a326ba087c0f6ec8304"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.0"
   flutter_feather_icons:
     dependency: "direct main"
     description:
