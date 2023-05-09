@@ -1,4 +1,4 @@
-import 'package:esjourney/data/models/club_event_type_enum.dart';
+import 'package:esjourney/data/models/club/event/club_event_type_enum.dart';
 import 'package:esjourney/logic/cubits/club_event/club_event_cubit.dart';
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:esjourney/utils/strings.dart';

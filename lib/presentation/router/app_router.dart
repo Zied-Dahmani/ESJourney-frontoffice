@@ -1,8 +1,10 @@
 import 'package:esjourney/data/models/events/event_model.dart';
 import 'package:esjourney/data/models/user_model.dart';
+import 'package:esjourney/presentation/screens/application/club_interview_screen.dart';
 import 'package:esjourney/presentation/screens/club/apply_to_club_screen.dart';
 import 'package:esjourney/presentation/screens/club/club_screen.dart';
 import 'package:esjourney/presentation/screens/club/done_screen.dart';
+import 'package:esjourney/presentation/screens/club/shorts_screen.dart';
 import 'package:esjourney/presentation/screens/club_event/club_event_tickets_screen.dart';
 import 'package:esjourney/presentation/screens/club_event/club_event_timeline_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/avatar/avatar_screen.dart';
@@ -17,6 +19,8 @@ import 'package:esjourney/presentation/screens/curriculum/games/memory/screen/me
 import 'package:esjourney/presentation/screens/curriculum/games/slide/pages/slide_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/worldy/screens/wordly_game.dart';
 import 'package:esjourney/presentation/screens/curriculum/map/level_map.dart';
+import 'package:esjourney/presentation/screens/profile/edit_profile/update_password/update_password_screen.dart';
+import 'package:esjourney/presentation/screens/profile/edit_profile/update_username/update_username.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
 import 'package:esjourney/presentation/screens/sign_up_screen.dart';
 import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
@@ -152,7 +156,7 @@ class AppRouter {
 
       case AppRoutes.applyToClubScreen:
         return MaterialPageRoute(
-          builder: (_) => const ApplyToClubScreen(),
+          builder: (_) => ApplyToClubScreen(clubId: args),
         );
 
       case AppRoutes.doneScreen:
@@ -169,43 +173,62 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => ClubEventTicketsScreen(clubEvent: args),
         );
+
+      case AppRoutes.shortsScreen:
+        final Map<String, dynamic> argsMap = args as Map<String, dynamic>;
+        final int index = argsMap['index'] as int;
+        final List<String> shorts = argsMap['shorts'] as List<String>;
+        return MaterialPageRoute(
+          builder: (_) => ShortsScreen(
+            shorts: shorts,
+            startIndex: index,
+          ),
+        );
+
+      case AppRoutes.clubInterviewScreen:
+        return MaterialPageRoute(
+          builder: (_) => ClubInterviewScreen(callID: args),
+        );
+
 // souhail
       case AppRoutes.quizScreen:
       /* return MaterialPageRoute(
           builder: (_) => QuizScreen(
             //  language: args as String,
             restart: args as bool,
-
           ),
         );*/
       case AppRoutes.quizResult:
         return MaterialPageRoute(
           builder: (_) => QuizResultScreen(
-            score : args as int,
+            score: args as int,
           ),
         );
 
       case AppRoutes.leaderboardScreen:
         return MaterialPageRoute(
-          builder: (_) =>  const LeaderboardScreen(
-
-
-          ),
+          builder: (_) => const LeaderboardScreen(),
         );
       case AppRoutes.profileScreen:
         return MaterialPageRoute(
-          builder: (_) =>  const ApplicationFormScreen(
-
-
-          ),
+          builder: (_) => const ApplicationFormScreen(),
         );
       case AppRoutes.editProfileScreen:
         return MaterialPageRoute(
-          builder: (_) =>  const EditProfileScreen(
+          builder: (_) => const EditProfileScreen(),
+        );
+      case AppRoutes.updatePasswordScreen:
+        return MaterialPageRoute(
+          builder: (_) =>  const UpdatePasswordBaseScreen(
 
           ),
         );
+      case AppRoutes.updateUsername:
+        return MaterialPageRoute(
+          builder: (_) =>  const UpdateUsernameScreen(
 
+          ),
+        );
       default:
         return null;
     }

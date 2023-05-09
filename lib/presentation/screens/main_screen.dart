@@ -38,7 +38,8 @@ class _MainScreenState extends State<MainScreen> {
       ),
       body: CurvedNavBar(
         actionButton: CurvedActionBar(
-            onTab: (value) {},
+            onTab: (value) {
+            },
             activeIcon: Container(
               padding: const EdgeInsets.all(AppSizes.kbigSpace - 6),
               decoration: BoxDecoration(

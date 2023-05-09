@@ -1,6 +1,9 @@
 import 'dart:io';
+import 'package:esjourney/logic/cubits/club/club_cubit.dart';
+import 'package:esjourney/utils/dynamic_link.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:like_button/like_button.dart';
 
@@ -15,8 +18,7 @@ class LikeAndShareContainer extends StatelessWidget {
     return Container(
       height: 80,
       padding: const EdgeInsets.symmetric(
-          horizontal: AppSizes.kbigSpace,
-          vertical: AppSizes.kbigSpace),
+          horizontal: AppSizes.kbigSpace, vertical: AppSizes.kbigSpace),
       decoration: BoxDecoration(
           color: theme.colorScheme.background,
           borderRadius: const BorderRadius.vertical(
@@ -35,9 +37,7 @@ class LikeAndShareContainer extends StatelessWidget {
             likeBuilder: (bool isLiked) {
               return Icon(
                 //BlocProvider.of<ClubCubit>(context).isLiked(isLiked,club)
-                isLiked
-                ? FontAwesomeIcons.solidHeart
-                    : FontAwesomeIcons.heart,
+                isLiked ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart,
                 color: theme.colorScheme.primary,
                 size: AppSizes.kiconSize,
               );
@@ -51,7 +51,14 @@ class LikeAndShareContainer extends StatelessWidget {
             },
           ),
           const Spacer(),
-          IconButton(onPressed: (){}, icon: Icon(Platform.isAndroid ? Icons.share : Icons.ios_share, color: theme.colorScheme.primary))
+          IconButton(
+              onPressed: () async {
+                DynamicLink().create(club.id).then((value) {
+                  BlocProvider.of<ClubCubit>(context).shareClub(club, value);
+                });
+              },
+              icon: Icon(Platform.isAndroid ? Icons.share : Icons.ios_share,
+                  color: theme.colorScheme.primary))
         ],
       ),
     );

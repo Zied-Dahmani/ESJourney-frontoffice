@@ -41,7 +41,7 @@ List<Quiz> allQuestions = [];
 double _isAnswerCorrect = 0.0;
 const _totalQuestions = 3;
 String _discoBtnText = "Next";
-int _userScore = 0;
+int _userScore = 7;
 String _token = "";
 
 Quiz _currentQuestion = const Quiz(
@@ -57,6 +57,7 @@ List<Quiz> _answeredQuestions = [];
 class _QuizScreenState extends State<QuizScreen> {
   @override
   void initState() {
+    BlocProvider.of<QuizCubit>(context).getQuiz("c");
     super.initState();
     if (widget.restart) {
       _isQuizAnswered = false;
@@ -138,7 +139,7 @@ class _QuizScreenState extends State<QuizScreen> {
                           Container(
                             margin: const EdgeInsets.only(right: 20),
                             child: Text(
-                              "${_displayedQuestionIndex}/${_totalQuestions}",
+                              "$_displayedQuestionIndex/$_totalQuestions",
                               style:
                                   const TextStyle(fontWeight: FontWeight.bold),
                             ),
@@ -272,8 +273,14 @@ class _QuizScreenState extends State<QuizScreen> {
                             AppRoutes.quizResult,
                             arguments: _userScore,
                           );
-                          BlocProvider.of<UserCubit>(context)
-                              .answerQuiz(0.01, _token);
+
+                          final userCubit = BlocProvider.of<UserCubit>(context);
+                          if (_userScore > 0.01) {
+                            userCubit.addAchievement(_token, "firstQuiz");
+                          }
+                          print("token is $_token");
+                        //  userCubit.answerQuiz(0.01, _token);
+
                           return;
                         }
 
@@ -290,7 +297,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       width: MediaQuery.of(context).size.width * 0.335,
                       child: Text(
                         _discoBtnText,
-                        style: const TextStyle(fontSize: 20, color: Colors.white),
+                        style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
                   ],
