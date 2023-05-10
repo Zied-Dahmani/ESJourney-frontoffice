@@ -23,7 +23,7 @@ class UserRepository implements IUserRepository {
       String token, String twoDAvatar, String threeDAvatar) async {
     final result =
         await _userDataProvider.addAvatars(token, twoDAvatar, threeDAvatar);
-    return result.statusCode == 200 ? User.fromJson(result.data) : null;
+    return result.statusCode == 201 ? User.fromJson(result.data) : null;
   }
 
   @override

@@ -1,5 +1,6 @@
 import 'package:esjourney/data/models/events/event_model.dart';
 import 'package:esjourney/data/models/user_model.dart';
+import 'package:esjourney/presentation/screens/Internship/postToLinkedinScreen.dart';
 import 'package:esjourney/presentation/screens/application/club_interview_screen.dart';
 import 'package:esjourney/presentation/screens/club/apply_to_club_screen.dart';
 import 'package:esjourney/presentation/screens/club/club_screen.dart';
@@ -19,6 +20,7 @@ import 'package:esjourney/presentation/screens/curriculum/games/memory/screen/me
 import 'package:esjourney/presentation/screens/curriculum/games/slide/pages/slide_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/worldy/screens/wordly_game.dart';
 import 'package:esjourney/presentation/screens/curriculum/map/level_map.dart';
+import 'package:esjourney/presentation/screens/main_screen.dart';
 import 'package:esjourney/presentation/screens/profile/edit_profile/update_password/update_password_screen.dart';
 import 'package:esjourney/presentation/screens/profile/edit_profile/update_username/update_username.dart';
 import 'package:esjourney/presentation/screens/sign_in_screen.dart';
@@ -29,9 +31,11 @@ import 'package:flutter/material.dart';
 import '../screens/Directions/detect.dart';
 import '../screens/Events/event_details_screen.dart';
 import '../screens/Internship/profileScreen.dart';
+import '../screens/challenges/ethQrCode/eth_qr_code_screen.dart';
 import '../screens/challenges/leaderboard/leaderboard_screen.dart';
-import '../screens/challenges/quiz/quiz.dart';
 import '../screens/challenges/quiz/quiz_result.dart';
+import '../screens/challenges/quiz/quiz_screen.dart';
+import '../screens/home/create_post_screen.dart';
 import '../screens/profile/edit_profile/edit_profile_screen.dart';
 import 'routes.dart';
 
@@ -46,6 +50,11 @@ class AppRouter {
       case AppRoutes.zoomDrawerScreen:
         return MaterialPageRoute(
           builder: (_) => const ZoomDrawerScreen(),
+        );
+
+      case AppRoutes.mainScreen:
+        return MaterialPageRoute(
+          builder: (_) => const MainScreen(),
         );
 
       case AppRoutes.jackpotGame:
@@ -192,12 +201,12 @@ class AppRouter {
 
 // souhail
       case AppRoutes.quizScreen:
-      /* return MaterialPageRoute(
+        return MaterialPageRoute(
           builder: (_) => QuizScreen(
             //  language: args as String,
             restart: args as bool,
           ),
-        );*/
+        );
       case AppRoutes.quizResult:
         return MaterialPageRoute(
           builder: (_) => QuizResultScreen(
@@ -219,15 +228,24 @@ class AppRouter {
         );
       case AppRoutes.updatePasswordScreen:
         return MaterialPageRoute(
-          builder: (_) =>  const UpdatePasswordBaseScreen(
-
-          ),
+          builder: (_) => const UpdatePasswordBaseScreen(),
         );
       case AppRoutes.updateUsername:
         return MaterialPageRoute(
-          builder: (_) =>  const UpdateUsernameScreen(
+          builder: (_) => const UpdateUsernameScreen(),
+        );
 
-          ),
+      case AppRoutes.postToLinkedinScreen:
+        return MaterialPageRoute(
+          builder: (_) => const PostToLinkedinScreen(),
+        );
+      case AppRoutes.ethQrCodeScreen:
+        return MaterialPageRoute(
+          builder: (_) => const EthQrCodeScreen(),
+        );
+      case AppRoutes.createPostScreen:
+        return MaterialPageRoute(
+          builder: (_) => CreatePostScreen(),
         );
       default:
         return null;

@@ -16,7 +16,7 @@ _$_Game _$$_GameFromJson(Map<String, dynamic> json) => _$_Game(
     );
 
 Map<String, dynamic> _$$_GameToJson(_$_Game instance) => <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'title': instance.title,
       'words': instance.words,
       'definitions': instance.definitions,

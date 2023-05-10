@@ -18,7 +18,7 @@ _$_UserCourse _$$_UserCourseFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_UserCourseToJson(_$_UserCourse instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'courseId': instance.courseId,
       'words': instance.words,
       'definitions': instance.definitions,

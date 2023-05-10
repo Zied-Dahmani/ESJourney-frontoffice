@@ -112,7 +112,7 @@ class _EventListScreenState extends State<EventListScreen> {
                                       bottomLeft: Radius.circular(20),
                                     ),
                                     image: DecorationImage(
-                                      image: AssetImage(event.eventImage),
+                                      image: Image.network(imageUrl + event.eventImage ).image,
                                       fit: BoxFit.cover,
                                     ),
                                   ),

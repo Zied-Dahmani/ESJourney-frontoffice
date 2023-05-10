@@ -1,3 +1,4 @@
+import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/presentation/screens/Internship/profileScreen.dart';
 import 'package:flutter/material.dart';
 import 'profileScreen.dart';
@@ -25,7 +26,8 @@ class InternshipHomePage extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ApplicationFormScreen()),
+                      MaterialPageRoute(
+                          builder: (context) => ApplicationFormScreen()),
                     );
                   },
                 ),
@@ -33,7 +35,13 @@ class InternshipHomePage extends StatelessWidget {
                   context: context,
                   icon: Icons.add_a_photo,
                   color: Color(0xFFEB4A5A),
-                  text: "Add Photo", onTap: () {  },
+                  text: "Add Photo",
+                  onTap: () {
+                    // naviagte here
+                    Navigator.pushNamed(
+                        context, AppRoutes.postToLinkedinScreen);
+                    print("object");
+                  },
                 ),
               ],
             ),
@@ -47,13 +55,15 @@ class InternshipHomePage extends StatelessWidget {
                   context: context,
                   icon: Icons.add_a_photo,
                   color: Color(0xFFEB4A5A),
-                  text: "Add Photo", onTap: () {  },
+                  text: "Add Photo",
+                  onTap: () {},
                 ),
                 _buildContainer(
                   context: context,
                   icon: Icons.add_a_photo,
                   color: Color(0xFFEB4A5A),
-                  text: "Add Photo", onTap: () {  },
+                  text: "Add Photo",
+                  onTap: () {},
                 ),
               ],
             ),
@@ -70,39 +80,36 @@ class InternshipHomePage extends StatelessWidget {
     required String text,
     required VoidCallback onTap,
   }) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.4,
-      height: MediaQuery.of(context).size.width * 0.4,
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black26,
-            offset: Offset(10.0, 10.0),
-            blurRadius: 10.0,
-          ),
-        ],
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(
-          10.0,
-        ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          GestureDetector(
-            onTap: onTap,
-            child: IconButton(
-              icon: Icon(
-                icon,
-                size: 80.0,
-                color: color,
-              ),
-              onPressed: () {},
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.4,
+        height: MediaQuery.of(context).size.width * 0.4,
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              offset: Offset(10.0, 10.0),
+              blurRadius: 10.0,
             ),
+          ],
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(
+            10.0,
           ),
-          SizedBox(height: 10.0),
-          Text(text),
-        ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              size: 80.0,
+              color: color,
+            ),
+            SizedBox(height: 10.0),
+            Text(text),
+          ],
+        ),
       ),
     );
   }

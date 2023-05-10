@@ -15,7 +15,7 @@ _$_CodingProblem _$$_CodingProblemFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_CodingProblemToJson(_$_CodingProblem instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'description': instance.description,
       'output': instance.output,
     };

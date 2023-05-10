@@ -2,10 +2,13 @@ import 'package:esjourney/data/models/user_model.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/router/routes.dart';
+import 'package:esjourney/utils/constants.dart';
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import '../../widgets/drawer_icon.dart';
+import '../drawer_screen.dart';
 import 'edit_profile/edit_profile_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -24,15 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       backgroundColor: theme.colorScheme.primary,
       appBar: AppBar(
         backgroundColor: theme.colorScheme.primary,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_outlined,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            // Write the code to navigate back to the previous screen
-          },
-        ),
+        leading: DrawerIcon(),
         actions: [
           IconButton(
             icon: const Icon(
@@ -53,7 +48,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         builder: (context, state) {
           if (state is UserLoadInProgress) {
           } else if (state is UserLogInSuccess) {
-            print("image is ${state.user.achievement!.image}");
+            //  print("image is ${state.user.achievement!.image}");
             return Column(
               children: [
                 Expanded(
@@ -66,11 +61,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              height: width * 0.15,
+                              height: width * 0.12,
                             ),
                             Center(
                               child: Text(
-                                "userx",
+                                state.user.username!,
                                 style: theme.textTheme.headlineMedium,
                               ),
                             ),
@@ -98,10 +93,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    const ProfileContainer(
+                                    ProfileContainer(
                                       icon: Icons.monetization_on_outlined,
                                       title: "Coins",
-                                      subtitle: "5000",
+
+                                      subtitle: state.user.coins.toString(),
                                     ),
                                     SizedBox(
                                       height: width * 0.13,
@@ -122,11 +118,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         thickness: 1,
                                       ),
                                     ),
-                                    const ProfileContainer(
-                                      icon: Icons.leaderboard_outlined,
-                                      title: "Grade",
-                                      subtitle: "1",
-                                    ),
+                                    ProfileContainer(
+                                        icon: Icons.leaderboard_outlined,
+                                        title: "Grade",
+                                        subtitle: state.user.grade.toString()),
                                   ],
                                 ),
                               ),
@@ -140,9 +135,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   right: 20.0,
                                   top: 0.0,
                                   bottom: 10.0),
-                              child: Text(
+                              child:  Text(
+
                                 "Achievements (${state.user.achievements!.length})",
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 17,
                                   fontWeight: FontWeight.w700,
@@ -153,17 +149,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Container(
                               margin: const EdgeInsets.only(left: 10.0),
                               child: Row(
-                                children: [
-                                  SvgPicture.network(
-                                    height: width * 0.15,
-                                    state.user.achievement!.image!,
-                                    placeholderBuilder:
-                                        (BuildContext context) =>
-                                            const CircularProgressIndicator(),
-                                  ),
-                                ],
+                                children: state.user.achievements!.map((achievement) {
+                                  print("achievement is $achievement");
+                                  return Padding(
+                                    padding: const EdgeInsets.only(right: 10.0),
+                                    child: SvgPicture.network(
+                                      "${kbaseUrl}img/${achievement.image}",
+                                      height: width * 0.15,
+                                    ),
+                                  );
+                                }).toList(),
                               ),
-                            )
+                            ),
+
                           ],
                         ),
                       ),
@@ -177,9 +175,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             width: width * 0.25,
                             child: Stack(
                               children: [
-                                const CircleAvatar(
-                                  backgroundImage: AssetImage(
-                                      'assets/images/challenges/avatar.png'),
+                                 CircleAvatar(
+                                  backgroundImage:
+                                      NetworkImage(state.user.twoDAvatar!),
                                   radius: 50,
                                   backgroundColor: Colors.white,
                                 ),
@@ -187,10 +185,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   alignment: Alignment.bottomCenter,
                                   child: SvgPicture.network(
                                     height: width * 0.05,
-                                    state.user.achievement!.image!,
-                                    placeholderBuilder:
-                                        (BuildContext context) =>
-                                            const CircularProgressIndicator(),
+                                    "${kbaseUrl}img/${state.user.achievement!.image}",
+
+
                                   ),
                                 ),
                               ],

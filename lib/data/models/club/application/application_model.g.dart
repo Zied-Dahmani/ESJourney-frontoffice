@@ -25,7 +25,7 @@ _$_Application _$$_ApplicationFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_ApplicationToJson(_$_Application instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'userId': instance.userId,
       'state': _$ApplicationStateEnumMap[instance.state]!,
       'club': instance.club,

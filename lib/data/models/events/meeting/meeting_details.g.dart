@@ -15,7 +15,7 @@ _$_MeetingDetail _$$_MeetingDetailFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_MeetingDetailToJson(_$_MeetingDetail instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'hostId': instance.hostId,
       'hostName': instance.hostName,
     };

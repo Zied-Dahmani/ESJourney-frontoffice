@@ -3,6 +3,7 @@ class AppRoutes {
   static const signUpScreen = '/signUpScreen';
 
   static const zoomDrawerScreen = 'zoom_drawer_screen';
+  static const mainScreen = 'main_screen';
 
   // Zied
   static const clubScreen = 'club_screen';
@@ -35,13 +36,14 @@ class AppRoutes {
   static const quizResult = '/quizResult';
   static const leaderboardScreen = '/leaderboard';
   static const ethQrCodeScreen = '/ethQrCode';
+  static const createPostScreen ="/createPostScreen";
 // Seif
   static const eventDetails = '/eventDetails';
   static const eventList = '/eventList';
   static const imageDetectionPage = '/image_detection_page';
 
 // Youssef
-
+  static const postToLinkedinScreen = '/postToLinkedin';
 
 // user
 

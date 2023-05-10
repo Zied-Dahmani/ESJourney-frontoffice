@@ -1,7 +1,7 @@
 abstract class IClubRepository {
   Future<dynamic> getAllClubs();
   Future<dynamic> getAllClubEvents();
-  Future<dynamic> getAllApplications();
+  Future<dynamic> getAllApplications(String token);
   Future<bool> apply(
       String token,
       String clubId,

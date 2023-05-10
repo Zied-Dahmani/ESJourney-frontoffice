@@ -31,11 +31,14 @@ class ClubDataProvider {
     );
   }
 
-  Future<Response> getAllApplications() async {
+  Future<Response> getAllApplications(String token) async {
     return await dio.request(
       kgetAllApplications,
       options: Options(
         method: 'GET',
+        headers: {
+          'jwt': token,
+        },
         validateStatus: (status) {
           return status! < 500;
         },

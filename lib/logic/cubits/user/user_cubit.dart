@@ -67,12 +67,15 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
 
   Future<void> signUp(String? id, String email, String password) async {
     try {
+      print("here 1");
       emit(UserLoadInProgress());
       final result = await _userRepository.signUp(id, email, password);
+      print("result: $result");
       result != null
           ? emit(UserLogInSuccess(result))
           : emit(UserIsFailure("error in sign up"));
     } catch (e) {
+      print("here 2");
       developer.log(e.toString(), name: 'Catch sign up');
       emit(UserIsFailure(kcheckInternetConnection));
     }
@@ -84,10 +87,12 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
       emit(UserLoadInProgress());
       final result =
           await _userRepository.addAvatars(token, twoDAvatar, threeDAvatar);
+
       result != null
           ? emit(UserLogInSuccess(result))
           : emit(UserIsFailure("error in sign up"));
     } catch (e) {
+
       developer.log(e.toString(), name: 'Catch sign up');
       emit(UserIsFailure(kcheckInternetConnection));
     }
@@ -121,9 +126,9 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
     }
   }
 
-  updateDeviceToken(String token) {
+  updateDeviceToken(String? token) {
     FirebaseMessaging.instance.getToken().then((deviceToken) async {
-      await _userRepository.updateDeviceToken(token, deviceToken!);
+      await _userRepository.updateDeviceToken(token!, deviceToken!);
     });
   }
 
@@ -200,5 +205,11 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
       emit(UserIsFailure(kcheckInternetConnection));
     }
   }
+
+  void signOut() {
+    HydratedBloc.storage.clear();
+    emit(UserLogOutSuccess());
+}
+
 }
 

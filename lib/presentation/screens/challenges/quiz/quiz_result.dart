@@ -1,10 +1,13 @@
 import 'dart:math';
 import 'dart:ui';
 import 'package:esjourney/presentation/router/routes.dart';
+import 'package:esjourney/presentation/screens/Internship/postToLinkedinScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_share_me/flutter_share_me.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../../Internship/shareToLinkedin.dart';
 
 
 class QuizResultScreen extends StatefulWidget {
@@ -168,6 +171,10 @@ class _QuizResultScreenState extends State<QuizResultScreen> {
                   icon: Icons.home_outlined,
                   text: "Home",
                   width: width,
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushNamed(AppRoutes.zoomDrawerScreen);
+                  },
                 ),
                 if (!isCompleted)
                   QuizResultOption(
@@ -228,11 +235,15 @@ Future<void> sharePressed() async {
       " some crypto coins. If you're up for a challenge, download the Quiz app and see at "
       "https.//esjourney.page.link/iGuj "
       " if you can beat my score! #quiz #knowledgeispower #crypto";
-  String url = 'https.//esjourney.page.link/iGuj';
 
-  String? response;
-  final FlutterShareMe flutterShareMe = FlutterShareMe();
-  response = await flutterShareMe.shareToSystem(msg: msg);
+  // String? response;
+  // final FlutterShareMe flutterShareMe = FlutterShareMe();
+  // response = await flutterShareMe.shareToSystem(msg: msg);
+
+  PostToLinkedinScreen postToLinkedinScreen = PostToLinkedinScreen(
+
+  );
+  submitPost(msg);
 }
 
 class QuizResultOption extends StatelessWidget {

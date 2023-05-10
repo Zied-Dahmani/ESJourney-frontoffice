@@ -33,7 +33,7 @@ _$_ClubEvent _$$_ClubEventFromJson(Map<String, dynamic> json) => _$_ClubEvent(
 
 Map<String, dynamic> _$$_ClubEventToJson(_$_ClubEvent instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'name': instance.name,
       'image': instance.image,
       'description': instance.description,

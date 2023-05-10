@@ -1,10 +1,13 @@
-var kbaseUrl = 'http://192.168.0.1:9090/';
-var kmeetingUrl = 'http://192.168.0.1:9091';
+
 const ksignUp = 'user/signUp';
 const ksignIn = 'user/signIn';
 const kgetUserData = 'user/getUserData';
 const krefreshToken = 'user/refreshToken';
 
+
+var kbaseUrl = 'http://192.168.0.2:9090/';
+var kmeetingUrl = 'http://192.168.0.2:9091';
+var imageUrl = '$kbaseUrl/images/';
 const kcheckInternetConnection = 'Check your internet connection!';
 const kidPasswordIncorrect = 'Id or password Incorrect!';
 
@@ -30,7 +33,9 @@ const kerrorSendingEth = 'Transaction failed!';
 const ktopSolutions = 'problem/top';
 const kanswerQuiz = 'quiz/answer';
 const kAddAchievement = 'achievement/add';
-
+const kCreatePost = "post/create";
+const kGetPosts = "post/get";
+const kLikePosts = "post/like";
 //seif
 const kgetEvents = 'event/getEvents';
 const kgetUserEvent = 'event/getUserEvents';

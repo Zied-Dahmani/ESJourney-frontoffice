@@ -1,7 +1,15 @@
 import 'package:esjourney/data/models/challenges/leaderboard/leaderboard_res.dart';
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:flutter/material.dart';
-
+List<String> avatars = [
+  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
+  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
+  "https://api.readyplayer.me/v1/avatars/645908d1bf91881a1ddaceac.png",
+  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
+  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
+  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
+  "https://api.readyplayer.me/v1/avatars/645908d1bf91881a1ddaceac.png",
+];
 class LeaderboardListView extends StatelessWidget {
   final List<LeaderboardRes> listItems;
   final int period;
@@ -46,11 +54,11 @@ class LeaderboardListView extends StatelessWidget {
                         SizedBox(
                           width: width * 0.03,
                         ),
-                        const CircleAvatar(
+                         CircleAvatar(
                           backgroundColor: Colors.transparent,
                           radius: 25,
                           backgroundImage: NetworkImage(
-                              "https://api.readyplayer.me/v1/avatars/63ef772d12b893b896d44960.png"),
+                              avatars[index]),
                         ),
                         Expanded(
                           child: Container(

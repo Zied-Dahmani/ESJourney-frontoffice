@@ -1,5 +1,3 @@
-import 'package:esjourney/logic/cubits/club/club_cubit.dart';
-import 'package:esjourney/presentation/router/routes.dart';
 import 'package:esjourney/presentation/screens/club_event/my_events_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
@@ -8,6 +6,7 @@ import 'package:esjourney/presentation/screens/application/applications_screen.d
 import 'package:esjourney/presentation/screens/club_event/club_events_map_screen.dart';
 import 'package:esjourney/presentation/screens/drawer_screen.dart';
 import 'package:esjourney/presentation/screens/main_screen.dart';
+import 'package:esjourney/presentation/screens/profile/profile_screen.dart';
 import 'package:esjourney/utils/strings.dart';
 import 'package:esjourney/utils/theme.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -19,6 +18,9 @@ import 'Directions/detect.dart';
 import 'Events/calendar_screen.dart';
 import 'package:provider/provider.dart';
 
+import 'Internship/chat_bot_screen.dart';
+import 'curriculum/faq/faq_screen.dart';
+
 class ZoomDrawerScreen extends StatefulWidget {
   const ZoomDrawerScreen({Key? key}) : super(key: key);
 
@@ -27,80 +29,73 @@ class ZoomDrawerScreen extends StatefulWidget {
 }
 
 class _ZoomDrawerScreenState extends State<ZoomDrawerScreen> {
-  bool _isFirstTime = true;
-  bool isDialogShowing = false;
-  var currentIndex = 0;
+  int currentIndex = 0;
 
-  listenFCM(context) {
-    final theme = Theme.of(context);
+  @override
+  void initState() {
+    super.initState();
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      if (!isDialogShowing) {
-        isDialogShowing = true;
-        showDialog(
+      showDialog(
           context: context,
-          builder: (BuildContext _) => AlertDialog(
-            backgroundColor: theme.colorScheme.background,
-            title: Text(message.notification!.title!,
-                style: theme.textTheme.headlineMedium),
-            content: Text(message.notification!.body!,
-                style: theme.textTheme.bodyMedium),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  isDialogShowing = false;
-                },
-                child: Text(AppStrings.kok,
-                    style: theme.textTheme.bodyMedium!
-                        .copyWith(color: theme.colorScheme.primary)),
-              ),
-            ],
-          ),
-        ).then((result) {
-          if (result == null) {
-            isDialogShowing = false;
-          }
-        });
-      }
+          builder: (_) => AlertDialog(
+                backgroundColor: Theme.of(context).colorScheme.background,
+                title: Text(AppStrings.knotification,
+                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                        color:
+                        Theme.of(context).colorScheme.outline)),
+                content: Text(message.notification!.body.toString()),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(AppStrings.kok,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.outline))),
+                ],
+              ));
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    listenFCM(context);
     final theme = Theme.of(context);
     //start set user as connected
     final socketService = Provider.of<SocketService>(context, listen: false);
+    final userState = context.read<UserCubit>().state;
+    if (userState is UserLogInSuccess) {
+      socketService.connect(userState.user.token!);
+    }
     //end set user as connected
     return WillPopScope(
       onWillPop: () async => false,
-      child: BlocBuilder<UserCubit, UserState>(builder: (context, state) {
-        if (state is UserLogInSuccess) {
-          if (_isFirstTime) {
-            _isFirstTime = false;
-            BlocProvider.of<UserCubit>(context)
-                .updateDeviceToken(state.user.token!);
+      child: BlocBuilder<UserCubit, UserState>(
+        builder: (context, state) {
+          if (state is UserLogInSuccess) {
+            BlocProvider.of<UserCubit>(context).updateDeviceToken(state.user.token);
+            return ZoomDrawer(
+              menuScreen: DrawerScreen(
+                setIndex: (index) {
+                  setState(() {
+                    currentIndex = index;
+                  });
+                },
+              ),
+              mainScreen: currentScreen(),
+              borderRadius: AppSizes.kradius,
+              showShadow: true,
+              angle: 0.0,
+              slideWidth: 220,
+              menuBackgroundColor: theme.colorScheme.primary,
+            );
           }
-          socketService.connect(state.user.token!);
-          return ZoomDrawer(
-            menuScreen: DrawerScreen(
-              setIndex: (index) {
-                setState(() {
-                  currentIndex = index;
-                });
-              },
-            ),
-            mainScreen: currentScreen(),
-            borderRadius: AppSizes.kradius,
-            showShadow: true,
-            angle: 0.0,
-            slideWidth: 220,
-            menuBackgroundColor: theme.colorScheme.primary,
-          );
-        } else {
           return const SizedBox();
-        }
-      }),
+        },
+      ),
     );
   }
 
@@ -115,13 +110,17 @@ class _ZoomDrawerScreenState extends State<ZoomDrawerScreen> {
       case 3:
         return const ApplicationsScreen();
       case 4:
-        return const MyEventsScreen();
+        return MyEventsScreen();
       case 5:
-        return const MainScreen();
+        return ProfileScreen();
+      case 6:
+        return ChatBotScreen();
+      case 7:
+        return FAQScreen();
         case 8:
         return DestinationScreen();
       default:
-        return const MainScreen();
+        return const ProfileScreen();
     }
   }
 }
