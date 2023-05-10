@@ -23,6 +23,7 @@ class AppStrings {
   static const kclubEvents = 'Club Events';
   static const kapplications = 'Applications';
   static const ksettings = 'Settings';
+  static const klocations = 'Locations';
   static const kmyEvents = 'My Events';
 
   // Zied

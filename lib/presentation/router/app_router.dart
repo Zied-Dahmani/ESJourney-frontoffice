@@ -28,6 +28,7 @@ import 'package:esjourney/presentation/screens/sign_up_screen.dart';
 import 'package:esjourney/presentation/screens/zoom_drawer_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../screens/Directions/detect.dart';
 import '../screens/Events/event_details_screen.dart';
 import '../screens/Internship/profileScreen.dart';
 import '../screens/challenges/ethQrCode/eth_qr_code_screen.dart';
@@ -114,6 +115,17 @@ class AppRouter {
 
       case AppRoutes.messages:
         return MaterialPageRoute(builder: (_) => const MessagesScreen());
+
+      case AppRoutes.imageDetectionPage:
+        final Map<String, dynamic> argsMap = args as Map<String, dynamic>;
+        final double latitude = argsMap['latitude'] as double;
+        final double longitude = argsMap['longitude'] as double;
+        return MaterialPageRoute(
+          builder: (_) => ImageDetectionPage(
+            destinationLatitude: latitude,
+            destinationLongitude: longitude,
+          ),
+        );
 
       case AppRoutes.mapLevels:
         return MaterialPageRoute(

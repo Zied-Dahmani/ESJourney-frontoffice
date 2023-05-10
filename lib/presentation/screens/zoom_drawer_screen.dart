@@ -13,6 +13,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'Directions/Locations.dart';
+import 'Directions/detect.dart';
 import 'Events/calendar_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -102,7 +104,7 @@ class _ZoomDrawerScreenState extends State<ZoomDrawerScreen> {
       case 0:
         return const MainScreen();
       case 1:
-        return const CalendarScreen();
+        return  CalendarScreen();
       case 2:
         return const ClubEventsMapScreen();
       case 3:
@@ -115,6 +117,8 @@ class _ZoomDrawerScreenState extends State<ZoomDrawerScreen> {
         return ChatBotScreen();
       case 7:
         return FAQScreen();
+        case 8:
+        return DestinationScreen();
       default:
         return const ProfileScreen();
     }

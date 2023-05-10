@@ -40,6 +40,7 @@ class AppRoutes {
 // Seif
   static const eventDetails = '/eventDetails';
   static const eventList = '/eventList';
+  static const imageDetectionPage = '/image_detection_page';
 
 // Youssef
   static const postToLinkedinScreen = '/postToLinkedin';

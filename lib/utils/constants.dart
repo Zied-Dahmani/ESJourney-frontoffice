@@ -1,4 +1,10 @@
 
+const ksignUp = 'user/signUp';
+const ksignIn = 'user/signIn';
+const kgetUserData = 'user/getUserData';
+const krefreshToken = 'user/refreshToken';
+
+
 var kbaseUrl = 'http://192.168.0.2:9090/';
 var kmeetingUrl = 'http://192.168.0.2:9091';
 var imageUrl = '$kbaseUrl/images/';
@@ -55,10 +61,7 @@ const mapUrlTemplate = 'https://api.mapbox.com/styles/v1/zied-dahmani/cled45t8y0
 const kzegoAppId = 1961455378;
 const kzegoAppSign = '1d1fe700d00e6e452fb3fa49032ab5447492a20392944b300d3b864d7a10aa71';
 // User
-const ksignUp = 'user/signUp';
-const ksignIn = 'user/signIn';
-const kgetUserData = 'user/getUserData';
-const krefreshToken = 'user/refreshToken';
+
 const kupdatePassword ='user/updatePassword';
 const kerrorUpdatePassword = 'Error in updating password!';
 const kupdateUsername = 'user/updateUsername';

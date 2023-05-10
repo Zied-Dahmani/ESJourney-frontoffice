@@ -42,6 +42,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await MainModule.init();
 
+
   ErrorWidget.builder = (FlutterErrorDetails details) {
     if (kDebugMode) {
       return ErrorWidget(details.exception);

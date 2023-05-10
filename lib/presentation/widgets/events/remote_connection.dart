@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:flutter_webrtc_wrapper/flutter_webrtc_wrapper.dart';
 
@@ -40,24 +41,37 @@ class _RemoteConnectionState extends State<RemoteConnection> {
             ),
           ),
         ),
-        // Add the custom crown image for the host
-        if (isHost)
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: Image.asset(
-              'assets/images/crown.png',
-            ),
-          ),
         Positioned(
+          bottom: 10,
+          left: 10,
           child: Container(
-            padding: const EdgeInsets.all(5),
-            color: Colors.black,
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.7),
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.25),
+                  spreadRadius: 0,
+                  blurRadius: 4,
+                  offset: Offset(0, 4),
+                ),
+              ],
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                if (isHost)
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: SvgPicture.asset(
+                      'assets/images/CrownMeeting.svg',
+                      width: 20,
+                      height: 20,
+                    ),
+                  ),
+                const SizedBox(width: 5),
                 Text(
                   widget.connection.name!,
                   style: const TextStyle(
@@ -65,11 +79,13 @@ class _RemoteConnectionState extends State<RemoteConnection> {
                     fontSize: 15,
                   ),
                 ),
+                const SizedBox(width: 5),
                 Icon(
                   widget.connection.audioEnabled! ? Icons.mic : Icons.mic_off,
                   color: Colors.white,
                   size: 15,
                 ),
+                const SizedBox(width: 5),
                 Icon(
                   //widget.connection.handEnabled! ? Icons.back_hand : Icons.back_hand_outlined,
                  Icons.back_hand_outlined,
@@ -79,11 +95,8 @@ class _RemoteConnectionState extends State<RemoteConnection> {
               ],
             ),
           ),
-          bottom: 10,
-          left: 10,
         ),
       ],
     );
   }
 }
-

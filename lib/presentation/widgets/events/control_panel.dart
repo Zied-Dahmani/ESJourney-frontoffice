@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:snippet_coder_utils/FormHelper.dart';
 
 class ControlPanel extends StatelessWidget {
   final bool? videoEnabled;
@@ -32,70 +31,113 @@ class ControlPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blueGrey[900],
       height: 60.0,
+      margin: EdgeInsets.all(8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: buildControls(),
       ),
     );
   }
-
   List<Widget> buildControls() {
     if (!isConnectionFailed!) {
       return <Widget>[
-        IconButton(
-          onPressed: onVideoToggle,
-          icon: Icon(videoEnabled! ? Icons.videocam : Icons.videocam_off),
-          color: Colors.white,
-          iconSize: 32,
-        ),
-        IconButton(
-          onPressed: onAudioToggle,
-          icon: Icon(audioEnabled! ? Icons.mic : Icons.mic_off),
-          color: Colors.white,
-          iconSize: 32,
-        ),
-        if (isHost!)
-          IconButton(
-            onPressed: onHostMenu,
-            icon: Icon(Icons.more_vert),
-            color: Colors.white,
-            iconSize: 32,
-          ),
-        IconButton(
-          onPressed: onHandToggle,
-          icon: Icon(handEnabled! ? Icons.back_hand : Icons.back_hand_outlined),
-          color: Colors.white,
-          iconSize: 32,
-        ),
-        const SizedBox(width: 25),
-        Container(
-          width: 70,
-          decoration: BoxDecoration(
-            color: Colors.red,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: IconButton(
-            icon: const Icon(
-              Icons.call_end,
-              color: Colors.white,
+        for (var item in [
+          IconButtonData(
+              onPressed: onVideoToggle,
+              iconData: videoEnabled! ? Icons.videocam : Icons.videocam_off),
+          IconButtonData(
+              onPressed: onAudioToggle,
+              iconData: audioEnabled! ? Icons.mic : Icons.mic_off),
+          if (isHost!)
+            IconButtonData(onPressed: onHostMenu, iconData: Icons.more_vert),
+          IconButtonData(
+              onPressed: onHandToggle,
+              iconData: handEnabled! ? Icons.back_hand : Icons.back_hand_outlined),
+        ])
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4.0),
+            child: Material(
+              color: Colors.transparent,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  color: Colors.blueGrey[800],
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black38,
+                      offset: Offset(0, 2),
+                      blurRadius: 3,
+                      spreadRadius: 0,
+                    ),
+                  ],
+                ),
+                child: IconButton(
+                  onPressed: item.onPressed,
+                  icon: Icon(item.iconData),
+                  color: Colors.white,
+                  iconSize: 32,
+                ),
+              ),
             ),
-            onPressed: onMeetingEnd!,
           ),
-        )
+        SizedBox(width: 10),
+        Material(
+          color: Colors.transparent,
+          child: Ink(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(25),
+              color: Colors.red,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.25),
+                  spreadRadius: 0,
+                  blurRadius: 4,
+                  offset: Offset(0, 4),
+                ),
+              ],
+            ),
+            child: IconButton(
+              icon: const Icon(
+                Icons.call_end,
+                color: Colors.white,
+              ),
+              onPressed: onMeetingEnd!,
+            ),
+          ),
+        ),
       ];
     } else {
       return <Widget>[
-        FormHelper.submitButton(
-          'Reconnect',
-          onReconnect!,
-          btnColor: Colors.red,
-          borderRadius: 10,
+        SizedBox(
           width: 200,
           height: 40,
-        )
+          child: ElevatedButton(
+            onPressed: onReconnect,
+            child: const Text(
+              'Reconnect',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+              ),
+            ),
+            style: ElevatedButton.styleFrom(
+              primary: Colors.red,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              elevation: 4,
+            ),
+          ),
+        ),
       ];
     }
   }
+}
+
+class IconButtonData {
+  final VoidCallback? onPressed;
+  final IconData iconData;
+
+  IconButtonData({this.onPressed, required this.iconData});
 }
