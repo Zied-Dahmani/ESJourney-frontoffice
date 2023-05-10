@@ -28,7 +28,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
           DrawerItem(FontAwesomeIcons.calendarDays, AppStrings.kmyEvents, 4),
           DrawerItem(FontAwesomeIcons.video, AppStrings.kapplications, 3),
           DrawerItem(FontAwesomeIcons.gear, AppStrings.ksettings, 4),
-          DrawerItem(FontAwesomeIcons.locationPin, AppStrings.klocations, 8)
+          DrawerItem(FontAwesomeIcons.locationPin, AppStrings.klocations, 8),
           DrawerItem(Icons.person, AppStrings.kProfile, 5 ),
           DrawerItem(Icons.chat, "Assistance", 6 ),
           DrawerItem(Icons.question_mark, "FAQ", 7 )

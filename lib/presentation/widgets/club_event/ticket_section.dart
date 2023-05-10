@@ -180,6 +180,7 @@ class TicketSection extends StatelessWidget {
                                                 //if (await result) {
 
 
+                                                print(state.user.coins);
                                                 final result2 = BlocProvider.of<
                                                         ClubEventCubit>(context)
                                                     .bookEvent(
@@ -188,7 +189,7 @@ class TicketSection extends StatelessWidget {
                                                         ticketIndex);
                                                 if (await result2) {
                                                   setStateRemainingTickets();
-                                                  BlocProvider.of<UserCubit>(context).sendNotif(clubEvent.name,'${state.user.fullName} ${AppStrings.khasBookedYourEvent}',state.user.deviceToken);
+                                                  BlocProvider.of<UserCubit>(context).sendNotif(clubEvent.name,'${state.user.username} ${AppStrings.khasBookedYourEvent}','c0qRt8q-RSGvGS_QQUNOU3:APA91bGxwESjj8igN-38WgZHHMtt4pBwGTKLAwVGee4cuVPzSxOA0wK202oHLcmMCZ93dvUBk-KpuFEg-GrdnTgkdt9toX08T2UYkrCzwXIHuh0ned0sZwoMp-PAg6raiW6KY5nGnxx5');
                                                   BlocProvider.of<ClubEventCubit>(context).init();
                                                   Navigator.of(context).pushNamed(AppRoutes.doneScreen);
                                                 }

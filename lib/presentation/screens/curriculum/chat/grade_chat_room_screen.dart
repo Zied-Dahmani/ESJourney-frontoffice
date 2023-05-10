@@ -135,8 +135,6 @@ class _ChatGradeRoomScreenState extends State<ChatGradeRoomScreen>
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.camera_alt_outlined,
-                          color: Color(0xFFF03738)),
                       Expanded(
                         child: Container(
                           margin: const EdgeInsets.only(left: 5, right: 5),
@@ -159,7 +157,6 @@ class _ChatGradeRoomScreenState extends State<ChatGradeRoomScreen>
                           ),
                         ),
                       ),
-                      const Icon(Icons.mic, color: Color(0xFFF03738)),
                       IconButton(
                         onPressed: () {
                           if (_textController.text.isNotEmpty) {
@@ -206,16 +203,6 @@ class _ChatGradeRoomScreenState extends State<ChatGradeRoomScreen>
             )
           ],
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.local_phone, color: Colors.white),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.videocam, color: Colors.white),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: Column(
         children: [

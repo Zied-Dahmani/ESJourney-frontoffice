@@ -62,15 +62,15 @@ class _ShortScreenState extends State<ShortScreen> {
               ],
             )),
         Positioned(
-            bottom: AppSizes.khugeSpace * 2.2,
+            bottom: AppSizes.khugeSpace * 5,
             left: AppSizes.ksmallSpace,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Bully',style: theme.textTheme.headlineMedium!.copyWith(color: theme.colorScheme.outline)),
+                Text('Nexus Debate',style: theme.textTheme.headlineMedium!.copyWith(color: theme.colorScheme.outline)),
                 SizedBox(
                     width: ScreenSize.width(context),
-                    child: Text('Tells the story of mischievous 15-year-old Jimmy Hopkins as he goes through the hilarity and awkwardness of adolescence.',style: theme.textTheme.bodySmall!.copyWith(color: theme.colorScheme.onPrimary))),
+                    child: Text('A club dedicated to the art of debate and public speaking.',style: theme.textTheme.bodySmall!.copyWith(color: theme.colorScheme.onPrimary))),
               ],
             )),
       ],

@@ -30,7 +30,7 @@ class _AvatarScreenState extends State<AvatarScreen> {
                 });
           } else if (state is UserLogInSuccess) {
             print("here 2 ") ;
-            Navigator.of(context).pushNamed(AppRoutes.zoomDrawerScreen);
+            Navigator.of(context).pushReplacementNamed(AppRoutes.zoomDrawerScreen);
           } else if (state is UserIsFailure) {
             print("here 3 ") ;
             print("errrrorr is ${state.error}");
@@ -40,32 +40,35 @@ class _AvatarScreenState extends State<AvatarScreen> {
         child: BlocBuilder<UserCubit, UserState>(
           builder: (context, state) {
             if (state is UserLogInSuccess) {
-              return WebView(
-                javascriptMode: JavascriptMode.unrestricted,
-                onWebViewCreated: (controller) async {
-                  await loadHtmlFromAssets(
-                      controller, 'assets/html/curriculum/iframe.html');
-                },
-                javascriptChannels: {
-                  JavascriptChannel(
-                    name: 'AvatarCreated',
-                    onMessageReceived: (JavascriptMessage message) async {
-                      final data = message.message;
-                      final Map<String, dynamic> json = jsonDecode(data);
-                      const api = 'https://api.readyplayer.me/v1/avatars/';
-                      if (json.isNotEmpty) {
-                        final user3DUrl = json['data']['url'];
-                        final userId = user3DUrl?.split('/').last.toString().replaceAll('.glb', '').trim();
-                        final user2DUrl = '$api$userId''.png';
-                        print('user2DUrl: $user2DUrl');
-                        print('user3DUrl: $user3DUrl');
-                        print(state.user.token!);
-                        BlocProvider.of<UserCubit>(context).addAvatars(
-                            state.user.token!,user2DUrl, user3DUrl);
-                      }
-                    },
-                  ),
-                },
+              return Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: WebView(
+                  javascriptMode: JavascriptMode.unrestricted,
+                  onWebViewCreated: (controller) async {
+                    await loadHtmlFromAssets(
+                        controller, 'assets/html/curriculum/iframe.html');
+                  },
+                  javascriptChannels: {
+                    JavascriptChannel(
+                      name: 'AvatarCreated',
+                      onMessageReceived: (JavascriptMessage message) async {
+                        final data = message.message;
+                        final Map<String, dynamic> json = jsonDecode(data);
+                        const api = 'https://api.readyplayer.me/v1/avatars/';
+                        if (json.isNotEmpty) {
+                          final user3DUrl = json['data']['url'];
+                          final userId = user3DUrl?.split('/').last.toString().replaceAll('.glb', '').trim();
+                          final user2DUrl = '$api$userId''.png';
+                          print('user2DUrl: $user2DUrl');
+                          print('user3DUrl: $user3DUrl');
+                          print(state.user.token!);
+                          BlocProvider.of<UserCubit>(context).addAvatars(
+                              state.user.token!,user2DUrl, user3DUrl);
+                        }
+                      },
+                    ),
+                  },
+                ),
               );
             } else {
               return const Center(

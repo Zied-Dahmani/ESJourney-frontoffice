@@ -38,7 +38,9 @@ class SignUpScreen extends StatelessWidget {
           } else if (state is UserLogInSuccess) {
             //Navigator.pop(dialogContext!);
             Provider.of<SocketService>(context, listen: false).connect(state.user.token!);
+            print("successs");
             Navigator.of(context).pushNamed(AppRoutes.avatar);
+            print('??');
           } else if (state is UserIsFailure) {
             Navigator.pop(dialogContext!);
             showScaffold(context, state.error);

@@ -4,9 +4,12 @@ const ksignIn = 'user/signIn';
 const kgetUserData = 'user/getUserData';
 const krefreshToken = 'user/refreshToken';
 
+var ip = "192.168.0.11";
+var kbaseUrl = 'http://$ip:9090/';
+var kmeetingUrl = 'http://$ip:9091';
+const gameBaseServer = 'http://192.168.0.22:2020/';
+const gameWsServer = 'ws://192.168.0.22:2020/';
 
-var kbaseUrl = 'http://192.168.0.2:9090/';
-var kmeetingUrl = 'http://192.168.0.2:9091';
 var imageUrl = '$kbaseUrl/images/';
 const kcheckInternetConnection = 'Check your internet connection!';
 const kidPasswordIncorrect = 'Id or password Incorrect!';

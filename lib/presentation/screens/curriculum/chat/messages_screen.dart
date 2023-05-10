@@ -77,7 +77,6 @@ class MessagesScreenState extends State<MessagesScreen> {
                           },);
                       },
                       child: const Text("Grade Conversation")),
-                  ElevatedButton(onPressed: () {}, child: const Text("Text")),
                 ],
               ),
             ),

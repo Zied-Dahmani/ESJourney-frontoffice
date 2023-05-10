@@ -17,11 +17,9 @@ class _FilterHeaderState extends State<FilterHeader> {
 
   final List<String> _clubs = [
     "All",
-    "Club1",
-    "Club2",
-    "Club3",
-    "Club4",
-    "Club5"
+    "EcoMinds",
+    "Nexus Debate",
+    "Health Alliance"
   ];
 
   @override

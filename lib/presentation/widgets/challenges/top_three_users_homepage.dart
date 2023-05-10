@@ -85,7 +85,6 @@ class TopThreeUsersHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("qqqqq  ${userAvatar![0]}");
     final theme = Theme.of(context);
     final double width = ScreenSize.width(context);
     return Container(

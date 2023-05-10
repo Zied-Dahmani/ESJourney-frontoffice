@@ -173,11 +173,22 @@ flutter:
     - assets/images/google_maps.png
     - assets/sound/scan_complete.mp3
     - assets/
-    - assets/html/
+    - assets/html/curriculum/iframe.html
+    - assets/html/curriculum/viewer.html
     - assets/images/
     - assets/icons/
     - assets/sound/
     - assets/images/Pinned.png
+    - assets/images/curriculum/
+    - assets/images/curriculum/map/
+    - assets/images/curriculum/CourseMap/
+    - assets/images/curriculum/games/hangman/body.png
+    - assets/images/curriculum/games/hangman/hang.png
+    - assets/images/curriculum/games/hangman/head.png
+    - assets/images/curriculum/games/hangman/l_arm.png
+    - assets/images/curriculum/games/hangman/l_leg.png
+    - assets/images/curriculum/games/hangman/r_arm.png
+    - assets/images/curriculum/games/hangman/r_leg.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

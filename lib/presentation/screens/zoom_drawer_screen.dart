@@ -4,6 +4,7 @@ import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/screens/application/applications_screen.dart';
 import 'package:esjourney/presentation/screens/club_event/club_events_map_screen.dart';
+import 'package:esjourney/presentation/screens/curriculum/games/draw/core/bloc/user_cubit/drawer_cubit.dart';
 import 'package:esjourney/presentation/screens/drawer_screen.dart';
 import 'package:esjourney/presentation/screens/main_screen.dart';
 import 'package:esjourney/presentation/screens/profile/profile_screen.dart';
@@ -69,6 +70,7 @@ class _ZoomDrawerScreenState extends State<ZoomDrawerScreen> {
     final userState = context.read<UserCubit>().state;
     if (userState is UserLogInSuccess) {
       socketService.connect(userState.user.token!);
+      Provider.of<DrawerCubit>(context, listen: false).setUsername(userState.user.username);
     }
     //end set user as connected
     return WillPopScope(

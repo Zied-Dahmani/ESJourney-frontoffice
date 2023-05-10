@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer' as developer;
+import 'dart:io';
 import 'package:esjourney/data/models/club/club/club_model.dart';
 import 'package:esjourney/logic/cubits/club/club_state.dart';
 import 'package:esjourney/logic/cubits/connectivity/connectivity_cubit.dart';
@@ -22,10 +23,14 @@ class ClubCubit extends Cubit<ClubState> {
   late String clubId;
 
   initDynamicLink() async {
+    if(Platform.isAndroid) {
       clubId = await DynamicLink().init();
       if (clubId != '') {
         init();
       }
+    }else{
+      init();
+    }
 
   }
 
