@@ -10,7 +10,7 @@ import ARKit
     ) -> Bool {
         
         // Add this code to load the ARResourceGroup and print the image names
-        if #available(iOS 11.3, *) {
+        /*if #available(iOS 11.3, *) {
             guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: nil) else {
                 fatalError("Failed to load AR reference images.")
             }
@@ -20,7 +20,7 @@ import ARKit
             }
         } else {
             print("ARReferenceImage is not available in this iOS version.")
-        }
+        }*/
         
         GeneratedPluginRegistrant.register(with: self)
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)

@@ -25,7 +25,7 @@ class AppStrings {
   static const kapplications = 'Applications';
   static const ksettings = 'Settings';
   static const klocations = 'Locations';
-
+  static const kmyEvents = 'My Events';
 
   // Zied
   static const knoClubs = 'No clubs';

@@ -54,6 +54,7 @@ void main() async {
   await Firebase.initializeApp();
   await MainModule.init();
 
+
   ErrorWidget.builder = (FlutterErrorDetails details) {
     if (kDebugMode) {
       return ErrorWidget(details.exception);
@@ -232,11 +233,11 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
       ),
     );
   }
-  Widget _getInitialWidget(UserState state) {
-    if (state is UserLogInSuccess) {
-      return ZoomDrawerScreen();
-    } else {
-      return SignInScreen();
-    }
-  }
+  // Widget _getInitialWidget(UserState state) {
+  //   if (state is UserLogInSuccess) {
+  //     return ZoomDrawerScreen();
+  //   } else {
+  //     return SignInScreen();
+  //   }
+  // }
 }
