@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:esjourney/presentation/screens/club_event/my_events_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/logic/cubits/user/user_cubit.dart';
@@ -78,7 +80,11 @@ class _ZoomDrawerScreenState extends State<ZoomDrawerScreen> {
       child: BlocBuilder<UserCubit, UserState>(
         builder: (context, state) {
           if (state is UserLogInSuccess) {
-            BlocProvider.of<UserCubit>(context).updateDeviceToken(state.user.token);
+            if(Platform.isAndroid) {
+
+              BlocProvider.of<UserCubit>(context).updateDeviceToken(state.user.token);
+            }
+
             return ZoomDrawer(
               menuScreen: DrawerScreen(
                 setIndex: (index) {

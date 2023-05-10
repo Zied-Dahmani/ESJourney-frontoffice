@@ -87,8 +87,7 @@ class _RemoteConnectionState extends State<RemoteConnection> {
                 ),
                 const SizedBox(width: 5),
                 Icon(
-                  //widget.connection.handEnabled! ? Icons.back_hand : Icons.back_hand_outlined,
-                 Icons.back_hand_outlined,
+                  widget.connection.handEnabled! ? Icons.back_hand : Icons.back_hand_outlined,
                   color: Colors.white,
                   size: 15,
                 ),

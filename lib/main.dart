@@ -48,6 +48,7 @@ void main() async {
   await MainModule.init();
   //check os
   if (Platform.isAndroid) {
+    print("herherehere");
     await Firebase.initializeApp();
   }
 
