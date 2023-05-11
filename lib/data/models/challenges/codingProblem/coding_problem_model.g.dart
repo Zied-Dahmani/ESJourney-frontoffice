@@ -8,7 +8,7 @@ part of 'coding_problem_model.dart';
 
 _$_CodingProblem _$$_CodingProblemFromJson(Map<String, dynamic> json) =>
     _$_CodingProblem(
-      id: json['id'],
+      id: json['_id'],
       description: json['description'] as String,
       output: json['output'] as String,
     );

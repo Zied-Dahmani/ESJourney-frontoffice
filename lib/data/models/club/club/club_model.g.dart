@@ -7,7 +7,7 @@ part of 'club_model.dart';
 // **************************************************************************
 
 _$_Club _$$_ClubFromJson(Map<String, dynamic> json) => _$_Club(
-      id: json['id'],
+      id: json['_id'],
       name: json['name'] as String,
       images:
           (json['images'] as List<dynamic>).map((e) => e as String).toList(),

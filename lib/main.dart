@@ -14,6 +14,7 @@ import 'package:esjourney/logic/cubits/user/user_cubit.dart';
 import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/logic/cubits/user/username_available/username_available_cubit.dart';
 import 'package:esjourney/presentation/router/app_router.dart';
+import 'package:esjourney/presentation/screens/challenges/leaderboard/leaderboard_screen.dart';
 import 'package:esjourney/presentation/screens/club/club_screen.dart';
 import 'package:esjourney/presentation/screens/curriculum/chat/socket_service.dart';
 import 'package:esjourney/presentation/screens/curriculum/games/draw/core/bloc/user_cubit/drawer_cubit.dart';
@@ -107,6 +108,7 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+
    /* _userCubit = UserCubit();
     WidgetsBinding.instance.addObserver(this);
     if (_userCubit.state is UserLogInSuccess) {
@@ -212,6 +214,18 @@ class _AppState extends State<MyApp> with WidgetsBindingObserver {
             buildWhen: (oldState, newState) => oldState is UserInitial && newState is! UserLoadInProgress,
             builder: (context, state) {
               if (state is UserLogInSuccess) {
+
+               String? token = "";
+                UserCubit userCubit = UserCubit();
+
+                final state = userCubit.state;
+                if (state is UserLogInSuccess) {
+                  token = state.user.token;
+                }
+                BlocProvider.of<UserCubit>(context).refreshUserData(token!);
+
+
+
                 return Builder(builder: (context) {
                   final clubState = context.watch<ClubCubit>().state;
                   if (clubState is ClubLoadSuccess && BlocProvider.of<ClubCubit>(context).getClub() != null) {

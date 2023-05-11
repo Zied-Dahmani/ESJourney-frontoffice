@@ -8,7 +8,7 @@ part of 'drawing_point.dart';
 
 _$_DrawingPoint _$$_DrawingPointFromJson(Map<String, dynamic> json) =>
     _$_DrawingPoint(
-      id: json['id'] as int? ?? 1,
+      id: json['_id'] as int? ?? 1,
       offsets: (json['offsets'] as List<dynamic>?)
               ?.map((e) => DrawingOffset.fromJson(e as Map<String, dynamic>))
               .toList() ??

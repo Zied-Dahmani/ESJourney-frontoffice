@@ -1,4 +1,5 @@
 import 'package:esjourney/data/models/events/event_model.dart';
+import 'package:esjourney/presentation/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -7,6 +8,7 @@ import '../../../logic/cubits/events/event_cubit.dart';
 import '../../../logic/cubits/user/user_cubit.dart';
 import '../../../logic/cubits/user/user_state.dart';
 import '../../../utils/constants.dart';
+import '../../router/routes.dart';
 import 'meeting/meeting_screen.dart';
 
 class EventDetails extends StatefulWidget {
@@ -30,6 +32,7 @@ class _EventDetailsState extends State<EventDetails> {
   MaterialColor _buttonColor = Colors.green;
   //meeting
   bool showJoinMeetingButton = false;
+  bool showJoinCodingButton = false;
 
 
   void updateButtonText(String text, MaterialColor color) {
@@ -49,6 +52,7 @@ class _EventDetailsState extends State<EventDetails> {
     final isRegistered =
         userState.user.events?.any((element) => element.id == event.id) ?? false;
     final isMeeting = event.location == 'meeting';
+    final isCoding = event.location == 'Coding';
     final eventStartTime = DateFormat.Hm().parse(event.startTime);
     final eventEndTime = DateFormat.Hm().parse(event.endTime);
     final eventDateTime = event.date
@@ -78,6 +82,11 @@ class _EventDetailsState extends State<EventDetails> {
         showJoinMeetingButton = true;
       } else {
         showJoinMeetingButton = false;
+      }
+      if (isRegistered && isCoding && eventDateTime.isBefore(currentTime.toUtc()) && eventEndDateTime.isAfter(currentTime.toUtc())) {
+        showJoinCodingButton = true;
+      } else {
+        showJoinCodingButton = false;
       }
       print(isRegistered);
       print(isMeeting);
@@ -422,6 +431,28 @@ class _EventDetailsState extends State<EventDetails> {
                                               ),
                                               child: Text(
                                                 'Join Meeting',
+                                                style: textTheme.titleSmall?.copyWith(
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        if (showJoinCodingButton)
+                                          Expanded(
+                                            child: ElevatedButton(
+                                              onPressed: (){
+                                                Navigator.of(context)
+                                                    .pushNamed(AppRoutes.ideScreen);
+
+    },
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.grey,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(10),
+                                                ),
+                                              ),
+                                              child: Text(
+                                                'Start Coding',
                                                 style: textTheme.titleSmall?.copyWith(
                                                   color: Colors.white,
                                                 ),

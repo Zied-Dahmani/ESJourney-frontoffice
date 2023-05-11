@@ -32,6 +32,7 @@ import '../screens/Directions/detect.dart';
 import '../screens/Events/event_details_screen.dart';
 import '../screens/Internship/profileScreen.dart';
 import '../screens/challenges/ethQrCode/eth_qr_code_screen.dart';
+import '../screens/challenges/ide/ide_screen.dart';
 import '../screens/challenges/leaderboard/leaderboard_screen.dart';
 import '../screens/challenges/quiz/quiz_result.dart';
 import '../screens/challenges/quiz/quiz_screen.dart';
@@ -247,6 +248,10 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => CreatePostScreen(),
         );
+        case AppRoutes.ideScreen:
+          return MaterialPageRoute(
+            builder: (_) => const IdeScreen(),
+          );
       default:
         return null;
     }

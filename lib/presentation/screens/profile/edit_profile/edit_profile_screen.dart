@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../../logic/cubits/user/user_cubit.dart';
 import '../../../../logic/cubits/user/user_state.dart';
@@ -274,6 +275,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           infoTitle: "Terms & Conditions",
                           infoValue: "" ,
                           onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const WebViewPage(
+                                  url: 'https://www.freeprivacypolicy.com/live/d30d506d-a912-465b-8435-de145b095e20',
+                                ),
+                              ),
+                            );
 
 
                           },
@@ -300,5 +309,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             return Container();
           },
         ));
+  }
+}
+class WebViewPage extends StatelessWidget {
+  final String url;
+
+  const WebViewPage({Key? key, required this.url}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+
+      ),
+      body: WebView(
+        initialUrl: url,
+        javascriptMode: JavascriptMode.unrestricted,
+      ),
+    );
   }
 }

@@ -9,6 +9,7 @@ class LeaderboardRes with _$LeaderboardRes {
   const factory LeaderboardRes({
     required String username,
     required Score score,
+     String? twoDAvatar
   }) = _LeaderboardRes;
 
   factory LeaderboardRes.fromJson(Map<String, dynamic> json) => _$LeaderboardResFromJson(json);

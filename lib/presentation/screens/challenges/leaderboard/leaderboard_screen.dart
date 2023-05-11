@@ -40,7 +40,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
     // final getLeaderboard = BlocProvider.of<LeaderboardCubit>(context);
     // getLeaderboard.getLeaderboard();
   }
-
+bool test = false;
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -61,6 +61,11 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
             builder: (context, state) {
           if (state is LeaderboardLoadInProgress) {
           } else if (state is LeaderboardSuccess) {
+       for(int i=0;i<state.weeklyUsers.length;i++){
+         test = true;
+
+
+       }
             return Column(
               children: [
                 Stack(
@@ -125,7 +130,12 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                         // this delay happens at the start of each loop
 
                         TopThreeUsers(
-                          avatar: avatars,
+
+                          firstUserImage: state.period == 0
+                              ? state.weeklyUsers[0].twoDAvatar
+                              : state.period == 1
+                              ? state.monthlyUsers[0].twoDAvatar
+                              : state.allTimeUsers[0].twoDAvatar,
                           firstUsername: state.period == 0
                               ? state.weeklyUsers[0].username
                               : state.period == 1
@@ -146,6 +156,13 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                               : state.period == 1
                                   ? state.monthlyUsers[1].score.monthly
                                   : state.allTimeUsers[1].score.allTime,
+
+                          secondUserImage: state.period == 0
+                              ? state.weeklyUsers[0].twoDAvatar
+                              : state.period == 1
+                              ? state.monthlyUsers[0].twoDAvatar
+                              : state.allTimeUsers[0].twoDAvatar,
+
                           thirdUsername: state.period == 0
                               ? state.weeklyUsers[2].username
                               : state.period == 1
@@ -156,6 +173,11 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                               : state.period == 1
                                   ? state.monthlyUsers[2].score.monthly
                                   : state.allTimeUsers[2].score.allTime,
+                          thirdUserImage: state.period == 0
+                              ? state.weeklyUsers[0].twoDAvatar
+                              : state.period == 1
+                              ? state.monthlyUsers[0].twoDAvatar
+                              : state.allTimeUsers[0].twoDAvatar,
                         )
                       ],
                     ),

@@ -5,33 +5,27 @@ import 'package:flutter_svg/svg.dart';
 class TopThreeUsers extends StatelessWidget {
   const TopThreeUsers({
     super.key,
-    this.firstUserImage,
-    required this.firstUsername,
-    required this.firstUserScore,
-    this.secondUserImage,
-    required this.secondUsername,
-    required this.secondUserScore,
-    this.thirdUserImage,
-    required this.thirdUsername,
-    required this.thirdUserScore,
-    required this.avatar
+    required this.firstUserImage,
+     required this.firstUsername,
+     required this.firstUserScore,
+    required this.secondUserImage,
+     required this.secondUsername,
+     required this.secondUserScore,
+    required this.thirdUserImage,
+     required this.thirdUsername,
+     required this.thirdUserScore,
   });
 
   final String firstUsername;
-
   final String secondUsername;
-
   final String thirdUsername;
-  final Image? firstUserImage;
-  final Image? secondUserImage;
-  final Image? thirdUserImage;
+  final String firstUserImage;
+  final String secondUserImage;
+  final String thirdUserImage;
   final double firstUserScore;
-
   final double secondUserScore;
-
   final double thirdUserScore;
 
-final List<String>  avatar;
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -48,8 +42,6 @@ final List<String>  avatar;
               children: [
                 Column(
                   children: [
-                    // crown icon
-
                     SizedBox(height: width * 0.12),
                     Stack(
                       alignment: Alignment.lerp(Alignment.topCenter,
@@ -73,10 +65,7 @@ final List<String>  avatar;
                                 backgroundColor: Colors.transparent,
                                 radius: 50,
                                 backgroundImage: NetworkImage(
-                                    avatar[0] ),
-
-
-
+                                    firstUserImage!),
                               ),
                             ),
                           ),
@@ -129,9 +118,6 @@ final List<String>  avatar;
                 ),
                 Column(
                   children: [
-                    // crown icon
-                    //
-
                     Stack(
                       alignment: Alignment.lerp(Alignment.topCenter,
                           Alignment.bottomCenter, width * -0.003)!,
@@ -154,7 +140,7 @@ final List<String>  avatar;
                                 backgroundColor: Colors.transparent,
                                 radius: 50,
                                 backgroundImage: NetworkImage(
-                                  avatar[1] ),
+                                    secondUserImage!),
 
                               ),
                             ),
@@ -231,7 +217,7 @@ final List<String>  avatar;
                                 backgroundColor: Colors.transparent,
                                 radius: 50,
                                 backgroundImage: NetworkImage(
-                                    avatar[2]),
+                                    thirdUserImage!),
 
                               ),
                             ),

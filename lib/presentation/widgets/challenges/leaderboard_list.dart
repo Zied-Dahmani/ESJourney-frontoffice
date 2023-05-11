@@ -1,15 +1,7 @@
 import 'package:esjourney/data/models/challenges/leaderboard/leaderboard_res.dart';
 import 'package:esjourney/utils/screen_size.dart';
 import 'package:flutter/material.dart';
-List<String> avatars = [
-  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
-  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
-  "https://api.readyplayer.me/v1/avatars/645908d1bf91881a1ddaceac.png",
-  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
-  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
-  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
-  "https://api.readyplayer.me/v1/avatars/645908d1bf91881a1ddaceac.png",
-];
+
 class LeaderboardListView extends StatelessWidget {
   final List<LeaderboardRes> listItems;
   final int period;
@@ -58,14 +50,15 @@ class LeaderboardListView extends StatelessWidget {
                           backgroundColor: Colors.transparent,
                           radius: 25,
                           backgroundImage: NetworkImage(
-                              avatars[index]),
+                              listItems[index].twoDAvatar!,
+                          ),
                         ),
                         Expanded(
                           child: Container(
                             margin:
                                 const EdgeInsets.only(left: 20.0, right: 5.0),
                             child: Text(
-                              listItems[index].username,
+                              listItems[index].username[index],
                               style: const TextStyle(
                                 fontFamily: 'visbyRoundCF',
                                 fontSize: 16,

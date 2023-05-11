@@ -1,4 +1,5 @@
 
+import 'package:esjourney/data/models/challenges/leaderboard/leaderboard_res.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/screen_size.dart';
@@ -75,13 +76,12 @@ class TopUsersStack extends StatelessWidget {
 }
 class TopThreeUsersHomePage extends StatelessWidget {
   const TopThreeUsersHomePage({
-    super.key,
-    required this.username,
-    this.userAvatar,
+    super.key, required this.allTimeTopThree,
+
   });
 
-  final List<String> username;
-  final List<String>? userAvatar;
+  final List<LeaderboardRes> allTimeTopThree;
+
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +103,7 @@ class TopThreeUsersHomePage extends StatelessWidget {
                     color: const Color(0xff3C4150),
                     rank: 1,
                     rankPosition: 0.0101,
-                    userAvatar: userAvatar![0],
+                    userAvatar: allTimeTopThree[0].twoDAvatar!,
                   ),
 
                   SizedBox(
@@ -111,7 +111,7 @@ class TopThreeUsersHomePage extends StatelessWidget {
                   ),
 
                   Text(
-                    username[0],
+                    allTimeTopThree[0].username,
                     style: const TextStyle(
                       fontSize: 13,
                       fontFamily: 'VisbyRoundCF',
@@ -128,7 +128,7 @@ class TopThreeUsersHomePage extends StatelessWidget {
                     color: const Color(0xff00919E),
                     rank: 2,
                     rankPosition: 0.0108,
-                    userAvatar: userAvatar![0],
+                    userAvatar: allTimeTopThree[1].twoDAvatar!,
                   ),
 
                   SizedBox(
@@ -136,7 +136,7 @@ class TopThreeUsersHomePage extends StatelessWidget {
                   ),
 
                   Text(
-                    username[1],
+                    allTimeTopThree[1].username,
                     style: const TextStyle(
                       fontSize: 13,
                       fontFamily: 'VisbyRoundCF',
@@ -151,13 +151,13 @@ class TopThreeUsersHomePage extends StatelessWidget {
                     color: const Color(0xff2CBA9E),
                     rank: 3,
                     rankPosition: 0.01199,
-                    userAvatar: userAvatar![2],
+                    userAvatar: allTimeTopThree[2].twoDAvatar!,
                   ),
                   SizedBox(
                     height: width * 0.02,
                   ),
                   Text(
-                    username[2],
+                  allTimeTopThree[2].username,
                     style: const TextStyle(
                       fontSize: 13,
                       fontFamily: 'VisbyRoundCF',

@@ -8,7 +8,7 @@ part of 'application_model.dart';
 
 _$_Application _$$_ApplicationFromJson(Map<String, dynamic> json) =>
     _$_Application(
-      id: json['id'],
+      id: json['_id'],
       userId: json['userId'],
       state: $enumDecode(_$ApplicationStateEnumMap, json['state']),
       club: Club.fromJson(json['club'] as Map<String, dynamic>),

@@ -43,12 +43,12 @@ class PostCubit extends Cubit<PostState> {
 
   Future<void> likePost(String postId) async {
     try {
-      emit(PostLoadInProgress());
+  //    emit(PostLoadInProgress());
       final result = await _postRepository.likePost(postId);
 
-      result != null
+      /*result != null
           ? emit(PostIsSuccess(result))
-          : emit(PostIsFailure("error while getting data"));
+          : emit(PostIsFailure("error while getting data")); */
     } catch (e) {
       developer.log(e.toString(), name: 'error posts ');
       emit(PostIsFailure(kcheckInternetConnection));

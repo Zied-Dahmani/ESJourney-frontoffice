@@ -189,6 +189,8 @@ flutter:
     - assets/images/curriculum/games/hangman/l_leg.png
     - assets/images/curriculum/games/hangman/r_arm.png
     - assets/images/curriculum/games/hangman/r_leg.png
+    - assets/icons/challenges/leaderboard.svg
+    - assets/icons/challenges/crown.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

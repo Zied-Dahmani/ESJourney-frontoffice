@@ -37,6 +37,7 @@ class AppRoutes {
   static const leaderboardScreen = '/leaderboard';
   static const ethQrCodeScreen = '/ethQrCode';
   static const createPostScreen ="/createPostScreen";
+  static const ideScreen ="/ideScreen";
 // Seif
   static const eventDetails = '/eventDetails';
   static const eventList = '/eventList';

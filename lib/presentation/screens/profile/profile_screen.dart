@@ -50,6 +50,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           } else if (state is UserLogInSuccess) {
             //  print("image is ${state.user.achievement!.image}");
             return Column(
+
               children: [
                 Expanded(
                   child: Stack(
@@ -126,6 +127,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                               ),
                             ),
+
                             SizedBox(
                               height: width * 0.05,
                             ),
@@ -138,7 +140,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               child:  Text(
 
                                 "Achievements (${state.user.achievements!.length})",
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 17,
                                   fontWeight: FontWeight.w700,
@@ -147,15 +149,52 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                             ),
                             Container(
+
                               margin: const EdgeInsets.only(left: 10.0),
                               child: Row(
                                 children: state.user.achievements!.map((achievement) {
                                   print("achievement is $achievement");
                                   return Padding(
                                     padding: const EdgeInsets.only(right: 10.0),
-                                    child: SvgPicture.network(
-                                      "${kbaseUrl}img/${achievement.image}",
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          height: 50,
+                                          width: 50,
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                color: // custom color hex code
+                                                    Color(0xFFE7E7E7),
+                                                offset: Offset(6.0, 8.0),
+                                                blurRadius: 10.0,
+                                                spreadRadius:
+                                                    2.0, // changes position of shadow
+                                              ),
+                                            ],
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+
+                                          child: SvgPicture.network(
+                                    "${kbaseUrl}img/${achievement.image}",
                                       height: width * 0.15,
+                                    ),
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          achievement.name!,
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w700,
+                                            fontFamily: 'VisbyRoundCF',
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   );
                                 }).toList(),

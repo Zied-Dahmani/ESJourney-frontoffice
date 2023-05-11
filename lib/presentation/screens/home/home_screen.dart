@@ -18,16 +18,8 @@ import '../../widgets/challenges/top_three_users_homepage.dart';
 
 late User user;
 List<LeaderboardRes> allTimeTop3 = [];
-List<String> topUsersUsername = [];
-List<String> topUsersAvatars = [
-  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
-  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
-  "https://api.readyplayer.me/v1/avatars/645908d1bf91881a1ddaceac.png",
-  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
-  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
-  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
-  "https://api.readyplayer.me/v1/avatars/645908d1bf91881a1ddaceac.png",
-];
+
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -64,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
               postState is PostIsSuccess &&
               userState is UserLogInSuccess) {
             for (int i = 0; i < leaderboardState.allTimeUsers.length; i++) {
-              topUsersUsername.add(leaderboardState.allTimeUsers[i].username);
+              allTimeTop3.add(leaderboardState.allTimeUsers[i]);
             }
             user = userState.user;
             print("user is " + user.toString());
@@ -73,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
               headerSliverBuilder: (context, innerBoxIsScrolled) {
                 return [
                   CupertinoSliverRefreshControl(onRefresh: () async {
-                    print("hereere");
+
                     await Future.delayed(const Duration(seconds: 2));
                   }),
 
@@ -98,8 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: width * 0.03,
                             ),
                             TopThreeUsersHomePage(
-                              username: topUsersUsername,
-                              userAvatar: topUsersAvatars,
+                              allTimeTopThree: allTimeTop3,
                             ),
                           ],
                         ),
@@ -191,7 +182,8 @@ class PostsList extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              timeAgo(posts[index].createdAt!),
+                              getTimeAgo(posts[index].createdAt) ?? ' ',
+
                               style: TextStyle(
                                 fontFamily: 'VisbyRoundCF',
                                 fontWeight: FontWeight.w400,
@@ -229,11 +221,7 @@ class PostsList extends StatelessWidget {
                                   BlocProvider.of<PostCubit>(context)
                                       .likePost(posts[index].id);
                                   isLiked.value = !isLikedValue;
-                                  print(" isLiked" + isLiked.value.toString());
 
-                                  print("1   " + posts[index].likedBy.contains(user.id).toString());
-                                  print("2    " + posts[index].likedBy.toString());
-                                  print("3    " + user.id);
                                 },
                                 icon: isLikedValue
                                     ? const Icon(
@@ -302,24 +290,40 @@ class PostsList extends StatelessWidget {
   }
 }
 
-String timeAgo(int timestampMilliseconds) {
-  final timestamp = DateTime.fromMillisecondsSinceEpoch(timestampMilliseconds);
-  final now = DateTime.now();
-  final difference = now.difference(timestamp);
+String? getTimeAgo(int time) {
+  const int secondMillis = 1000;
+  const int minuteMillis = 60 * secondMillis;
+  const int hourMillis = 60 * minuteMillis;
+  const int dayMillis = 24 * hourMillis;
+  const int weekMillis = 7 * dayMillis;
+  int timeAgo = time;
 
-  if (difference.inDays >= 365) {
-    final years = (difference.inDays / 365).floor();
-    return '${years}y ago';
-  } else if (difference.inDays >= 30) {
-    final months = (difference.inDays / 30).floor();
-    return '${months}m ago';
-  } else if (difference.inDays >= 1) {
-    return '${difference.inDays}d ago';
-  } else if (difference.inHours >= 1) {
-    return '${difference.inHours}h ago';
-  } else if (difference.inMinutes >= 1) {
-    return '${difference.inMinutes}m ago';
+  if (timeAgo < 1000000000) {
+    timeAgo *= 1000;
+  }
+
+  final int now = DateTime.now().millisecondsSinceEpoch;
+  if (timeAgo > now || timeAgo <= 0) {
+    return null;
+  }
+
+  final int diff = now - timeAgo;
+  if (diff < minuteMillis) {
+    return 'just now';
+  } else if (diff < 2 * minuteMillis) {
+    return '1m ago';
+  } else if (diff < 50 * minuteMillis) {
+    return '${(diff / minuteMillis).floor()}m ago';
+  } else if (diff < 90 * minuteMillis) {
+    return '1h ago';
+  } else if (diff < 24 * hourMillis) {
+    final int hours = (diff / hourMillis).floor();
+    return hours == 1 ? '1h ago' : '${hours}h ago';
+  } else if (diff < 48 * hourMillis) {
+    return '1d ago';
   } else {
-    return '${difference.inSeconds}s ago';
+    final int weeks = (diff / weekMillis).floor();
+    return weeks == 1 ? '1w ago' : '${weeks}w ago';
   }
 }
+

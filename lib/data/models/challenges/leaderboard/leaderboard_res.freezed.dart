@@ -22,6 +22,7 @@ LeaderboardRes _$LeaderboardResFromJson(Map<String, dynamic> json) {
 mixin _$LeaderboardRes {
   String get username => throw _privateConstructorUsedError;
   Score get score => throw _privateConstructorUsedError;
+  String? get twoDAvatar => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +36,7 @@ abstract class $LeaderboardResCopyWith<$Res> {
           LeaderboardRes value, $Res Function(LeaderboardRes) then) =
       _$LeaderboardResCopyWithImpl<$Res, LeaderboardRes>;
   @useResult
-  $Res call({String username, Score score});
+  $Res call({String username, Score score, String? twoDAvatar});
 
   $ScoreCopyWith<$Res> get score;
 }
@@ -55,6 +56,7 @@ class _$LeaderboardResCopyWithImpl<$Res, $Val extends LeaderboardRes>
   $Res call({
     Object? username = null,
     Object? score = null,
+    Object? twoDAvatar = freezed,
   }) {
     return _then(_value.copyWith(
       username: null == username
@@ -65,6 +67,10 @@ class _$LeaderboardResCopyWithImpl<$Res, $Val extends LeaderboardRes>
           ? _value.score
           : score // ignore: cast_nullable_to_non_nullable
               as Score,
+      twoDAvatar: freezed == twoDAvatar
+          ? _value.twoDAvatar
+          : twoDAvatar // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -85,7 +91,7 @@ abstract class _$$_LeaderboardResCopyWith<$Res>
       __$$_LeaderboardResCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String username, Score score});
+  $Res call({String username, Score score, String? twoDAvatar});
 
   @override
   $ScoreCopyWith<$Res> get score;
@@ -104,6 +110,7 @@ class __$$_LeaderboardResCopyWithImpl<$Res>
   $Res call({
     Object? username = null,
     Object? score = null,
+    Object? twoDAvatar = freezed,
   }) {
     return _then(_$_LeaderboardRes(
       username: null == username
@@ -114,6 +121,10 @@ class __$$_LeaderboardResCopyWithImpl<$Res>
           ? _value.score
           : score // ignore: cast_nullable_to_non_nullable
               as Score,
+      twoDAvatar: freezed == twoDAvatar
+          ? _value.twoDAvatar
+          : twoDAvatar // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -121,7 +132,8 @@ class __$$_LeaderboardResCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_LeaderboardRes implements _LeaderboardRes {
-  const _$_LeaderboardRes({required this.username, required this.score});
+  const _$_LeaderboardRes(
+      {required this.username, required this.score, this.twoDAvatar});
 
   factory _$_LeaderboardRes.fromJson(Map<String, dynamic> json) =>
       _$$_LeaderboardResFromJson(json);
@@ -130,10 +142,12 @@ class _$_LeaderboardRes implements _LeaderboardRes {
   final String username;
   @override
   final Score score;
+  @override
+  final String? twoDAvatar;
 
   @override
   String toString() {
-    return 'LeaderboardRes(username: $username, score: $score)';
+    return 'LeaderboardRes(username: $username, score: $score, twoDAvatar: $twoDAvatar)';
   }
 
   @override
@@ -143,12 +157,14 @@ class _$_LeaderboardRes implements _LeaderboardRes {
             other is _$_LeaderboardRes &&
             (identical(other.username, username) ||
                 other.username == username) &&
-            (identical(other.score, score) || other.score == score));
+            (identical(other.score, score) || other.score == score) &&
+            (identical(other.twoDAvatar, twoDAvatar) ||
+                other.twoDAvatar == twoDAvatar));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, username, score);
+  int get hashCode => Object.hash(runtimeType, username, score, twoDAvatar);
 
   @JsonKey(ignore: true)
   @override
@@ -167,7 +183,8 @@ class _$_LeaderboardRes implements _LeaderboardRes {
 abstract class _LeaderboardRes implements LeaderboardRes {
   const factory _LeaderboardRes(
       {required final String username,
-      required final Score score}) = _$_LeaderboardRes;
+      required final Score score,
+      final String? twoDAvatar}) = _$_LeaderboardRes;
 
   factory _LeaderboardRes.fromJson(Map<String, dynamic> json) =
       _$_LeaderboardRes.fromJson;
@@ -176,6 +193,8 @@ abstract class _LeaderboardRes implements LeaderboardRes {
   String get username;
   @override
   Score get score;
+  @override
+  String? get twoDAvatar;
   @override
   @JsonKey(ignore: true)
   _$$_LeaderboardResCopyWith<_$_LeaderboardRes> get copyWith =>

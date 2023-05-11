@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
 import 'package:esjourney/presentation/router/routes.dart';
@@ -6,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_share_me/flutter_share_me.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:http/http.dart' as http;
 import '../../Internship/shareToLinkedin.dart';
 
 
@@ -299,3 +300,47 @@ class QuizResultOption extends StatelessWidget {
         ],
       );
 }
+
+
+
+Future<void> submitPost(String text ) async {
+
+  final headers = {
+    'Authorization': 'Bearer $_accessToken',
+    'Content-Type': 'application/json',
+    'X-Restli-Protocol-Version': '2.0.0',
+  };
+
+  final payload = {
+    "author": "urn:li:person:$_linkedinId",
+    "lifecycleState": "PUBLISHED",
+    "specificContent": {
+      "com.linkedin.ugc.ShareContent": {
+        "shareCommentary": {"text": text},
+        "shareMediaCategory": "NONE"
+      }
+    },
+    "visibility": {"com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC"}
+  };
+
+  final response = await http.post(
+      Uri.parse('https://api.linkedin.com/v2/ugcPosts'),
+      headers: headers,
+      body: json.encode(payload));
+
+
+  if (response.statusCode == 201) {
+    // Post created successfully
+
+
+
+  } else {
+
+    // Handle error response
+    SnackBar(content: Text('Error submitting post'));
+    print('Error submitting post: ${response.body}');
+  }
+}
+const _accessToken =
+    "AQVIcbOUcEEu0nB9Q40Ew0opfzXJ1wsinxe5ldJUgoEBIZhPjzytUy1CY5_iGiz46sFCvYkOXRNHEp95XZnnVcRWiDXgGCEmXlzwmgRHmYFHmvWt5QZSlOrzR8AyLSIMl6JNDUWK02kJcspRplpxyYaSjnFHX9JTJfsVC_7VHK1rwvY26QnuqzK7lMnlE6ts5kJnI8DbYcQbpUMWEgP0iyFJxNzoVvhL5HWAoMbAva2bxC5YoLpzILtgAl4YyLRid7jsqC9L0jCzkk-NJie0LA7nmilKA6Lv5GoyrJSIFG3JpJ48DcHY4Ii1KskkV0668iduKQmvpGseG4PCTjfY3BwW9TC93w";
+const _linkedinId = "xiOiABYH2H";
