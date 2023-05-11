@@ -46,20 +46,6 @@ class _EventListScreenState extends State<EventListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          _selectedDate == null
-              ? 'Events'
-              : DateFormat('dd-MM-yyyy').format(_selectedDate!),
-        ),
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.calendar_today),
-          onPressed: () {
-            _selectDate(context);
-          },
-        ),
-      ),
       body: Column(
         children: [
           BlocConsumer<EventCubit, EventState>(

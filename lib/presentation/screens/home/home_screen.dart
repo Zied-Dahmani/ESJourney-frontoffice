@@ -60,9 +60,11 @@ class _HomeScreenState extends State<HomeScreen> {
             }
             user = userState.user;
             print("user is " + user.toString());
-            return NestedScrollView(
-              physics: const BouncingScrollPhysics(),
-              headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return Padding( // Added Padding widget
+                padding: const EdgeInsets.only(top: 20), // You can modify this value to fit your needs
+                child: NestedScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  headerSliverBuilder: (context, innerBoxIsScrolled) {
                 return [
                   CupertinoSliverRefreshControl(onRefresh: () async {
 
@@ -103,6 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
               body: PostsList(
                 posts: postState.posts.cast<Post>(),
               ),
+                ),
             );
           } else if (leaderboardState is LeaderboardIsFailure &&
               postState is PostIsFailure) {

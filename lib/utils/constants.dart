@@ -10,7 +10,7 @@ var kmeetingUrl = 'http://$ip:9091';
 const gameBaseServer = 'http://192.168.0.22:2020/';
 const gameWsServer = 'ws://192.168.0.22:2020/';
 
-var imageUrl = '$kbaseUrl/images/';
+var imageUrl = '${kbaseUrl}img/';
 const kcheckInternetConnection = 'Check your internet connection!';
 const kidPasswordIncorrect = 'Id or password Incorrect!';
 
