@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -12,8 +13,11 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ResumeScreen extends StatefulWidget {
   static const String path = "lib/src/pages/profile/profile4.dart";
-
-  const ResumeScreen({super.key});
+  final List<String> selectedLanguages ;
+  final String firstName;
+  final String lastName;
+  final XFile? imageFile;
+  const ResumeScreen({super.key, required this.selectedLanguages, required this.firstName, required this.lastName, this.imageFile});
 
   @override
   State<ResumeScreen> createState() => _ResumeScreenState();
@@ -66,17 +70,19 @@ class _ResumeScreenState extends State<ResumeScreen> {
                 child: const Text(
                     "Over 8+ years of experience and web development and 5+ years of experience in mobile applications development "),
               ),
-              _buildTitle("Skills"),
-              const SizedBox(height: 10.0),
-              _buildSkillRow("Wordpress", 0.75),
-              const SizedBox(height: 5.0),
-              _buildSkillRow("Laravel", 0.6),
-              const SizedBox(height: 5.0),
-              _buildSkillRow("React JS", 0.65),
-              const SizedBox(height: 5.0),
-              _buildSkillRow("Flutter", 0.5),
-              const SizedBox(height: 30.0),
-              _buildTitle("Experience"),
+          Container(
+            width: 500,
+            height: 100,
+
+            child: ListView.builder(
+
+              scrollDirection: Axis.vertical,
+              itemCount: widget.selectedLanguages.length,
+              itemBuilder: (context, index) {
+                return _buildSkillRow(widget.selectedLanguages[index], 0.5); // pass proficiency level statically
+              },
+            ),
+          ),
               _buildExperienceRow(
                   company: "GID Nepal",
                   position: "Wordpress Developer",
@@ -287,25 +293,24 @@ class _ResumeScreenState extends State<ResumeScreen> {
     return Row(
       children: <Widget>[
         const SizedBox(width: 20.0),
-        const SizedBox(
-          width: 80.0,
-          height: 80.0,
-          child: CircleAvatar(
-            radius: 40,
-            backgroundColor: Colors.grey,
-            child: CircleAvatar(
-              radius: 35.0,
-              backgroundImage: NetworkImage(
-                  "https://avatars.githubusercontent.com/u/14032439?v=4"),
+        Container(
+          margin: const EdgeInsets.only(top: 10),
+          height: 150,
+          width: 150,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: FileImage(File(widget.imageFile!.path)),
+              fit: BoxFit.cover,
             ),
+            borderRadius: BorderRadius.circular(10),
           ),
         ),
         const SizedBox(width: 20.0),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Text(
-              "Damodar Lohddfeani",
+             Text(
+              "${widget.firstName} ${widget.lastName}",
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10.0),
