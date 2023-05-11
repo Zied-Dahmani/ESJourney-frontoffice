@@ -1,18 +1,16 @@
-import 'package:curved_nav_bar/curved_bar/curved_action_bar.dart';
-import 'package:curved_nav_bar/fab_bar/fab_bottom_app_bar_item.dart';
-import 'package:curved_nav_bar/flutter_curved_bottom_nav_bar.dart';
-
-import 'package:esjourney/presentation/router/routes.dart';
-import 'package:esjourney/presentation/screens/Events/event_list_screen.dart';
-import 'package:esjourney/presentation/screens/club/clubs_screen.dart';
-import 'package:esjourney/presentation/screens/curriculum/courses/course_screen.dart';
-import 'package:esjourney/presentation/widgets/drawer_icon.dart';
-import 'package:esjourney/utils/theme.dart';
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'Internship/InternshipHomePage.dart';
-import 'home/home_screen.dart';
+import 'package:esjourney/presentation/screens/Events/event_list_screen.dart';
+import 'package:esjourney/presentation/screens/club/clubs_screen.dart';
+import 'package:esjourney/presentation/screens/curriculum/courses/course_screen.dart';
+import 'package:esjourney/presentation/screens/home/home_screen.dart';
+import 'package:esjourney/presentation/screens/Internship/InternshipHomePage.dart';
+
+import '../../utils/theme.dart';
+import '../router/routes.dart';
+import '../widgets/drawer_icon.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -22,11 +20,17 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final _pageController = PageController();
+  var _currentIndex = 0;
+
+  // List of titles for each tab
+  final List<String> _titles = ['Home', 'Internship', 'Events', 'Clubs', 'Courses'];
+
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
+        title: Text(_titles[_currentIndex]),  // Set title according to current index
         leading: const DrawerIcon(),
         actions: [
           IconButton(
@@ -36,83 +40,71 @@ class _MainScreenState extends State<MainScreen> {
             },
           ),
           const SizedBox(width: AppSizes.ksmallSpace),
-          const Icon(FontAwesomeIcons.bell),
+          const Icon(Icons.notifications_none),
           const SizedBox(width: AppSizes.ksmallSpace)
         ],
       ),
-      body: CurvedNavBar(
-        actionButton: CurvedActionBar(
-            onTab: (value) {},
-            activeIcon: Container(
-              padding: const EdgeInsets.all(AppSizes.kbigSpace - 6),
-              decoration: BoxDecoration(
-                  color: theme.colorScheme.primary, shape: BoxShape.circle),
-              child: Icon(
-                Icons.emoji_events,
-                size: AppSizes.kiconSize + 8,
-                color: theme.colorScheme.surface,
-              ),
-            ),
-            inActiveIcon: Container(
-              padding: const EdgeInsets.all(AppSizes.kbigSpace - 6),
-              decoration: BoxDecoration(
-                  color: theme.colorScheme.primary, shape: BoxShape.circle),
-              child: Icon(
-                Icons.emoji_events,
-                size: AppSizes.kiconSize + 8,
-                color: theme.colorScheme.surface,
-              ),
-            ),
-            text: ''),
-        navBarBackgroundColor: theme.colorScheme.surface,
-        //activeColor: Colors.yellow,
-        //inActiveColor: theme.colorScheme.onBackground,
-        appBarItems: [
-          FABBottomAppBarItem(
-              activeIcon: Icon(
-                FontAwesomeIcons.house,
-                color: theme.colorScheme.primary,
-              ),
-              inActiveIcon: const Icon(
-                FontAwesomeIcons.house,
-              ),
-              text: ''),
-          FABBottomAppBarItem(
-              activeIcon: Icon(
-                FontAwesomeIcons.briefcase,
-                color: theme.colorScheme.primary,
-              ),
-              inActiveIcon: const Icon(
-                FontAwesomeIcons.briefcase,
-              ),
-              text: ''),
-          FABBottomAppBarItem(
-              activeIcon: Icon(
-                FontAwesomeIcons.graduationCap,
-                color: theme.colorScheme.primary,
-              ),
-              inActiveIcon: const Icon(
-                FontAwesomeIcons.graduationCap,
-              ),
-              text: ''),
-          FABBottomAppBarItem(
-              activeIcon: Icon(
-                FontAwesomeIcons.peopleGroup,
-                color: theme.colorScheme.primary,
-              ),
-              inActiveIcon: const Icon(
-                FontAwesomeIcons.peopleGroup,
-              ),
-              text: ''),
-        ],
-        bodyItems: const [
+      body: PageView(
+        controller: _pageController,
+        children: const <Widget>[
           HomeScreen(),
           InternshipHomePage(),
           EventListScreen(),
-          ClubsScreen()
+          ClubsScreen(),
+          CourseScreen(),
         ],
-        actionBarView: const CourseScreen(),
-        extendBody: false,
+        onPageChanged: (index) {
+          setState(() => _currentIndex = index);
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _pageController.jumpToPage(4);
+        },
+        child: Icon(
+          _currentIndex == 4
+              ? Icons.emoji_events
+              : Icons.emoji_events,
+          color: _currentIndex == 4
+              ? Colors.white
+              : Colors.grey.shade400,
+           // Adjust this value as needed
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: AnimatedBottomNavigationBar.builder(
+        itemCount: 4,
+        tabBuilder: (int index, bool isActive) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                index == 0
+                    ? FontAwesomeIcons.house
+                    : index == 1
+                    ? FontAwesomeIcons.briefcase
+                    : index == 2
+                    ? FontAwesomeIcons.graduationCap
+                    : FontAwesomeIcons.peopleGroup,
+                size: 24,
+                color: isActive ? Colors.redAccent.shade400 : Colors.grey,
+              ),
+              const SizedBox(height: 4),
+            ],
+          );
+        },
+        backgroundColor: Theme.of(context).canvasColor,
+        activeIndex: _currentIndex,
+        splashColor: Theme.of(context).primaryColor,
+        splashSpeedInMilliseconds: 300,
+        notchSmoothness: NotchSmoothness.defaultEdge,
+        gapLocation: GapLocation.center,
+        leftCornerRadius: 24,
+        rightCornerRadius: 24,
+        onTap: (index) {
+          _pageController.jumpToPage(index);
+        },
       ),
     );
   }
