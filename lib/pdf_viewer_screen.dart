@@ -3,15 +3,16 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 
 class PdfViewScreen extends StatelessWidget {
-  const PdfViewScreen({Key? key}) : super(key: key);
-
+  const PdfViewScreen({Key? key, required this.pdfPath}) : super(key: key);
+final String pdfPath;
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      // ...
+    return  Scaffold(
+
 
       body:  PDFView(
-        filePath: '/storage/emulated/0/Android/data/com.example.resumebuilder/files/1683652800696740.pdf',
+        filePath: pdfPath,
+
       )
 
     );

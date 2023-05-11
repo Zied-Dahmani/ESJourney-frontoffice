@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:resumebuilder/pdf_viewer_screen.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -22,7 +23,7 @@ final pdf = pw.Document();
 File imageDirectory = File('imageDirectory');
 
 class _ResumeScreenState extends State<ResumeScreen> {
-  late Uint8List _imageFile;
+  late File imageFile;
 
   //Create an instance of ScreenshotController
   ScreenshotController screenshotController = ScreenshotController();
@@ -123,8 +124,7 @@ class _ResumeScreenState extends State<ResumeScreen> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            final directory = (await getApplicationDocumentsDirectory())
-                .path; //from path_provide package
+            final directory = (await getApplicationDocumentsDirectory()).path; //from path_provide package
             String fileName = DateTime.now().microsecondsSinceEpoch.toString();
 
             screenshotController
@@ -132,21 +132,55 @@ class _ResumeScreenState extends State<ResumeScreen> {
               "$directory/$fileName.png",
               pixelRatio: 2,
             )
-                .then((value) {
-
+                .then((value) async {
+              print("value: $value");
+              Uint8List imageBytes = await getImageData(value!);
+              String pdfPath = await convertImageToPdf(imageBytes);
+              Navigator.push(context, MaterialPageRoute(builder: (_) {
+                return PdfViewScreen(pdfPath: pdfPath);
+              }));
               setState(() {
-                print("value: $value");
-                _imageFile = File('$directory/$fileName.png').readAsBytesSync();
-                imageDirectory = File('$directory/$fileName.png');
-                // createPDF();
-                //savePDF();
+                // Now you can update the state here
+                // If you have a variable to store the PDF path in your state, you could do:
+                // this.pdfPath = pdfPath;
               });
             });
           },
           child: const Icon(Icons.download),
         ),
+
       ),
     );
+  }
+  Future<Uint8List> getImageData(String imagePath) async {
+    File imageFile = File(imagePath);
+
+    if (await imageFile.exists()) {
+      Uint8List imageBytes = await imageFile.readAsBytes();
+      return imageBytes;
+    } else {
+      throw Exception('Image file does not exist.');
+    }
+  }
+
+// a fucntion that converts a file path to a pdf file
+  Future<String> convertImageToPdf(Uint8List imageBytes) async {
+    final pdf = pw.Document();
+    pdf.addPage(
+      pw.Page(
+        build: (pw.Context context) {
+          return pw.Center(
+            child: pw.Image(pw.MemoryImage(imageBytes)),
+          );
+        },
+      ),
+    );
+    final output = await getExternalStorageDirectory();
+    final file = File("${output!.path}/example.pdf");
+    await file.writeAsBytes(await pdf.save());
+    print("file path: ${file.path}");
+    _launchURL(file.path);
+    return file.path;
   }
 
   Row _buildSocialsRow() {
@@ -203,7 +237,7 @@ class _ResumeScreenState extends State<ResumeScreen> {
       title: Text(
         company,
         style:
-            const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
       ),
       subtitle: Text("$position ($duration)"),
     );
@@ -271,7 +305,7 @@ class _ResumeScreenState extends State<ResumeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             const Text(
-              "Damodar Lohani",
+              "Damodar Lohddfeani",
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10.0),
@@ -297,28 +331,5 @@ class _ResumeScreenState extends State<ResumeScreen> {
     );
   }
 
-  createPDF() async {
-    final image = pw.MemoryImage(imageDirectory.readAsBytesSync());
-    pdf.addPage(pw.Page(
-        pageFormat: PdfPageFormat.a4,
-        build: (pw.Context context) {
-          return pw.Center(child: pw.Image(image));
-        }));
-  }
 
-  savePDF() async {
-    try {
-      final dir = await getExternalStorageDirectory();
-      // generate a random string for your file name
-      String fileName = DateTime.now().microsecondsSinceEpoch.toString();
-
-      final file = File('${dir!.path}/$fileName.pdf');
-
-      await file.writeAsBytes(await pdf.save());
-      print('saved');
-    } catch (e) {
-      print('error');
-      // showPrintedMessage('error', e.toString());
-    }
-  }
 }
