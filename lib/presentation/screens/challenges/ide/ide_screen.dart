@@ -81,7 +81,7 @@ class _IdeScreenState extends State<IdeScreen> {
             final user = userState is UserLogInSuccess ? userState.user : null;
             final topSolutionsState = context.watch<TopSolutionsCubit>().state;
             if (topSolutionsState is TopSolutionsSuccess) {
-              print("aaaaa " + topSolutionsState.topSolutions.length.toString());
+
               final List<TopSolutions> topSolutions =
                   topSolutionsState.topSolutions.cast<TopSolutions>();
               data = topSolutions
@@ -112,7 +112,7 @@ class _IdeScreenState extends State<IdeScreen> {
                           }
                         },
                         controller: getCodeController(script),
-                        textStyle: const TextStyle(fontFamily: 'SourceCode'),
+                        textStyle: const TextStyle(fontFamily: 'SourceCode', color: Colors.black),
                       ),
                     ),
                   ),
@@ -188,6 +188,7 @@ class _IdeScreenState extends State<IdeScreen> {
                                                       (e) => ChartData(e.memory, double.parse(e.percentage)))
                                                   .toList();
                                               data.sort((ChartData a, ChartData b) => a.memory.compareTo(b.memory));
+                                              print("data: $data");
                                             }
                                             return AlertDialog(
                                               backgroundColor: Colors.white,
@@ -300,12 +301,16 @@ Future<List<String?>> sendApiRequest(String code) async {
   var response = await http.post(Uri.parse(url),
       headers: headers, body: json.encode(program));
   if (response.statusCode == 200) {
+    print("object");
     var responseBody = jsonDecode(response.body);
+    print("here is the response body: $responseBody");
     if (responseBody.containsKey('output')) {
       var output = responseBody['output'];
+      print("output  $output");
       var memory = responseBody['memory'];
       return [output, memory];
     } else if (responseBody.containsKey('message')) {
+      print("objedddct");
       return responseBody['message'];
     }
   }

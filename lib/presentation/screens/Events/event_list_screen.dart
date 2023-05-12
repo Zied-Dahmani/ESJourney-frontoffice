@@ -3,12 +3,13 @@ import 'package:esjourney/logic/cubits/events/event_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-
+import 'package:shimmer/shimmer.dart';
 import '../../../data/models/events/event_model.dart';
 import '../../../logic/cubits/user/user_cubit.dart';
 import '../../../logic/cubits/user/user_state.dart';
 import '../../../utils/constants.dart';
 import '../../router/routes.dart';
+import '../../widgets/events/event_card.dart';
 
 class EventListScreen extends StatefulWidget {
   const EventListScreen({Key? key}) : super(key: key);
@@ -21,26 +22,54 @@ class _EventListScreenState extends State<EventListScreen> {
   List<Event> events = [];
   DateTime? _selectedDate;
   bool isLoading = false;
+  List<Event> allEvents = [];
+  List<Event> displayedEvents = [];
 
-  Future<void> _onRefresh() async {
-    final userState = context.read<UserCubit>().state;
-    if (userState is! UserLogInSuccess) return;
-    final token = userState.user.token;
-    await context.read<UserCubit>().refreshUserData(token!);
-    context.read<EventCubit>().getAllEvents();
-    final eventState = context.read<EventCubit>().state;
-    if (eventState is EventSuccess) {
-      setState(() {
-        events = eventState.events;
-        _selectedDate = _selectedDate ?? DateTime.now();
-      });
-    }
-  }
+  late final PageController _pageController;
+  int _currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
+    _pageController = PageController(viewportFraction: 0.65)
+      ..addListener(_pagePercentListener);
     _onRefresh();
+    allEvents = events;
+    displayedEvents = events;
+  }
+  void filterEvents(String filterType) {
+    if (filterType == 'All') {
+      displayedEvents = allEvents;
+    } else {
+      displayedEvents = allEvents
+          .where((event) => event.type == filterType)
+          .toList();
+    }
+    setState(() {});
+  }
+  _pagePercentListener() {
+    setState(() {
+      _currentIndex = _pageController.page!.round();
+    });
+  }
+
+  Future<void> _onRefresh() async {
+    final userState = context
+        .read<UserCubit>()
+        .state;
+    if (userState is! UserLogInSuccess) return;
+    final token = userState.user.token;
+    await context.read<UserCubit>().refreshUserData(token!);
+    context.read<EventCubit>().getAllEvents();
+    final eventState = context
+        .read<EventCubit>()
+        .state;
+    if (eventState is EventSuccess) {
+      setState(() {
+        events = eventState.events;
+        _selectedDate ??= DateTime.now();
+      });
+    }
   }
 
   @override
@@ -60,132 +89,60 @@ class _EventListScreenState extends State<EventListScreen> {
                   onRefresh: _onRefresh,
                   child: isLoading
                       ? const Center()
-                      : ListView.builder(
-                    itemCount: events.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final event = events[index];
-                      if (_selectedDate != null && !isSameDay(event.date, _selectedDate!)) {
-                        return const SizedBox.shrink();
-                      }
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.of(context)
-                              .pushNamed(AppRoutes.eventDetails, arguments: event);
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 2,
-                                blurRadius: 5,
-                                offset: const Offset(0, 3),
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 2,
-                                child: Container(
-                                  height: 120,
-                                  decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(20),
-                                      bottomLeft: Radius.circular(20),
-                                    ),
-                                    image: DecorationImage(
-                                      image: Image.network(imageUrl + event.eventImage ).image,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 16),
-                              Expanded(
-                                flex: 3,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const SizedBox(height: 8),
-                                    Text(
-                                      event.title,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.calendar_today,
-                                          size: 16,
-                                        ),
-                                        const SizedBox(width: 4),
-                                        Text(
-                                          DateFormat('dd/MM/yyyy').format(event.date),
-                                          style: const TextStyle(fontSize: 14),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.access_time,
-                                          size: 16,
-                                        ),
-                                        const SizedBox(width: 4),
-                                        Text(
-                                          '${event.startTime} - ${event.endTime}',
-                                          style: const TextStyle(fontSize: 14),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.location_on,
-                                          size: 16,
-                                        ),
-                                        const SizedBox(width: 4),
-                                        Flexible(
-                                          child: Text(
-                                            event.location!,
-                                            style: const TextStyle(fontSize: 14),
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 8),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(width: 16),
-                            ],
-                          ),
-                        ),
-                      );
+                      : NotificationListener<OverscrollIndicatorNotification>(
+                    onNotification: (overscroll) {
+                      overscroll.disallowGlow();
+                      return true;
                     },
+                    child: Center(
+                      child: FractionallySizedBox(
+                        heightFactor: 0.75, // Adjust this value
+                        child: PageView.builder(
+                          controller: _pageController,
+                          itemCount: events.length,
+                          onPageChanged: (page) {
+                            _pageController.animateToPage(
+                              page,
+                              duration: const Duration(milliseconds: 500),
+                              curve: const Interval(0.25, 1, curve: Curves.decelerate),
+                            );
+                          },
+                          itemBuilder: (_, index) {
+                            final event = events[index];
+                            final progress = (_currentIndex - index).abs();
+                            final scale = (1 - (progress * 0.3).clamp(0, 1)).toDouble();
 
+                            return Transform.scale(
+                              scale: scale,
+                              child: AspectRatio(
+                                aspectRatio: 1, // makes the card a square
+                                child: EventCard(event: event),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               );
             },
           ),
           const SizedBox(height: 16),
-          const SizedBox(height: 16),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _selectDate(context),
+        child: const Icon(
+          Icons.calendar_today,
+          color: Colors.white,
+        ),
       ),
     );
   }
+
+
+
 
   bool isSameDay(DateTime date1, DateTime date2) {
     return date1.year == date2.year &&

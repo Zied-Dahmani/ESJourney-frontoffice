@@ -5,6 +5,7 @@ import 'package:esjourney/presentation/screens/curriculum/chat/conversation_scre
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../utils/constants.dart';
 import '../../widgets/drawer_icon.dart';
 
 class ChatBotScreen extends StatefulWidget {
@@ -47,7 +48,7 @@ class _ChatBotScreenState extends State<ChatBotScreen>
     });
 //change ip address to your ip address
     final response = await http.post(
-      Uri.parse('http://192.168.0.2:9090/chatbot/chat'),
+      Uri.parse('${kbaseUrl}chatbot/chat'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../../../utils/screen_size.dart';
+import '../../../router/routes.dart';
 import '../../../widgets/button.dart';
 
 class EthQrCodeScreen extends StatefulWidget {
@@ -91,7 +92,17 @@ class _EthQrCodeScreenState extends State<EthQrCodeScreen> {
                     text: 'Generate QR Code',
                     backgroundColor: theme.colorScheme.primary,
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 10),
+                  ButtonWidget(
+                    width: 10,
+                    backgroundColor: theme.colorScheme.primary,
+                    function: () {
+
+                      Navigator.pushNamed(context, AppRoutes.scanQrCodeScreen);
+                    },
+                    text: 'Scan Qr Code',
+                  ),
+                  const SizedBox(height: 10),
                   Text(
                     ' Amount to be generated is : $_selectedAmount',
                     style: const TextStyle(
@@ -100,6 +111,7 @@ class _EthQrCodeScreenState extends State<EthQrCodeScreen> {
                         fontFamily: 'VisbyRoundCF',
                         fontWeight: FontWeight.w400),
                   ),
+
                 ],
               ),
             );

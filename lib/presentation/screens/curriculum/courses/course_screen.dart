@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
+import 'dart:io' show Directory, File, Platform;
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_options.dart';
@@ -137,7 +137,9 @@ class _CourseScreenState extends State<CourseScreen> {
         ],
         title: "LogicBot",
         imagePath: "assets/images/curriculum/logicbot.png",
-        onTap: () {},
+        onTap: () {
+
+        },
       ),
       Game(
         colors: [
@@ -161,12 +163,7 @@ class _CourseScreenState extends State<CourseScreen> {
     return BlocListener<CourseCubit, CourseState>(
       listener: (context, state) {
         if (state is CourseLoadInProgress) {
-          showDialog(
-              context: context,
-              builder: (context) {
-                dialogContext = context;
-                return const Center(child: CircularProgressIndicator());
-              },);
+
         } else if (state is CourseSuccess) {
           Navigator.of(context).pushNamed(AppRoutes.mapLevels,arguments: state.courses);
         } else if (state is CourseIsFailure) {

@@ -101,15 +101,15 @@ class UserCubit extends Cubit<UserState> with HydratedMixin {
   Future<void> sendEth(String? walletAddress, String privateKey, double amount,
       String token) async {
     try {
-      emit(UserLoadInProgress());
+    //  emit(UserLoadInProgress());
       final result = await _userRepository.sendEth(
           walletAddress!, privateKey, amount, token);
-      result != null
+    /*  result != null
           ? emit(UserLogInSuccess(result))
-          : emit(UserIsFailure(kerrorSendingEth));
+          : emit(UserIsFailure(kerrorSendingEth)); */
     } catch (e) {
       developer.log(e.toString(), name: 'Catch send eth');
-      emit(UserIsFailure(kcheckInternetConnection));
+    //  emit(UserIsFailure(kcheckInternetConnection));
     }
   }
 

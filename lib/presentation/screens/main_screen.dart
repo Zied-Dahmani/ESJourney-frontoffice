@@ -8,6 +8,7 @@ import 'package:esjourney/presentation/screens/home/home_screen.dart';
 import 'package:esjourney/presentation/screens/Internship/InternshipHomePage.dart';
 import '../router/routes.dart';
 import '../widgets/drawer_icon.dart';
+import 'package:esjourney/data/models/events/event_model.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);

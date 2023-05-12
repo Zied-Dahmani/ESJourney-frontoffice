@@ -18,7 +18,6 @@ class ClubRepository implements IClubRepository {
   @override
   Future<dynamic> getAllClubEvents() async {
     final result = await _clubDataProvider.getAllClubEvents();
-    print(result);
     return result.statusCode == 200
         ? result.data.map((clubEvent) => ClubEvent.fromJson(clubEvent)).toList()
         : null;

@@ -7,6 +7,7 @@ import 'package:esjourney/logic/cubits/user/user_state.dart';
 import 'package:esjourney/presentation/animations/club/face_id_animation_controller.dart';
 
 import 'package:esjourney/presentation/router/routes.dart';
+import 'package:esjourney/presentation/screens/profile/edit_profile/edit_profile_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -202,7 +203,14 @@ class _ScanQrCodeScreenState extends State<ScanQrCodeScreen>     with SingleTick
         receiverToken,
       ).then((value) =>
      // navigate to done screen
-      Navigator.of(context).pushNamed(AppRoutes.doneScreen)
+
+     Future.delayed(Duration(seconds: 2), () {
+       Navigator.of(context).pushReplacement(
+         MaterialPageRoute(
+           builder: (context) => EditProfileScreen(),
+         ),
+       );
+     })
       );
 
       // play sound

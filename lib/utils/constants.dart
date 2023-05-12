@@ -4,11 +4,11 @@ const ksignIn = 'user/signIn';
 const kgetUserData = 'user/getUserData';
 const krefreshToken = 'user/refreshToken';
 
-var ip = "192.168.1.180";
+var ip = "172.20.10.2";
 var kbaseUrl = 'http://$ip:9090/';
 var kmeetingUrl = 'http://$ip:9091';
-const gameBaseServer = 'http://192.168.0.22:2020/';
-const gameWsServer = 'ws://192.168.0.22:2020/';
+const gameBaseServer = 'http://172.20.10.6:2020/';
+const gameWsServer = 'ws://172.20.10.6  :2020/';
 
 var imageUrl = '${kbaseUrl}img/';
 const kcheckInternetConnection = 'Check your internet connection!';

@@ -52,13 +52,13 @@ class _ShortScreenState extends State<ShortScreen> {
             child: Column(
               children: [
                 Icon(FontAwesomeIcons.solidHeart,color: theme.colorScheme.onPrimary),
-                Text('1999',style: theme.textTheme.bodySmall!.copyWith(color: theme.colorScheme.onPrimary)),
+                Text('0',style: theme.textTheme.bodySmall!.copyWith(color: theme.colorScheme.onPrimary)),
                 const SizedBox(height: AppSizes.ksmallSpace),
                 Icon(FontAwesomeIcons.solidComment,color: theme.colorScheme.onPrimary),
-                Text('31',style: theme.textTheme.bodySmall!.copyWith(color: theme.colorScheme.onPrimary)),
+                Text('0',style: theme.textTheme.bodySmall!.copyWith(color: theme.colorScheme.onPrimary)),
                 const SizedBox(height: AppSizes.ksmallSpace),
                 Icon(FontAwesomeIcons.share,color: theme.colorScheme.onPrimary),
-                Text('8',style: theme.textTheme.bodySmall!.copyWith(color: theme.colorScheme.onPrimary)),
+                Text('0',style: theme.textTheme.bodySmall!.copyWith(color: theme.colorScheme.onPrimary)),
               ],
             )),
         Positioned(

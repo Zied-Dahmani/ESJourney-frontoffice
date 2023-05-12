@@ -21,6 +21,7 @@ class TopSolutionsCubit extends Cubit<TopSolutionsState> {
     try {
       emit(TopSolutionsLoadInProgress());
       final result = await _topSolutionsRepository.getTopSolutions(problemId);
+      print("result is $result");
       result != null
           ? emit(TopSolutionsSuccess(result ))
           : emit(TopSolutionsIsFailure("error while getting data"));

@@ -1,8 +1,15 @@
 import 'package:esjourney/presentation/router/routes.dart';
+import 'package:esjourney/presentation/screens/Events/calendar_screen.dart';
 import 'package:esjourney/presentation/screens/Internship/profileScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../profile/profile_screen.dart';
 import 'profileScreen.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 List<Internship> internships = [
 
   const Internship(
@@ -33,89 +40,86 @@ class InternshipHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        margin: const EdgeInsets.symmetric(horizontal: 20),
+      appBar: AppBar(
+        title: Text("Internships"),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text( "Available internships",
-                style: TextStyle(
-                  fontFamily: 'VisbyRoundCF',
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black
-                )),
-        SizedBox(
-          height: 180,
-          width: double.infinity,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: internships.length,
-            itemBuilder: (BuildContext context, int index) {
-              Internship internship = internships[index];
-
-              return Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
-                        internship.image,
-                        height: 120,
-                        width: 200,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      internship.title,
-                      style: const TextStyle(
-                        fontFamily: 'VisbyRoundCF',
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Container(
-                      child: Text(
-                        internship.description,
-                        style: TextStyle(
-                          fontFamily: 'VisbyRoundCF',
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.grey[600],
-                        ),
-
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: false,
-                      ),
-                    ),
-
-                  ],
+          children: <Widget>[
+            Expanded(
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
                 ),
-              );
-            },
-          ),
-        ),
-SizedBox(
-  height: 20,
-),
-        Row(
+                itemCount: internships.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              CalendarScreen(),
+                        ),
+                      );
+                    },
+                    child: Card(
+                      elevation: 2,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(4),
+                              child: Image.network(
+                                internships[index].image,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  internships[index].title,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  internships[index].description,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            SizedBox(height: 10),
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _buildContainer(
                   context: context,
                   icon: FontAwesomeIcons.pen,
-
                   color: const Color(0xFFEB4A5A),
                   text: "Add My Info",
                   onTap: () {
@@ -132,24 +136,17 @@ SizedBox(
                   color: Colors.blue,
                   text: "Linkedin post",
                   onTap: () {
-                    // naviagte here
                     Navigator.pushNamed(
                         context, AppRoutes.postToLinkedinScreen);
-
                   },
                 ),
               ],
             ),
-            const SizedBox(
-              height: 20.0,
-            ),
-
           ],
         ),
       ),
     );
   }
-
   Widget _buildContainer({
     required BuildContext context,
     required IconData icon,

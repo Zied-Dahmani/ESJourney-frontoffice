@@ -22,28 +22,30 @@ class ClubsScreen extends StatelessWidget {
     BlocProvider.of<ClubCubit>(context).init();
     return SafeArea(
       child: Scaffold(
-        body: Container(
-            padding: const EdgeInsets.symmetric(vertical: AppSizes.kbigSpace),
-            child:
-                BlocConsumer<ClubCubit, ClubState>(listener: (context, state) {
-              if (state is ClubLoadFailure) {
-                showTopSnackBar(
-                  Overlay.of(context)!,
-                  CustomSnackBar.error(
-                    message: state.error,
-                  ),
-                );
-              }
-            }, builder: (context, state) {
-              return state is ClubLoadSuccess && state.clubs.isNotEmpty
-                  ? ClubsList(clubs: state.clubs)
-                  : state is ClubLoadSuccess
-                  ? const Center(child: EmptyList(text:AppStrings.knoClubs))
-                      : state is ClubLoadInProgress || state is ClubLoadFailure
-                          ? const LoadingClubsList()
-                          : const SizedBox();
-            }))
-      ),
+          body: Container(
+              padding:
+                  const EdgeInsets.symmetric(vertical: AppSizes.kbigSpace* 2),
+              child: BlocConsumer<ClubCubit, ClubState>(
+                  listener: (context, state) {
+                if (state is ClubLoadFailure) {
+                  showTopSnackBar(
+                    Overlay.of(context),
+                    CustomSnackBar.error(
+                      message: state.error,
+                    ),
+                  );
+                }
+              }, builder: (context, state) {
+                return state is ClubLoadSuccess && state.clubs.isNotEmpty
+                    ? ClubsList(clubs: state.clubs)
+                    : state is ClubLoadSuccess
+                        ? const Center(
+                            child: EmptyList(text: AppStrings.knoClubs))
+                        : state is ClubLoadInProgress ||
+                                state is ClubLoadFailure
+                            ? const LoadingClubsList()
+                            : const SizedBox();
+              }))),
     );
   }
 }

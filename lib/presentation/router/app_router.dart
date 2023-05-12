@@ -2,6 +2,7 @@ import 'package:esjourney/data/models/events/event_model.dart';
 import 'package:esjourney/data/models/user_model.dart';
 import 'package:esjourney/presentation/screens/Internship/postToLinkedinScreen.dart';
 import 'package:esjourney/presentation/screens/application/club_interview_screen.dart';
+import 'package:esjourney/presentation/screens/challenges/ethQrCode/scan_qr_code.dart';
 import 'package:esjourney/presentation/screens/club/apply_to_club_screen.dart';
 import 'package:esjourney/presentation/screens/club/club_screen.dart';
 import 'package:esjourney/presentation/screens/club/done_screen.dart';
@@ -252,6 +253,10 @@ class AppRouter {
           return MaterialPageRoute(
             builder: (_) => const IdeScreen(),
           );
+      case AppRoutes.scanQrCodeScreen:
+        return MaterialPageRoute(
+          builder: (_) => const ScanQrCodeScreen(),
+        );
       default:
         return null;
     }
