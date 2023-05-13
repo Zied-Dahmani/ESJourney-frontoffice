@@ -2,34 +2,22 @@ import 'package:esjourney/utils/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../data/models/challenges/leaderboard/leaderboard_res.dart';
+
 class TopThreeUsers extends StatelessWidget {
   const TopThreeUsers({
-    super.key,
-    required this.firstUserImage,
-     required this.firstUsername,
-     required this.firstUserScore,
-    required this.secondUserImage,
-     required this.secondUsername,
-     required this.secondUserScore,
-    required this.thirdUserImage,
-     required this.thirdUsername,
-     required this.thirdUserScore,
+    super.key, required this.leadberboardList, required this.period,
+
   });
 
-  final String firstUsername;
-  final String secondUsername;
-  final String thirdUsername;
-  final String firstUserImage;
-  final String secondUserImage;
-  final String thirdUserImage;
-  final double firstUserScore;
-  final double secondUserScore;
-  final double thirdUserScore;
-
+  final List<LeaderboardRes> leadberboardList;
+final int period;
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final double width = ScreenSize.width(context);
+
+
     return Container(
       margin: EdgeInsets.symmetric(horizontal: width * 0.05),
       child: Column(
@@ -65,7 +53,8 @@ class TopThreeUsers extends StatelessWidget {
                                 backgroundColor: Colors.transparent,
                                 radius: 50,
                                 backgroundImage: NetworkImage(
-                                    firstUserImage!),
+                                  leadberboardList[1].twoDAvatar!,
+                                ),
                               ),
                             ),
                           ),
@@ -100,14 +89,18 @@ class TopThreeUsers extends StatelessWidget {
                     ),
 
                     Text(
-                      secondUsername,
+                      leadberboardList[1].username!,
                       style: const TextStyle(
                         fontSize: 13,
                         fontFamily: 'VisbyRoundCF',
                       ),
                     ),
                     Text(
-                      secondUserScore.toString(),
+                     period == 0
+                          ? leadberboardList[1].score.weekly.toString()
+                          : period == 1
+                          ? leadberboardList[1].score.monthly.toString()
+                          : leadberboardList[1].score.allTime.toString(),
                       style: TextStyle(
                         fontSize: 13,
                         fontFamily: 'VisbyRoundCF',
@@ -140,7 +133,8 @@ class TopThreeUsers extends StatelessWidget {
                                 backgroundColor: Colors.transparent,
                                 radius: 50,
                                 backgroundImage: NetworkImage(
-                                    secondUserImage!),
+                                  leadberboardList[0].twoDAvatar!,
+                                ),
 
                               ),
                             ),
@@ -176,13 +170,17 @@ class TopThreeUsers extends StatelessWidget {
                     ),
 
                     Text(
-                      firstUsername,
+                      leadberboardList[0].username!,
                       style: const TextStyle(
                         fontSize: 13,
                         fontFamily: 'VisbyRoundCF',
                       ),
                     ),
-                    Text(firstUserScore.toString(),
+                    Text(   period == 0
+                        ? leadberboardList[0].score.weekly.toString()
+                        : period == 1
+                        ? leadberboardList[0].score.monthly.toString()
+                        : leadberboardList[0].score.allTime.toString(),
                         style: TextStyle(
                           fontSize: 13,
                           fontFamily: 'VisbyRoundCF',
@@ -217,7 +215,8 @@ class TopThreeUsers extends StatelessWidget {
                                 backgroundColor: Colors.transparent,
                                 radius: 50,
                                 backgroundImage: NetworkImage(
-                                    thirdUserImage!),
+                                  leadberboardList[2].twoDAvatar!,
+                                ),
 
                               ),
                             ),
@@ -253,14 +252,18 @@ class TopThreeUsers extends StatelessWidget {
                     ),
 
                     Text(
-                      thirdUsername,
+                      leadberboardList[2].username!,
                       style: const TextStyle(
                         fontSize: 13,
                         fontFamily: 'VisbyRoundCF',
                       ),
                     ),
                     Text(
-                      thirdUserScore.toString(),
+                      period == 0
+                          ? leadberboardList[2].score.weekly.toString()
+                          : period == 1
+                          ? leadberboardList[2].score.monthly.toString()
+                          : leadberboardList[2].score.allTime.toString(),
                       style: TextStyle(
                         fontSize: 13,
                         fontFamily: 'VisbyRoundCF',

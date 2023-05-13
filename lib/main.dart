@@ -45,6 +45,9 @@ import 'dart:io' show Platform;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.white, // Set your desired color here
+  ));
   await MainModule.init();
   //check os
   if (Platform.isAndroid) {

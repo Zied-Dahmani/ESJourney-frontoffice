@@ -10,15 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-List<String> avatars = [
-  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
-  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
-  "https://api.readyplayer.me/v1/avatars/645908d1bf91881a1ddaceac.png",
-  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
-  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
-  "https://api.readyplayer.me/v1/avatars/643ae59d00c2bb3329ba8a8a.png",
-  "https://api.readyplayer.me/v1/avatars/645908d1bf91881a1ddaceac.png",
-];
+
 class LeaderboardScreen extends StatefulWidget {
   const LeaderboardScreen({Key? key}) : super(key: key);
 
@@ -63,6 +55,7 @@ bool test = false;
           } else if (state is LeaderboardSuccess) {
        for(int i=0;i<state.weeklyUsers.length;i++){
          test = true;
+         print("hereerer    ${state.weeklyUsers[i].twoDAvatar}")  ;
 
 
        }
@@ -123,6 +116,7 @@ bool test = false;
                         )
                             .shimmer(
                           delay: 1000.ms,
+                          duration: 2000.ms,
                           stops:
                               // from top left to bottom right
                               [0.0, 0.5, 1.0], // stops
@@ -130,54 +124,15 @@ bool test = false;
                         // this delay happens at the start of each loop
 
                         TopThreeUsers(
+                            leadberboardList: state.period == 0
+                                ? state.weeklyUsers.cast<LeaderboardRes>().take(3).toList()
+                                : state.period == 1
+                                ? state.monthlyUsers.cast<LeaderboardRes>().take(3).toList()
+                                : state.allTimeUsers.cast<LeaderboardRes>().take(3).toList(),
+                            period: state.period
 
-                          firstUserImage: state.period == 0
-                              ? state.weeklyUsers[0].twoDAvatar
-                              : state.period == 1
-                              ? state.monthlyUsers[0].twoDAvatar
-                              : state.allTimeUsers[0].twoDAvatar,
-                          firstUsername: state.period == 0
-                              ? state.weeklyUsers[0].username
-                              : state.period == 1
-                                  ? state.monthlyUsers[0].username
-                                  : state.allTimeUsers[0].username,
-                          firstUserScore: state.period == 0
-                              ? state.weeklyUsers[0].score.weekly
-                              : state.period == 1
-                                  ? state.monthlyUsers[0].score.monthly
-                                  : state.allTimeUsers[0].score.allTime,
-                          secondUsername: state.period == 0
-                              ? state.weeklyUsers[1].username
-                              : state.period == 1
-                                  ? state.monthlyUsers[1].username
-                                  : state.allTimeUsers[1].username,
-                          secondUserScore: state.period == 0
-                              ? state.weeklyUsers[1].score.weekly
-                              : state.period == 1
-                                  ? state.monthlyUsers[1].score.monthly
-                                  : state.allTimeUsers[1].score.allTime,
 
-                          secondUserImage: state.period == 0
-                              ? state.weeklyUsers[0].twoDAvatar
-                              : state.period == 1
-                              ? state.monthlyUsers[0].twoDAvatar
-                              : state.allTimeUsers[0].twoDAvatar,
 
-                          thirdUsername: state.period == 0
-                              ? state.weeklyUsers[2].username
-                              : state.period == 1
-                                  ? state.monthlyUsers[2].username
-                                  : state.allTimeUsers[2].username,
-                          thirdUserScore: state.period == 0
-                              ? state.weeklyUsers[2].score.weekly
-                              : state.period == 1
-                                  ? state.monthlyUsers[2].score.monthly
-                                  : state.allTimeUsers[2].score.allTime,
-                          thirdUserImage: state.period == 0
-                              ? state.weeklyUsers[0].twoDAvatar
-                              : state.period == 1
-                              ? state.monthlyUsers[0].twoDAvatar
-                              : state.allTimeUsers[0].twoDAvatar,
                         )
                       ],
                     ),

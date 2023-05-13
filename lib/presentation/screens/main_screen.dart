@@ -43,7 +43,7 @@ class _MainScreenState extends State<MainScreen> {
             ],
           ),
           child: ClipRRect(
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(20), // Adjust the corner radius as needed
               bottomRight: Radius.circular(20), // Adjust the corner radius as needed
             ),

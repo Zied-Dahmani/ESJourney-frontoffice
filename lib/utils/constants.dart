@@ -4,7 +4,7 @@ const ksignIn = 'user/signIn';
 const kgetUserData = 'user/getUserData';
 const krefreshToken = 'user/refreshToken';
 
-var ip = "172.20.10.2";
+var ip = "192.168.0.11";
 var kbaseUrl = 'http://$ip:9090/';
 var kmeetingUrl = 'http://$ip:9091';
 const gameBaseServer = 'http://172.20.10.6:2020/';

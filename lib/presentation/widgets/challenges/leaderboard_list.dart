@@ -19,11 +19,13 @@ class LeaderboardListView extends StatelessWidget {
         itemCount: listItems.length,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
+
           final score = period == 0
               ? listItems[index].score.weekly
               : period == 1
                   ? listItems[index].score.monthly
                   : listItems[index].score.allTime;
+
           return Container(
               margin: const EdgeInsets.fromLTRB(22.0, 0.0, 22.0, 15.0),
               height: width * 0.15,
@@ -58,7 +60,7 @@ class LeaderboardListView extends StatelessWidget {
                             margin:
                                 const EdgeInsets.only(left: 20.0, right: 5.0),
                             child: Text(
-                              listItems[index].username[index],
+                              listItems[index].username,
                               style: const TextStyle(
                                 fontFamily: 'visbyRoundCF',
                                 fontSize: 16,
