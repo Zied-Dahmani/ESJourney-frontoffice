@@ -237,9 +237,9 @@ Future<void> sharePressed() async {
       "https.//esjourney.page.link/iGuj "
       " if you can beat my score! #quiz #knowledgeispower #crypto";
 
-  // String? response;
-  // final FlutterShareMe flutterShareMe = FlutterShareMe();
-  // response = await flutterShareMe.shareToSystem(msg: msg);
+   String? response;
+   final FlutterShareMe flutterShareMe = FlutterShareMe();
+  response = await flutterShareMe.shareToSystem(msg: msg);
 
   PostToLinkedinScreen postToLinkedinScreen = PostToLinkedinScreen(
 
